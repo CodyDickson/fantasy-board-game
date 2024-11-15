@@ -1,0 +1,7 @@
+Village growth: Each time a unit passes a village, its growth increases by 1. Each time an opposing unit lands on a village, its growth increases by 1. Every 3 points the village grows into a random adjacent space, up to 3 times.
+
+Dungeon growth: Each time a monster passes a dungeon, its growth increases by 1. Each time a player lands on a dungeon and chooses not to fight, its growth increases by 1. Every 3 points the dungeon grows into a random adjacent space, up to 3 times.
+
+Camera: Should snap to above the current active player. Should follow the player as they move across spaces on the board. WASD still moves the camera independently. E centers on the current active player. There are "edges" that the camera can bump into around the board.
+
+Monsters: There's a 50% chance for a monster to spawn each turn at an empty dungeon. Each dungeon can support 1 monster per level. At level 3, there's a 25% chance for an elite monster to spawn. At the end of each current turn, monsters move around the board. If they land on a player, combat takes place. If a player lands on a monster, combat takes place. If a player passes a monster, they can choose to fight or ignore it. If a monster lands on a village, they take a random amount of gold from the owner.
