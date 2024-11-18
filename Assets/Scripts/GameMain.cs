@@ -98,8 +98,10 @@ public class GameMain : MonoBehaviour
     public  static string mapSize = "medium";
 
     // Board tracking
+    public static List<Vector3> boardPositions = new List<Vector3>();
+    public static List<Vector3> boardSlotPositions = new List<Vector3>();
     public static Dictionary<int, string> boardStructures = new Dictionary<int, string>();
-    public static List<string> boardTerrain = new List<string>();
+    public static Dictionary<int, string> boardUnits = new Dictionary<int, string>();
     public static int boardLength;
 
     // Tiles and tilemaps
@@ -120,6 +122,8 @@ public class GameMain : MonoBehaviour
     [SerializeField] public Tile bcThreeDown;
     [SerializeField] public Tile bcVertical;
     [SerializeField] public Tile bcThreeUp;
+    [SerializeField] public Tile bcThreeLeft;
+    [SerializeField] public Tile bcThreeRight;
     [SerializeField] public Tile bcTopRightCorner;
     [SerializeField] public Tile bcBottomLeftCorner;
     [SerializeField] public Tile bcBottomRightCorner;
@@ -236,7 +240,6 @@ public class GameMain : MonoBehaviour
                     SetCurrentBoardSpace("space" + currentUnitPosition);
                     tilemapStructures.SetTile(new Vector3Int(xy[0], xy[1]), monsterBasilisk);
                 }
-
                 // Add 200 gold if the unit passes their own camp
                 currentUnitPosition += 1;
                 if (currentPlayer == 1 && campPositionPlayer1 == currentUnitPosition)
@@ -440,23 +443,32 @@ public class GameMain : MonoBehaviour
             {
                 for (int x = 0; x <= xSize; x++, z++)
                 {
-                    randomTerrainType = Random.Range(1,4);
-                    if (randomTerrainType == 1)
+                    randomTerrainType = Random.Range(1,101);
+                    if (randomTerrainType <= 25)
                     {
                         tilemapTerrain.SetTile(new Vector3Int(x, y), grassOne);
+                        tilemapTerrain.SetTile(new Vector3Int(-x, y), grassOne);
+                        tilemapTerrain.SetTile(new Vector3Int(x, -y), grassOne);
+                        tilemapTerrain.SetTile(new Vector3Int(-x, -y), grassOne);
                     }
-                    else if (randomTerrainType == 2)
+                    else if (randomTerrainType > 25 && randomTerrainType <= 50)
                     {
                         tilemapTerrain.SetTile(new Vector3Int(x, y), grassTwo);
+                        tilemapTerrain.SetTile(new Vector3Int(-x, y), grassTwo);
+                        tilemapTerrain.SetTile(new Vector3Int(x, -y), grassTwo);
+                        tilemapTerrain.SetTile(new Vector3Int(-x, -y), grassTwo);
                     }
-                    else if (randomTerrainType == 3)
+                    else if (randomTerrainType > 50 && randomTerrainType < 101)
                     {
                         tilemapTerrain.SetTile(new Vector3Int(x, y), grassThree);
+                        tilemapTerrain.SetTile(new Vector3Int(-x, y), grassThree);
+                        tilemapTerrain.SetTile(new Vector3Int(x, -y), grassThree);
+                        tilemapTerrain.SetTile(new Vector3Int(-x, -y), grassThree);
                     }
                 }
             }
-
             // Board Connectors
+            mapSize = "medium";
             if (mapSizeRandom)
             {
                 int randomMapSize = Random.Range(1,4);
@@ -489,68 +501,94 @@ public class GameMain : MonoBehaviour
                 int randomRowLength = Random.Range(15,21);
                 rowLength = randomRowLength;
             }
-            Debug.Log(rowLength);
-            tilemapBoardConnectors.SetTile(new Vector3Int(5, 5), camp);
-            tilemapBoardConnectors.SetTile(new Vector3Int(5, 6), bcVertical);
-            tilemapBoardConnectors.SetTile(new Vector3Int(5, 7), bcVertical);
-            tilemapBoardConnectors.SetTile(new Vector3Int(5, 8), bcTopLeftCorner);
-            tilemapBoardConnectors.SetTile(new Vector3Int(6, 8), bcHorizontal);
-            tilemapBoardConnectors.SetTile(new Vector3Int(7, 8), bcThreeUp);
-
-            int verticalRowOne = 1;
-            while (verticalRowOne <= rowLength)
+            Debug.Log("Row Length: " + rowLength);
+            tilemapBoardConnectors.SetTile(new Vector3Int(0, 0), camp);
+            tilemapBoardConnectors.SetTile(new Vector3Int(0, 1), bcVertical);
+            tilemapBoardConnectors.SetTile(new Vector3Int(0, 2), bcVertical);
+            tilemapBoardConnectors.SetTile(new Vector3Int(0, 3), bcThreeRight);
+            campPositionPlayer1 = 1;
+            tilemapStructures.SetTile(new Vector3Int(0, 4), player);
+            tilemapBoardConnectors.SetTile(new Vector3Int(0, 4), bcVertical);
+            tilemapBoardConnectors.SetTile(new Vector3Int(1, 3), bcHorizontal);
+            // Vertical Row One
+            for (int i = 1; i <= rowLength; i++)
             {
-                tilemapBoardConnectors.SetTile(new Vector3Int(7, (verticalRowOne + 8)), bcVertical);                
-                verticalRowOne++;
-            }
-
-            /*
-            tilemapBoardConnectors.SetTile(new Vector3Int(7, (verticalRowOne + 1)), bcThreeDown);
-            tilemapBoardConnectors.SetTile(new Vector3Int(6, (verticalRowOne + 1)), bcHorizontal);
-            tilemapBoardConnectors.SetTile(new Vector3Int(5, (verticalRowOne + 1)), bcHorizontal);
-            tilemapBoardConnectors.SetTile(new Vector3Int(5, (verticalRowOne + 1)), camp);*/
-
-            SetCurrentBoardSpace("space28");
-            tilemapStructures.SetTile(new Vector3Int(xy[0], xy[1]), player);
-            currentUnitPosition = 28;
-            unitPositionPlayer1 = 28;
-            campPositionPlayer1 = 28;
-            if (activePlayers == 2)
+                tilemapBoardConnectors.SetTile(new Vector3Int(0, (4 + i)), bcVertical);
+                boardPositions.Add(new Vector3(0, (4 + i)));
+                boardSlotPositions.Add(new Vector3(1, (4 + i)));
+                boardLength += 1;
+            }    
+            // random ThreeRight or TopLeftCorner
+            int boardChoice = Random.Range(1,3);
+            if (boardChoice == 1)
             {
-                SetCurrentBoardSpace("space14");
-                tilemapStructures.SetTile(new Vector3Int(xy[0], xy[1]), player);            
-                unitPositionPlayer2 = 14;
-                campPositionPlayer2 = 14;
+                tilemapBoardConnectors.SetTile(new Vector3Int(0, rowLength + 5), bcVertical);
+                tilemapBoardConnectors.SetTile(new Vector3Int(0, rowLength + 6), bcThreeRight);
+                tilemapBoardConnectors.SetTile(new Vector3Int(1, rowLength + 6), bcHorizontal);
+                for (int i = 1; i <= rowLength; i++)
+                {
+                    tilemapBoardConnectors.SetTile(new Vector3Int((1 + i), rowLength + 6), bcHorizontal);
+                    boardPositions.Add(new Vector3((1 + i), rowLength + 6));
+                    boardSlotPositions.Add(new Vector3((1 + i), rowLength + 5));
+                    boardLength += 1;
+                }
+                tilemapBoardConnectors.SetTile(new Vector3Int(rowLength + 2, rowLength + 6), bcHorizontal);
+                tilemapBoardConnectors.SetTile(new Vector3Int(rowLength + 3, rowLength + 6), bcTopRightCorner);
             }
-            else if (activePlayers >= 2)
+            else if (boardChoice == 2)
             {
-                SetCurrentBoardSpace("space7");
-                tilemapStructures.SetTile(new Vector3Int(xy[0], xy[1]), player);            
-                unitPositionPlayer2 = 7;
-                campPositionPlayer2 = 7;
-                SetCurrentBoardSpace("space14");
-                tilemapStructures.SetTile(new Vector3Int(xy[0], xy[1]), player);            
-                unitPositionPlayer3 = 14;
-                campPositionPlayer3 = 14;
+                tilemapBoardConnectors.SetTile(new Vector3Int(0, rowLength + 5), bcVertical);
+                tilemapBoardConnectors.SetTile(new Vector3Int(0, rowLength + 6), bcTopLeftCorner);
+                tilemapBoardConnectors.SetTile(new Vector3Int(1, rowLength + 6), bcHorizontal);
+                for (int i = 1; i <= rowLength; i++)
+                {
+                    tilemapBoardConnectors.SetTile(new Vector3Int((1 + i), rowLength + 6), bcHorizontal);
+                    boardPositions.Add(new Vector3((1 + i), rowLength + 6));
+                    boardSlotPositions.Add(new Vector3((1 + i), rowLength + 5));
+                    boardLength += 1;
+                }
+                tilemapBoardConnectors.SetTile(new Vector3Int(rowLength + 2, rowLength + 6), bcHorizontal);
+                tilemapBoardConnectors.SetTile(new Vector3Int(rowLength + 3, rowLength + 6), bcTopRightCorner);
             }
-            if (activePlayers == 4)
+            // Horizontal Row One
+            for (int i = 1; i <= rowLength; i++)
             {
-                SetCurrentBoardSpace("space21");
-                tilemapStructures.SetTile(new Vector3Int(xy[0], xy[1]), player);            
-                unitPositionPlayer4 = 21;
-                campPositionPlayer4 = 21;
+                tilemapBoardConnectors.SetTile(new Vector3Int((1 + i), 3), bcHorizontal);
+                boardPositions.Add(new Vector3((1 + i), 3));
+                boardSlotPositions.Add(new Vector3((1 + i), 4));
+                boardLength += 1;
             }
-            boardLength = 28;
+            tilemapBoardConnectors.SetTile(new Vector3Int(rowLength + 2, 3), bcHorizontal);
+            // random ThreeUp or BottomRightCorner
+            boardChoice = Random.Range(1,3);
+            if (boardChoice == 1)
+            {
+                tilemapBoardConnectors.SetTile(new Vector3Int(rowLength + 3, 3), bcBottomRightCorner);
+            }
+            else if (boardChoice == 2)
+            {
+                tilemapBoardConnectors.SetTile(new Vector3Int(rowLength + 3, 3), bcThreeUp);
+            }
+            // Vertical Row Two
+            tilemapBoardConnectors.SetTile(new Vector3Int(rowLength + 3, 4), bcVertical);
+            for (int i = 1; i <= rowLength; i++)
+            {
+                tilemapBoardConnectors.SetTile(new Vector3Int(rowLength + 3, (4 + i)), bcVertical);
+                boardPositions.Add(new Vector3(rowLength + 3, (4 + i)));
+                boardSlotPositions.Add(new Vector3(rowLength + 2, (4 + i)));
+                boardLength += 1;
+            }
+            tilemapBoardConnectors.SetTile(new Vector3Int(rowLength + 3, rowLength + 5), bcVertical);
         }
         else if (currentBoard == "graveyard")
         {
             //
         }
-        else if (currentBoard == "snowfield")
+        else if (currentBoard == "seasons")
         {
             //
         }
-        else if (currentBoard == "meteor")
+        else if (currentBoard == "moon")
         {
             //
         }
@@ -558,10 +596,10 @@ public class GameMain : MonoBehaviour
         {
             //
         }
-
         // Board Structures
         for (int x = 1; x <= boardLength; x++)
         {
+            Debug.Log(x);
             int random = Random.Range(1,101);
             if (random <= 20 && dungeonCount <= dungeonCap)
             {
@@ -579,8 +617,8 @@ public class GameMain : MonoBehaviour
                     }
                 }
                 boardStructures.Add(x, "dungeon" + dungeonType);
-                SetCurrentBoardSpaceSlot("spaceSlot" + x);
-                tilemapStructures.SetTile(new Vector3Int(xy[0], xy[1]), dungeon);
+                Vector3 position = boardSlotPositions[x - 1];
+                tilemapStructures.SetTile(new Vector3Int((int)position[0], (int)position[1]), dungeon);
             }
             else if (random <= 15 && dungeonCount > dungeonCap)
             {
@@ -593,14 +631,13 @@ public class GameMain : MonoBehaviour
             else if (random >= 80 && random < 99)
             {
                 boardStructures.Add(x, "chest");
-                SetCurrentBoardSpaceSlot("spaceSlot" + x);
-                tilemapStructures.SetTile(new Vector3Int(xy[0], xy[1]), chest);
+                Vector3 position = boardSlotPositions[x - 1];
+                tilemapStructures.SetTile(new Vector3Int((int)position[0], (int)position[1]), chest);
             }
             else if (random >= 99)
             {
-                boardStructures.Add(x, "oddity");
-                SetCurrentBoardSpaceSlot("spaceSlot" + x);
-                tilemapStructures.SetTile(new Vector3Int(xy[0], xy[1]), oddity);
+                Vector3 position = boardSlotPositions[x - 1];
+                tilemapStructures.SetTile(new Vector3Int((int)position[0], (int)position[1]), oddity);
             }
             boardMonsters.Add(x, "empty");
         }

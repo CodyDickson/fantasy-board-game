@@ -14395,9 +14395,11 @@ MonoBehaviour:
   bcThreeDown: {fileID: 11400000, guid: 4eb636e2c3ecafa48b5fcc0ee1c1108a, type: 2}
   bcVertical: {fileID: 11400000, guid: 6270631973c18e9409055c604091d7fc, type: 2}
   bcThreeUp: {fileID: 11400000, guid: 468c1776d2343a041b0d097a63f43cc4, type: 2}
+  bcThreeLeft: {fileID: 11400000, guid: b211e8de053ecb34f8291c5fa45c2b19, type: 2}
+  bcThreeRight: {fileID: 11400000, guid: 99e2e826bcc0eb44b99d6e799f66750d, type: 2}
   bcTopRightCorner: {fileID: 11400000, guid: b081844a4b526cf439d60f05f1bb1dc6, type: 2}
-  bcBottomLeftCorner: {fileID: 11400000, guid: 1a6c985cbf2430241bb24cc6e0f5347a, type: 2}
-  bcBottomRightCorner: {fileID: 11400000, guid: d6333281b40d3764f971f64d5e68bb08, type: 2}
+  bcBottomLeftCorner: {fileID: 11400000, guid: 2a56345c697dcb94f8bec325aae0785a, type: 2}
+  bcBottomRightCorner: {fileID: 11400000, guid: 693b55232d927204b87bb679b67b95b9, type: 2}
   bcTopLeftCorner: {fileID: 11400000, guid: 1a6c985cbf2430241bb24cc6e0f5347a, type: 2}
   tilemapTerrain: {fileID: 1893063730}
   tilemapStructures: {fileID: 737563382}
