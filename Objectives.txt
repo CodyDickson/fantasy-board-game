@@ -1,0 +1,20 @@
+GRASSLANDS
+-Reach X Power
+-Slay the Rampaging Elephant
+-Find the Metal Claw
+
+GRAVEYARD
+-Reach X Power
+-Slay the Crypt Keeper
+-Find the Tree Sapling
+
+OCEAN
+-Reach X Power
+-Slay the White Whale
+-Find the Horizon Mirror
+
+MOON
+-Reach X Power
+
+MACHINE
+-Reach X Power

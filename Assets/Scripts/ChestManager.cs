@@ -66,7 +66,15 @@ public class ChestManager : MonoBehaviour
             }
             else if (updateRewardText == 4)
             {
-                chestReward.text = "New Item!";
+                chestReward.text = "Extra Combat Dice!";
+            }
+            else if (updateRewardText == 5)
+            {
+                chestReward.text = "Extra Movement Dice!";
+            }
+            else if (updateRewardText == 6)
+            {
+                chestReward.text = "Extra Life!";
             }
         }
     }
@@ -79,7 +87,7 @@ public class ChestManager : MonoBehaviour
     public static void OpenChest()
     {
         int random = Random.Range(1,6);
-        if (random <= 3)
+        if (random == 1)
         {
             updateRewardText = 1;
             if (GameMain.currentPlayer == 1)
@@ -99,7 +107,7 @@ public class ChestManager : MonoBehaviour
                 GameMain.goldPlayer4 += 100;
             }
         }
-        else if (random == 4)
+        else if (random == 2)
         {
             updateRewardText = 2;
             if (GameMain.currentPlayer == 1)
@@ -119,7 +127,7 @@ public class ChestManager : MonoBehaviour
                 GameMain.goldPlayer4 += 250;
             }
         }
-        else if (random == 5)
+        else if (random == 3)
         {
             updateRewardText = 3;
             if (GameMain.currentPlayer == 1)
@@ -139,11 +147,65 @@ public class ChestManager : MonoBehaviour
                 GameMain.goldPlayer4 += 500;
             }
         }
-        else if (random == 6)
+        else if (random == 4)
         {
             updateRewardText = 4;
-            string item1 = GameMain.GenerateItem();
-            string item2 = GameMain.GenerateItem();
+            if (GameMain.currentPlayer == 1)
+            {
+                GameMain.combatDicePlayer1 += 1;
+            }
+            else if (GameMain.currentPlayer == 2)
+            {
+                GameMain.combatDicePlayer2 += 1;
+            }
+            else if (GameMain.currentPlayer == 3)
+            {
+                GameMain.combatDicePlayer3 += 1;
+            }
+            else if (GameMain.currentPlayer == 4)
+            {
+                GameMain.combatDicePlayer4 += 1;
+            }
+        }
+        else if (random == 5)
+        {
+            updateRewardText = 5;
+            if (GameMain.currentPlayer == 1)
+            {
+                GameMain.moveDicePlayer1 += 1;
+            }
+            else if (GameMain.currentPlayer == 2)
+            {
+                GameMain.moveDicePlayer2 += 1;
+            }
+            else if (GameMain.currentPlayer == 3)
+            {
+                GameMain.moveDicePlayer3 += 1;
+            }
+            else if (GameMain.currentPlayer == 4)
+            {
+                GameMain.moveDicePlayer4 += 1;
+            }
+        }
+        else if (random == 6)
+        {
+            updateRewardText = 6;
+            if (GameMain.currentPlayer == 1)
+            {
+                GameMain.livesPlayerOne += 1;
+            }
+            else if (GameMain.currentPlayer == 2)
+            {
+                GameMain.livesPlayerTwo += 1;
+            }
+            else if (GameMain.currentPlayer == 3)
+            {
+                GameMain.livesPlayerThree += 1;
+            }
+            else if (GameMain.currentPlayer == 4)
+            {
+                GameMain.livesPlayerFour += 1;
+            }
         }
         rewardUpdated = true;
     }
