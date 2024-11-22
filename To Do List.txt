@@ -1,0 +1,20 @@
+[?] When a player loses a life in a combat encounter, they return to camp
+[?] If a player reaches 0 gold when landing on an opposing village, they lose a life and return to camp
+[ ] If a player has 0 lives left, they are out of the game
+[ ] All players start at camp and can choose left or right on the game board
+[ ] After tied combat, player should receive an award
+[ ] When a player lands on another player, combat occurs. The loser goes back to camp and loses a life. The winner gains 250 gold.
+[ ] When a player loses combat at a dungeon, they are warped back to camp
+[ ] Spawn players around the campfire with the correct colors
+[ ] Start position 1 earlier
+[ ] Spawn the board up, left, right, or down from camp
+[ ] Give the camera three levels of zoom
+[ ] Focus the camera on a player
+[ ] Follow the player with the camera when they move
+[ ] AI Turns
+-----
+[ ] New Game > Game Setup: Game Board (Grasslands, Graveyard, Moon, Machine), Ruleset (Starting Gold, Dungeon Cap, Dungeon Spawn Rate, Chest Spawn Rate), Players (Number of players, Colors) > Start
+[ ] Load Game
+[ ] Settings
+[ ] Quit
+-----

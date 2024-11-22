@@ -3,7 +3,30 @@ guid: 025b5e22c7ce575478e053d0d4e65fac
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - rollButton: {instanceID: 0}
+  - secondaryButton: {instanceID: 0}
+  - secondaryButtonPanel: {instanceID: 0}
+  - endTurnButton: {instanceID: 0}
+  - player: {instanceID: 0}
+  - village: {instanceID: 0}
+  - village_red: {fileID: 11400000, guid: 532127555847a4848a103483a8c1d4bf, type: 2}
+  - village_blue: {fileID: 11400000, guid: 5c906b3dc62cbc24faae06ffe6f205fe, type: 2}
+  - village_green: {fileID: 11400000, guid: d101ffbb00471744797fc8770de1d1e4, type: 2}
+  - village_purple: {fileID: 11400000, guid: 002ea42d544431543be9addfb409a386, type: 2}
+  - village_white: {fileID: 11400000, guid: dd447d893de0e7349baca36adcd02aa3, type: 2}
+  - monster: {instanceID: 0}
+  - monsterImp: {instanceID: 0}
+  - monsterBasilisk: {instanceID: 0}
+  - dungeon: {instanceID: 0}
+  - tilemap: {instanceID: 0}
+  - tilemapStructures: {instanceID: 0}
+  - tilemapUnits: {instanceID: 0}
+  - textGoldPlayer1: {instanceID: 0}
+  - textGoldPlayer2: {instanceID: 0}
+  - textGoldPlayer3: {instanceID: 0}
+  - textGoldPlayer4: {instanceID: 0}
+  - textCurrentPlayer: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

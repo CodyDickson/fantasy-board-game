@@ -92,19 +92,19 @@ public class ChestManager : MonoBehaviour
             updateRewardText = 1;
             if (GameMain.currentPlayer == 1)
             {
-                GameMain.goldPlayer1 += 100;
+                GameMain.player_gold_one += 100;
             }
             else if (GameMain.currentPlayer == 2)
             {
-                GameMain.goldPlayer2 += 100;
+                GameMain.player_gold_two += 100;
             }
             else if (GameMain.currentPlayer == 3)
             {
-                GameMain.goldPlayer3 += 100;
+                GameMain.player_gold_three += 100;
             }
             else if (GameMain.currentPlayer == 4)
             {
-                GameMain.goldPlayer4 += 100;
+                GameMain.player_gold_four += 100;
             }
         }
         else if (random == 2)
@@ -112,19 +112,19 @@ public class ChestManager : MonoBehaviour
             updateRewardText = 2;
             if (GameMain.currentPlayer == 1)
             {
-                GameMain.goldPlayer1 += 250;
+                GameMain.player_gold_one += 250;
             }
             else if (GameMain.currentPlayer == 2)
             {
-                GameMain.goldPlayer2 += 250;
+                GameMain.player_gold_two += 250;
             }
             else if (GameMain.currentPlayer == 3)
             {
-                GameMain.goldPlayer3 += 250;
+                GameMain.player_gold_three += 250;
             }
             else if (GameMain.currentPlayer == 4)
             {
-                GameMain.goldPlayer4 += 250;
+                GameMain.player_gold_four += 250;
             }
         }
         else if (random == 3)
@@ -132,59 +132,105 @@ public class ChestManager : MonoBehaviour
             updateRewardText = 3;
             if (GameMain.currentPlayer == 1)
             {
-                GameMain.goldPlayer1 += 500;
+                GameMain.player_gold_one += 500;
             }
             else if (GameMain.currentPlayer == 2)
             {
-                GameMain.goldPlayer2 += 500;
+                GameMain.player_gold_two += 500;
             }
             else if (GameMain.currentPlayer == 3)
             {
-                GameMain.goldPlayer3 += 500;
+                GameMain.player_gold_three += 500;
             }
             else if (GameMain.currentPlayer == 4)
             {
-                GameMain.goldPlayer4 += 500;
+                GameMain.player_gold_four += 500;
             }
         }
         else if (random == 4)
         {
-            updateRewardText = 4;
-            if (GameMain.currentPlayer == 1)
+            if (GameMain.currentPlayer == 1 && GameMain.player_combatDice_one < 3)
             {
-                GameMain.combatDicePlayer1 += 1;
+                updateRewardText = 4; 
+                GameMain.player_combatDice_one += 1;
             }
-            else if (GameMain.currentPlayer == 2)
+            else if (GameMain.currentPlayer == 1 && GameMain.player_combatDice_one >= 3)
             {
-                GameMain.combatDicePlayer2 += 1;
+                updateRewardText = 2;
+                GameMain.player_gold_one += 250;
             }
-            else if (GameMain.currentPlayer == 3)
+            if (GameMain.currentPlayer == 2 && GameMain.player_combatDice_one < 3)
             {
-                GameMain.combatDicePlayer3 += 1;
+                updateRewardText = 4;
+                GameMain.player_combatDice_two += 1;
             }
-            else if (GameMain.currentPlayer == 4)
+            else if (GameMain.currentPlayer == 2 && GameMain.player_combatDice_two >= 3)
             {
-                GameMain.combatDicePlayer4 += 1;
+                updateRewardText = 2;
+                GameMain.player_gold_two += 250;
+            }
+            if (GameMain.currentPlayer == 3 && GameMain.player_combatDice_three < 3)
+            {
+                updateRewardText = 4;
+                GameMain.player_combatDice_three += 1;
+            }
+            else if (GameMain.currentPlayer == 3 && GameMain.player_combatDice_three >= 3)
+            {
+                updateRewardText = 2;
+                GameMain.player_gold_three += 250;
+            }
+            if (GameMain.currentPlayer == 4 && GameMain.player_combatDice_four < 3)
+            {
+                updateRewardText = 4;
+                GameMain.player_combatDice_four += 1;
+            }
+            else if (GameMain.currentPlayer == 4 && GameMain.player_combatDice_four >= 3)
+            {
+                updateRewardText = 2;
+                GameMain.player_gold_four += 250;
             }
         }
         else if (random == 5)
         {
-            updateRewardText = 5;
-            if (GameMain.currentPlayer == 1)
+            if (GameMain.currentPlayer == 1 && GameMain.player_moveDice_one < 3)
             {
-                GameMain.moveDicePlayer1 += 1;
+                updateRewardText = 5; 
+                GameMain.player_moveDice_one += 1;
             }
-            else if (GameMain.currentPlayer == 2)
+            else if (GameMain.currentPlayer == 1 && GameMain.player_moveDice_one >= 3)
             {
-                GameMain.moveDicePlayer2 += 1;
+                updateRewardText = 2;
+                GameMain.player_gold_one += 250;
             }
-            else if (GameMain.currentPlayer == 3)
+            if (GameMain.currentPlayer == 2 && GameMain.player_moveDice_one < 3)
             {
-                GameMain.moveDicePlayer3 += 1;
+                updateRewardText = 5; 
+                GameMain.player_moveDice_two += 1;
             }
-            else if (GameMain.currentPlayer == 4)
+            else if (GameMain.currentPlayer == 2 && GameMain.player_moveDice_two >= 3)
             {
-                GameMain.moveDicePlayer4 += 1;
+                updateRewardText = 2;
+                GameMain.player_gold_two += 250;
+            }
+            if (GameMain.currentPlayer == 3 && GameMain.player_moveDice_three < 3)
+            {
+                updateRewardText = 5; 
+                GameMain.player_moveDice_three += 1;
+            }
+            else if (GameMain.currentPlayer == 3 && GameMain.player_moveDice_three >= 3)
+            {
+                updateRewardText = 2;
+                GameMain.player_gold_three += 250;
+            }
+            if (GameMain.currentPlayer == 4 && GameMain.player_moveDice_four < 3)
+            {
+                updateRewardText = 5; 
+                GameMain.player_moveDice_four += 1;
+            }
+            else if (GameMain.currentPlayer == 4 && GameMain.player_moveDice_four >= 3)
+            {
+                updateRewardText = 2;
+                GameMain.player_gold_four += 250;
             }
         }
         else if (random == 6)

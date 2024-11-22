@@ -12,7 +12,17 @@ public class GUIManager : MonoBehaviour
     public GameObject secondaryButtonPanel;
     public Button endTurnButton;
     [SerializeField] public Tile player;
+    [SerializeField] public Tile player_red;
+    [SerializeField] public Tile player_blue;
+    [SerializeField] public Tile player_green;
+    [SerializeField] public Tile player_purple;
+    [SerializeField] public Tile player_white;
     [SerializeField] public Tile village;
+    [SerializeField] public Tile village_red;
+    [SerializeField] public Tile village_blue;
+    [SerializeField] public Tile village_green;
+    [SerializeField] public Tile village_purple;
+    [SerializeField] public Tile village_white;
     [SerializeField] public Tile monster;
     [SerializeField] public Tile monsterImp;
     [SerializeField] public Tile monsterBasilisk;
@@ -39,19 +49,19 @@ public class GUIManager : MonoBehaviour
     {
         if (GameMain.activePlayers >= 1)
         {
-            textGoldPlayer1.text = "Player 1 Gold: " + GameMain.goldPlayer1;
+            textGoldPlayer1.text = "Player 1 Gold: " + GameMain.player_gold_one;
         }
         if (GameMain.activePlayers >= 2)
         {
-            textGoldPlayer2.text = "Player 2 Gold: " + GameMain.goldPlayer2;
+            textGoldPlayer2.text = "Player 2 Gold: " + GameMain.player_gold_two;
         }
         if (GameMain.activePlayers >= 3)
         {
-            textGoldPlayer3.text = "Player 3 Gold: " + GameMain.goldPlayer3;
+            textGoldPlayer3.text = "Player 3 Gold: " + GameMain.player_gold_three;
         }
         if (GameMain.activePlayers >= 4)
         {
-            textGoldPlayer4.text = "Player 4 Gold: " + GameMain.goldPlayer4;
+            textGoldPlayer4.text = "Player 4 Gold: " + GameMain.player_gold_four;
         }
         textCurrentPlayer.text = "Current Player: " + GameMain.currentPlayer;
 
@@ -71,7 +81,7 @@ public class GUIManager : MonoBehaviour
     {
         if (GameMain.bottomLeftLowerButtonEnabled)
         {
-            GameMain.MoveUnit(tilemap, player);
+            GameMain.MoveUnit(tilemap, player, player_red, player_blue, player_green, player_purple, player_white);
         }
         else
         {
@@ -81,7 +91,7 @@ public class GUIManager : MonoBehaviour
 
     void OnClickSecondaryButton()
     {
-        GameMain.BuildVillage(tilemap, village);
+        GameMain.BuildVillage(tilemap, village, village_red, village_blue, village_green, village_purple, village_white);
     }
 
     void OnClickEndTurn()

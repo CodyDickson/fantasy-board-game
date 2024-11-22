@@ -39,19 +39,19 @@ public class CombatManager : MonoBehaviour
         int opposingPlayerDice = 1;
         if (opposingPlayer == 1)
         {
-            opposingPlayerDice = GameMain.combatDicePlayer1;
+            opposingPlayerDice = GameMain.player_combatDice_one;
         }
         else if (opposingPlayer == 2)
         {
-            opposingPlayerDice = GameMain.combatDicePlayer2;
+            opposingPlayerDice = GameMain.player_combatDice_two;
         }
         else if (opposingPlayer == 3)
         {
-            opposingPlayerDice = GameMain.combatDicePlayer3;
+            opposingPlayerDice = GameMain.player_combatDice_three;
         }
         else if (opposingPlayer == 4)
         {
-            opposingPlayerDice = GameMain.combatDicePlayer4;
+            opposingPlayerDice = GameMain.player_combatDice_four;
         }
 
         int opposingPlayerAmount = 0;

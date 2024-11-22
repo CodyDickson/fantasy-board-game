@@ -13979,7 +13979,17 @@ MonoBehaviour:
   secondaryButtonPanel: {fileID: 159604473}
   endTurnButton: {fileID: 1253343310}
   player: {fileID: 11400000, guid: 8fc5050742410c24aa4811c173f98222, type: 2}
+  player_red: {fileID: 0}
+  player_blue: {fileID: 0}
+  player_green: {fileID: 0}
+  player_purple: {fileID: 0}
+  player_white: {fileID: 0}
   village: {fileID: 11400000, guid: a8cc9585c0af738448b00555395f3b0d, type: 2}
+  village_red: {fileID: 11400000, guid: 532127555847a4848a103483a8c1d4bf, type: 2}
+  village_blue: {fileID: 11400000, guid: 5c906b3dc62cbc24faae06ffe6f205fe, type: 2}
+  village_green: {fileID: 11400000, guid: d101ffbb00471744797fc8770de1d1e4, type: 2}
+  village_purple: {fileID: 11400000, guid: 002ea42d544431543be9addfb409a386, type: 2}
+  village_white: {fileID: 11400000, guid: dd447d893de0e7349baca36adcd02aa3, type: 2}
   monster: {fileID: 11400000, guid: 708f1aeb30c385c44bde46159eb46f7e, type: 2}
   monsterImp: {fileID: 11400000, guid: a07744c50b2782448b6e9acddd18d7b3, type: 2}
   monsterBasilisk: {fileID: 11400000, guid: 6abf17d41a559684b8eaf9005884b30c, type: 2}
@@ -14379,14 +14389,25 @@ MonoBehaviour:
   diceFive: {fileID: 1359081645}
   diceSix: {fileID: 329940678}
   player: {fileID: 11400000, guid: 8fc5050742410c24aa4811c173f98222, type: 2}
+  player_red: {fileID: 11400000, guid: 23a7ff90342d3f0409162948518c1b1a, type: 2}
+  player_blue: {fileID: 11400000, guid: fa2a786baf5643c498a6df52d1fb6c0a, type: 2}
+  player_green: {fileID: 11400000, guid: f3aee2334d4530f4c9b190c4cfdd9d8b, type: 2}
+  player_purple: {fileID: 11400000, guid: 9ebb4ab6d8476184b957a416058017d6, type: 2}
+  player_white: {fileID: 11400000, guid: 166aa36542e22034ab20443c06635987, type: 2}
   playerGreen: {fileID: 11400000, guid: 2f413b302a919c440bba36487f5d250e, type: 2}
   playerBlue: {fileID: 11400000, guid: c637a85b15d522e4d83c116dcdc97c68, type: 2}
   monsterImp: {fileID: 11400000, guid: a07744c50b2782448b6e9acddd18d7b3, type: 2}
   monsterBasilisk: {fileID: 11400000, guid: 6abf17d41a559684b8eaf9005884b30c, type: 2}
+  monsterRampagingElephant: {fileID: 0}
   chest: {fileID: 11400000, guid: e18b07106ae7e0b41af37e48138dfdcd, type: 2}
   oddity: {fileID: 11400000, guid: 79eecc25e8dbd4b49acc60bb94f6668b, type: 2}
   dungeon: {fileID: 11400000, guid: 1a571ebd6d3749344914a28e9a39d038, type: 2}
   village: {fileID: 11400000, guid: a8cc9585c0af738448b00555395f3b0d, type: 2}
+  village_red: {fileID: 11400000, guid: 532127555847a4848a103483a8c1d4bf, type: 2}
+  village_blue: {fileID: 11400000, guid: 5c906b3dc62cbc24faae06ffe6f205fe, type: 2}
+  village_green: {fileID: 11400000, guid: d101ffbb00471744797fc8770de1d1e4, type: 2}
+  village_purple: {fileID: 11400000, guid: 002ea42d544431543be9addfb409a386, type: 2}
+  village_white: {fileID: 11400000, guid: dd447d893de0e7349baca36adcd02aa3, type: 2}
   grassOne: {fileID: 11400000, guid: 00e617e0f661fe149b1acf7edceb498d, type: 2}
   grassTwo: {fileID: 11400000, guid: ab8e7291bb2ec044c8397223058798c5, type: 2}
   grassThree: {fileID: 11400000, guid: 0795193288c536640a30c4dbbac8da95, type: 2}
