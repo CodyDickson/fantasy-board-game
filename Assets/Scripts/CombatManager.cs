@@ -8,10 +8,22 @@ using TMPro;
 public class CombatManager : MonoBehaviour
 {
     public Button continueButton;
+    public Button fightButton;
+    public GameObject diceOne;
+    public GameObject diceTwo;
+    public GameObject diceThree;
+    public GameObject diceFour;
+    public GameObject diceFive;
+    public GameObject diceSix;
+    public static bool fightScreen = true;
+    public static float tempCounter = 0f;
+    public static float counter = 0.5f;
 
     void Start()
     {
         continueButton.onClick.AddListener(OnClickContinueButton);
+        continueButton.onClick.AddListener(OnClickFightButton);
+        continueButton.gameObject.SetActive(false);
     }
 
     void Update()
@@ -19,6 +31,38 @@ public class CombatManager : MonoBehaviour
         if (Input.GetKey(KeyCode.C) && GameMain.combatScreenEnabled)
         {
             OnClickContinueButton();
+        }
+        if (Input.GetKey(KeyCode.F) && GameMain.combatScreenEnabled)
+        {
+            OnClickFightButton();
+        }
+
+        if (fightScreen)
+        {
+            if (tempCounter <= 0f)
+            {
+                int result = Random.Range(1,7);
+                diceOne.SetActive(false);
+                diceTwo.SetActive(false);
+                diceThree.SetActive(false);
+                diceFour.SetActive(false);
+                diceFive.SetActive(false);
+                diceSix.SetActive(false);
+                switch (result)
+                {
+                    case 1: diceOne.SetActive(true); break;
+                    case 2: diceTwo.SetActive(true); break;
+                    case 3: diceThree.SetActive(true); break;
+                    case 4: diceFour.SetActive(true); break;
+                    case 5: diceFive.SetActive(true); break;
+                    case 6: diceSix.SetActive(true); break;
+                }
+                tempCounter = counter;
+            }
+            else
+            {
+                tempCounter -= Time.deltaTime;
+            }
         }
     }
 
@@ -30,62 +74,9 @@ public class CombatManager : MonoBehaviour
         GameMain.endTurnButtonEnabled = true;
     }
 
-    public static int OpposingPlayerCombat(int opposingPlayer)
+    void OnClickFightButton()
     {
-        GameMain.combatScreenEnabled = true;
-        GameMain.GUIEnabled = false;
-
-        int victor = 0;
-        int opposingPlayerDice = 1;
-        if (opposingPlayer == 1)
-        {
-            opposingPlayerDice = GameMain.player_combatDice_one;
-        }
-        else if (opposingPlayer == 2)
-        {
-            opposingPlayerDice = GameMain.player_combatDice_two;
-        }
-        else if (opposingPlayer == 3)
-        {
-            opposingPlayerDice = GameMain.player_combatDice_three;
-        }
-        else if (opposingPlayer == 4)
-        {
-            opposingPlayerDice = GameMain.player_combatDice_four;
-        }
-
-        int opposingPlayerAmount = 0;
-        int currentPlayerAmount = 0;
-
-        for (int x = 1; x <= opposingPlayerDice; x++)
-        {
-            opposingPlayerAmount += Random.Range(1,6);
-        }
-        for (int y = 1; y <= GameMain.currentPlayerDice; y++)
-        {
-            currentPlayerAmount += Random.Range(1,6);
-        }
-
-        if (currentPlayerAmount > opposingPlayerAmount)
-        {
-            victor = 1;
-        }
-        else if (opposingPlayerAmount > currentPlayerAmount)
-        {
-            victor = 2;
-        }
-        else if (currentPlayerAmount == opposingPlayerAmount)
-        {
-            int random = Random.Range(1,2);
-            if (random == 1)
-            {
-                victor = 1;
-            }
-            else if (random == 2)
-            {
-                victor = 2;
-            }
-        }
-        return victor;
+        fightButton.gameObject.SetActive(false);
+        continueButton.gameObject.SetActive(true);
     }
 }

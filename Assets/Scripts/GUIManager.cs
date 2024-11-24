@@ -49,21 +49,21 @@ public class GUIManager : MonoBehaviour
     {
         if (GameMain.activePlayers >= 1)
         {
-            textGoldPlayer1.text = "Player 1 Gold: " + GameMain.player_gold_one;
+            textGoldPlayer1.text = "player " + GameMain.player_color_one + " - gold: " + GameMain.player_gold_one + "\nlives: " + GameMain.livesPlayerOne + " move: " + GameMain.player_moveDice_one + " combat: " + GameMain.player_combatDice_one;
         }
         if (GameMain.activePlayers >= 2)
         {
-            textGoldPlayer2.text = "Player 2 Gold: " + GameMain.player_gold_two;
+            textGoldPlayer2.text = "player " + GameMain.player_color_two + " - gold: " + GameMain.player_gold_two + "\nlives: " + GameMain.livesPlayerTwo + " move: " + GameMain.player_moveDice_two + " combat: " + GameMain.player_combatDice_two;
         }
         if (GameMain.activePlayers >= 3)
         {
-            textGoldPlayer3.text = "Player 3 Gold: " + GameMain.player_gold_three;
+            textGoldPlayer3.text = "player " + GameMain.player_color_three + " - gold: " + GameMain.player_gold_three + "\nlives: " + GameMain.livesPlayerThree + " move: " + GameMain.player_moveDice_three + " combat: " + GameMain.player_combatDice_three;
         }
         if (GameMain.activePlayers >= 4)
         {
-            textGoldPlayer4.text = "Player 4 Gold: " + GameMain.player_gold_four;
+            textGoldPlayer4.text = "player " + GameMain.player_color_four + " - gold: " + GameMain.player_gold_four + "\nlives: " + GameMain.livesPlayerFour + " move: " + GameMain.player_moveDice_four + " combat: " + GameMain.player_combatDice_four;
         }
-        textCurrentPlayer.text = "Current Player: " + GameMain.currentPlayer;
+        textCurrentPlayer.text = "current player: " + GameMain.currentPlayer;
 
         if (GameMain.secondaryButtonEnabled && GameMain.GUIEnabled)
         {

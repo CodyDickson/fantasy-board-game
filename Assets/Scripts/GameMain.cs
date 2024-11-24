@@ -37,6 +37,7 @@ public class GameMain : MonoBehaviour
     [SerializeField] public TMP_Text currentTurnText;
     public static bool playerIsMoving = false;
     public static bool playerIsFinishedMoving = false;
+    public static bool playerIsMovingInReverse = false;
     public static bool playerRecentlyDied = false;
     // Dice //
     public static bool diceShouldFadeAway = false;
@@ -60,6 +61,9 @@ public class GameMain : MonoBehaviour
     public GameObject diceFour;
     public GameObject diceFive;
     public GameObject diceSix;
+    public static int diceOneResult = 0;
+    public static int diceTwoResult = 0;
+    public static int diceThreeResult = 0;
     // Player info //
     public static int player_gold_one = startingGold;
     public static int player_gold_two = startingGold;
@@ -117,11 +121,11 @@ public class GameMain : MonoBehaviour
     // Board tracking //
     public static List<Vector3> boardPositions = new List<Vector3>();
     public static List<Vector3> boardSlotPositions = new List<Vector3>();
-    public static List<Vector3> playerCampPositions = new List<Vector3>();
     public static Dictionary<int, string> boardStructures = new Dictionary<int, string>();
     public static Dictionary<int, string> boardUnits = new Dictionary<int, string>();
     public static int boardLength;
     public static Vector3 boardPosition;
+    public static Vector3 onDeckPosition;
     // Tiles and tilemaps //
     [SerializeField] public Tile player;
     [SerializeField] public Tile player_red;
@@ -177,7 +181,6 @@ public class GameMain : MonoBehaviour
     public static string dungeonType = "";
     public static bool combatEncounterHappening = false;
     // Monsters, Dungeons //
-    // boardMonsters > monsterAtPosition[i] = "empty"
     public static Dictionary<int, string> boardMonsters = new Dictionary<int, string>();
     public static int dungeonCount = 0;
     public static bool spawnRampagingElephant = false;
@@ -206,6 +209,14 @@ public class GameMain : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.V) && secondaryButtonEnabled)
         {
             BuildVillage(tilemapStructures, village, village_red, village_blue, village_green, village_purple, village_white);
+        }
+        if (Input.GetKeyDown(KeyCode.RightArrow) && rightArrowButtonEnabled)
+        {
+            MoveUnitRight(tilemapStructures);
+        }
+        if (Input.GetKeyDown(KeyCode.UpArrow) && upArrowButtonEnabled)
+        {
+            MoveUnitUp(tilemapStructures);
         }
         if (combatScreenEnabled)
         {
@@ -357,8 +368,25 @@ public class GameMain : MonoBehaviour
                     boardPosition = boardPositions[currentUnitPosition];
                     tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), monsterBasilisk);
                 }
+                if (!playerIsMovingInReverse)
+                {
                     currentUnitPosition += 1;
-                // Add 200 gold if the unit passes camp
+                    // Loop around the board
+                    if (currentUnitPosition > (boardLength - 1))
+                    {
+                        currentUnitPosition = 0;
+                    }
+                }
+                if (playerIsMovingInReverse)
+                {
+                    currentUnitPosition -= 1;
+                    // Loop around the board
+                    if (currentUnitPosition == 0)
+                    {
+                        currentUnitPosition = 1;
+                    }
+                }
+/*                // Add 200 gold if the unit passes camp
                 if (currentPlayer == 1 && currentUnitPosition == 0)
                 {
                     player_gold_one += 200;
@@ -374,12 +402,7 @@ public class GameMain : MonoBehaviour
                 else if (currentPlayer == 4 && currentUnitPosition == 0)
                 {
                     player_gold_four += 200;
-                }
-                // Loop around the board
-                if (currentUnitPosition > (boardLength - 1))
-                {
-                    currentUnitPosition = 0;
-                }
+                }*/
                 // Save whatever unit is currently at the next position
                 if (currentPlayer != 1 && unitPositionPlayer1 == currentUnitPosition)
                 {
@@ -464,6 +487,7 @@ public class GameMain : MonoBehaviour
                 if (currentUnitPosition == newUnitPosition)
                 {
                     playerIsMoving = false;
+                    playerIsMovingInReverse = false;
                     if (currentAvatar == 0)
                     {
                         MoveUnitComplete(tilemapStructures, player, player_red, player_blue, player_green, player_purple, player_white);
@@ -560,7 +584,7 @@ public class GameMain : MonoBehaviour
         else if (GUIEnabled)
         {
             GUI.SetActive(true);
-            currentTurnText.text = "Current Turn\n" + currentTurn;
+            currentTurnText.text = "turn #" + currentTurn;
             centerDisplayText.text = centerDisplayTextContent;
             combatScreen.SetActive(false);
             chestScreen.SetActive(false);
@@ -630,6 +654,11 @@ public class GameMain : MonoBehaviour
             diceShouldFadeAwayImmediately = false;
             diceShouldFadeAway = false;
             diceShouldShow = false;
+        }
+        if (playerRecentlyDied)
+        {
+            // RED PLAYER has been eliminated from the game
+            playerRecentlyDied = false;
         }
     }
 
@@ -706,16 +735,18 @@ public class GameMain : MonoBehaviour
                 int randomRowLength = Random.Range(15,21);
                 rowLength = randomRowLength;
             }
+            Debug.Log("Row Length: " + rowLength);
             tilemapBoardConnectors.SetTile(new Vector3Int(0, 0), camp);
             tilemapBoardConnectors.SetTile(new Vector3Int(0, 1), bcVertical);
             boardPositions.Add(new Vector3(0, 1));
             boardSlotPositions.Add(new Vector3(1, 1));
             tilemapBoardConnectors.SetTile(new Vector3Int(0, 2), bcVertical);
+            onDeckPosition = new Vector3(0,2);
             tilemapBoardConnectors.SetTile(new Vector3Int(0, 3), bcThreeRight);
             tilemapBoardConnectors.SetTile(new Vector3Int(0, 4), bcVertical);
-            boardLength += 1;
+            /*boardLength += 1;
             boardPositions.Add(new Vector3(0, 4));
-            boardSlotPositions.Add(new Vector3(1, 4));
+            boardSlotPositions.Add(new Vector3(1, 4));*/
             tilemapBoardConnectors.SetTile(new Vector3Int(1, 3), bcHorizontal);
             // Vertical Row One
             for (int i = 1; i <= rowLength; i++)
@@ -759,15 +790,9 @@ public class GameMain : MonoBehaviour
                 boardLength += 1;
             }
             tilemapBoardConnectors.SetTile(new Vector3Int(rowLength + 3, rowLength + 5), bcVertical);
-            // Horizontal Row One
-            for (int i = rowLength; i >= 1; i--)
-            {
-                tilemapBoardConnectors.SetTile(new Vector3Int((1 + i), 3), bcHorizontal);
-                boardPositions.Add(new Vector3((1 + i), 3));
-                boardSlotPositions.Add(new Vector3((1 + i), 4));
-                boardLength += 1;
-            }
-            tilemapBoardConnectors.SetTile(new Vector3Int(rowLength + 2, 3), bcHorizontal);
+            /*boardLength += 1;
+            boardPositions.Add(new Vector3(rowLength + 3, rowLength + 5));
+            boardSlotPositions.Add(new Vector3(rowLength + 2, rowLength + 5));*/
             // random ThreeUp or BottomRightCorner
             boardChoice = Random.Range(1,3);
             if (boardChoice == 1)
@@ -778,6 +803,16 @@ public class GameMain : MonoBehaviour
             {
                 tilemapBoardConnectors.SetTile(new Vector3Int(rowLength + 3, 3), bcThreeUp);
             }
+            // Horizontal Row One
+            for (int i = rowLength; i >= 1; i--)
+            {
+                tilemapBoardConnectors.SetTile(new Vector3Int((1 + i), 3), bcHorizontal);
+                boardPositions.Add(new Vector3((1 + i), 3));
+                boardSlotPositions.Add(new Vector3((1 + i), 4));
+                boardLength += 1;
+            }
+            tilemapBoardConnectors.SetTile(new Vector3Int(rowLength + 2, 3), bcHorizontal);
+            Debug.Log("Board Length: " + boardLength);
             // Player Camp Positions and Spawn Active Players
             unitPositionPlayer1 = 0;
             campPositionPlayer2 = 0;
@@ -918,11 +953,45 @@ public class GameMain : MonoBehaviour
         {
             unitPositionPlayer4 = currentUnitPosition;
         }
-        // Determine next player
+        // Determine next player //
         currentPlayer += 1;
+        if (currentPlayer <= activePlayers)
+        {
+            if (currentPlayer == 2 && !player_alive_two)
+            {
+                currentPlayer += 1;
+            }
+            if (currentPlayer == 3 && !player_alive_three)
+            {
+                currentPlayer += 1;
+            }
+            if (currentPlayer == 4 && !player_alive_four)
+            {
+                currentPlayer = 1;
+            }
+            if (currentPlayer == 1 && !player_alive_one)
+            {
+                currentPlayer += 1;
+            }
+        }
         if (currentPlayer > activePlayers)
         {
-            currentPlayer = 1;
+            if (player_alive_one)
+            {
+                currentPlayer = 1;
+            }
+            else if (player_alive_two)
+            {
+                currentPlayer = 2;
+            }
+            else if (player_alive_three)
+            {
+                currentPlayer = 3;
+            }
+            else if (player_alive_four)
+            {
+                currentPlayer = 4;
+            }
             currentTurn += 1;
             // Spawn monsters
             for (int i = 0; i < boardLength; i++)
@@ -971,7 +1040,6 @@ public class GameMain : MonoBehaviour
                     }
                 }
             }
-
             if (currentTurn >= 5)
             {
                 int chanceToSpawn = Random.Range(1,11);
@@ -1009,14 +1077,27 @@ public class GameMain : MonoBehaviour
         // Determine new unit position
         bottomLeftLowerButtonEnabled = false;
         int moveDiceAmount = 1;
+        playerIsMoving = true;
         if (currentPlayer == 1)
         {
             moveDiceAmount = player_moveDice_one;
             if (player_in_camp_one)
             {
-                Debug.Log("player in camp one returning true");
+                Debug.Log("playerIsMoving: " + playerIsMoving);
+                playerIsMoving = false;
                 player_in_camp_one = false;
                 tilemap.SetTile(new Vector3Int(0, 1), null);
+                switch (player_color_one)
+                {
+                    case "red": tilemap.SetTile(new Vector3Int((int)onDeckPosition[0], (int)onDeckPosition[1]), player_red); break;
+                    case "blue": tilemap.SetTile(new Vector3Int((int)onDeckPosition[0], (int)onDeckPosition[1]), player_blue); break;
+                    case "green": tilemap.SetTile(new Vector3Int((int)onDeckPosition[0], (int)onDeckPosition[1]), player_green); break;
+                    case "purple": tilemap.SetTile(new Vector3Int((int)onDeckPosition[0], (int)onDeckPosition[1]), player_purple); break;
+                    case "white": tilemap.SetTile(new Vector3Int((int)onDeckPosition[0], (int)onDeckPosition[1]), player_white); break;
+                    default: tilemap.SetTile(new Vector3Int((int)onDeckPosition[0], (int)onDeckPosition[1]), player); break;
+                }
+                rightArrowButtonEnabled = true;
+                upArrowButtonEnabled = true;
             }
         }
         else if (currentPlayer == 2)
@@ -1024,8 +1105,20 @@ public class GameMain : MonoBehaviour
             moveDiceAmount = player_moveDice_two;
             if (player_in_camp_two)
             {
+                playerIsMoving = false;
                 player_in_camp_two = false;
                 tilemap.SetTile(new Vector3Int(1, 0), null);
+                switch (player_color_two)
+                {
+                    case "red": tilemap.SetTile(new Vector3Int((int)onDeckPosition[0], (int)onDeckPosition[1]), player_red); break;
+                    case "blue": tilemap.SetTile(new Vector3Int((int)onDeckPosition[0], (int)onDeckPosition[1]), player_blue); break;
+                    case "green": tilemap.SetTile(new Vector3Int((int)onDeckPosition[0], (int)onDeckPosition[1]), player_green); break;
+                    case "purple": tilemap.SetTile(new Vector3Int((int)onDeckPosition[0], (int)onDeckPosition[1]), player_purple); break;
+                    case "white": tilemap.SetTile(new Vector3Int((int)onDeckPosition[0], (int)onDeckPosition[1]), player_white); break;
+                    default: tilemap.SetTile(new Vector3Int((int)onDeckPosition[0], (int)onDeckPosition[1]), player); break;
+                }
+                rightArrowButtonEnabled = true;
+                upArrowButtonEnabled = true;
             }
         }
         else if (currentPlayer == 3)
@@ -1033,8 +1126,20 @@ public class GameMain : MonoBehaviour
             moveDiceAmount = player_moveDice_three;
             if (player_in_camp_three)
             {
+                playerIsMoving = false;
                 player_in_camp_three = false;
                 tilemap.SetTile(new Vector3Int(0, -1), null);
+                switch (player_color_three)
+                {
+                    case "red": tilemap.SetTile(new Vector3Int((int)onDeckPosition[0], (int)onDeckPosition[1]), player_red); break;
+                    case "blue": tilemap.SetTile(new Vector3Int((int)onDeckPosition[0], (int)onDeckPosition[1]), player_blue); break;
+                    case "green": tilemap.SetTile(new Vector3Int((int)onDeckPosition[0], (int)onDeckPosition[1]), player_green); break;
+                    case "purple": tilemap.SetTile(new Vector3Int((int)onDeckPosition[0], (int)onDeckPosition[1]), player_purple); break;
+                    case "white": tilemap.SetTile(new Vector3Int((int)onDeckPosition[0], (int)onDeckPosition[1]), player_white); break;
+                    default: tilemap.SetTile(new Vector3Int((int)onDeckPosition[0], (int)onDeckPosition[1]), player); break;
+                }
+                rightArrowButtonEnabled = true;
+                upArrowButtonEnabled = true;
             }
         }
         else if (currentPlayer == 4)
@@ -1042,13 +1147,25 @@ public class GameMain : MonoBehaviour
             moveDiceAmount = player_moveDice_four;
             if (player_in_camp_four)
             {
+                playerIsMoving = false;
                 player_in_camp_four = false;
                 tilemap.SetTile(new Vector3Int(-1, 0), null);
+                switch (player_color_four)
+                {
+                    case "red": tilemap.SetTile(new Vector3Int((int)onDeckPosition[0], (int)onDeckPosition[1]), player_red); break;
+                    case "blue": tilemap.SetTile(new Vector3Int((int)onDeckPosition[0], (int)onDeckPosition[1]), player_blue); break;
+                    case "green": tilemap.SetTile(new Vector3Int((int)onDeckPosition[0], (int)onDeckPosition[1]), player_green); break;
+                    case "purple": tilemap.SetTile(new Vector3Int((int)onDeckPosition[0], (int)onDeckPosition[1]), player_purple); break;
+                    case "white": tilemap.SetTile(new Vector3Int((int)onDeckPosition[0], (int)onDeckPosition[1]), player_white); break;
+                    default: tilemap.SetTile(new Vector3Int((int)onDeckPosition[0], (int)onDeckPosition[1]), player); break;
+                }
+                rightArrowButtonEnabled = true;
+                upArrowButtonEnabled = true;
             }
         }
-        int diceOneResult = 0;
-        int diceTwoResult = 0;
-        int diceThreeResult = 0;
+        diceOneResult = 0;
+        diceTwoResult = 0;
+        diceThreeResult = 0;
         if (moveDiceAmount > 0)
         {
             diceOneResult = Random.Range(1,7);
@@ -1094,13 +1211,32 @@ public class GameMain : MonoBehaviour
         }
         ///////////////////////////////////////////////////////////////
         newUnitPosition = currentUnitPosition + diceOneResult + diceTwoResult + diceThreeResult;
+    }
+
+    public static void MoveUnitRight(Tilemap tilemap)
+    {
+        if (currentUnitPosition == 0)
+        {
+            currentUnitPosition = boardLength;
+            playerIsMovingInReverse = true;
+            tilemap.SetTile(new Vector3Int((int)onDeckPosition[0], (int)onDeckPosition[1]), null);
+            newUnitPosition = currentUnitPosition - diceOneResult - diceTwoResult - diceThreeResult;
+        }
+        if (newUnitPosition < 0)
+        {
+            int nextPosition = boardLength - newUnitPosition;
+            newUnitPosition = nextPosition;
+        }
         playerIsMoving = true;
     }
 
-    public static void ClearCurrentSlot(Tilemap tilemap)
+    public static void MoveUnitUp(Tilemap tilemap)
     {
-        boardPosition = boardPositions[currentUnitPosition];
-        tilemap.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), null);
+        if (currentUnitPosition == 0)
+        {
+            tilemap.SetTile(new Vector3Int((int)onDeckPosition[0], (int)onDeckPosition[1]), null);
+        }
+        playerIsMoving = true;
     }
 
     public static void MoveUnitComplete(Tilemap tilemap, Tile player, Tile player_red, Tile player_blue, Tile player_green, Tile player_purple, Tile player_white)
@@ -1256,6 +1392,8 @@ public class GameMain : MonoBehaviour
             {
                 player_alive_one = false;
                 playerRecentlyDied = true;
+                activePlayers -= 1;
+                tilemap.SetTile(new Vector3Int(0, 1), null);
             }
             if (player_gold_one < 0)
             {
@@ -1289,6 +1427,8 @@ public class GameMain : MonoBehaviour
             {
                 player_alive_two = false;
                 playerRecentlyDied = true;
+                activePlayers -= 1;
+                tilemap.SetTile(new Vector3Int(1, 0), null);
             }
             if (player_gold_two < 0)
             {
@@ -1322,6 +1462,8 @@ public class GameMain : MonoBehaviour
             {
                 player_alive_three = false;
                 playerRecentlyDied = true;
+                activePlayers -= 1;
+                tilemap.SetTile(new Vector3Int(0, -1), null);
             }
             if (player_gold_three < 0)
             {
@@ -1355,6 +1497,8 @@ public class GameMain : MonoBehaviour
             {
                 player_alive_four = false;
                 playerRecentlyDied = true;
+                activePlayers -= 1;
+                tilemap.SetTile(new Vector3Int(-1, 0), null);
             }
             if (player_gold_four < 0)
             {
@@ -2028,322 +2172,6 @@ public class GameMain : MonoBehaviour
                     tilemap.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), monsterBasilisk);
                 }
             }
-        }
-    }
-
-    public static void ReturnToCamp(int unitSelected, Tilemap tilemap, Tile player)
-    {
-        if (unitSelected == 1)
-        {
-            SetCurrentBoardSpace("campP1");
-            tilemap.SetTile(new Vector3Int(xy[0], xy[1]), player);
-            unitPositionPlayer1 = campPositionPlayer1;
-        }
-        else if (unitSelected == 2)
-        {
-            SetCurrentBoardSpace("campP2");
-            tilemap.SetTile(new Vector3Int(xy[0], xy[1]), player);
-            unitPositionPlayer2 = campPositionPlayer2;
-        }
-        else if (unitSelected == 3)
-        {
-            SetCurrentBoardSpace("campP3");
-            tilemap.SetTile(new Vector3Int(xy[0], xy[1]), player);
-            unitPositionPlayer3 = campPositionPlayer3;
-        }
-        else if (unitSelected == 4)
-        {
-            SetCurrentBoardSpace("campP4");
-            tilemap.SetTile(new Vector3Int(xy[0], xy[1]), player);
-            unitPositionPlayer4 = campPositionPlayer4;
-        }
-    }
-
-    public static void SetCurrentBoardSpace(string tileName)
-    {
-        if (tileName == "space1")
-        {
-            xy[0] = 6;
-            xy[1] = -5;
-        }
-        else if (tileName == "space2")
-        {
-            xy[0] = 4;
-            xy[1] = -5;
-        }
-        else if (tileName == "space3")
-        {
-            xy[0] = 2;
-            xy[1] = -5;
-        }
-        else if (tileName == "space4")
-        {
-            xy[0] = 0;
-            xy[1] = -5;
-        }
-        else if (tileName == "space5")
-        {
-            xy[0] = -2;
-            xy[1] = -5;
-        }
-        else if (tileName == "space6")
-        {
-            xy[0] = -4;
-            xy[1] = -5;
-        }
-        else if (tileName == "space7")
-        {
-            xy[0] = -6;
-            xy[1] = -5;
-        }
-        else if (tileName == "space8")
-        {
-            xy[0] = -8;
-            xy[1] = -5;
-        }
-        else if (tileName == "space9")
-        {
-            xy[0] = -10;
-            xy[1] = -5;
-        }
-        else if (tileName == "space10")
-        {
-            xy[0] = -11;
-            xy[1] = -3;
-        }
-        else if (tileName == "space11")
-        {
-            xy[0] = -11;
-            xy[1] = -1;
-        }
-        else if (tileName == "space12")
-        {
-            xy[0] = -11;
-            xy[1] = 1;
-        }
-        else if (tileName == "space13")
-        {
-            xy[0] = -11;
-            xy[1] = 3;
-        }
-        else if (tileName == "space14" || (tileName == "campP2" && activePlayers == 2))
-        {
-            xy[0] = -10;
-            xy[1] = 5;
-        }
-        else if (tileName == "space15")
-        {
-            xy[0] = -8;
-            xy[1] = 5;
-        }
-        else if (tileName == "space16")
-        {
-            xy[0] = -6;
-            xy[1] = 5;
-        }
-        else if (tileName == "space17")
-        {
-            xy[0] = -4;
-            xy[1] = 5;
-        }
-        else if (tileName == "space18")
-        {
-            xy[0] = -2;
-            xy[1] = 5;
-        }
-        else if (tileName == "space19")
-        {
-            xy[0] = 0;
-            xy[1] = 5;
-        }
-        else if (tileName == "space20")
-        {
-            xy[0] = 2;
-            xy[1] = 5;
-        }
-        else if (tileName == "space21")
-        {
-            xy[0] = 4;
-            xy[1] = 5;
-        }
-        else if (tileName == "space22")
-        {
-            xy[0] = 6;
-            xy[1] = 5;
-        }
-        else if (tileName == "space23")
-        {
-            xy[0] = 8;
-            xy[1] = 5;
-        }
-        else if (tileName == "space24")
-        {
-            xy[0] = 9;
-            xy[1] = 3;
-        }
-        else if (tileName == "space25")
-        {
-            xy[0] = 9;
-            xy[1] = 1;
-        }
-        else if (tileName == "space26")
-        {
-            xy[0] = 9;
-            xy[1] = -1;
-        }
-        else if (tileName == "space27")
-        {
-            xy[0] = 9;
-            xy[1] = -3;
-        }
-        else if (tileName == "space28" || tileName == "campP1")
-        {
-            xy[0] = 8;
-            xy[1] = -5;
-        }
-    }
-
-    public static void SetCurrentBoardSpaceSlot(string tileName)
-    {
-        if (tileName == "spaceSlot1")
-        {
-            xy[0] = 6;
-            xy[1] = -4;
-        }
-        else if (tileName == "spaceSlot2")
-        {
-            xy[0] = 4;
-            xy[1] = -4;
-        }
-        else if (tileName == "spaceSlot3")
-        {
-            xy[0] = 2;
-            xy[1] = -4;
-        }
-        else if (tileName == "spaceSlot4")
-        {
-            xy[0] = 0;
-            xy[1] = -4;
-        }
-        else if (tileName == "spaceSlot5")
-        {
-            xy[0] = -2;
-            xy[1] = -4;
-        }
-        else if (tileName == "spaceSlot6")
-        {
-            xy[0] = -4;
-            xy[1] = -4;
-        }
-        else if (tileName == "spaceSlot7")
-        {
-            xy[0] = -6;
-            xy[1] = -4;
-        }
-        else if (tileName == "spaceSlot8")
-        {
-            xy[0] = -8;
-            xy[1] = -4;
-        }
-        else if (tileName == "spaceSlot9")
-        {
-            xy[0] = -10;
-            xy[1] = -4;
-        }
-        else if (tileName == "spaceSlot10")
-        {
-            xy[0] = -10;
-            xy[1] = -3;
-        }
-        else if (tileName == "spaceSlot11")
-        {
-            xy[0] = -10;
-            xy[1] = -1;
-        }
-        else if (tileName == "spaceSlot12")
-        {
-            xy[0] = -10;
-            xy[1] = 1;
-        }
-        else if (tileName == "spaceSlot13")
-        {
-            xy[0] = -10;
-            xy[1] = 3;
-        }
-        else if (tileName == "spaceSlot14")
-        {
-            xy[0] = -10;
-            xy[1] = 4;
-        }
-        else if (tileName == "spaceSlot15")
-        {
-            xy[0] = -8;
-            xy[1] = 4;
-        }
-        else if (tileName == "spaceSlot16")
-        {
-            xy[0] = -6;
-            xy[1] = 4;
-        }
-        else if (tileName == "spaceSlot17")
-        {
-            xy[0] = -4;
-            xy[1] = 4;
-        }
-        else if (tileName == "spaceSlot18")
-        {
-            xy[0] = -2;
-            xy[1] = 4;
-        }
-        else if (tileName == "spaceSlot19")
-        {
-            xy[0] = 0;
-            xy[1] = 4;
-        }
-        else if (tileName == "spaceSlot20")
-        {
-            xy[0] = 2;
-            xy[1] = 4;
-        }
-        else if (tileName == "spaceSlot21")
-        {
-            xy[0] = 4;
-            xy[1] = 4;
-        }
-        else if (tileName == "spaceSlot22")
-        {
-            xy[0] = 6;
-            xy[1] = 4;
-        }
-        else if (tileName == "spaceSlot23")
-        {
-            xy[0] = 8;
-            xy[1] = 4;
-        }
-        else if (tileName == "spaceSlot24")
-        {
-            xy[0] = 8;
-            xy[1] = 3;
-        }
-        else if (tileName == "spaceSlot25")
-        {
-            xy[0] = 8;
-            xy[1] = 1;
-        }
-        else if (tileName == "spaceSlot26")
-        {
-            xy[0] = 8;
-            xy[1] = -1;
-        }
-        else if (tileName == "spaceSlot27")
-        {
-            xy[0] = 8;
-            xy[1] = -3;
-        }
-        else if (tileName == "spaceSlot28")
-        {
-            xy[0] = 8;
-            xy[1] = -4;
         }
     }
 }
