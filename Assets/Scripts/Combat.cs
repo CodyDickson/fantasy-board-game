@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Tilemaps;
 using TMPro;
 
-public class CombatManager : MonoBehaviour
+public class Combat : MonoBehaviour
 {
     public Button continueButton;
     public Button fightButton;
@@ -73,7 +73,8 @@ public class CombatManager : MonoBehaviour
     [SerializeField] public Tile monster_basilisk;
     [SerializeField] public Tile monster_rampagingElephant;
     [SerializeField] public Tilemap tilemapStructures;
-    public static bool fightScreen = true;
+    public static bool preFightScreenActive = true;
+    public static bool fightScreenActive = false;
     public static float tempCounter = 0f;
     public static float counter = 0.5f;
     public static bool avatar_one_set = false;
@@ -82,17 +83,25 @@ public class CombatManager : MonoBehaviour
     public static int combatUnitTwo;
     public static int combatUnitOne_DiceTotal;
     public static int combatUnitTwo_DiceTotal;
-    public static bool updateDice = false;
+    public static int combatUnitOne_resultOne;
+    public static int combatUnitOne_resultTwo;
+    public static int combatUnitOne_resultThree;
+    public static int combatUnitTwo_resultOne;
+    public static int combatUnitTwo_resultTwo;
+    public static int combatUnitTwo_resultThree;
+    public static bool diceAreShowing = false;
 
     void Start()
     {
         continueButton.onClick.AddListener(OnClickContinueButton);
-        continueButton.onClick.AddListener(OnClickFightButton);
+        fightButton.onClick.AddListener(OnClickFightButton);
+        fightButton.gameObject.SetActive(true);
+        Debug.Log("Fight Button Active");
         continueButton.gameObject.SetActive(false);
         suddenDeathButton.gameObject.SetActive(false);
-        fightButton.gameObject.SetActive(true);
         avatar_one = avatar_one.GetComponent<Image>();
         avatar_two = avatar_two.GetComponent<Image>();
+        preFightScreenActive = true;
     }
 
     void Update()
@@ -103,139 +112,155 @@ public class CombatManager : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.F) && fightButton.gameObject.activeSelf)
         {
-            fightScreen = false;
-            OnClickFightButton();
+            preFightScreenActive = false;
+            fightScreenActive = true;
+            diceAreShowing = false;
+            fightButton.gameObject.SetActive(false);
             CombatEncounter(tilemapStructures, player_red, player_blue, player_green, player_purple, player_white, monster_imp, monster_basilisk);
+            continueButton.gameObject.SetActive(true);
         }
         if (Input.GetKey(KeyCode.F) && suddenDeathButton.gameObject.activeSelf)
         {
             OnClickSuddenDeathButton();
         }
-        if (!avatar_one_set)
+        if (GameMain.combatScreenEnabled)
         {
-            if (combatUnitOne < 5)
-            {
-                Debug.Log("Combat Screen Enabled, Combat Unit One = " + combatUnitOne);
-                if (combatUnitOne == 1)
-                {
-                    switch (GameMain.player_color_one)
-                    {
-                        case "red": avatar_one.sprite = player_red_sprite; break;
-                        case "blue": avatar_one.sprite = player_blue_sprite; break;
-                        case "green": avatar_one.sprite = player_green_sprite; break;
-                        case "purple": avatar_one.sprite = player_purple_sprite; break;
-                        case "white": avatar_one.sprite = player_white_sprite; break;
-                    }
-                }
-                if (combatUnitOne == 2)
-                {
-                    switch (GameMain.player_color_two)
-                    {
-                        case "red": avatar_one.sprite = player_red_sprite; break;
-                        case "blue": avatar_one.sprite = player_blue_sprite; break;
-                        case "green": avatar_one.sprite = player_green_sprite; break;
-                        case "purple": avatar_one.sprite = player_purple_sprite; break;
-                        case "white": avatar_one.sprite = player_white_sprite; break;
-                    }
-                }
-                if (combatUnitOne == 3)
-                {
-                    switch (GameMain.player_color_three)
-                    {
-                        case "red": avatar_one.sprite = player_red_sprite; break;
-                        case "blue": avatar_one.sprite = player_blue_sprite; break;
-                        case "green": avatar_one.sprite = player_green_sprite; break;
-                        case "purple": avatar_one.sprite = player_purple_sprite; break;
-                        case "white": avatar_one.sprite = player_white_sprite; break;
-                    }
-                }
-                if (combatUnitOne == 4)
-                {
-                    switch (GameMain.player_color_four)
-                    {
-                        case "red": avatar_one.sprite = player_red_sprite; break;
-                        case "blue": avatar_one.sprite = player_blue_sprite; break;
-                        case "green": avatar_one.sprite = player_green_sprite; break;
-                        case "purple": avatar_one.sprite = player_purple_sprite; break;
-                        case "white": avatar_one.sprite = player_white_sprite; break;
-                    }
-                }
-                avatar_one_set = true;
-            }
-        }
-        if (!avatar_two_set)
-        {
-            Debug.Log(avatar_two_set);
-            Debug.Log("Combat Screen Enabled, Combat Unit Two = " + combatUnitTwo);
+            combatUnitOne_Text.text = "player " + GameMain.player_color_one + "\n" + combatUnitOne_DiceTotal;
             if (combatUnitTwo < 5)
             {
-                if (combatUnitTwo == 1)
-                {
-                    switch (GameMain.player_color_one)
-                    {
-                        case "red": avatar_two.sprite = player_red_sprite; break;
-                        case "blue": avatar_two.sprite = player_blue_sprite; break;
-                        case "green": avatar_two.sprite = player_green_sprite; break;
-                        case "purple": avatar_two.sprite = player_purple_sprite; break;
-                        case "white": avatar_two.sprite = player_white_sprite; break;
-                    }
-                }
-                if (combatUnitTwo == 2)
-                {
-                    switch (GameMain.player_color_two)
-                    {
-                        case "red": avatar_two.sprite = player_red_sprite; break;
-                        case "blue": avatar_two.sprite = player_blue_sprite; break;
-                        case "green": avatar_two.sprite = player_green_sprite; break;
-                        case "purple": avatar_two.sprite = player_purple_sprite; break;
-                        case "white": avatar_two.sprite = player_white_sprite; break;
-                    }
-                }
-                if (combatUnitTwo == 3)
-                {
-                    switch (GameMain.player_color_three)
-                    {
-                        case "red": avatar_two.sprite = player_red_sprite; break;
-                        case "blue": avatar_two.sprite = player_blue_sprite; break;
-                        case "green": avatar_two.sprite = player_green_sprite; break;
-                        case "purple": avatar_two.sprite = player_purple_sprite; break;
-                        case "white": avatar_two.sprite = player_white_sprite; break;
-                    }
-                }
-                if (combatUnitTwo == 4)
-                {
-                    switch (GameMain.player_color_four)
-                    {
-                        case "red": avatar_two.sprite = player_red_sprite; break;
-                        case "blue": avatar_two.sprite = player_blue_sprite; break;
-                        case "green": avatar_two.sprite = player_green_sprite; break;
-                        case "purple": avatar_two.sprite = player_purple_sprite; break;
-                        case "white": avatar_two.sprite = player_white_sprite; break;
-                    }
-                }
-                if (combatUnitTwo == 5)
-                {
-                    avatar_two.sprite = monster_imp_sprite;
-                }
-                if (combatUnitTwo == 6)
-                {
-                    avatar_two.sprite = monster_basilisk_sprite;
-                }
-                if (combatUnitTwo == 7)
-                {
-                    avatar_two.sprite = monster_rampagingElephant_sprite;
-                }
-                avatar_two_set = true;
+                combatUnitTwo_Text.text = "player " + GameMain.player_color_one + "\n" + combatUnitTwo_DiceTotal;
+            }
+            else if (combatUnitTwo == 5)
+            {
+                combatUnitTwo_Text.text = "imp\n" + combatUnitTwo_DiceTotal;
+            }
+            else if (combatUnitTwo == 6)
+            {
+                combatUnitTwo_Text.text = "basilisk\n" + combatUnitTwo_DiceTotal;
             }
         }
-        if (fightScreen)
+        if (GameMain.combatScreenEnabled && !avatar_one_set)
+        {
+            Debug.Log("Combat Screen Enabled, Combat Unit One = " + combatUnitOne);
+            if (combatUnitOne == 1)
+            {
+                switch (GameMain.player_color_one)
+                {
+                    case "red": avatar_one.sprite = player_red_sprite; break;
+                    case "blue": avatar_one.sprite = player_blue_sprite; break;
+                    case "green": avatar_one.sprite = player_green_sprite; break;
+                    case "purple": avatar_one.sprite = player_purple_sprite; break;
+                    case "white": avatar_one.sprite = player_white_sprite; break;
+                }
+            }
+            if (combatUnitOne == 2)
+            {
+                switch (GameMain.player_color_two)
+                {
+                    case "red": avatar_one.sprite = player_red_sprite; break;
+                    case "blue": avatar_one.sprite = player_blue_sprite; break;
+                    case "green": avatar_one.sprite = player_green_sprite; break;
+                    case "purple": avatar_one.sprite = player_purple_sprite; break;
+                    case "white": avatar_one.sprite = player_white_sprite; break;
+                }
+            }
+            if (combatUnitOne == 3)
+            {
+                switch (GameMain.player_color_three)
+                {
+                    case "red": avatar_one.sprite = player_red_sprite; break;
+                    case "blue": avatar_one.sprite = player_blue_sprite; break;
+                    case "green": avatar_one.sprite = player_green_sprite; break;
+                    case "purple": avatar_one.sprite = player_purple_sprite; break;
+                    case "white": avatar_one.sprite = player_white_sprite; break;
+                }
+            }
+            if (combatUnitOne == 4)
+            {
+                switch (GameMain.player_color_four)
+                {
+                    case "red": avatar_one.sprite = player_red_sprite; break;
+                    case "blue": avatar_one.sprite = player_blue_sprite; break;
+                    case "green": avatar_one.sprite = player_green_sprite; break;
+                    case "purple": avatar_one.sprite = player_purple_sprite; break;
+                    case "white": avatar_one.sprite = player_white_sprite; break;
+                }
+            }
+            avatar_one_set = true;
+        }
+        if (GameMain.combatScreenEnabled && !avatar_two_set)
+        {
+            Debug.Log("Combat Screen Enabled, Combat Unit Two = " + combatUnitTwo);
+            if (combatUnitTwo == 1)
+            {
+                switch (GameMain.player_color_one)
+                {
+                    case "red": avatar_two.sprite = player_red_sprite; break;
+                    case "blue": avatar_two.sprite = player_blue_sprite; break;
+                    case "green": avatar_two.sprite = player_green_sprite; break;
+                    case "purple": avatar_two.sprite = player_purple_sprite; break;
+                    case "white": avatar_two.sprite = player_white_sprite; break;
+                }
+            }
+            if (combatUnitTwo == 2)
+            {
+                switch (GameMain.player_color_two)
+                {
+                    case "red": avatar_two.sprite = player_red_sprite; break;
+                    case "blue": avatar_two.sprite = player_blue_sprite; break;
+                    case "green": avatar_two.sprite = player_green_sprite; break;
+                    case "purple": avatar_two.sprite = player_purple_sprite; break;
+                    case "white": avatar_two.sprite = player_white_sprite; break;
+                }
+            }
+            if (combatUnitTwo == 3)
+            {
+                switch (GameMain.player_color_three)
+                {
+                    case "red": avatar_two.sprite = player_red_sprite; break;
+                    case "blue": avatar_two.sprite = player_blue_sprite; break;
+                    case "green": avatar_two.sprite = player_green_sprite; break;
+                    case "purple": avatar_two.sprite = player_purple_sprite; break;
+                    case "white": avatar_two.sprite = player_white_sprite; break;
+                }
+            }
+            if (combatUnitTwo == 4)
+            {
+                switch (GameMain.player_color_four)
+                {
+                    case "red": avatar_two.sprite = player_red_sprite; break;
+                    case "blue": avatar_two.sprite = player_blue_sprite; break;
+                    case "green": avatar_two.sprite = player_green_sprite; break;
+                    case "purple": avatar_two.sprite = player_purple_sprite; break;
+                    case "white": avatar_two.sprite = player_white_sprite; break;
+                }
+            }
+            if (combatUnitTwo == 5)
+            {
+                avatar_two.sprite = monster_imp_sprite;
+            }
+            if (combatUnitTwo == 6)
+            {
+                avatar_two.sprite = monster_basilisk_sprite;
+            }
+            if (combatUnitTwo == 7)
+            {
+                avatar_two.sprite = monster_rampagingElephant_sprite;
+            }
+            avatar_two_set = true;
+        }
+        if (preFightScreenActive && !diceAreShowing)
+        {
+            diceAreShowing = true;
+            InvokeRepeating("RandomDice", 1f, 1f);
+        }
+        if (fightScreenActive)
         {
             if (tempCounter <= 0f)
             {
                 if (combatUnitOne_DiceTotal > 0)
                 {
-                    Debug.Log("One Combat Dice");
-                    int result = Random.Range(1,7);
+                    int result = combatUnitOne_resultOne;
                     avatar_one_diceOne_one.SetActive(false);
                     avatar_one_diceTwo_one.SetActive(false);
                     avatar_one_diceThree_one.SetActive(false);
@@ -254,14 +279,14 @@ public class CombatManager : MonoBehaviour
                 }
                 if (combatUnitOne_DiceTotal > 1)
                 {
-                    int result2 = Random.Range(1,7);
+                    int result = combatUnitOne_resultTwo;
                     avatar_one_diceOne_two.SetActive(false);
                     avatar_one_diceTwo_two.SetActive(false);
                     avatar_one_diceThree_two.SetActive(false);
                     avatar_one_diceFour_two.SetActive(false);
                     avatar_one_diceFive_two.SetActive(false);
                     avatar_one_diceSix_two.SetActive(false);
-                    switch (result2)
+                    switch (result)
                     {
                         case 1: avatar_one_diceOne_two.SetActive(true); break;
                         case 2: avatar_one_diceTwo_two.SetActive(true); break;
@@ -273,14 +298,14 @@ public class CombatManager : MonoBehaviour
                 }
                 if (combatUnitOne_DiceTotal > 2)
                 {
-                    int result3 = Random.Range(1,7);
+                    int result = combatUnitOne_resultThree;
                     avatar_one_diceOne_three.SetActive(false);
                     avatar_one_diceTwo_three.SetActive(false);
                     avatar_one_diceThree_three.SetActive(false);
                     avatar_one_diceFour_three.SetActive(false);
                     avatar_one_diceFive_three.SetActive(false);
                     avatar_one_diceSix_three.SetActive(false);
-                    switch (result3)
+                    switch (result)
                     {
                         case 1: avatar_one_diceOne_three.SetActive(true); break;
                         case 2: avatar_one_diceTwo_three.SetActive(true); break;
@@ -290,78 +315,16 @@ public class CombatManager : MonoBehaviour
                         case 6: avatar_one_diceSix_three.SetActive(true); break;
                     }
                 }
-                tempCounter = counter;
-            }
-            else
-            {
-                tempCounter -= Time.deltaTime;
-            }
-        }
-        if (GameMain.combatScreenEnabled)
-        {
-            combatUnitOne_Text.text = "player " + GameMain.player_color_one + "\n" + combatUnitOne_DiceTotal;
-            if (combatUnitTwo < 5)
-            {
-                combatUnitTwo_Text.text = "player " + GameMain.player_color_one + "\n" + combatUnitTwo_DiceTotal;
-            }
-            else if (combatUnitTwo == 5)
-            {
-                combatUnitTwo_Text.text = "imp\n" + combatUnitTwo_DiceTotal;
-            }
-            else if (combatUnitTwo == 6)
-            {
-                combatUnitTwo_Text.text = "basilisk\n" + combatUnitTwo_DiceTotal;
-            }
-        }
-        if (updateDice)
-        {
-            int random = 0;
-            for (int i = 0; i < combatUnitOne_DiceTotal; i++)
-            {
-                random = Random.Range(1,7);
-                if (i == 1)
+                if (combatUnitTwo_DiceTotal > 0)
                 {
-                    switch(random)
-                    {
-                        case 1: avatar_one_diceOne_one.SetActive(true); break;
-                        case 2: avatar_one_diceTwo_one.SetActive(true); break;
-                        case 3: avatar_one_diceThree_one.SetActive(true); break;
-                        case 4: avatar_one_diceFour_one.SetActive(true); break;
-                        case 5: avatar_one_diceFive_one.SetActive(true); break;
-                        case 6: avatar_one_diceSix_one.SetActive(true); break;
-                    }
-                }
-                if (i == 2)
-                {
-                    switch(random)
-                    {
-                        case 1: avatar_one_diceOne_two.SetActive(true); break;
-                        case 2: avatar_one_diceTwo_two.SetActive(true); break;
-                        case 3: avatar_one_diceThree_two.SetActive(true); break;
-                        case 4: avatar_one_diceFour_two.SetActive(true); break;
-                        case 5: avatar_one_diceFive_two.SetActive(true); break;
-                        case 6: avatar_one_diceSix_two.SetActive(true); break;
-                    }
-                }
-                if (i == 3)
-                {
-                    switch(random)
-                    {
-                        case 1: avatar_one_diceOne_three.SetActive(true); break;
-                        case 2: avatar_one_diceTwo_three.SetActive(true); break;
-                        case 3: avatar_one_diceThree_three.SetActive(true); break;
-                        case 4: avatar_one_diceFour_three.SetActive(true); break;
-                        case 5: avatar_one_diceFive_three.SetActive(true); break;
-                        case 6: avatar_one_diceSix_three.SetActive(true); break;
-                    }
-                }
-            }
-            for (int x = 0; x < combatUnitTwo_DiceTotal; x++)
-            {
-                random = Random.Range(1,7);
-                if (x == 1)
-                {
-                    switch(random)
+                    int result = combatUnitTwo_resultOne;
+                    avatar_two_diceOne_one.SetActive(false);
+                    avatar_two_diceTwo_one.SetActive(false);
+                    avatar_two_diceThree_one.SetActive(false);
+                    avatar_two_diceFour_one.SetActive(false);
+                    avatar_two_diceFive_one.SetActive(false);
+                    avatar_two_diceSix_one.SetActive(false);
+                    switch (result)
                     {
                         case 1: avatar_two_diceOne_one.SetActive(true); break;
                         case 2: avatar_two_diceTwo_one.SetActive(true); break;
@@ -371,9 +334,16 @@ public class CombatManager : MonoBehaviour
                         case 6: avatar_two_diceSix_one.SetActive(true); break;
                     }
                 }
-                if (x == 2)
+                if (combatUnitTwo_DiceTotal > 1)
                 {
-                    switch(random)
+                    int result = combatUnitTwo_resultTwo;
+                    avatar_two_diceOne_two.SetActive(false);
+                    avatar_two_diceTwo_two.SetActive(false);
+                    avatar_two_diceThree_two.SetActive(false);
+                    avatar_two_diceFour_two.SetActive(false);
+                    avatar_two_diceFive_two.SetActive(false);
+                    avatar_two_diceSix_two.SetActive(false);
+                    switch (result)
                     {
                         case 1: avatar_two_diceOne_two.SetActive(true); break;
                         case 2: avatar_two_diceTwo_two.SetActive(true); break;
@@ -383,9 +353,16 @@ public class CombatManager : MonoBehaviour
                         case 6: avatar_two_diceSix_two.SetActive(true); break;
                     }
                 }
-                if (x == 3)
+                if (combatUnitTwo_DiceTotal > 2)
                 {
-                    switch(random)
+                    int result = combatUnitTwo_resultThree;
+                    avatar_two_diceOne_three.SetActive(false);
+                    avatar_two_diceTwo_three.SetActive(false);
+                    avatar_two_diceThree_three.SetActive(false);
+                    avatar_two_diceFour_three.SetActive(false);
+                    avatar_two_diceFive_three.SetActive(false);
+                    avatar_two_diceSix_three.SetActive(false);
+                    switch (result)
                     {
                         case 1: avatar_two_diceOne_three.SetActive(true); break;
                         case 2: avatar_two_diceTwo_three.SetActive(true); break;
@@ -395,8 +372,99 @@ public class CombatManager : MonoBehaviour
                         case 6: avatar_two_diceSix_three.SetActive(true); break;
                     }
                 }
+                tempCounter = counter;
             }
-            updateDice = false;
+            else
+            {
+                tempCounter -= Time.deltaTime;
+            }
+        }
+    }
+
+    void RandomDice()
+    {
+        Debug.Log("Fire!");
+        int random = 0;
+        for (int i = 0; i < combatUnitOne_DiceTotal; i++)
+        {
+            random = Random.Range(1,7);
+            Debug.Log("Random " + random);
+            if (i == 1)
+            {
+                switch(random)
+                {
+                    case 1: avatar_one_diceOne_one.SetActive(true); break;
+                    case 2: avatar_one_diceTwo_one.SetActive(true); break;
+                    case 3: avatar_one_diceThree_one.SetActive(true); break;
+                    case 4: avatar_one_diceFour_one.SetActive(true); break;
+                    case 5: avatar_one_diceFive_one.SetActive(true); break;
+                    case 6: avatar_one_diceSix_one.SetActive(true); break;
+                }
+            }
+            if (i == 2)
+            {
+                switch(random)
+                {
+                    case 1: avatar_one_diceOne_two.SetActive(true); break;
+                    case 2: avatar_one_diceTwo_two.SetActive(true); break;
+                    case 3: avatar_one_diceThree_two.SetActive(true); break;
+                    case 4: avatar_one_diceFour_two.SetActive(true); break;
+                    case 5: avatar_one_diceFive_two.SetActive(true); break;
+                    case 6: avatar_one_diceSix_two.SetActive(true); break;
+                }
+            }
+            if (i == 3)
+            {
+                switch(random)
+                {
+                    case 1: avatar_one_diceOne_three.SetActive(true); break;
+                    case 2: avatar_one_diceTwo_three.SetActive(true); break;
+                    case 3: avatar_one_diceThree_three.SetActive(true); break;
+                    case 4: avatar_one_diceFour_three.SetActive(true); break;
+                    case 5: avatar_one_diceFive_three.SetActive(true); break;
+                    case 6: avatar_one_diceSix_three.SetActive(true); break;
+                }
+            }
+        }
+        for (int x = 0; x < combatUnitTwo_DiceTotal; x++)
+        {
+            random = Random.Range(1,7);
+            if (x == 1)
+            {
+                switch(random)
+                {
+                    case 1: avatar_two_diceOne_one.SetActive(true); break;
+                    case 2: avatar_two_diceTwo_one.SetActive(true); break;
+                    case 3: avatar_two_diceThree_one.SetActive(true); break;
+                    case 4: avatar_two_diceFour_one.SetActive(true); break;
+                    case 5: avatar_two_diceFive_one.SetActive(true); break;
+                    case 6: avatar_two_diceSix_one.SetActive(true); break;
+                }
+            }
+            if (x == 2)
+            {
+                switch(random)
+                {
+                    case 1: avatar_two_diceOne_two.SetActive(true); break;
+                    case 2: avatar_two_diceTwo_two.SetActive(true); break;
+                    case 3: avatar_two_diceThree_two.SetActive(true); break;
+                    case 4: avatar_two_diceFour_two.SetActive(true); break;
+                    case 5: avatar_two_diceFive_two.SetActive(true); break;
+                    case 6: avatar_two_diceSix_two.SetActive(true); break;
+                }
+            }
+            if (x == 3)
+            {
+                switch(random)
+                {
+                    case 1: avatar_two_diceOne_three.SetActive(true); break;
+                    case 2: avatar_two_diceTwo_three.SetActive(true); break;
+                    case 3: avatar_two_diceThree_three.SetActive(true); break;
+                    case 4: avatar_two_diceFour_three.SetActive(true); break;
+                    case 5: avatar_two_diceFive_three.SetActive(true); break;
+                    case 6: avatar_two_diceSix_three.SetActive(true); break;
+                }
+            }
         }
     }
 
@@ -412,9 +480,10 @@ public class CombatManager : MonoBehaviour
 
     void OnClickFightButton()
     {
-        fightScreen = false;
-        CombatEncounter(tilemapStructures, player_red, player_blue, player_green, player_purple, player_white, monster_imp, monster_basilisk);
+        preFightScreenActive = false;
+        fightScreenActive = true;
         fightButton.gameObject.SetActive(false);
+        CombatEncounter(tilemapStructures, player_red, player_blue, player_green, player_purple, player_white, monster_imp, monster_basilisk);
         continueButton.gameObject.SetActive(true);
     }
 
@@ -431,6 +500,7 @@ public class CombatManager : MonoBehaviour
         GameMain.GUIEnabled = false;
         // Sets combat unit one and combat unit two
         combatUnitOne = GameMain.currentPlayer;
+        Debug.Log("Combat Unit One: " + combatUnitOne);
         if (GameMain.currentUnitPosition == GameMain.unitPositionPlayer1 && GameMain.currentPlayer != 1)
         {
             combatUnitTwo = 1;
@@ -459,96 +529,273 @@ public class CombatManager : MonoBehaviour
         {
             combatUnitTwo = 7;
         }
-        fightScreen = true;
+        Debug.Log("Combat Unit Two: " + combatUnitTwo);
+        preFightScreenActive = true;
     }
 
     public static void CombatEncounter(Tilemap tilemap, Tile player_red, Tile player_blue, Tile player_green, Tile player_purple, Tile player_white, Tile monsterImp, Tile monsterBasilisk)
     {
+        GameMain.combatEncounterHappening = true;
         // Determines dice roll for combat unit one
         combatUnitOne_DiceTotal = 0;
         if (combatUnitOne == 1)
         {
-            int x = GameMain.player_combatDice_one;
-            while (x > 0)
+            for (int x = 1; x <= GameMain.player_combatDice_one; x++)
             {
-                combatUnitOne_DiceTotal += Random.Range(1,7);
-                x--;
+                if (x == 1)
+                {
+                    combatUnitOne_resultOne += Random.Range(1,7);
+                    combatUnitOne_DiceTotal += combatUnitOne_resultOne;
+                }
+                if (x == 2)
+                {
+                    combatUnitOne_resultTwo += Random.Range(1,7);
+                    combatUnitOne_DiceTotal += combatUnitOne_resultTwo;
+                }
+                if (x == 3)
+                {
+                    combatUnitOne_resultThree += Random.Range(1,7);
+                    combatUnitOne_DiceTotal += combatUnitOne_resultThree;
+                }
             }
         }
         else if (combatUnitOne == 2)
         {
-            int x = GameMain.player_combatDice_two;
-            while (x > 0)
+            for (int x = 1; x <= GameMain.player_combatDice_two; x++)
             {
-                combatUnitOne_DiceTotal += Random.Range(1,7);
-                x--;
+                if (x == 1)
+                {
+                    combatUnitOne_resultOne += Random.Range(1,7);
+                    combatUnitOne_DiceTotal += combatUnitOne_resultOne;
+                }
+                if (x == 2)
+                {
+                    combatUnitOne_resultTwo += Random.Range(1,7);
+                    combatUnitOne_DiceTotal += combatUnitOne_resultTwo;
+                }
+                if (x == 3)
+                {
+                    combatUnitOne_resultThree += Random.Range(1,7);
+                    combatUnitOne_DiceTotal += combatUnitOne_resultThree;
+                }
             }
         }
         else if (combatUnitOne == 3)
         {
-            int x = GameMain.player_combatDice_three;
-            while (x > 0)
+            for (int x = 1; x <= GameMain.player_combatDice_three; x++)
             {
-                combatUnitOne_DiceTotal += Random.Range(1,7);
-                x--;
+                if (x == 1)
+                {
+                    combatUnitOne_resultOne += Random.Range(1,7);
+                    combatUnitOne_DiceTotal += combatUnitOne_resultOne;
+                }
+                if (x == 2)
+                {
+                    combatUnitOne_resultTwo += Random.Range(1,7);
+                    combatUnitOne_DiceTotal += combatUnitOne_resultTwo;
+                }
+                if (x == 3)
+                {
+                    combatUnitOne_resultThree += Random.Range(1,7);
+                    combatUnitOne_DiceTotal += combatUnitOne_resultThree;
+                }
             }
         }
         else if (combatUnitOne == 4)
         {
-            int x = GameMain.player_combatDice_four;
-            while (x > 0)
+            for (int x = 1; x <= GameMain.player_combatDice_four; x++)
             {
-                combatUnitOne_DiceTotal += Random.Range(1,7);
-                x--;
+                if (x == 1)
+                {
+                    combatUnitOne_resultOne += Random.Range(1,7);
+                    combatUnitOne_DiceTotal += combatUnitOne_resultOne;
+                }
+                if (x == 2)
+                {
+                    combatUnitOne_resultTwo += Random.Range(1,7);
+                    combatUnitOne_DiceTotal += combatUnitOne_resultTwo;
+                }
+                if (x == 3)
+                {
+                    combatUnitOne_resultThree += Random.Range(1,7);
+                    combatUnitOne_DiceTotal += combatUnitOne_resultThree;
+                }
+            }
+        }
+        else if (combatUnitOne == 5)
+        {
+            // imp
+            combatUnitOne_resultOne += Random.Range(1,7);
+        }
+        else if (combatUnitOne == 6)
+        {
+            // basilisk
+            for (int x = 1; x <= 2; x++)
+            {
+                if (x == 1)
+                {
+                    combatUnitOne_resultOne += Random.Range(1,7);
+                    combatUnitOne_DiceTotal += combatUnitOne_resultOne;
+                }
+                if (x == 2)
+                {
+                    combatUnitOne_resultTwo += Random.Range(1,7);
+                    combatUnitOne_DiceTotal += combatUnitOne_resultTwo;
+                }
+            }
+        }
+        else if (combatUnitOne == 7)
+        {
+            // rampaging elephant
+            for (int x = 1; x <= 3; x++)
+            {
+                if (x == 1)
+                {
+                    combatUnitOne_resultOne += Random.Range(1,7);
+                    combatUnitOne_DiceTotal += combatUnitOne_resultOne;
+                }
+                if (x == 2)
+                {
+                    combatUnitOne_resultTwo += Random.Range(1,7);
+                    combatUnitOne_DiceTotal += combatUnitOne_resultTwo;
+                }
+                if (x == 3)
+                {
+                    combatUnitOne_resultThree += Random.Range(1,7);
+                    combatUnitOne_DiceTotal += combatUnitOne_resultThree;
+                }
             }
         }
         // Determines dice roll for combat unit two
         combatUnitTwo_DiceTotal = 0;
         if (combatUnitTwo == 1)
         {
-            int x = GameMain.player_combatDice_one;
-            while (x > 0)
+            for (int x = 1; x <= GameMain.player_combatDice_one; x++)
             {
-                combatUnitTwo_DiceTotal += Random.Range(1,7);
-                x--;
+                if (x == 1)
+                {
+                    combatUnitTwo_resultOne += Random.Range(1,7);
+                    combatUnitTwo_DiceTotal += combatUnitTwo_resultOne;
+                }
+                if (x == 2)
+                {
+                    combatUnitTwo_resultTwo += Random.Range(1,7);
+                    combatUnitTwo_DiceTotal += combatUnitTwo_resultTwo;
+                }
+                if (x == 3)
+                {
+                    combatUnitTwo_resultThree += Random.Range(1,7);
+                    combatUnitTwo_DiceTotal += combatUnitTwo_resultThree;
+                }
             }
         }
         else if (combatUnitTwo == 2)
         {
-            int x = GameMain.player_combatDice_two;
-            while (x > 0)
+            for (int x = 1; x <= GameMain.player_combatDice_two; x++)
             {
-                combatUnitTwo_DiceTotal += Random.Range(1,7);
-                x--;
+                if (x == 1)
+                {
+                    combatUnitTwo_resultOne += Random.Range(1,7);
+                    combatUnitTwo_DiceTotal += combatUnitTwo_resultOne;
+                }
+                if (x == 2)
+                {
+                    combatUnitTwo_resultTwo += Random.Range(1,7);
+                    combatUnitTwo_DiceTotal += combatUnitTwo_resultTwo;
+                }
+                if (x == 3)
+                {
+                    combatUnitTwo_resultThree += Random.Range(1,7);
+                    combatUnitTwo_DiceTotal += combatUnitTwo_resultThree;
+                }
             }
         }
         else if (combatUnitTwo == 3)
         {
-            int x = GameMain.player_combatDice_three;
-            while (x > 0)
+            for (int x = 1; x <= GameMain.player_combatDice_three; x++)
             {
-                combatUnitTwo_DiceTotal += Random.Range(1,7);
-                x--;
+                if (x == 1)
+                {
+                    combatUnitTwo_resultOne += Random.Range(1,7);
+                    combatUnitTwo_DiceTotal += combatUnitTwo_resultOne;
+                }
+                if (x == 2)
+                {
+                    combatUnitTwo_resultTwo += Random.Range(1,7);
+                    combatUnitTwo_DiceTotal += combatUnitTwo_resultTwo;
+                }
+                if (x == 3)
+                {
+                    combatUnitTwo_resultThree += Random.Range(1,7);
+                    combatUnitTwo_DiceTotal += combatUnitTwo_resultThree;
+                }
             }
         }
         else if (combatUnitTwo == 4)
         {
-            int x = GameMain.player_combatDice_four;
-            while (x > 0)
+            for (int x = 1; x <= GameMain.player_combatDice_four; x++)
             {
-                combatUnitTwo_DiceTotal += Random.Range(1,7);
-                x--;
+                if (x == 1)
+                {
+                    combatUnitTwo_resultOne += Random.Range(1,7);
+                    combatUnitTwo_DiceTotal += combatUnitTwo_resultOne;
+                }
+                if (x == 2)
+                {
+                    combatUnitTwo_resultTwo += Random.Range(1,7);
+                    combatUnitTwo_DiceTotal += combatUnitTwo_resultTwo;
+                }
+                if (x == 3)
+                {
+                    combatUnitTwo_resultThree += Random.Range(1,7);
+                    combatUnitTwo_DiceTotal += combatUnitTwo_resultThree;
+                }
             }
         }
         else if (combatUnitTwo == 5)
         {
-            combatUnitTwo_DiceTotal += Random.Range(1,7);
+            // imp
+            combatUnitTwo_resultOne += Random.Range(1,7);
         }
         else if (combatUnitTwo == 6)
         {
-            combatUnitTwo_DiceTotal += Random.Range(2,6);
+            // basilisk
+            for (int x = 1; x <= 2; x++)
+            {
+                if (x == 1)
+                {
+                    combatUnitTwo_resultOne += Random.Range(1,7);
+                    combatUnitTwo_DiceTotal += combatUnitTwo_resultOne;
+                }
+                if (x == 2)
+                {
+                    combatUnitTwo_resultTwo += Random.Range(1,7);
+                    combatUnitTwo_DiceTotal += combatUnitTwo_resultTwo;
+                }
+            }
         }
-        updateDice = true;
+        else if (combatUnitTwo == 7)
+        {
+            // rampaging elephant
+            for (int x = 1; x <= 3; x++)
+            {
+                if (x == 1)
+                {
+                    combatUnitTwo_resultOne += Random.Range(1,7);
+                    combatUnitTwo_DiceTotal += combatUnitTwo_resultOne;
+                }
+                if (x == 2)
+                {
+                    combatUnitTwo_resultTwo += Random.Range(1,7);
+                    combatUnitTwo_DiceTotal += combatUnitTwo_resultTwo;
+                }
+                if (x == 3)
+                {
+                    combatUnitTwo_resultThree += Random.Range(1,7);
+                    combatUnitTwo_DiceTotal += combatUnitTwo_resultThree;
+                }
+            }
+        }
         // Combat Results
         if (combatUnitOne_DiceTotal > combatUnitTwo_DiceTotal)
         {

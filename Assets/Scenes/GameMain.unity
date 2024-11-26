@@ -16732,7 +16732,7 @@ MonoBehaviour:
   playerGreen: {fileID: 11400000, guid: 2f413b302a919c440bba36487f5d250e, type: 2}
   playerBlue: {fileID: 11400000, guid: c637a85b15d522e4d83c116dcdc97c68, type: 2}
   monsterImp: {fileID: 11400000, guid: a07744c50b2782448b6e9acddd18d7b3, type: 2}
-  monsterBasilisk: {fileID: 11400000, guid: 6abf17d41a559684b8eaf9005884b30c, type: 2}
+  monsterBasilisk: {fileID: 11400000, guid: ef1787982035f7b478ec2b5bc4025877, type: 2}
   monsterRampagingElephant: {fileID: 0}
   chest: {fileID: 11400000, guid: e18b07106ae7e0b41af37e48138dfdcd, type: 2}
   oddity: {fileID: 11400000, guid: 79eecc25e8dbd4b49acc60bb94f6668b, type: 2}
@@ -17453,6 +17453,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fightButton: {fileID: 1048982246}
   closeButton: {fileID: 1685340819}
+  raidButton: {fileID: 0}
 --- !u!1 &1313509345
 GameObject:
   m_ObjectHideFlags: 0

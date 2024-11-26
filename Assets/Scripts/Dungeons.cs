@@ -4,15 +4,17 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class DungeonManager : MonoBehaviour
+public class Dungeons : MonoBehaviour
 {
     public Button fightButton;
     public Button closeButton;
+    public Button raidButton;
 
     void Start()
     {
         fightButton.onClick.AddListener(OnClickFightButton);
         closeButton.onClick.AddListener(OnClickCloseButton);
+        raidButton.onClick.AddListener(OnClickRaidButton);
     }
 
     void Update()
@@ -37,5 +39,18 @@ public class DungeonManager : MonoBehaviour
     {
         GameMain.dungeonScreenEnabled = false;
         GameMain.GUIEnabled = true;
+    }
+
+    void OnClickRaidButton()
+    {
+
+    }
+
+    void RaidDungeon()
+    {
+        int random = Random.Range(1,7);
+        // Chance at gold reward
+        // Chance at combat
+        // Small chance of spawning an elite
     }
 }
