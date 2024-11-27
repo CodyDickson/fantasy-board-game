@@ -47,6 +47,10 @@ public class GUI : MonoBehaviour
         endTurnButton.onClick.AddListener(OnClickEndTurn);
         secondaryButton.gameObject.SetActive(false);
         secondaryButtonPanel.gameObject.SetActive(false);
+        arrowUp.gameObject.SetActive(false);
+        arrowRight.gameObject.SetActive(false);
+        arrowDown.gameObject.SetActive(false);
+        arrowLeft.gameObject.SetActive(false);
     }
 
     void Update()
@@ -68,7 +72,6 @@ public class GUI : MonoBehaviour
             textGoldPlayer4.text = "player " + GameMain.player_color_four + " - gold: " + GameMain.player_gold_four + "\nlives: " + GameMain.livesPlayerFour + " move: " + GameMain.player_moveDice_four + " combat: " + GameMain.player_combatDice_four;
         }
         textCurrentPlayer.text = "current player: " + GameMain.currentPlayer;
-
         if (GameMain.secondaryButtonEnabled && GameMain.GUIEnabled)
         {
             secondaryButton.gameObject.SetActive(true);

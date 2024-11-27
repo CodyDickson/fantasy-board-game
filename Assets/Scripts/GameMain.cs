@@ -180,7 +180,6 @@ public class GameMain : MonoBehaviour
 
     void Start()
     {
-        GameSetup(currentBoard, activePlayers);
         GUI.SetActive(true);
     }
 
