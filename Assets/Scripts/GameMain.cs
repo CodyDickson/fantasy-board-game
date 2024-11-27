@@ -180,6 +180,7 @@ public class GameMain : MonoBehaviour
 
     void Start()
     {
+        SpawnDungeons();
         GUI.SetActive(true);
     }
 
@@ -631,6 +632,16 @@ public class GameMain : MonoBehaviour
         {
             // RED PLAYER has been eliminated from the game
             playerRecentlyDied = false;
+        }
+    }
+
+    void SpawnDungeons()
+    {
+        for (int i = 0; i < WorldGenerator.boardSlotPositions.Count; i++)
+        {
+            WorldGenerator.boardStructures.Add(i, "dungeon" + dungeonType);
+            WorldGenerator.boardPosition = WorldGenerator.boardSlotPositions[i];
+            tilemapStructures.SetTile(new Vector3Int((int)WorldGenerator.boardPosition[0], (int)WorldGenerator.boardPosition[1]), dungeon);
         }
     }
 

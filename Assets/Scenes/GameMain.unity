@@ -15834,7 +15834,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1077264790
 RectTransform:
   m_ObjectHideFlags: 0
@@ -21829,9 +21829,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62eb0f14bfabe0d488af1fef984dcb01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firstSectionActive: 0
-  secondSectionActive: 0
-  thirdSectionActive: 0
   playeRed: {fileID: 11400000, guid: 23a7ff90342d3f0409162948518c1b1a, type: 2}
   playerBlue: {fileID: 11400000, guid: fa2a786baf5643c498a6df52d1fb6c0a, type: 2}
   playerGreen: {fileID: 11400000, guid: f3aee2334d4530f4c9b190c4cfdd9d8b, type: 2}

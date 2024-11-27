@@ -14,15 +14,24 @@ public class WorldGenerator : MonoBehaviour
     // Board tracking //
     public static List<Vector3> boardPositions = new List<Vector3>();
     public static Vector3 boardPosition;
+    public static List<Vector3> boardSlotPositions = new List<Vector3>();
     public static List<Vector3> boardCampPositions = new List<Vector3>();
     public static List<Vector3> boardCrossroads = new List<Vector3>();
     public static List<Vector3> boardStartAndEndLoops = new List<Vector3>();
+    public static Dictionary<int, string> boardClockPosition = new Dictionary<int, string>();
+    public static Dictionary<int, string> boardLoopDirection = new Dictionary<int, string>();
     public static Dictionary<int, string> boardStructures = new Dictionary<int, string>();
     public static Dictionary<int, string> boardUnits = new Dictionary<int, string>();
     public static int boardLength;
-    public bool firstSectionActive;
-    public bool secondSectionActive;
-    public bool thirdSectionActive;
+    bool firstSectionActive;
+    bool secondSectionActive;
+    bool thirdSectionActive;
+    string loopDirection;
+    bool leftPassage = false;
+    bool rightPassage = false;
+    bool downPassage = false;
+    bool topPassage = false;
+    int loopLength;
     // Tiles and tilemaps //
     [SerializeField] public Tile playeRed;
     [SerializeField] public Tile playerBlue;
@@ -74,22 +83,6 @@ public class WorldGenerator : MonoBehaviour
         CampGenerator();
         LoopGenerator();
         TerrainGenerator();
-        if (mapSizeRandom)
-        {
-            int randomMapSize = Random.Range(1,4);
-            if (randomMapSize == 1)
-            {
-                mapSize = "small";
-            }
-            else if (randomMapSize == 2)
-            {
-                mapSize = "medium";
-            }
-            else if (randomMapSize == 3)
-            {
-                mapSize = "large";
-            }
-        }
     }
 
     void Update()
@@ -194,25 +187,25 @@ public class WorldGenerator : MonoBehaviour
         tilemapBoardConnectors.SetTile(new Vector3Int(1, 1), bcTopRightCorner);
         tilemapBoardConnectors.SetTile(new Vector3Int(-1,-1), bcBottomLeftCorner);
         tilemapBoardConnectors.SetTile(new Vector3Int(1, -1), bcBottomRightCorner);
-        // boardCampPositions.Add(new Vector3(0, 1));
+        boardCampPositions.Add(new Vector3(0, 1));
+        boardCampPositions.Add(new Vector3(0, -1));
+        boardCampPositions.Add(new Vector3(1, 0));
+        boardCampPositions.Add(new Vector3(-1, 0));
+        boardCampPositions.Add(new Vector3(1, 1));
+        boardCampPositions.Add(new Vector3(-1, -1));
+        boardCampPositions.Add(new Vector3(-1, 1));
+        boardCampPositions.Add(new Vector3(1, -1));
     }
 
     void LoopGenerator()
     {
         int rowLength = 10;
         int randomRowLength = 0;
-        switch (mapSize)
-        {
-            case "small": randomRowLength = Random.Range(3,7); rowLength = randomRowLength; break;
-            case "medium": randomRowLength = Random.Range(10,15); rowLength = randomRowLength; break;
-            case "large": randomRowLength = Random.Range(16,21); rowLength = randomRowLength; break;
-        }
         // Determine where the loop will spawn
         if (!firstSectionActive)
         {
             int random = 1;
             // Random.Range(1,5);
-            string loopDirection = "";
             if (random == 1)
             {
                 tilemapBoardConnectors.SetTile(new Vector3Int(0, 1), bcThreeUp);
@@ -224,7 +217,7 @@ public class WorldGenerator : MonoBehaviour
                 boardPositions.Add(new Vector3Int(0,4));
                 boardCrossroads.Add(new Vector3Int(0,4));
                 boardStartAndEndLoops.Add(new Vector3Int(0,4));
-                loopDirection = "up";
+                boardClockPosition.Add(1, "loop");
             }
             else if (random == 2)
             {
@@ -237,7 +230,7 @@ public class WorldGenerator : MonoBehaviour
                 boardPositions.Add(new Vector3Int(4,0));
                 boardCrossroads.Add(new Vector3Int(4,0));
                 boardStartAndEndLoops.Add(new Vector3Int(4,0));
-                loopDirection = "right";
+                boardClockPosition.Add(2, "loop");
             }
             else if (random == 3)
             {
@@ -250,7 +243,7 @@ public class WorldGenerator : MonoBehaviour
                 boardPositions.Add(new Vector3Int(0,-4));
                 boardCrossroads.Add(new Vector3Int(0,-4));
                 boardStartAndEndLoops.Add(new Vector3Int(0,-4));
-                loopDirection = "down";
+                boardClockPosition.Add(3, "loop");
             }
             else if (random == 4)
             {
@@ -263,16 +256,246 @@ public class WorldGenerator : MonoBehaviour
                 boardPositions.Add(new Vector3Int(-4,0));
                 boardCrossroads.Add(new Vector3Int(-4,0));
                 boardStartAndEndLoops.Add(new Vector3Int(-4,0));
+                boardClockPosition.Add(4, "loop");
+            }
+            int randomLoopDirection = Random.Range(1,4);
+            if (randomLoopDirection == 1)
+            {
+                loopDirection = "left";
+            }
+            else if (randomLoopDirection == 2)
+            {
                 loopDirection = "right";
             }
-            for (int i = 1; i <= rowLength; i++)
+            else if (randomLoopDirection == 3)
             {
-                if (loopDirection == "up")
+                loopDirection = "either";
+            }
+            int shortSide = Random.Range(4,7);
+            int fullSide = (shortSide * 2) + 1;
+            string boardStartingPoint = "down";
+            if (boardStartingPoint == "down")
+            {
+                boardLoopDirection.Add(1, loopDirection);
+                boardPosition = boardStartAndEndLoops[0];
+                // Bottom Middle to the Bottom Left Corner
+                for (int i = 1; i <= shortSide; i++)
                 {
-                    boardPosition = boardStartAndEndLoops[0];
-                    tilemapBoardConnectors.SetTile(new Vector3Int((int)boardPosition[0] + i, (int)boardPosition[1]), bcHorizontal);
-                    boardPositions.Add(new Vector3((1 + i), rowLength + 6));
+                    tilemapBoardConnectors.SetTile(new Vector3Int((int)boardPosition[0] - i, (int)boardPosition[1]), bcHorizontal);
+                    boardPositions.Add(new Vector3((int)boardPosition[0] - i, (int)boardPosition[1]));
+                    boardSlotPositions.Add(new Vector3((int)boardPosition[0] - i, (int)boardPosition[1] + 1));
                 }
+                tilemapBoardConnectors.SetTile(new Vector3Int((int)boardPosition[0] - shortSide - 1, (int)boardPosition[1]), bcBottomLeftCorner);
+                boardPositions.Add(new Vector3((int)boardPosition[0] - shortSide - 1, (int)boardPosition[1]));
+                // Bottom Left Corner to the Top Left Corner
+                for (int i = 1; i <= shortSide; i++)
+                {
+                    tilemapBoardConnectors.SetTile(new Vector3Int((int)boardPosition[0] - shortSide - 1, (int)boardPosition[1] + i), bcVertical);
+                    boardPositions.Add(new Vector3((int)boardPosition[0] - shortSide - 1, (int)boardPosition[1] + i));
+                    if (i > 1)
+                    {
+                        boardSlotPositions.Add(new Vector3((int)boardPosition[0] - shortSide, (int)boardPosition[1] + i));
+                    }
+                }
+                random = Random.Range(1,3);
+                if (random == 1)
+                {
+                    Debug.Log("Three Left");
+                    tilemapBoardConnectors.SetTile(new Vector3Int((int)boardPosition[0] - shortSide - 1, (int)boardPosition[1] + shortSide + 1), bcThreeLeft);
+                    boardPositions.Add(new Vector3((int)boardPosition[0] - shortSide - 1, (int)boardPosition[1] + shortSide + 1));
+                    boardCrossroads.Add(new Vector3((int)boardPosition[0] - shortSide - 1, (int)boardPosition[1] + shortSide + 1));
+                    leftPassage = true;
+                }
+                else if (random == 2)
+                {
+                    tilemapBoardConnectors.SetTile(new Vector3Int((int)boardPosition[0] - shortSide - 1, (int)boardPosition[1] + shortSide + 1), bcVertical);
+                    boardPositions.Add(new Vector3((int)boardPosition[0] - shortSide - 1, (int)boardPosition[1] + shortSide + 1));
+                    boardSlotPositions.Add(new Vector3((int)boardPosition[0] - shortSide, (int)boardPosition[1] + shortSide + 1));
+                    leftPassage = false;
+                }
+                for (int i = shortSide + 2; i <= fullSide; i++)
+                {
+                    tilemapBoardConnectors.SetTile(new Vector3Int((int)boardPosition[0] - shortSide - 1, (int)boardPosition[1] + i), bcVertical);
+                    boardPositions.Add(new Vector3((int)boardPosition[0] - shortSide - 1, (int)boardPosition[1] + i));
+                    boardSlotPositions.Add(new Vector3((int)boardPosition[0] - shortSide, (int)boardPosition[1] + i));
+                }
+                tilemapBoardConnectors.SetTile(new Vector3Int((int)boardPosition[0] - shortSide - 1, (int)boardPosition[1] + fullSide + 1), bcTopLeftCorner);
+                boardPositions.Add(new Vector3((int)boardPosition[0] - shortSide - 1, (int)boardPosition[1] + fullSide + 1));
+                // Top Left Corner to Top Right Corner
+                for (int i = 0; i < shortSide; i++)
+                {
+                    tilemapBoardConnectors.SetTile(new Vector3Int((int)boardPosition[0] - shortSide + i, (int)boardPosition[1] + fullSide + 1), bcHorizontal);
+                    boardPositions.Add(new Vector3((int)boardPosition[0] - shortSide + i, (int)boardPosition[1] + fullSide + 1));
+                    boardSlotPositions.Add(new Vector3((int)boardPosition[0] - shortSide + i, (int)boardPosition[1] + fullSide));
+                }
+                random = Random.Range(1,3);
+                if (random == 1)
+                {
+                    Debug.Log("Three Up");
+                    tilemapBoardConnectors.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1] + fullSide + 1), bcThreeUp);
+                    boardPositions.Add(new Vector3((int)boardPosition[0], (int)boardPosition[1] + fullSide + 1));
+                    boardCrossroads.Add(new Vector3((int)boardPosition[0], (int)boardPosition[1] + fullSide + 1));
+                    topPassage = true;
+                }
+                else if (random == 2)
+                {
+                    tilemapBoardConnectors.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1] + fullSide + 1), bcHorizontal);
+                    boardPositions.Add(new Vector3((int)boardPosition[0], (int)boardPosition[1] + fullSide + 1));
+                    boardSlotPositions.Add(new Vector3((int)boardPosition[0], (int)boardPosition[1] + fullSide));
+                    topPassage = false;
+                }
+                for (int i = 1; i <= shortSide; i++)
+                {
+                    tilemapBoardConnectors.SetTile(new Vector3Int((int)boardPosition[0] + i, (int)boardPosition[1] + fullSide + 1), bcHorizontal);
+                    boardPositions.Add(new Vector3((int)boardPosition[0] + i, (int)boardPosition[1] + fullSide + 1));
+                    boardSlotPositions.Add(new Vector3((int)boardPosition[0] + i, (int)boardPosition[1] + fullSide));
+                }
+                tilemapBoardConnectors.SetTile(new Vector3Int((int)boardPosition[0] + shortSide + 1, (int)boardPosition[1] + fullSide + 1), bcTopRightCorner);
+                boardPositions.Add(new Vector3((int)boardPosition[0] + shortSide + 1, (int)boardPosition[1] + fullSide + 1));
+                // Top Right Corner to Bottom Right Corner
+                for (int i = 0; i < shortSide; i++)
+                {
+                    tilemapBoardConnectors.SetTile(new Vector3Int((int)boardPosition[0] + shortSide + 1, (int)boardPosition[1] + fullSide - i), bcVertical);
+                    boardPositions.Add(new Vector3((int)boardPosition[0] + shortSide + 1, (int)boardPosition[1] - i));
+                    boardSlotPositions.Add(new Vector3((int)boardPosition[0] + shortSide, (int)boardPosition[1] + fullSide - i));
+                }
+                random = Random.Range(1,3);
+                if (random == 1)
+                {
+                    Debug.Log("Three Right");
+                    tilemapBoardConnectors.SetTile(new Vector3Int((int)boardPosition[0] + shortSide + 1, (int)boardPosition[1] + shortSide + 1), bcThreeRight);
+                    boardPositions.Add(new Vector3((int)boardPosition[0] + shortSide + 1, (int)boardPosition[1] + shortSide - 1));
+                    boardCrossroads.Add(new Vector3((int)boardPosition[0] + shortSide + 1, (int)boardPosition[1] + shortSide - 1));
+                    rightPassage = true;
+                }
+                else if (random == 2)
+                {
+                    tilemapBoardConnectors.SetTile(new Vector3Int((int)boardPosition[0] + shortSide + 1, (int)boardPosition[1] + shortSide + 1), bcVertical);
+                    boardPositions.Add(new Vector3((int)boardPosition[0] + shortSide + 1, (int)boardPosition[1] + shortSide - 1));
+                    boardSlotPositions.Add(new Vector3((int)boardPosition[0] + shortSide, (int)boardPosition[1] + shortSide + 1));
+                    rightPassage = false;
+                }
+                for (int i = 0; i <= shortSide; i++)
+                {
+                    tilemapBoardConnectors.SetTile(new Vector3Int((int)boardPosition[0] + shortSide + 1, (int)boardPosition[1] + shortSide - i), bcVertical);
+                    boardPositions.Add(new Vector3((int)boardPosition[0] + shortSide + 1, (int)boardPosition[1] + shortSide + 2 - i));
+                    boardSlotPositions.Add(new Vector3((int)boardPosition[0] + shortSide, (int)boardPosition[1] + shortSide + 2 - i));
+                }
+                tilemapBoardConnectors.SetTile(new Vector3Int((int)boardPosition[0] + shortSide + 1, (int)boardPosition[1]), bcBottomRightCorner);
+                boardPositions.Add(new Vector3((int)boardPosition[0] + shortSide + 1, (int)boardPosition[1]));
+                // Bottom Right Corner to Bottom Middle
+                for (int i = 0; i < shortSide; i++)
+                {
+                    tilemapBoardConnectors.SetTile(new Vector3Int((int)boardPosition[0] + shortSide - i, (int)boardPosition[1]), bcHorizontal);
+                    boardPositions.Add(new Vector3((int)boardPosition[0] + shortSide - i, (int)boardPosition[1]));
+                    boardSlotPositions.Add(new Vector3((int)boardPosition[0] + shortSide - i, (int)boardPosition[1] + 1));
+                }
+            }
+            if (boardStartingPoint == "right")
+            {
+                boardLoopDirection.Add(1, loopDirection);
+                boardPosition = boardStartAndEndLoops[0];
+                // Middle Left to Top Left Corner
+                for (int i = 1; i <= shortSide; i++)
+                {
+                    tilemapBoardConnectors.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1] + i), bcVertical);
+                    boardPositions.Add(new Vector3((int)boardPosition[0], (int)boardPosition[1] + i));
+                    boardSlotPositions.Add(new Vector3((int)boardPosition[0], (int)boardPosition[1] + i));
+                }
+                tilemapBoardConnectors.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1] + shortSide + 1), bcTopLeftCorner);
+                boardPositions.Add(new Vector3((int)boardPosition[0], (int)boardPosition[1] + shortSide + 1));
+                /*
+                // Top Left Corner to Top Right Corner
+                for (int i = 0; i < shortSide; i++)
+                {
+                    tilemapBoardConnectors.SetTile(new Vector3Int((int)boardPosition[0] - shortSide + i, (int)boardPosition[1] + fullSide + 1), bcHorizontal);
+                    boardPositions.Add(new Vector3((int)boardPosition[0] - shortSide + i, (int)boardPosition[1] + fullSide + 1));
+                    boardSlotPositions.Add(new Vector3((int)boardPosition[0] - shortSide + i, (int)boardPosition[1] + fullSide));
+                }
+                random = Random.Range(1,3);
+                if (random == 1)
+                {
+                    Debug.Log("Three Up");
+                    tilemapBoardConnectors.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1] + fullSide + 1), bcThreeUp);
+                    boardPositions.Add(new Vector3((int)boardPosition[0], (int)boardPosition[1] + fullSide + 1));
+                    boardCrossroads.Add(new Vector3((int)boardPosition[0], (int)boardPosition[1] + fullSide + 1));
+                    topPassage = true;
+                }
+                else if (random == 2)
+                {
+                    tilemapBoardConnectors.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1] + fullSide + 1), bcHorizontal);
+                    boardPositions.Add(new Vector3((int)boardPosition[0], (int)boardPosition[1] + fullSide + 1));
+                    boardSlotPositions.Add(new Vector3((int)boardPosition[0], (int)boardPosition[1] + fullSide));
+                    topPassage = false;
+                }
+                for (int i = 1; i <= shortSide; i++)
+                {
+                    tilemapBoardConnectors.SetTile(new Vector3Int((int)boardPosition[0] + i, (int)boardPosition[1] + fullSide + 1), bcHorizontal);
+                    boardPositions.Add(new Vector3((int)boardPosition[0] + i, (int)boardPosition[1] + fullSide + 1));
+                    boardSlotPositions.Add(new Vector3((int)boardPosition[0] + i, (int)boardPosition[1] + fullSide + 1));
+                }
+                tilemapBoardConnectors.SetTile(new Vector3Int((int)boardPosition[0] + shortSide + 1, (int)boardPosition[1] + fullSide + 1), bcTopRightCorner);
+                boardPositions.Add(new Vector3((int)boardPosition[0] + shortSide + 1, (int)boardPosition[1] + fullSide + 1));
+                // Top Right Corner to Bottom Right Corner
+                for (int i = 0; i < shortSide; i++)
+                {
+                    tilemapBoardConnectors.SetTile(new Vector3Int((int)boardPosition[0] + shortSide + 1, (int)boardPosition[1] + fullSide - i), bcVertical);
+                    boardPositions.Add(new Vector3((int)boardPosition[0] + shortSide + 1, (int)boardPosition[1] - i));
+                    if (i > 1)
+                    {
+                        boardSlotPositions.Add(new Vector3((int)boardPosition[0] + shortSide, (int)boardPosition[1] - i));
+                    }
+                }
+                random = Random.Range(1,3);
+                if (random == 1)
+                {
+                    Debug.Log("Three Right");
+                    tilemapBoardConnectors.SetTile(new Vector3Int((int)boardPosition[0] + shortSide + 1, (int)boardPosition[1] + shortSide + 1), bcThreeRight);
+                    boardPositions.Add(new Vector3((int)boardPosition[0] + shortSide + 1, (int)boardPosition[1] + shortSide - 1));
+                    boardCrossroads.Add(new Vector3((int)boardPosition[0] + shortSide + 1, (int)boardPosition[1] + shortSide - 1));
+                    rightPassage = true;
+                }
+                else if (random == 2)
+                {
+                    tilemapBoardConnectors.SetTile(new Vector3Int((int)boardPosition[0] + shortSide + 1, (int)boardPosition[1] + shortSide - 1), bcVertical);
+                    boardPositions.Add(new Vector3((int)boardPosition[0] + shortSide + 1, (int)boardPosition[1] + shortSide - 1));
+                    boardSlotPositions.Add(new Vector3((int)boardPosition[0] + shortSide, (int)boardPosition[1] + shortSide - 1));
+                    rightPassage = false;
+                }
+                for (int i = 0; i <= shortSide; i++)
+                {
+                    tilemapBoardConnectors.SetTile(new Vector3Int((int)boardPosition[0] + shortSide + 1, (int)boardPosition[1] + shortSide - i), bcVertical);
+                    boardPositions.Add(new Vector3((int)boardPosition[0] + shortSide + 1, (int)boardPosition[1] + shortSide - 1));
+                    boardSlotPositions.Add(new Vector3((int)boardPosition[0] + shortSide + 1, (int)boardPosition[1] + shortSide + 1));
+                }
+                tilemapBoardConnectors.SetTile(new Vector3Int((int)boardPosition[0] + shortSide + 1, (int)boardPosition[1]), bcBottomRightCorner);
+                boardPositions.Add(new Vector3((int)boardPosition[0] + shortSide + 1, (int)boardPosition[1]));
+                // Bottom Right Corner to Bottom Left Corner
+                for (int i = 0; i < shortSide; i++)
+                {
+                    tilemapBoardConnectors.SetTile(new Vector3Int((int)boardPosition[0] + shortSide - i, (int)boardPosition[1]), bcHorizontal);
+                    boardPositions.Add(new Vector3((int)boardPosition[0] + shortSide - i, (int)boardPosition[1]));
+                    boardSlotPositions.Add(new Vector3((int)boardPosition[0] + shortSide - i, (int)boardPosition[1] + 1));
+                }
+                // Put IF statement here
+                for (int i = 1; i <= shortSide; i++)
+                {
+                    tilemapBoardConnectors.SetTile(new Vector3Int((int)boardPosition[0] - i, (int)boardPosition[1]), bcHorizontal);
+                    boardPositions.Add(new Vector3((int)boardPosition[0] - i, (int)boardPosition[1]));
+                    boardSlotPositions.Add(new Vector3((int)boardPosition[0] - i, (int)boardPosition[1] + 1));
+                }
+                tilemapBoardConnectors.SetTile(new Vector3Int((int)boardPosition[0] - shortSide - 1, (int)boardPosition[1]), bcBottomLeftCorner);
+                boardPositions.Add(new Vector3((int)boardPosition[0] - shortSide - 1, (int)boardPosition[1]));
+                // Bottom Left Corner to Left Middle
+                for (int i = 1; i <= shortSide; i++)
+                {
+                    tilemapBoardConnectors.SetTile(new Vector3Int((int)boardPosition[0] - shortSide - 1, (int)boardPosition[1] + i), bcVertical);
+                    boardPositions.Add(new Vector3((int)boardPosition[0] - shortSide - 1, (int)boardPosition[1] + i));
+                    if (i > 1)
+                    {
+                        boardSlotPositions.Add(new Vector3((int)boardPosition[0] - shortSide, (int)boardPosition[1] + i));
+                    }
+                }*/
             }
             firstSectionActive = true;
         }
