@@ -5,12 +5,16 @@ using UnityEngine.UI;
 using UnityEngine.Tilemaps;
 using TMPro;
 
-public class GUIManager : MonoBehaviour
+public class GUI : MonoBehaviour
 {
     public Button rollButton;
     public Button secondaryButton;
-    public GameObject secondaryButtonPanel;
     public Button endTurnButton;
+    public GameObject secondaryButtonPanel;
+    public GameObject arrowUp;
+    public GameObject arrowRight;
+    public GameObject arrowDown;
+    public GameObject arrowLeft;
     [SerializeField] public Tile player;
     [SerializeField] public Tile player_red;
     [SerializeField] public Tile player_blue;

@@ -6,22 +6,20 @@ using TMPro;
 
 public class Dungeons : MonoBehaviour
 {
-    public Button fightButton;
     public Button closeButton;
     public Button raidButton;
 
     void Start()
     {
-        fightButton.onClick.AddListener(OnClickFightButton);
         closeButton.onClick.AddListener(OnClickCloseButton);
         raidButton.onClick.AddListener(OnClickRaidButton);
     }
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.F) && GameMain.dungeonScreenEnabled)
+        if (Input.GetKey(KeyCode.R) && GameMain.dungeonScreenEnabled)
         {
-            OnClickFightButton();
+            OnClickRaidButton();
         }
         if (Input.GetKey(KeyCode.C) && GameMain.dungeonScreenEnabled)
         {
@@ -29,7 +27,7 @@ public class Dungeons : MonoBehaviour
         }
     }
 
-    void OnClickFightButton()
+    void OnClickRaidButton()
     {
         GameMain.dungeonScreenEnabled = false;
         GameMain.combatScreenEnabled = true;
@@ -39,11 +37,6 @@ public class Dungeons : MonoBehaviour
     {
         GameMain.dungeonScreenEnabled = false;
         GameMain.GUIEnabled = true;
-    }
-
-    void OnClickRaidButton()
-    {
-
     }
 
     void RaidDungeon()

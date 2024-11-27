@@ -844,7 +844,7 @@ public class GameMain : MonoBehaviour
         {
             //
         }
-        else if (currentBoard == "elemental")
+        else if (currentBoard == "ocean")
         {
             //
         }
