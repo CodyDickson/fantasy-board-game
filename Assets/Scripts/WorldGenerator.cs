@@ -8,11 +8,9 @@ public class WorldGenerator : MonoBehaviour
 {
     // Map Settings //
     public static bool mapSizeRandom = false;
-    public static string mapSize = "medium";
-    public static int mapLoops = 0;
-    public static int mapPassages = 0;
     // Board tracking //
     public static List<Vector3> boardPositions = new List<Vector3>();
+    public static List<Vector3> localBoardPositions = new List<Vector3>();
     public static Vector3 boardPosition;
     public static List<Vector3> boardSlotPositions = new List<Vector3>();
     public static List<Vector3> boardCampPositions = new List<Vector3>();
@@ -88,6 +86,35 @@ public class WorldGenerator : MonoBehaviour
     void Update()
     {
         
+    }
+
+    void CheckForLocalBoardPositions()
+    {
+        boardPosition = boardPositions[GameMain.currentUnitPosition];
+        Vector3 north;
+        north = new Vector3((boardPositions[0]), boardPositions[1]);
+        Vector3 east = new Vector3((int)boardPositions[0] && ((int)boardPositions[1] + 1));
+        Vector3 south = new Vector3(((int)boardPositions[0] - 1) && (int)boardPositions[1]);
+        Vector3 west = new Vector3((int)boardPositions[0] && ((int)boardPositions[1] - 1));
+        foreach (Vector3 listVector in boardPositions)
+        {
+            if (listVector == north)
+            {
+                localBoardPositions.Add(new Vector3(north[0], north[1]));
+            }
+            else if (listVector == east)
+            {
+                localBoardPositions.Add(new Vector3(east[0], east[1]));
+            }
+            else if (listVector == south)
+            {
+                localBoardPositions.Add(new Vector3(south[0], south[1]));
+            }
+            else if (listVector == west)
+            {
+                localBoardPositions.Add(new Vector3(west[0], west[1]));
+            }
+        }
     }
 
     void TerrainGenerator()
@@ -271,8 +298,9 @@ public class WorldGenerator : MonoBehaviour
             {
                 loopDirection = "either";
             }
-            int shortSide = Random.Range(4,7);
+            int shortSide = Random.Range(3,5);
             int fullSide = (shortSide * 2) + 1;
+
             string boardStartingPoint = "down";
             if (boardStartingPoint == "down")
             {
@@ -357,7 +385,7 @@ public class WorldGenerator : MonoBehaviour
                 {
                     tilemapBoardConnectors.SetTile(new Vector3Int((int)boardPosition[0] + shortSide + 1, (int)boardPosition[1] + fullSide - i), bcVertical);
                     boardPositions.Add(new Vector3((int)boardPosition[0] + shortSide + 1, (int)boardPosition[1] - i));
-                    boardSlotPositions.Add(new Vector3((int)boardPosition[0] + shortSide, (int)boardPosition[1] + fullSide - i));
+                    /*boardSlotPositions.Add(new Vector3((int)boardPosition[0] + shortSide, (int)boardPosition[1] + fullSide - i));*/
                 }
                 random = Random.Range(1,3);
                 if (random == 1)
@@ -371,15 +399,15 @@ public class WorldGenerator : MonoBehaviour
                 else if (random == 2)
                 {
                     tilemapBoardConnectors.SetTile(new Vector3Int((int)boardPosition[0] + shortSide + 1, (int)boardPosition[1] + shortSide + 1), bcVertical);
-                    boardPositions.Add(new Vector3((int)boardPosition[0] + shortSide + 1, (int)boardPosition[1] + shortSide - 1));
+                    boardPositions.Add(new Vector3((int)boardPosition[0] + shortSide + 1, (int)boardPosition[1] + shortSide + 1));
                     boardSlotPositions.Add(new Vector3((int)boardPosition[0] + shortSide, (int)boardPosition[1] + shortSide + 1));
                     rightPassage = false;
                 }
                 for (int i = 0; i <= shortSide; i++)
                 {
                     tilemapBoardConnectors.SetTile(new Vector3Int((int)boardPosition[0] + shortSide + 1, (int)boardPosition[1] + shortSide - i), bcVertical);
-                    boardPositions.Add(new Vector3((int)boardPosition[0] + shortSide + 1, (int)boardPosition[1] + shortSide + 2 - i));
-                    boardSlotPositions.Add(new Vector3((int)boardPosition[0] + shortSide, (int)boardPosition[1] + shortSide + 2 - i));
+                    boardPositions.Add(new Vector3((int)boardPosition[0] + shortSide + 1, (int)boardPosition[1] + shortSide + 1 - i));
+                    boardSlotPositions.Add(new Vector3((int)boardPosition[0] + shortSide, (int)boardPosition[1] + shortSide - i));
                 }
                 tilemapBoardConnectors.SetTile(new Vector3Int((int)boardPosition[0] + shortSide + 1, (int)boardPosition[1]), bcBottomRightCorner);
                 boardPositions.Add(new Vector3((int)boardPosition[0] + shortSide + 1, (int)boardPosition[1]));

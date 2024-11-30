@@ -359,24 +359,6 @@ public class GameMain : MonoBehaviour
                         currentUnitPosition = 1;
                     }
                 }
-/*                // Add 200 gold if the unit passes camp
-                if (currentPlayer == 1 && currentUnitPosition == 0)
-                {
-                    player_gold_one += 200;
-                }
-                else if (currentPlayer == 2 && currentUnitPosition == 0)
-                {
-                    player_gold_two += 200;
-                }
-                else if (currentPlayer == 3 && currentUnitPosition == 0)
-                {
-                    player_gold_three += 200;
-                }
-                else if (currentPlayer == 4 && currentUnitPosition == 0)
-                {
-                    player_gold_four += 200;
-                }*/
-                // Save whatever unit is currently at the next position
                 if (currentPlayer != 1 && unitPositionPlayer1 == currentUnitPosition)
                 {
                     currentAvatar = 1; 
