@@ -11,10 +11,12 @@ public class GUI : MonoBehaviour
     public Button secondaryButton;
     public Button endTurnButton;
     public GameObject secondaryButtonPanel;
-    public GameObject arrowUp;
+    public Button arrowUpButton;
     public GameObject arrowRight;
     public GameObject arrowDown;
     public GameObject arrowLeft;
+    public World world;
+    public static bool enableArrowButtons = false;
     [SerializeField] public Tile player;
     [SerializeField] public Tile player_red;
     [SerializeField] public Tile player_blue;
@@ -45,9 +47,10 @@ public class GUI : MonoBehaviour
         rollButton.onClick.AddListener(OnClickRoll);
         secondaryButton.onClick.AddListener(OnClickSecondaryButton);
         endTurnButton.onClick.AddListener(OnClickEndTurn);
+        arrowUpButton.onClick.AddListener(OnClickArrowUpButton);
         secondaryButton.gameObject.SetActive(false);
         secondaryButtonPanel.gameObject.SetActive(false);
-        arrowUp.gameObject.SetActive(false);
+        arrowUpButton.gameObject.SetActive(false);
         arrowRight.gameObject.SetActive(false);
         arrowDown.gameObject.SetActive(false);
         arrowLeft.gameObject.SetActive(false);
@@ -55,6 +58,14 @@ public class GUI : MonoBehaviour
 
     void Update()
     {
+        if (enableArrowButtons)
+        {
+            if (World.northPositionAvailable == true)
+            {
+                arrowUpButton.gameObject.SetActive(true);
+            }
+        }
+
         if (GameMain.activePlayers >= 1)
         {
             textGoldPlayer1.text = "player " + GameMain.player_color_one + " - gold: " + GameMain.player_gold_one + "\nlives: " + GameMain.livesPlayerOne + " move: " + GameMain.player_moveDice_one + " combat: " + GameMain.player_combatDice_one;
@@ -105,11 +116,35 @@ public class GUI : MonoBehaviour
     {
         if (GameMain.endTurnButtonEnabled)
         {
-            GameMain.EndTurn(tilemap, monsterImp, monsterBasilisk);
+            GameMain.EndTurn(tilemap, monsterImp, monsterBasilisk, world);
         }
         else
         {
             Debug.Log("End turn is currently disabled");
         }
+    }
+
+    void OnClickArrowUpButton()
+    {
+        World.currentUnitDirection = "north";
+        World.playerIsMoving = true;
+        enableArrowButtons = false;
+    }
+
+    void OnClickRightArrowButton()
+    {
+        World.currentUnitDirection = "east";
+        World.playerIsMoving = true;
+        enableArrowButtons = false;
+    }
+
+    void OnClickDownArrowButton()
+    {
+
+    }
+
+    void OnClickLeftArrowButton()
+    {
+
     }
 }

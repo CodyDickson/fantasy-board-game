@@ -572,22 +572,22 @@ public class Combat : MonoBehaviour
         {
             combatUnitOne_AmountOfCombatDice = GameMain.player_combatDice_four;
         }
-        if (GameMain.currentUnitPosition == GameMain.unitPositionPlayer1 && GameMain.currentPlayer != 1)
+        if (World.currentUnitPositionOnBoard == GameMain.unitPositionPlayer1 && GameMain.currentPlayer != 1)
         {
             combatUnitTwo = 1;
             combatUnitTwo_AmountOfCombatDice = GameMain.player_combatDice_one;
         }
-        else if (GameMain.currentUnitPosition == GameMain.unitPositionPlayer2 && GameMain.currentPlayer != 2)
+        else if (World.currentUnitPositionOnBoard == GameMain.unitPositionPlayer2 && GameMain.currentPlayer != 2)
         {
             combatUnitTwo = 2;
             combatUnitTwo_AmountOfCombatDice = GameMain.player_combatDice_two;
         }
-        else if (GameMain.currentUnitPosition == GameMain.unitPositionPlayer3 && GameMain.currentPlayer != 3)
+        else if (World.currentUnitPositionOnBoard == GameMain.unitPositionPlayer3 && GameMain.currentPlayer != 3)
         {
             combatUnitTwo = 3;
             combatUnitTwo_AmountOfCombatDice = GameMain.player_combatDice_three;
         }
-        else if (GameMain.currentUnitPosition == GameMain.unitPositionPlayer4 && GameMain.currentPlayer != 4)
+        else if (World.currentUnitPositionOnBoard == GameMain.unitPositionPlayer4 && GameMain.currentPlayer != 4)
         {
             combatUnitTwo = 4;
             combatUnitTwo_AmountOfCombatDice = GameMain.player_combatDice_four;
@@ -697,7 +697,7 @@ public class Combat : MonoBehaviour
                     GameMain.player_gold_four += 500;
                 }
             }
-            GameMain.boardMonsters[GameMain.currentUnitPosition] = "empty";
+            GameMain.boardMonsters[World.currentUnitPositionOnBoard] = "empty";
             // Return combatUnitTwo to camp if it is a player
             if (combatUnitTwo == 1)
             {
@@ -850,12 +850,12 @@ public class Combat : MonoBehaviour
             }
             if (combatUnitTwo == 5)
             {
-                GameMain.boardPosition = GameMain.boardPositions[GameMain.currentUnitPosition];
+                GameMain.boardPosition = GameMain.boardPositions[World.currentUnitPositionOnBoard];
                 tilemap.SetTile(new Vector3Int((int)GameMain.boardPosition[0], (int)GameMain.boardPosition[1]), monsterImp);
             }
             else if (combatUnitTwo == 6)
             {
-                GameMain.boardPosition = GameMain.boardPositions[GameMain.currentUnitPosition];
+                GameMain.boardPosition = GameMain.boardPositions[World.currentUnitPositionOnBoard];
                 tilemap.SetTile(new Vector3Int((int)GameMain.boardPosition[0], (int)GameMain.boardPosition[1]), monsterBasilisk);
             }
         }
@@ -866,7 +866,7 @@ public class Combat : MonoBehaviour
             if (rand == 1)
             {
                 Debug.Log("Player " + GameMain.currentPlayer + " has won!");
-                GameMain.boardMonsters[GameMain.currentUnitPosition] = "empty";
+                GameMain.boardMonsters[World.currentUnitPositionOnBoard] = "empty";
                 // Return combatUnitTwo to camp if it is a player
                 if (combatUnitTwo == 1)
                 {
@@ -1019,12 +1019,12 @@ public class Combat : MonoBehaviour
                 // Set monster avatar on the board
                 if (combatUnitTwo == 5)
                 {
-                    GameMain.boardPosition = GameMain.boardPositions[GameMain.currentUnitPosition];
+                    GameMain.boardPosition = GameMain.boardPositions[World.currentUnitPositionOnBoard];
                     tilemap.SetTile(new Vector3Int((int)GameMain.boardPosition[0], (int)GameMain.boardPosition[1]), monsterImp);
                 }
                 else if (combatUnitTwo == 6)
                 {
-                    GameMain.boardPosition = GameMain.boardPositions[GameMain.currentUnitPosition];
+                    GameMain.boardPosition = GameMain.boardPositions[World.currentUnitPositionOnBoard];
                     tilemap.SetTile(new Vector3Int((int)GameMain.boardPosition[0], (int)GameMain.boardPosition[1]), monsterBasilisk);
                 }
             }

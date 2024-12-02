@@ -94,10 +94,7 @@ public class GameMain : MonoBehaviour
     public static string player_color_three = "green";
     public static string player_color_four = "purple";
     // Current move info //
-    public static int currentUnitPosition = 0;
-    public static int newUnitPosition = 0;
     public static int currentPlayerDice = 0;
-    public static int currentAvatar = 0;
     // Player position tracking //
     public static int unitPositionPlayer1;
     public static int unitPositionPlayer2;
@@ -177,9 +174,14 @@ public class GameMain : MonoBehaviour
     private float counter2 = 2f;
     private float tempCounter = 0f;
     private float tempCounter2 = 0f;
+    // Other //
+    public World world;
 
     void Start()
     {
+        currentTurn = 1;
+        player_in_camp_one = true;
+        world.SpawnPlayersAtCamp(activePlayers);
         SpawnDungeons();
         GUI.SetActive(true);
     }
@@ -192,7 +194,7 @@ public class GameMain : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.E) && endTurnButtonEnabled)
         {
-            EndTurn(tilemapStructures, monsterImp, monsterBasilisk);
+            EndTurn(tilemapStructures, monsterImp, monsterBasilisk, world);
         }
         if (Input.GetKeyDown(KeyCode.V) && secondaryButtonEnabled)
         {
@@ -224,241 +226,6 @@ public class GameMain : MonoBehaviour
         else if (villageScreenEnabled)
         {
             GUI.SetActive(false);
-        }
-        else if (playerIsMoving)
-        {
-            if (tempCounter <= 0f)
-            {
-                // Sets avatar at previous position
-                if (currentAvatar == 0)
-                {
-                    boardPosition = boardPositions[currentUnitPosition];
-                    tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), null);
-                }
-                else if (currentAvatar == 1)
-                {
-                    boardPosition = boardPositions[currentUnitPosition];
-                    if (player_color_one == "red")
-                    {
-                        tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), player_red);
-                    }
-                    else if (player_color_one == "blue")
-                    {
-                        tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), player_blue);
-                    }
-                    else if (player_color_one == "green")
-                    {
-                        tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), player_green);
-                    }
-                    else if (player_color_one == "purple")
-                    {
-                        tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), player_purple);
-                    }
-                    else if (player_color_one == "white")
-                    {
-                        tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), player_white);
-                    }              
-                }
-                else if (currentAvatar == 2)
-                {
-                    boardPosition = boardPositions[currentUnitPosition];
-                    if (player_color_two == "red")
-                    {
-                        tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), player_red);
-                    }
-                    else if (player_color_two == "blue")
-                    {
-                        tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), player_blue);
-                    }
-                    else if (player_color_two == "green")
-                    {
-                        tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), player_green);
-                    }
-                    else if (player_color_two == "purple")
-                    {
-                        tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), player_purple);
-                    }
-                    else if (player_color_two == "white")
-                    {
-                        tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), player_white);
-                    }
-                }
-                else if (currentAvatar == 3)
-                {
-                    boardPosition = boardPositions[currentUnitPosition];
-                    if (player_color_three == "red")
-                    {
-                        tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), player_red);
-                    }
-                    else if (player_color_three == "blue")
-                    {
-                        tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), player_blue);
-                    }
-                    else if (player_color_three == "green")
-                    {
-                        tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), player_green);
-                    }
-                    else if (player_color_three == "purple")
-                    {
-                        tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), player_purple);
-                    }
-                    else if (player_color_three == "white")
-                    {
-                        tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), player_white);
-                    }
-                }
-                else if (currentAvatar == 4)
-                {
-                    boardPosition = boardPositions[currentUnitPosition];
-                    if (player_color_four == "red")
-                    {
-                        tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), player_red);
-                    }
-                    else if (player_color_four == "blue")
-                    {
-                        tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), player_blue);
-                    }
-                    else if (player_color_four == "green")
-                    {
-                        tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), player_green);
-                    }
-                    else if (player_color_four == "purple")
-                    {
-                        tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), player_purple);
-                    }
-                    else if (player_color_four == "white")
-                    {
-                        tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), player_white);
-                    }
-                }
-                else if (currentAvatar == 5)
-                {
-                    boardPosition = boardPositions[currentUnitPosition];
-                    tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), monsterImp);
-                }
-                else if (currentAvatar == 6)
-                {
-                    boardPosition = boardPositions[currentUnitPosition];
-                    tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), monsterBasilisk);
-                }
-                if (!playerIsMovingInReverse)
-                {
-                    currentUnitPosition += 1;
-                    // Loop around the board
-                    if (currentUnitPosition > (boardLength - 1))
-                    {
-                        currentUnitPosition = 0;
-                    }
-                }
-                if (playerIsMovingInReverse)
-                {
-                    currentUnitPosition -= 1;
-                    // Loop around the board
-                    if (currentUnitPosition == 0)
-                    {
-                        currentUnitPosition = 1;
-                    }
-                }
-                if (currentPlayer != 1 && unitPositionPlayer1 == currentUnitPosition)
-                {
-                    currentAvatar = 1; 
-                }
-                else if (currentPlayer != 2 && unitPositionPlayer2 == currentUnitPosition)
-                {
-                    currentAvatar = 2;
-                }
-                else if (currentPlayer != 3 && unitPositionPlayer3 == currentUnitPosition)
-                {
-                    currentAvatar = 3;
-                }
-                else if (currentPlayer != 4 && unitPositionPlayer4 == currentUnitPosition)
-                {
-                    currentAvatar = 4;
-                }
-                else if (boardMonsters[currentUnitPosition] == "imp")
-                {
-                    currentAvatar = 5;
-                    currentEnemy = "imp";
-                }
-                else if (boardMonsters[currentUnitPosition] == "basilisk")
-                {
-                    currentAvatar = 6;
-                    currentEnemy = "basilisk";
-                }
-                else
-                {
-                    currentAvatar = 0;
-                }
-                // Sets avatar at next position
-                boardPosition = boardPositions[currentUnitPosition];
-                if (currentPlayer == 1 && currentUnitPosition != newUnitPosition)
-                {
-                    switch (player_color_one)
-                    {
-                        case "red": tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), player_red); break;
-                        case "blue": tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), player_blue); break;
-                        case "green": tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), player_green); break;
-                        case "purple": tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), player_purple); break;
-                        case "white": tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), player_white); break;
-                        default: tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), player); break;
-                    }          
-                }
-                else if (currentPlayer == 2 && currentUnitPosition != newUnitPosition)
-                {
-                    switch (player_color_two)
-                    {
-                        case "red": tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), player_red); break;
-                        case "blue": tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), player_blue); break;
-                        case "green": tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), player_green); break;
-                        case "purple": tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), player_purple); break;
-                        case "white": tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), player_white); break;
-                        default: tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), player); break;
-                    }  
-                }
-                else if (currentPlayer == 3 && currentUnitPosition != newUnitPosition)
-                {
-                    switch (player_color_three)
-                    {
-                        case "red": tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), player_red); break;
-                        case "blue": tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), player_blue); break;
-                        case "green": tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), player_green); break;
-                        case "purple": tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), player_purple); break;
-                        case "white": tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), player_white); break;
-                        default: tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), player); break;
-                    }  
-                }
-                else if (currentPlayer == 4 && currentUnitPosition != newUnitPosition)
-                {
-                    switch (player_color_four)
-                    {
-                        case "red": tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), player_red); break;
-                        case "blue": tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), player_blue); break;
-                        case "green": tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), player_green); break;
-                        case "purple": tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), player_purple); break;
-                        case "white": tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), player_white); break;
-                        default: tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), player); break;
-                    }  
-                }
-                if (currentUnitPosition == newUnitPosition)
-                {
-                    playerIsMoving = false;
-                    playerIsMovingInReverse = false;
-                    if (currentAvatar == 0)
-                    {
-                        MoveUnitComplete(tilemapStructures, player_red, player_blue, player_green, player_purple, player_white);
-                    }
-                    else
-                    {
-                        Combat.CombatEncounterStart();
-                        // MoveUnitComplete(tilemapStructures, player, player_red, player_blue, player_green, player_purple, player_white);
-                    }
-                }
-                tempCounter = counter;
-            }
-            else
-            {
-                tempCounter -= Time.deltaTime;
-            }
         }
         else if (chestScreenEnabled)
         {
@@ -619,235 +386,16 @@ public class GameMain : MonoBehaviour
 
     void SpawnDungeons()
     {
-        for (int i = 0; i < WorldGenerator.boardSlotPositions.Count; i++)
+        for (int i = 0; i < World.boardSlotPositions.Count; i++)
         {
-            WorldGenerator.boardStructures.Add(i, "dungeon" + dungeonType);
-            WorldGenerator.boardPosition = WorldGenerator.boardSlotPositions[i];
-            tilemapStructures.SetTile(new Vector3Int((int)WorldGenerator.boardPosition[0], (int)WorldGenerator.boardPosition[1]), dungeon);
+            World.boardStructures.Add(i, "dungeon" + dungeonType);
+            World.boardPosition = World.boardSlotPositions[i];
+            tilemapStructures.SetTile(new Vector3Int((int)World.boardPosition[0], (int)World.boardPosition[1]), dungeon);
         }
     }
 
     void GameSetup(string currentBoard, int activePlayers)
     {
-        if (currentBoard == "oddMode")
-        {
-            //
-        }
-        else if (currentBoard == "grasslands")
-        {
-            // Terrain Generation
-            int randomTerrainType = 0;
-            int xSize = 25;
-            int ySize = 25;
-            for (int z = 0, y = 0; y <= ySize; y++)
-            {
-                for (int x = 0; x <= xSize; x++, z++)
-                {
-                    randomTerrainType = Random.Range(1,101);
-                    if (randomTerrainType <= 25)
-                    {
-                        tilemapTerrain.SetTile(new Vector3Int(x, y), grassOne);
-                        tilemapTerrain.SetTile(new Vector3Int(-x, y), grassOne);
-                        tilemapTerrain.SetTile(new Vector3Int(x, -y), grassOne);
-                        tilemapTerrain.SetTile(new Vector3Int(-x, -y), grassOne);
-                    }
-                    else if (randomTerrainType > 25 && randomTerrainType <= 50)
-                    {
-                        tilemapTerrain.SetTile(new Vector3Int(x, y), grassTwo);
-                        tilemapTerrain.SetTile(new Vector3Int(-x, y), grassTwo);
-                        tilemapTerrain.SetTile(new Vector3Int(x, -y), grassTwo);
-                        tilemapTerrain.SetTile(new Vector3Int(-x, -y), grassTwo);
-                    }
-                    else if (randomTerrainType > 50 && randomTerrainType < 101)
-                    {
-                        tilemapTerrain.SetTile(new Vector3Int(x, y), grassThree);
-                        tilemapTerrain.SetTile(new Vector3Int(-x, y), grassThree);
-                        tilemapTerrain.SetTile(new Vector3Int(x, -y), grassThree);
-                        tilemapTerrain.SetTile(new Vector3Int(-x, -y), grassThree);
-                    }
-                }
-            }
-            // Board Connectors
-            if (mapSizeRandom)
-            {
-                int randomMapSize = Random.Range(1,4);
-                if (randomMapSize == 1)
-                {
-                    mapSize = "small";
-                }
-                else if (randomMapSize == 2)
-                {
-                    mapSize = "medium";
-                }
-                else if (randomMapSize == 3)
-                {
-                    mapSize = "large";
-                }
-            }
-            int rowLength = 12;
-            if (mapSize == "small")
-            {
-                int randomRowLength = Random.Range(3,7);
-                rowLength = randomRowLength;
-            }
-            else if (mapSize == "medium")
-            {
-                int randomRowLength = Random.Range(8,13);
-                rowLength = randomRowLength;
-            }
-            else if (mapSize == "large")
-            {
-                int randomRowLength = Random.Range(15,21);
-                rowLength = randomRowLength;
-            }
-            Debug.Log("Row Length: " + rowLength);
-            tilemapBoardConnectors.SetTile(new Vector3Int(0, 0), camp);
-            tilemapBoardConnectors.SetTile(new Vector3Int(0, 1), bcVertical);
-            boardPositions.Add(new Vector3(0, 1));
-            boardSlotPositions.Add(new Vector3(1, 1));
-            tilemapBoardConnectors.SetTile(new Vector3Int(0, 2), bcVertical);
-            onDeckPosition = new Vector3(0,2);
-            tilemapBoardConnectors.SetTile(new Vector3Int(0, 3), bcThreeRight);
-            tilemapBoardConnectors.SetTile(new Vector3Int(0, 4), bcVertical);
-            /*boardLength += 1;
-            boardPositions.Add(new Vector3(0, 4));
-            boardSlotPositions.Add(new Vector3(1, 4));*/
-            tilemapBoardConnectors.SetTile(new Vector3Int(1, 3), bcHorizontal);
-            // Vertical Row One
-            for (int i = 1; i <= rowLength; i++)
-            {
-                tilemapBoardConnectors.SetTile(new Vector3Int(0, (4 + i)), bcVertical);
-                boardPositions.Add(new Vector3(0, (4 + i)));
-                boardSlotPositions.Add(new Vector3(1, (4 + i)));
-                boardLength += 1;
-            }
-            // random ThreeRight or TopLeftCorner
-            int boardChoice = Random.Range(1,3);
-            if (boardChoice == 1)
-            {
-                tilemapBoardConnectors.SetTile(new Vector3Int(0, rowLength + 5), bcVertical);
-                tilemapBoardConnectors.SetTile(new Vector3Int(0, rowLength + 6), bcThreeRight);
-                tilemapBoardConnectors.SetTile(new Vector3Int(1, rowLength + 6), bcHorizontal);
-            }
-            else if (boardChoice == 2)
-            {
-                tilemapBoardConnectors.SetTile(new Vector3Int(0, rowLength + 5), bcVertical);
-                tilemapBoardConnectors.SetTile(new Vector3Int(0, rowLength + 6), bcTopLeftCorner);
-                tilemapBoardConnectors.SetTile(new Vector3Int(1, rowLength + 6), bcHorizontal);
-            }
-            // Horizontal Row Two Going Right
-            for (int i = 1; i <= rowLength; i++)
-            {
-                tilemapBoardConnectors.SetTile(new Vector3Int((1 + i), rowLength + 6), bcHorizontal);
-                boardPositions.Add(new Vector3((1 + i), rowLength + 6));
-                boardSlotPositions.Add(new Vector3((1 + i), rowLength + 5));
-                boardLength += 1;
-            }
-            tilemapBoardConnectors.SetTile(new Vector3Int(rowLength + 2, rowLength + 6), bcHorizontal);
-            tilemapBoardConnectors.SetTile(new Vector3Int(rowLength + 3, rowLength + 6), bcTopRightCorner);
-            // Vertical Row Two
-            tilemapBoardConnectors.SetTile(new Vector3Int(rowLength + 3, 4), bcVertical);
-            for (int i = rowLength; i >= 1; i--)
-            {
-                tilemapBoardConnectors.SetTile(new Vector3Int(rowLength + 3, (4 + i)), bcVertical);
-                boardPositions.Add(new Vector3(rowLength + 3, (4 + i)));
-                boardSlotPositions.Add(new Vector3(rowLength + 2, (4 + i)));
-                boardLength += 1;
-            }
-            tilemapBoardConnectors.SetTile(new Vector3Int(rowLength + 3, rowLength + 5), bcVertical);
-            /*boardLength += 1;
-            boardPositions.Add(new Vector3(rowLength + 3, rowLength + 5));
-            boardSlotPositions.Add(new Vector3(rowLength + 2, rowLength + 5));*/
-            // random ThreeUp or BottomRightCorner
-            boardChoice = Random.Range(1,3);
-            if (boardChoice == 1)
-            {
-                tilemapBoardConnectors.SetTile(new Vector3Int(rowLength + 3, 3), bcBottomRightCorner);
-            }
-            else if (boardChoice == 2)
-            {
-                tilemapBoardConnectors.SetTile(new Vector3Int(rowLength + 3, 3), bcThreeUp);
-            }
-            // Horizontal Row One
-            for (int i = rowLength; i >= 1; i--)
-            {
-                tilemapBoardConnectors.SetTile(new Vector3Int((1 + i), 3), bcHorizontal);
-                boardPositions.Add(new Vector3((1 + i), 3));
-                boardSlotPositions.Add(new Vector3((1 + i), 4));
-                boardLength += 1;
-            }
-            tilemapBoardConnectors.SetTile(new Vector3Int(rowLength + 2, 3), bcHorizontal);
-            Debug.Log("Board Length: " + boardLength);
-            // Player Camp Positions and Spawn Active Players
-            unitPositionPlayer1 = 0;
-            campPositionPlayer2 = 0;
-            campPositionPlayer3 = 0;
-            campPositionPlayer4 = 0;
-            if (player_in_camp_one)
-            {
-                switch (player_color_one)
-                {
-                    case "red": tilemapStructures.SetTile(new Vector3Int(0, 1), player_red); break;
-                    case "blue": tilemapStructures.SetTile(new Vector3Int(0, 1), player_blue); break;
-                    case "green": tilemapStructures.SetTile(new Vector3Int(0, 1), player_green); break;
-                    case "purple": tilemapStructures.SetTile(new Vector3Int(0, 1), player_purple); break;
-                    case "white": tilemapStructures.SetTile(new Vector3Int(0, 1), player_white); break;
-                    default: tilemapStructures.SetTile(new Vector3Int(0, 1), player); break;
-                }
-            }
-            if (player_in_camp_two)
-            {
-                switch (player_color_two)
-                {
-                    case "red": tilemapStructures.SetTile(new Vector3Int(1, 0), player_red); break;
-                    case "blue": tilemapStructures.SetTile(new Vector3Int(1, 0), player_blue); break;
-                    case "green": tilemapStructures.SetTile(new Vector3Int(1, 0), player_green); break;
-                    case "purple": tilemapStructures.SetTile(new Vector3Int(1, 0), player_purple); break;
-                    case "white": tilemapStructures.SetTile(new Vector3Int(1, 0), player_white); break;
-                    default: tilemapStructures.SetTile(new Vector3Int(1, 0), player); break;
-                }
-            }
-            if (player_in_camp_three)
-            {
-                switch (player_color_three)
-                {
-                    case "red": tilemapStructures.SetTile(new Vector3Int(0, -1), player_red); break;
-                    case "blue": tilemapStructures.SetTile(new Vector3Int(0, -1), player_blue); break;
-                    case "green": tilemapStructures.SetTile(new Vector3Int(0, -1), player_green); break;
-                    case "purple": tilemapStructures.SetTile(new Vector3Int(0, -1), player_purple); break;
-                    case "white": tilemapStructures.SetTile(new Vector3Int(0, -1), player_white); break;
-                    default: tilemapStructures.SetTile(new Vector3Int(0, -1), player); break;
-                }
-            }
-            if (player_in_camp_four)
-            {
-                switch (player_color_four)
-                {
-                    case "red": tilemapStructures.SetTile(new Vector3Int(-1, 0), player_red); break;
-                    case "blue": tilemapStructures.SetTile(new Vector3Int(-1, 0), player_blue); break;
-                    case "green": tilemapStructures.SetTile(new Vector3Int(-1, 0), player_green); break;
-                    case "purple": tilemapStructures.SetTile(new Vector3Int(-1, 0), player_purple); break;
-                    case "white": tilemapStructures.SetTile(new Vector3Int(-1, 0), player_white); break;
-                    default: tilemapStructures.SetTile(new Vector3Int(-1, 0), player); break;
-                }
-            }
-        }
-        else if (currentBoard == "graveyard")
-        {
-            //
-        }
-        else if (currentBoard == "ocean")
-        {
-            //
-        }
-        else if (currentBoard == "moon")
-        {
-            //
-        }
-        else if (currentBoard == "machine")
-        {
-            //
-        }
         // Board Structures
         for (int x = 0; x < boardLength; x++)
         {
@@ -896,27 +444,32 @@ public class GameMain : MonoBehaviour
         currentTurn += 1;
     }
 
-    public static void EndTurn(Tilemap tilemap, Tile monsterImp, Tile monsterBasilisk)
+    public static void EndTurn(Tilemap tilemap, Tile monsterImp, Tile monsterBasilisk, World world)
     {
+        if (currentTurn == 1)
+        {
+            World.arrowsInCampEnabled = true;
+        }
+        world.CheckForLocalBoardPositions();
         endTurnButtonEnabled = false;
         bottomLeftLowerButtonEnabled = true;
         secondaryButtonEnabled = false;
         // Save current position to the relevant player
         if (currentPlayer == 1)
         {
-            unitPositionPlayer1 = currentUnitPosition;
+            unitPositionPlayer1 = World.currentUnitPositionOnBoard;
         }
         else if (currentPlayer == 2)
         {
-            unitPositionPlayer2 = currentUnitPosition;
+            unitPositionPlayer2 = World.currentUnitPositionOnBoard;
         }
         else if (currentPlayer == 3)
         {
-            unitPositionPlayer3 = currentUnitPosition;
+            unitPositionPlayer3 = World.currentUnitPositionOnBoard;
         }
         else if (currentPlayer == 4)
         {
-            unitPositionPlayer4 = currentUnitPosition;
+            unitPositionPlayer4 = World.currentUnitPositionOnBoard;
         }
         // Determine next player //
         currentPlayer += 1;
@@ -1017,22 +570,22 @@ public class GameMain : MonoBehaviour
         // Update current player values to match the current player
         if (currentPlayer == 1)
         {
-            currentUnitPosition = unitPositionPlayer1;
+            World.currentUnitPosition = World.playerOnePosition;
             currentPlayerDice = player_combatDice_one;
         }
         else if (currentPlayer == 2)
         {
-            currentUnitPosition = unitPositionPlayer2;
+            World.currentUnitPositionOnBoard = unitPositionPlayer2;
             currentPlayerDice = player_combatDice_two;
         }
         else if (currentPlayer == 3)
         {
-            currentUnitPosition = unitPositionPlayer3;
+            World.currentUnitPositionOnBoard = unitPositionPlayer3;
             currentPlayerDice = player_combatDice_three;
         }
         else if (currentPlayer == 4)
         {
-            currentUnitPosition = unitPositionPlayer4;
+            World.currentUnitPositionOnBoard = unitPositionPlayer4;
             currentPlayerDice = player_combatDice_four;
         }
     }
@@ -1175,29 +728,29 @@ public class GameMain : MonoBehaviour
             diceSixShow = true;
         }
         ///////////////////////////////////////////////////////////////
-        newUnitPosition = currentUnitPosition + diceOneResult + diceTwoResult + diceThreeResult;
+        World.newUnitPosition = World.currentUnitPositionOnBoard + diceOneResult + diceTwoResult + diceThreeResult;
     }
 
     public static void MoveUnitRight(Tilemap tilemap)
     {
-        if (currentUnitPosition == 0)
+        if (World.currentUnitPositionOnBoard == 0)
         {
-            currentUnitPosition = boardLength;
+            World.currentUnitPositionOnBoard = boardLength;
             playerIsMovingInReverse = true;
             tilemap.SetTile(new Vector3Int((int)onDeckPosition[0], (int)onDeckPosition[1]), null);
-            newUnitPosition = currentUnitPosition - diceOneResult - diceTwoResult - diceThreeResult;
+            World.newUnitPosition = World.currentUnitPositionOnBoard - diceOneResult - diceTwoResult - diceThreeResult;
         }
-        if (newUnitPosition < 0)
+        if (World.newUnitPosition < 0)
         {
-            int nextPosition = boardLength - newUnitPosition;
-            newUnitPosition = nextPosition;
+            int nextPosition = boardLength - World.newUnitPosition;
+            World.newUnitPosition = nextPosition;
         }
         playerIsMoving = true;
     }
 
     public static void MoveUnitUp(Tilemap tilemap)
     {
-        if (currentUnitPosition == 0)
+        if (World.currentUnitPositionOnBoard == 0)
         {
             tilemap.SetTile(new Vector3Int((int)onDeckPosition[0], (int)onDeckPosition[1]), null);
         }
@@ -1206,8 +759,8 @@ public class GameMain : MonoBehaviour
 
     public static void MoveUnitComplete(Tilemap tilemap, Tile player_red, Tile player_blue, Tile player_green, Tile player_purple, Tile player_white)
     {
-        currentUnitPosition = newUnitPosition;
-        boardPosition = boardPositions[currentUnitPosition];
+        World.currentUnitPositionOnBoard = World.newUnitPosition;
+        boardPosition = boardPositions[World.currentUnitPositionOnBoard];
         if (currentPlayer == 1)
         {
             switch (player_color_one)
@@ -1253,45 +806,45 @@ public class GameMain : MonoBehaviour
             }
         }
         // Landing Encounters
-        if (boardStructures[newUnitPosition] == "chest")
+        if (boardStructures[World.newUnitPosition] == "chest")
         {
             chestScreenEnabled = true;
             diceShouldFadeAwayImmediately = true;
-            boardPosition = boardSlotPositions[currentUnitPosition];
+            boardPosition = boardSlotPositions[World.currentUnitPositionOnBoard];
             tilemap.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), null);
-            boardStructures[newUnitPosition] = "empty";
+            boardStructures[World.newUnitPosition] = "empty";
         }
-        else if (boardStructures[newUnitPosition] == "dungeonImp")
+        else if (boardStructures[World.newUnitPosition] == "dungeonImp")
         {
             diceShouldFadeAwayImmediately = true;
             DungeonEncounter("imp");
         }
-        else if (boardStructures[newUnitPosition] == "dungeonBasilisk")
+        else if (boardStructures[World.newUnitPosition] == "dungeonBasilisk")
         {
             diceShouldFadeAwayImmediately = true;
             DungeonEncounter("basilisk");
         }
-        else if (boardStructures[newUnitPosition] == "oddity")
+        else if (boardStructures[World.newUnitPosition] == "oddity")
         {
             OddityEncounter();
         }
-        else if (boardStructures[newUnitPosition] == "village_player_one" && currentPlayer != 1)
+        else if (boardStructures[World.newUnitPosition] == "village_player_one" && currentPlayer != 1)
         {
             OpposingVillageEncounter(1, tilemap, player_red, player_blue, player_green, player_purple, player_white);
         }
-        else if (boardStructures[newUnitPosition] == "village_player_two" && currentPlayer != 2)
+        else if (boardStructures[World.newUnitPosition] == "village_player_two" && currentPlayer != 2)
         {
             OpposingVillageEncounter(2, tilemap, player_red, player_blue, player_green, player_purple, player_white);
         }
-        else if (boardStructures[newUnitPosition] == "village_player_three" && currentPlayer != 3)
+        else if (boardStructures[World.newUnitPosition] == "village_player_three" && currentPlayer != 3)
         {
             OpposingVillageEncounter(3, tilemap, player_red, player_blue, player_green, player_purple, player_white);
         }
-        else if (boardStructures[newUnitPosition] == "village_player_four" && currentPlayer != 4)
+        else if (boardStructures[World.newUnitPosition] == "village_player_four" && currentPlayer != 4)
         {
             OpposingVillageEncounter(4, tilemap, player_red, player_blue, player_green, player_purple, player_white);
         }
-        else if (boardStructures[newUnitPosition] == "empty")
+        else if (boardStructures[World.newUnitPosition] == "empty")
         {
             secondaryButtonEnabled = true;
         }
@@ -1343,10 +896,10 @@ public class GameMain : MonoBehaviour
                 case "purple": tilemap.SetTile(new Vector3Int(0, 1), player_purple); break;
                 case "white": tilemap.SetTile(new Vector3Int(0, 1), player_white); break;
             }
-            boardPosition = boardPositions[currentUnitPosition];
+            boardPosition = boardPositions[World.currentUnitPositionOnBoard];
             tilemap.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), null);
             unitPositionPlayer1 = 0;
-            currentUnitPosition = 0;
+            World.currentUnitPositionOnBoard = 0;
             player_gold_one -= villageCost;
             livesPlayerOne -= 1;
             if (livesPlayerOne <= 0)
@@ -1377,10 +930,10 @@ public class GameMain : MonoBehaviour
                 case "purple": tilemap.SetTile(new Vector3Int(1, 0), player_purple); break;
                 case "white": tilemap.SetTile(new Vector3Int(1, 0), player_white); break;
             }
-            boardPosition = boardPositions[currentUnitPosition];
+            boardPosition = boardPositions[World.currentUnitPositionOnBoard];
             tilemap.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), null);
             unitPositionPlayer2 = 0;
-            currentUnitPosition = 0;
+            World.currentUnitPositionOnBoard = 0;
             player_gold_two -= villageCost;
             livesPlayerTwo -= 1;
             if (livesPlayerTwo <= 0)
@@ -1411,10 +964,10 @@ public class GameMain : MonoBehaviour
                 case "purple": tilemap.SetTile(new Vector3Int(0, -1), player_purple); break;
                 case "white": tilemap.SetTile(new Vector3Int(0, -1), player_white); break;
             }
-            boardPosition = boardPositions[currentUnitPosition];
+            boardPosition = boardPositions[World.currentUnitPositionOnBoard];
             tilemap.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), null);
             unitPositionPlayer3 = 0;
-            currentUnitPosition = 0;
+            World.currentUnitPositionOnBoard = 0;
             player_gold_three -= villageCost;
             livesPlayerThree -= 1;
             if (livesPlayerThree <= 0)
@@ -1445,10 +998,10 @@ public class GameMain : MonoBehaviour
                 case "purple": tilemap.SetTile(new Vector3Int(-1, 0), player_purple); break;
                 case "white": tilemap.SetTile(new Vector3Int(-1, 0), player_white); break;
             }
-            boardPosition = boardPositions[currentUnitPosition];
+            boardPosition = boardPositions[World.currentUnitPositionOnBoard];
             tilemap.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), null);
             unitPositionPlayer4 = 0;
-            currentUnitPosition = 0;
+            World.currentUnitPositionOnBoard = 0;
             player_gold_four -= villageCost;
             livesPlayerFour -= 1;
             if (livesPlayerFour <= 0)
@@ -1483,13 +1036,13 @@ public class GameMain : MonoBehaviour
 
     public static void BuildVillage(Tilemap tilemap, Tile village, Tile village_red, Tile village_blue, Tile village_green, Tile village_purple, Tile village_white)
     {
-        boardPosition = boardSlotPositions[currentUnitPosition];
-        string currentSpaceSlot = boardStructures[currentUnitPosition];
+        boardPosition = boardSlotPositions[World.currentUnitPositionOnBoard];
+        string currentSpaceSlot = boardStructures[World.currentUnitPositionOnBoard];
         secondaryButtonEnabled = false;
         if (currentPlayer == 1 && player_gold_one >= villageCost && currentSpaceSlot == "empty")
         {
             player_gold_one -= villageCost;
-            boardStructures[currentUnitPosition] = "village_player_one";
+            boardStructures[World.currentUnitPositionOnBoard] = "village_player_one";
             if (player_color_one == "red")
             {
                 tilemap.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), village_red);
@@ -1522,7 +1075,7 @@ public class GameMain : MonoBehaviour
         else if (currentPlayer == 2 && player_gold_two >= villageCost && currentSpaceSlot == "empty")
         {
             player_gold_two -= villageCost;
-            boardStructures[currentUnitPosition] = "village_player_two";
+            boardStructures[World.currentUnitPositionOnBoard] = "village_player_two";
             if (player_color_two == "red")
             {
                 tilemap.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), village_red);
@@ -1555,7 +1108,7 @@ public class GameMain : MonoBehaviour
         else if (currentPlayer == 3 && player_gold_three >= villageCost && currentSpaceSlot == "empty")
         {
             player_gold_three -= 50;
-            boardStructures[currentUnitPosition] = "village_player_three";
+            boardStructures[World.currentUnitPositionOnBoard] = "village_player_three";
             if (player_color_three == "red")
             {
                 tilemap.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), village_red);
@@ -1588,7 +1141,7 @@ public class GameMain : MonoBehaviour
         else if (currentPlayer == 4 && player_gold_three >= villageCost && currentSpaceSlot == "empty")
         {
             player_gold_four -= 50;
-            boardStructures[currentUnitPosition] = "village_player_four";
+            boardStructures[World.currentUnitPositionOnBoard] = "village_player_four";
             if (player_color_four == "red")
             {
                 tilemap.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), village_red);
