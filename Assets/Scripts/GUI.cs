@@ -12,9 +12,9 @@ public class GUI : MonoBehaviour
     public Button endTurnButton;
     public GameObject secondaryButtonPanel;
     public Button arrowUpButton;
-    public GameObject arrowRight;
-    public GameObject arrowDown;
-    public GameObject arrowLeft;
+    public Button arrowRightButton;
+    public Button arrowDownButton;
+    public Button arrowLeftButton;
     public World world;
     public static bool enableArrowButtons = false;
     [SerializeField] public Tile player;
@@ -51,9 +51,9 @@ public class GUI : MonoBehaviour
         secondaryButton.gameObject.SetActive(false);
         secondaryButtonPanel.gameObject.SetActive(false);
         arrowUpButton.gameObject.SetActive(false);
-        arrowRight.gameObject.SetActive(false);
-        arrowDown.gameObject.SetActive(false);
-        arrowLeft.gameObject.SetActive(false);
+        arrowRightButton.gameObject.SetActive(false);
+        arrowDownButton.gameObject.SetActive(false);
+        arrowLeftButton.gameObject.SetActive(false);
     }
 
     void Update()
@@ -64,6 +64,21 @@ public class GUI : MonoBehaviour
             {
                 arrowUpButton.gameObject.SetActive(true);
             }
+            if (World.eastPositionAvailable == true)
+            {
+                arrowRightButton.gameObject.SetActive(true);
+            }
+            if (World.eastPositionAvailable == true)
+            {
+                arrowRightButton.gameObject.SetActive(true);
+            }
+        }
+        else if (!enableArrowButtons)
+        {
+            arrowUpButton.gameObject.SetActive(false);
+            arrowRightButton.gameObject.SetActive(false);
+            arrowDownButton.gameObject.SetActive(false);
+            arrowLeftButton.gameObject.SetActive(false);
         }
 
         if (GameMain.activePlayers >= 1)
