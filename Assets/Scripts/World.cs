@@ -776,6 +776,40 @@ public class World : MonoBehaviour
         }
         currentTurn += 1;*/
     }
+
+    public void SpawnActivePlayerAtCamp()
+    {
+        int random;
+        random = Random.Range(1, 17);
+        switch (random)
+        {
+            case 1: boardPosition[0] = 0; boardPosition[1] = 1; break;
+            case 2: boardPosition[0] = 0; boardPosition[1] = -1; break;
+            case 3: boardPosition[0] = 1; boardPosition[1] = 0; break;
+            case 4: boardPosition[0] = -1; boardPosition[1] = 0; break;
+            case 5: boardPosition[0] = -1; boardPosition[1] = -1; break;
+            case 6: boardPosition[0] = 1; boardPosition[1] = 1; break;
+            case 7: boardPosition[0] = -1; boardPosition[1] = 1; break;
+            case 8: boardPosition[0] = 1; boardPosition[1] = -1; break;
+            case 9: boardPosition[0] = 0; boardPosition[1] = 2; break;
+            case 10: boardPosition[0] = 0; boardPosition[1] = 3; break;
+            case 11: boardPosition[0] = 0; boardPosition[1] = -2; break;
+            case 12: boardPosition[0] = 0; boardPosition[1] = -3; break;
+            case 13: boardPosition[0] = 2; boardPosition[1] = 0; break;
+            case 14: boardPosition[0] = 3; boardPosition[1] = 0; break;
+            case 15: boardPosition[0] = -2; boardPosition[1] = 0; break;
+            case 16: boardPosition[0] = -3; boardPosition[1] = -0; break;
+        }
+        switch (currentUnitColor)
+        {
+            case "red": tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), playerRed); break;
+            case "blue": tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), playerBlue); break;
+            case "green": tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), playerGreen); break;
+            case "purple": tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), playerPurple); break;
+            case "white": tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), playerWhite); break;
+        }
+    }
+
     public void SpawnPlayersAtCamp(int activePlayers)
     {
         int random;
@@ -906,18 +940,6 @@ public class World : MonoBehaviour
             tilemapBoardConnectors.SetTile(new Vector3Int(-2, 0), bcHorizontal);
             tilemapBoardConnectors.SetTile(new Vector3Int(-3, 0), bcHorizontal);
             tilemapBoardConnectors.SetTile(new Vector3Int(-4, 0), bcThreeRight);
-            boardCampPositions.Add(new Vector3(0, 1));
-            boardCampPositions.Add(new Vector3(0, -1));
-            boardCampPositions.Add(new Vector3(1, 0));
-            boardCampPositions.Add(new Vector3(-1, 0));
-            boardCampPositions.Add(new Vector3(1, 1));
-            boardCampPositions.Add(new Vector3(-1, -1));
-            boardCampPositions.Add(new Vector3(-1, 1));
-            boardCampPositions.Add(new Vector3(1, -1));
-            boardCrossroads.Add(new Vector3Int(0, 4));
-            boardCrossroads.Add(new Vector3Int(4, 0));
-            boardCrossroads.Add(new Vector3Int(0, -4));
-            boardCrossroads.Add(new Vector3Int(-4, 0));
             int random;
             string section = "empty";
             random = Random.Range(1,4);
@@ -980,6 +1002,14 @@ public class World : MonoBehaviour
             }
             boardClockPosition.Add(7, section);
             boardClockPosition.Add(8, "empty");
+            boardPositions.Add(new Vector3(0, 1));
+            boardPositions.Add(new Vector3(0, -1));
+            boardPositions.Add(new Vector3(1, 0));
+            boardPositions.Add(new Vector3(-1, 0));
+            boardPositions.Add(new Vector3(1, 1));
+            boardPositions.Add(new Vector3(-1, -1));
+            boardPositions.Add(new Vector3(-1, 1));
+            boardPositions.Add(new Vector3(1, -1));
             boardPositions.Add(new Vector3Int(0, 2));
             boardPositions.Add(new Vector3Int(0, 3));
             boardPositions.Add(new Vector3Int(0, 4));
@@ -992,9 +1022,33 @@ public class World : MonoBehaviour
             boardPositions.Add(new Vector3Int(-2, 0));
             boardPositions.Add(new Vector3Int(-3, 0));
             boardPositions.Add(new Vector3Int(-4, 0));
-            for (int i = 0; i < 12; i++)
+            boardCampPositions.Add(new Vector3(0, 1));
+            boardCampPositions.Add(new Vector3(0, -1));
+            boardCampPositions.Add(new Vector3(1, 0));
+            boardCampPositions.Add(new Vector3(-1, 0));
+            boardCampPositions.Add(new Vector3(1, 1));
+            boardCampPositions.Add(new Vector3(-1, -1));
+            boardCampPositions.Add(new Vector3(-1, 1));
+            boardCampPositions.Add(new Vector3(1, -1));
+            boardCampPositions.Add(new Vector3Int(0, 2));
+            boardCampPositions.Add(new Vector3Int(0, 3));
+            boardCampPositions.Add(new Vector3Int(0, 4));
+            boardCampPositions.Add(new Vector3Int(2, 0));
+            boardCampPositions.Add(new Vector3Int(3, 0));
+            boardCampPositions.Add(new Vector3Int(4, 0));
+            boardCampPositions.Add(new Vector3Int(0, -2));
+            boardCampPositions.Add(new Vector3Int(0, -3));
+            boardCampPositions.Add(new Vector3Int(0, -4));
+            boardCampPositions.Add(new Vector3Int(-2, 0));
+            boardCampPositions.Add(new Vector3Int(-3, 0));
+            boardCampPositions.Add(new Vector3Int(-4, 0));
+            boardCrossroads.Add(new Vector3Int(0, 4));
+            boardCrossroads.Add(new Vector3Int(4, 0));
+            boardCrossroads.Add(new Vector3Int(0, -4));
+            boardCrossroads.Add(new Vector3Int(-4, 0));
+            for (int i = 0; i < 20; i++)
             {
-            boardUnits.Add(i, "empty");
+                boardUnits.Add(i, "empty");
             }
         }
     }
