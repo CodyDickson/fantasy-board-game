@@ -16521,9 +16521,9 @@ MonoBehaviour:
   endTurnButton: {fileID: 1253343310}
   secondaryButtonPanel: {fileID: 159604473}
   arrowUpButton: {fileID: 1354079065}
-  arrowRightButton: {fileID: 1044624848}
-  arrowDownButton: {fileID: 1549090728}
-  arrowLeftButton: {fileID: 868958581}
+  arrowRightButton: {fileID: 1044624850}
+  arrowDownButton: {fileID: 1549090730}
+  arrowLeftButton: {fileID: 868958583}
   world: {fileID: 2054497522}
   player: {fileID: 11400000, guid: 8fc5050742410c24aa4811c173f98222, type: 2}
   player_red: {fileID: 0}
