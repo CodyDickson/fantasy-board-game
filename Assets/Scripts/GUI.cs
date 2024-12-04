@@ -48,6 +48,10 @@ public class GUI : MonoBehaviour
         secondaryButton.onClick.AddListener(OnClickSecondaryButton);
         endTurnButton.onClick.AddListener(OnClickEndTurn);
         arrowUpButton.onClick.AddListener(OnClickArrowUpButton);
+        arrowRightButton.onClick.AddListener(OnClickArrowRightButton);
+        arrowDownButton.onClick.AddListener(OnClickArrowDownButton);
+        arrowLeftButton.onClick.AddListener(OnClickArrowLeftButton);
+        endTurnButton.gameObject.SetActive(false);
         secondaryButton.gameObject.SetActive(false);
         secondaryButtonPanel.gameObject.SetActive(false);
         arrowUpButton.gameObject.SetActive(false);
@@ -68,9 +72,13 @@ public class GUI : MonoBehaviour
             {
                 arrowRightButton.gameObject.SetActive(true);
             }
-            if (World.eastPositionAvailable == true)
+            if (World.southPositionAvailable == true)
             {
-                arrowRightButton.gameObject.SetActive(true);
+                arrowDownButton.gameObject.SetActive(true);
+            }
+            if (World.westPositionAvailable == true)
+            {
+                arrowLeftButton.gameObject.SetActive(true);
             }
         }
         else if (!enableArrowButtons)
@@ -83,19 +91,19 @@ public class GUI : MonoBehaviour
 
         if (GameMain.activePlayers >= 1)
         {
-            textGoldPlayer1.text = "player " + GameMain.player_color_one + " - gold: " + GameMain.player_gold_one + "\nlives: " + GameMain.livesPlayerOne + " move: " + GameMain.player_moveDice_one + " combat: " + GameMain.player_combatDice_one;
+            textGoldPlayer1.text = "player " + GameMain.playerOneColor + " - gold: " + GameMain.player_gold_one + "\nlives: " + GameMain.livesPlayerOne + " move: " + GameMain.player_moveDice_one + " combat: " + GameMain.player_combatDice_one;
         }
         if (GameMain.activePlayers >= 2)
         {
-            textGoldPlayer2.text = "player " + GameMain.player_color_two + " - gold: " + GameMain.player_gold_two + "\nlives: " + GameMain.livesPlayerTwo + " move: " + GameMain.player_moveDice_two + " combat: " + GameMain.player_combatDice_two;
+            textGoldPlayer2.text = "player " + GameMain.playerTwoColor + " - gold: " + GameMain.player_gold_two + "\nlives: " + GameMain.livesPlayerTwo + " move: " + GameMain.player_moveDice_two + " combat: " + GameMain.player_combatDice_two;
         }
         if (GameMain.activePlayers >= 3)
         {
-            textGoldPlayer3.text = "player " + GameMain.player_color_three + " - gold: " + GameMain.player_gold_three + "\nlives: " + GameMain.livesPlayerThree + " move: " + GameMain.player_moveDice_three + " combat: " + GameMain.player_combatDice_three;
+            textGoldPlayer3.text = "player " + GameMain.playerThreeColor + " - gold: " + GameMain.player_gold_three + "\nlives: " + GameMain.livesPlayerThree + " move: " + GameMain.player_moveDice_three + " combat: " + GameMain.player_combatDice_three;
         }
         if (GameMain.activePlayers >= 4)
         {
-            textGoldPlayer4.text = "player " + GameMain.player_color_four + " - gold: " + GameMain.player_gold_four + "\nlives: " + GameMain.livesPlayerFour + " move: " + GameMain.player_moveDice_four + " combat: " + GameMain.player_combatDice_four;
+            textGoldPlayer4.text = "player " + GameMain.playerFourColor + " - gold: " + GameMain.player_gold_four + "\nlives: " + GameMain.livesPlayerFour + " move: " + GameMain.player_moveDice_four + " combat: " + GameMain.player_combatDice_four;
         }
         textCurrentPlayer.text = "current player: " + GameMain.currentPlayer;
         if (GameMain.secondaryButtonEnabled && GameMain.GUIEnabled)
@@ -114,7 +122,7 @@ public class GUI : MonoBehaviour
     {
         if (GameMain.bottomLeftLowerButtonEnabled)
         {
-            GameMain.MoveUnit(tilemap, player, player_red, player_blue, player_green, player_purple, player_white);
+            World.MoveUnit();
         }
         else
         {
@@ -146,20 +154,24 @@ public class GUI : MonoBehaviour
         enableArrowButtons = false;
     }
 
-    void OnClickRightArrowButton()
+    void OnClickArrowRightButton()
     {
         World.currentUnitDirection = "east";
         World.playerIsMoving = true;
         enableArrowButtons = false;
     }
 
-    void OnClickDownArrowButton()
+    void OnClickArrowDownButton()
     {
-
+        World.currentUnitDirection = "south";
+        World.playerIsMoving = true;
+        enableArrowButtons = false;
     }
 
-    void OnClickLeftArrowButton()
+    void OnClickArrowLeftButton()
     {
-
+        World.currentUnitDirection = "west";
+        World.playerIsMoving = true;
+        enableArrowButtons = false;
     }
 }

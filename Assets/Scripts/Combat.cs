@@ -137,20 +137,20 @@ public class Combat : MonoBehaviour
         {
             switch (combatUnitOne)
             {
-                case 1: combatUnitOne_Text.text = GameMain.player_color_one + " player"; break;
-                case 2: combatUnitOne_Text.text = GameMain.player_color_two + " player"; break;
-                case 3: combatUnitOne_Text.text = GameMain.player_color_three + " player"; break;
-                case 4: combatUnitOne_Text.text = GameMain.player_color_four + " player"; break;
+                case 1: combatUnitOne_Text.text = GameMain.playerOneColor + " player"; break;
+                case 2: combatUnitOne_Text.text = GameMain.playerTwoColor + " player"; break;
+                case 3: combatUnitOne_Text.text = GameMain.playerThreeColor + " player"; break;
+                case 4: combatUnitOne_Text.text = GameMain.playerFourColor + " player"; break;
                 case 5: combatUnitOne_Text.text = "imp"; break;
                 case 6: combatUnitOne_Text.text = "basilisk"; break;
                 case 7: combatUnitOne_Text.text = "rampaging elephant"; break;
             }
             switch (combatUnitTwo)
             {
-                case 1: combatUnitTwo_Text.text = GameMain.player_color_one + " player"; break;
-                case 2: combatUnitTwo_Text.text = GameMain.player_color_two + " player"; break;
-                case 3: combatUnitTwo_Text.text = GameMain.player_color_three + " player"; break;
-                case 4: combatUnitTwo_Text.text = GameMain.player_color_four + " player"; break;
+                case 1: combatUnitTwo_Text.text = GameMain.playerOneColor + " player"; break;
+                case 2: combatUnitTwo_Text.text = GameMain.playerTwoColor + " player"; break;
+                case 3: combatUnitTwo_Text.text = GameMain.playerThreeColor + " player"; break;
+                case 4: combatUnitTwo_Text.text = GameMain.playerFourColor + " player"; break;
                 case 5: combatUnitTwo_Text.text = "imp"; break;
                 case 6: combatUnitTwo_Text.text = "basilisk"; break;
                 case 7: combatUnitTwo_Text.text = "rampaging elephant"; break;
@@ -162,7 +162,7 @@ public class Combat : MonoBehaviour
             Debug.Log("Combat Screen Enabled, Combat Unit One = " + combatUnitOne);
             if (combatUnitOne == 1)
             {
-                switch (GameMain.player_color_one)
+                switch (GameMain.playerOneColor)
                 {
                     case "red": avatar_one.sprite = player_red_sprite; break;
                     case "blue": avatar_one.sprite = player_blue_sprite; break;
@@ -173,7 +173,7 @@ public class Combat : MonoBehaviour
             }
             if (combatUnitOne == 2)
             {
-                switch (GameMain.player_color_two)
+                switch (GameMain.playerTwoColor)
                 {
                     case "red": avatar_one.sprite = player_red_sprite; break;
                     case "blue": avatar_one.sprite = player_blue_sprite; break;
@@ -184,7 +184,7 @@ public class Combat : MonoBehaviour
             }
             if (combatUnitOne == 3)
             {
-                switch (GameMain.player_color_three)
+                switch (GameMain.playerThreeColor)
                 {
                     case "red": avatar_one.sprite = player_red_sprite; break;
                     case "blue": avatar_one.sprite = player_blue_sprite; break;
@@ -195,7 +195,7 @@ public class Combat : MonoBehaviour
             }
             if (combatUnitOne == 4)
             {
-                switch (GameMain.player_color_four)
+                switch (GameMain.playerFourColor)
                 {
                     case "red": avatar_one.sprite = player_red_sprite; break;
                     case "blue": avatar_one.sprite = player_blue_sprite; break;
@@ -211,7 +211,7 @@ public class Combat : MonoBehaviour
             Debug.Log("Combat Screen Enabled, Combat Unit Two = " + combatUnitTwo);
             if (combatUnitTwo == 1)
             {
-                switch (GameMain.player_color_one)
+                switch (GameMain.playerOneColor)
                 {
                     case "red": avatar_two.sprite = player_red_sprite; break;
                     case "blue": avatar_two.sprite = player_blue_sprite; break;
@@ -222,7 +222,7 @@ public class Combat : MonoBehaviour
             }
             if (combatUnitTwo == 2)
             {
-                switch (GameMain.player_color_two)
+                switch (GameMain.playerTwoColor)
                 {
                     case "red": avatar_two.sprite = player_red_sprite; break;
                     case "blue": avatar_two.sprite = player_blue_sprite; break;
@@ -233,7 +233,7 @@ public class Combat : MonoBehaviour
             }
             if (combatUnitTwo == 3)
             {
-                switch (GameMain.player_color_three)
+                switch (GameMain.playerThreeColor)
                 {
                     case "red": avatar_two.sprite = player_red_sprite; break;
                     case "blue": avatar_two.sprite = player_blue_sprite; break;
@@ -244,7 +244,7 @@ public class Combat : MonoBehaviour
             }
             if (combatUnitTwo == 4)
             {
-                switch (GameMain.player_color_four)
+                switch (GameMain.playerFourColor)
                 {
                     case "red": avatar_two.sprite = player_red_sprite; break;
                     case "blue": avatar_two.sprite = player_blue_sprite; break;
@@ -702,7 +702,7 @@ public class Combat : MonoBehaviour
             if (combatUnitTwo == 1)
             {
                 GameMain.player_in_camp_one = true;
-                switch (GameMain.player_color_one)
+                switch (GameMain.playerOneColor)
                 {
                     case "red": tilemap.SetTile(new Vector3Int(0, 1), player_red); break;
                     case "blue": tilemap.SetTile(new Vector3Int(0, 1), player_blue); break;
@@ -720,7 +720,7 @@ public class Combat : MonoBehaviour
             if (combatUnitTwo == 2)
             {
                 GameMain.player_in_camp_two = true;
-                switch (GameMain.player_color_two)
+                switch (GameMain.playerTwoColor)
                 {
                     case "red": tilemap.SetTile(new Vector3Int(1, 0), player_red); break;
                     case "blue": tilemap.SetTile(new Vector3Int(1, 0), player_blue); break;
@@ -738,7 +738,7 @@ public class Combat : MonoBehaviour
             if (combatUnitTwo == 3)
             {
                 GameMain.player_in_camp_three = true;
-                switch (GameMain.player_color_three)
+                switch (GameMain.playerThreeColor)
                 {
                     case "red": tilemap.SetTile(new Vector3Int(0, -1), player_red); break;
                     case "blue": tilemap.SetTile(new Vector3Int(0, -1), player_blue); break;
@@ -756,7 +756,7 @@ public class Combat : MonoBehaviour
             if (combatUnitTwo == 4)
             {
                 GameMain.player_in_camp_four = true;
-                switch (GameMain.player_color_four)
+                switch (GameMain.playerFourColor)
                 {
                     case "red": tilemap.SetTile(new Vector3Int(-1, 0), player_red); break;
                     case "blue": tilemap.SetTile(new Vector3Int(-1, 0), player_blue); break;
@@ -779,7 +779,7 @@ public class Combat : MonoBehaviour
             if (combatUnitOne == 1)
             {
                 GameMain.player_in_camp_one = true;
-                switch (GameMain.player_color_one)
+                switch (GameMain.playerOneColor)
                 {
                     case "red": tilemap.SetTile(new Vector3Int(0, 1), player_red); break;
                     case "blue": tilemap.SetTile(new Vector3Int(0, 1), player_blue); break;
@@ -797,7 +797,7 @@ public class Combat : MonoBehaviour
             else if (combatUnitOne == 2)
             {
                 GameMain.player_in_camp_two = true;
-                switch (GameMain.player_color_two)
+                switch (GameMain.playerTwoColor)
                 {
                     case "red": tilemap.SetTile(new Vector3Int(1, 0), player_red); break;
                     case "blue": tilemap.SetTile(new Vector3Int(1, 0), player_blue); break;
@@ -815,7 +815,7 @@ public class Combat : MonoBehaviour
             else if (combatUnitOne == 3)
             {
                 GameMain.player_in_camp_three = true;
-                switch (GameMain.player_color_three)
+                switch (GameMain.playerThreeColor)
                 {
                     case "red": tilemap.SetTile(new Vector3Int(0, -1), player_red); break;
                     case "blue": tilemap.SetTile(new Vector3Int(0, -1), player_blue); break;
@@ -833,7 +833,7 @@ public class Combat : MonoBehaviour
             else if (combatUnitOne == 4)
             {
                 GameMain.player_in_camp_four = true;
-                switch (GameMain.player_color_four)
+                switch (GameMain.playerFourColor)
                 {
                     case "red": tilemap.SetTile(new Vector3Int(-1, 0), player_red); break;
                     case "blue": tilemap.SetTile(new Vector3Int(-1, 0), player_blue); break;
@@ -871,7 +871,7 @@ public class Combat : MonoBehaviour
                 if (combatUnitTwo == 1)
                 {
                     GameMain.player_in_camp_one = true;
-                    switch (GameMain.player_color_one)
+                    switch (GameMain.playerOneColor)
                     {
                         case "red": tilemap.SetTile(new Vector3Int(0, 1), player_red); break;
                         case "blue": tilemap.SetTile(new Vector3Int(0, 1), player_blue); break;
@@ -889,7 +889,7 @@ public class Combat : MonoBehaviour
                 else if (combatUnitTwo == 2)
                 {
                     GameMain.player_in_camp_two = true;
-                    switch (GameMain.player_color_two)
+                    switch (GameMain.playerTwoColor)
                     {
                         case "red": tilemap.SetTile(new Vector3Int(1, 0), player_red); break;
                         case "blue": tilemap.SetTile(new Vector3Int(1, 0), player_blue); break;
@@ -907,7 +907,7 @@ public class Combat : MonoBehaviour
                 else if (combatUnitTwo == 3)
                 {
                     GameMain.player_in_camp_three = true;
-                    switch (GameMain.player_color_three)
+                    switch (GameMain.playerThreeColor)
                     {
                         case "red": tilemap.SetTile(new Vector3Int(0, -1), player_red); break;
                         case "blue": tilemap.SetTile(new Vector3Int(0, -1), player_blue); break;
@@ -925,7 +925,7 @@ public class Combat : MonoBehaviour
                 else if (combatUnitTwo == 4)
                 {
                     GameMain.player_in_camp_four = true;
-                    switch (GameMain.player_color_four)
+                    switch (GameMain.playerFourColor)
                     {
                         case "red": tilemap.SetTile(new Vector3Int(-1, 0), player_red); break;
                         case "blue": tilemap.SetTile(new Vector3Int(-1, 0), player_blue); break;
@@ -947,7 +947,7 @@ public class Combat : MonoBehaviour
                 if (combatUnitOne == 1)
                 {
                     GameMain.player_in_camp_one = true;
-                    switch (GameMain.player_color_one)
+                    switch (GameMain.playerOneColor)
                     {
                         case "red": tilemap.SetTile(new Vector3Int(0, 1), player_red); break;
                         case "blue": tilemap.SetTile(new Vector3Int(0, 1), player_blue); break;
@@ -965,7 +965,7 @@ public class Combat : MonoBehaviour
                 else if (combatUnitOne == 2)
                 {
                     GameMain.player_in_camp_two = true;
-                    switch (GameMain.player_color_two)
+                    switch (GameMain.playerTwoColor)
                     {
                         case "red": tilemap.SetTile(new Vector3Int(1, 0), player_red); break;
                         case "blue": tilemap.SetTile(new Vector3Int(1, 0), player_blue); break;
@@ -983,7 +983,7 @@ public class Combat : MonoBehaviour
                 else if (combatUnitOne == 3)
                 {
                     GameMain.player_in_camp_three = true;
-                    switch (GameMain.player_color_three)
+                    switch (GameMain.playerThreeColor)
                     {
                         case "red": tilemap.SetTile(new Vector3Int(0, -1), player_red); break;
                         case "blue": tilemap.SetTile(new Vector3Int(0, -1), player_blue); break;
@@ -1001,7 +1001,7 @@ public class Combat : MonoBehaviour
                 else if (combatUnitOne == 4)
                 {
                     GameMain.player_in_camp_four = true;
-                    switch (GameMain.player_color_four)
+                    switch (GameMain.playerFourColor)
                     {
                         case "red": tilemap.SetTile(new Vector3Int(-1, 0), player_red); break;
                         case "blue": tilemap.SetTile(new Vector3Int(-1, 0), player_blue); break;
