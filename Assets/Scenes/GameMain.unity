@@ -17157,6 +17157,7 @@ MonoBehaviour:
   tilemapStructures: {fileID: 737563382}
   tilemapBoardConnectors: {fileID: 842877893}
   world: {fileID: 2054497522}
+  gui: {fileID: 1077264794}
 --- !u!4 &1253125876
 Transform:
   m_ObjectHideFlags: 0
@@ -22607,6 +22608,7 @@ MonoBehaviour:
   tilemapStructures: {fileID: 737563382}
   tilemapBoardConnectors: {fileID: 842877893}
   tilemapUnits: {fileID: 533341040}
+  gui: {fileID: 1077264794}
 --- !u!4 &2054497523
 Transform:
   m_ObjectHideFlags: 0

@@ -176,6 +176,7 @@ public class GameMain : MonoBehaviour
     private float tempCounter2 = 0f;
     // Other //
     public World world;
+    public GUI gui;
 
     void Start()
     {
@@ -193,6 +194,7 @@ public class GameMain : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.M) && bottomLeftLowerButtonEnabled)
         {
             World.MoveUnit();
+            gui.EnableArrows(true);
         }
         if (Input.GetKeyDown(KeyCode.E) && endTurnButtonEnabled)
         {

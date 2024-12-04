@@ -106,9 +106,10 @@ public class World : MonoBehaviour
     // Other //
     public static string currentPlayerColor;
     public static bool playerCurrentlyInCamp;
-    bool crossroadsPosition = false;
+    public static bool crossroadsPosition = false;
     int playerInClockPosition = 0;
     public static int movesRemaining;
+    public GUI gui;
 
     void Start()
     {
@@ -176,8 +177,14 @@ public class World : MonoBehaviour
                 }
                 if (movesRemaining > 0)
                 {
-                    CheckForLocalBoardPositions();
-                    tilemapUnits.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), null);
+                    CheckForBoardCrossroads(gui);
+                    Debug.Log(movesRemaining);
+                    if (crossroadsPosition == false)
+                    {
+                        boardPosition = currentUnitPosition;
+                        tilemapUnits.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), null);
+                        DetermineNextBoardPosition();
+                    }
                     switch (GameMain.currentPlayer)
                     {
                         case 1: playerOnePosition = currentUnitPosition; break;
@@ -245,6 +252,7 @@ public class World : MonoBehaviour
         GameMain.RollDice();
         GameMain.bottomLeftLowerButtonEnabled = false;
         movesRemaining = GameMain.diceOneResult + GameMain.diceTwoResult + GameMain.diceThreeResult;
+        Debug.Log("Moves Remaining: " + movesRemaining);
         CheckForLocalBoardPositions();
     }
 
@@ -276,7 +284,7 @@ public class World : MonoBehaviour
         // Add monsters
     }
 
-    void CheckForBoardCrossroads()
+    public static void CheckForBoardCrossroads(GUI gui)
     {
         boardPosition = boardPositions[currentUnitPositionOnBoard];
         foreach (Vector3 listVector in boardCrossroads)
@@ -286,38 +294,76 @@ public class World : MonoBehaviour
                 crossroadsPosition = true;
             }
         }
+        if (crossroadsPosition == true)
+        {
+            playerIsMoving = false;
+            gui.EnableArrows(false);
+        }
     }
 
-    public static void DetermineNextPosition()
+    public static void DetermineNextBoardPosition()
     {
-        boardPosition = boardPositions[currentUnitPositionOnBoard];
-        Vector3 north = new Vector3(boardPosition[0], boardPosition[1] + 1);
-        Vector3 east = new Vector3(boardPosition[0] + 1, boardPosition[1]);
-        Vector3 south = new Vector3(boardPosition[0], boardPosition[1] - 1);
-        Vector3 west = new Vector3(boardPosition[0] - 1, boardPosition[1]);
-        foreach (Vector3 listVector in boardPositions)
+        if (currentUnitDirection == "north" && northPositionAvailable)
         {
-            if (listVector == north)
+            boardPosition[1] += 1;
+        }
+        else if (currentUnitDirection == "east" && eastPositionAvailable)
+        {
+            boardPosition[0] += 1;
+        }
+        else if (currentUnitDirection == "south" && southPositionAvailable)
+        {
+            boardPosition[1] -= 1;
+        }
+        else if (currentUnitDirection == "west" && westPositionAvailable)
+        {
+            boardPosition[0] -= 1;
+        }
+        if (currentUnitDirection == "north" && !northPositionAvailable)
+        {
+            if (eastPositionAvailable)
             {
-                northPosition = north;
-                northPositionAvailable = true;
+                boardPosition[0] += 1;
             }
-            if (listVector == east)
+            else if (westPositionAvailable)
             {
-                eastPosition = east;
-                eastPositionAvailable = true;
-            }
-            if (listVector == south)
-            {
-                southPosition = south;
-                southPositionAvailable = true;
-            }
-            if (listVector == west)
-            {
-                westPosition = west;
-                westPositionAvailable = true;
+                boardPosition[0] -= 1;
             }
         }
+        if (currentUnitDirection == "east" && !eastPositionAvailable)
+        {
+            if (northPositionAvailable)
+            {
+                boardPosition[1] += 1;
+            }
+            else if (southPositionAvailable)
+            {
+                boardPosition[1] -= 1;
+            }
+        }
+        if (currentUnitDirection == "south" && !southPositionAvailable)
+        {
+            if (eastPositionAvailable)
+            {
+                boardPosition[0] += 1;
+            }
+            else if (westPositionAvailable)
+            {
+                boardPosition[0] -= 1;
+            }
+        }
+        if (currentUnitDirection == "west" && !westPositionAvailable)
+        {
+            if (northPositionAvailable)
+            {
+                boardPosition[1] += 1;
+            }
+            else if (southPositionAvailable)
+            {
+                boardPosition[1] -= 1;
+            }
+        }
+        currentUnitPosition = boardPosition;
     }
 
     public static void CheckForLocalBoardPositions()
@@ -353,7 +399,6 @@ public class World : MonoBehaviour
                 westPositionAvailable = true;
             }
         }
-        GUI.enableArrowButtons = true;
     }
 
     void CheckForLocalBoardSlots()
@@ -850,6 +895,14 @@ public class World : MonoBehaviour
             case 15: boardPosition[0] = -2; boardPosition[1] = 0; break;
             case 16: boardPosition[0] = -3; boardPosition[1] = -0; break;
         }
+        currentUnitPosition = boardPosition;
+        switch (GameMain.currentPlayer)
+        {
+            case 1: playerOnePosition = currentUnitPosition; break;
+            case 2: playerTwoPosition = currentUnitPosition; break;
+            case 3: playerThreePosition = currentUnitPosition; break;
+            case 4: playerFourPosition = currentUnitPosition; break;
+        }
         switch (currentPlayerColor)
         {
             case "red": tilemapUnits.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), playerRed); break;
@@ -1092,6 +1145,10 @@ public class World : MonoBehaviour
             boardCampPositions.Add(new Vector3Int(-2, 0));
             boardCampPositions.Add(new Vector3Int(-3, 0));
             boardCampPositions.Add(new Vector3Int(-4, 0));
+            boardCrossroads.Add(new Vector3Int(0, 1));
+            boardCrossroads.Add(new Vector3Int(1, 0));
+            boardCrossroads.Add(new Vector3Int(0, -1));
+            boardCrossroads.Add(new Vector3Int(-1, 0));
             boardCrossroads.Add(new Vector3Int(0, 4));
             boardCrossroads.Add(new Vector3Int(4, 0));
             boardCrossroads.Add(new Vector3Int(0, -4));
@@ -1101,7 +1158,7 @@ public class World : MonoBehaviour
         {
             //
         }
-        else if (GameMain.currentBoard == "moonfield")
+        else if (GameMain.currentBoard == "moon")
         {
             //
         }

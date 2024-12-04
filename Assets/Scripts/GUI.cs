@@ -16,7 +16,7 @@ public class GUI : MonoBehaviour
     public Button arrowDownButton;
     public Button arrowLeftButton;
     public World world;
-    public static bool enableArrowButtons = false;
+    private bool enableArrowButtons = false;
     [SerializeField] public Tile player;
     [SerializeField] public Tile player_red;
     [SerializeField] public Tile player_blue;
@@ -118,11 +118,17 @@ public class GUI : MonoBehaviour
         }
     }
 
+    public void EnableArrows(bool enableArrowButtons)
+    {
+        this.enableArrowButtons = enableArrowButtons;
+    }
+
     void OnClickRoll()
     {
         if (GameMain.bottomLeftLowerButtonEnabled)
         {
             World.MoveUnit();
+            EnableArrows(true);
         }
         else
         {
