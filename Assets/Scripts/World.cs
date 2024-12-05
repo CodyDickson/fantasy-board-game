@@ -439,14 +439,25 @@ public class World : MonoBehaviour
         switch (startingLocation)
         {
             case 1: boardPosition[0] = 0; boardPosition[1] = 4; break;
+            case 2: boardPosition[0] = 4; boardPosition[1] = 0; break;
+            case 3: boardPosition[0] = 0; boardPosition[1] = -4; break;
+            case 4: boardPosition[0] = -4; boardPosition[1] = 0; break;
         }
         int random;
         int shortSide = Random.Range(2,6);
+        Vector3 midPositionOne = new Vector3(boardPosition[0], boardPosition[1]);
+        Vector3 midPositionTwo = new Vector3(boardPosition[0], boardPosition[1] + 1);
+        Vector3 midPositionThree = new Vector3(boardPosition[0], boardPosition[1] + 1);
+        Vector3 midPositionFour = new Vector3(boardPosition[0], boardPosition[1] + 1);
+        Vector3 cornerPositionOne = new Vector3(boardPosition[0], boardPosition[1]);
+        Vector3 cornerPositionTwo = new Vector3(boardPosition[0], boardPosition[1] + 1);
+        Vector3 cornerPositionThree = new Vector3(boardPosition[0], boardPosition[1] + 1);
+        Vector3 cornerPositionFour = new Vector3(boardPosition[0], boardPosition[1] + 1);
+
         for (int i = 1; i <= shortSide; i++)
         {
             tilemapBoardConnectors.SetTile(new Vector3Int((int)boardPosition[0] - i, (int)boardPosition[1]), bcHorizontal);
             boardPositions.Add(new Vector3((int)boardPosition[0] - i, (int)boardPosition[1]));
-            boardSlotPositions.Add(new Vector3((int)boardPosition[0] - i, (int)boardPosition[1] + 1));
         }
         tilemapBoardConnectors.SetTile(new Vector3Int((int)boardPosition[0] - shortSide - 1, (int)boardPosition[1]), bcBottomLeftCorner);
         boardPositions.Add(new Vector3((int)boardPosition[0] - shortSide - 1, (int)boardPosition[1]));
