@@ -156,13 +156,16 @@ public class GUI : MonoBehaviour
     void OnClickArrowUpButton()
     {
         World.currentUnitDirection = "north";
+        World.DetermineNextBoardPosition(tilemapUnits);
         World.playerIsMoving = true;
         enableArrowButtons = false;
+        
     }
 
     void OnClickArrowRightButton()
     {
         World.currentUnitDirection = "east";
+        World.DetermineNextBoardPosition(tilemapUnits);
         World.playerIsMoving = true;
         enableArrowButtons = false;
     }
@@ -170,6 +173,7 @@ public class GUI : MonoBehaviour
     void OnClickArrowDownButton()
     {
         World.currentUnitDirection = "south";
+        World.DetermineNextBoardPosition(tilemapUnits);
         World.playerIsMoving = true;
         enableArrowButtons = false;
     }
@@ -177,6 +181,7 @@ public class GUI : MonoBehaviour
     void OnClickArrowLeftButton()
     {
         World.currentUnitDirection = "west";
+        World.DetermineNextBoardPosition(tilemapUnits);
         World.playerIsMoving = true;
         enableArrowButtons = false;
     }
