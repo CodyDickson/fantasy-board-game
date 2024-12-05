@@ -445,11 +445,11 @@ public class World : MonoBehaviour
         Vector3 cornerPositionFour = new Vector3(0, 0);
         int startingLocation = clockworkLocation;
         int random;
-        int shortSide = Random.Range(2, 4);
+        int shortSide = 2;
         if (startingLocation == 1)
         {
             midPositionThree = new Vector3(0, 4);
-            cornerPositionThree = new Vector3((midPositionThree[0] - shortSide - 1), midPositionThree[1]);
+            cornerPositionThree = new Vector3(midPositionThree[0] - shortSide - 1, midPositionThree[1]);
             Debug.Log("Corner Position Three: " + cornerPositionThree);
             midPositionFour = new Vector3(cornerPositionThree[0], cornerPositionThree[1] + shortSide + 1);
             cornerPositionFour = new Vector3(midPositionFour[0], midPositionFour[1] + shortSide + 1);
@@ -868,8 +868,7 @@ public class World : MonoBehaviour
             tilemapBoardConnectors.SetTile(new Vector3Int(-4, 0), bcThreeRight);
             int random;
             string section = "empty";
-            // random = Random.Range(1,4);
-            random = 1;
+            random = Random.Range(1,4);
             if (random == 1)
             {
                 section = "loop";
@@ -878,6 +877,7 @@ public class World : MonoBehaviour
             else if (random == 2)
             {
                 section = "toll";
+                LoopGenerator(1);
             }
             if (random == 3)
             {
@@ -885,25 +885,7 @@ public class World : MonoBehaviour
             }
             boardClockPosition.Add(1, section);
             boardClockPosition.Add(2, "empty");
-            // random = Random.Range(1,4);
-            random = 2;
-            if (random == 1)
-            {
-                section = "loop";
-                LoopGenerator(2);
-            }
-            else if (random == 2)
-            {
-                section = "toll";
-            }
-            if (random == 3)
-            {
-                section = "empty";
-            }
-            boardClockPosition.Add(3, section);
-            boardClockPosition.Add(4, "empty");
-            // random = Random.Range(1,4);
-            random = 2;
+            random = Random.Range(1,4);
             if (random == 1)
             {
                 section = "loop";
@@ -912,6 +894,24 @@ public class World : MonoBehaviour
             else if (random == 2)
             {
                 section = "toll";
+                LoopGenerator(3);
+            }
+            if (random == 3)
+            {
+                section = "empty";
+            }
+            boardClockPosition.Add(3, section);
+            boardClockPosition.Add(4, "empty");
+            random = Random.Range(1,4);
+            if (random == 1)
+            {
+                section = "loop";
+                LoopGenerator(5);
+            }
+            else if (random == 2)
+            {
+                section = "toll";
+                LoopGenerator(5);
             }
             if (random == 3)
             {
@@ -919,16 +919,16 @@ public class World : MonoBehaviour
             }
             boardClockPosition.Add(5, section);
             boardClockPosition.Add(6, "empty");
-            // random = Random.Range(1,4);
-            random = 2;
+            random = Random.Range(1,4);
             if (random == 1)
             {
                 section = "loop";
-                LoopGenerator(4);
+                LoopGenerator(7);
             }
             else if (random == 2)
             {
                 section = "toll";
+                LoopGenerator(7);
             }
             if (random == 3)
             {
