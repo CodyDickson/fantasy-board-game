@@ -433,10 +433,15 @@ public class World : MonoBehaviour
         }
     }
 
-    void LoopGenerator()
+    void LoopGenerator(int clockworkLocation)
     {
+        int startingLocation = clockworkLocation;
+        switch (startingLocation)
+        {
+            case 1: boardPosition[0] = 0; boardPosition[1] = 4; break;
+        }
         int random;
-        int shortSide = Random.Range(3,5);
+        int shortSide = Random.Range(2,6);
         for (int i = 1; i <= shortSide; i++)
         {
             tilemapBoardConnectors.SetTile(new Vector3Int((int)boardPosition[0] - i, (int)boardPosition[1]), bcHorizontal);
@@ -828,7 +833,7 @@ public class World : MonoBehaviour
             if (random == 1)
             {
                 section = "loop";
-                LoopGenerator();
+                LoopGenerator(1);
             }
             else if (random == 2)
             {
@@ -844,7 +849,7 @@ public class World : MonoBehaviour
             if (random == 1)
             {
                 section = "loop";
-                LoopGenerator();
+                LoopGenerator(2);
             }
             else if (random == 2)
             {
@@ -860,7 +865,7 @@ public class World : MonoBehaviour
             if (random == 1)
             {
                 section = "loop";
-                LoopGenerator();
+                LoopGenerator(3);
             }
             else if (random == 2)
             {
@@ -876,7 +881,7 @@ public class World : MonoBehaviour
             if (random == 1)
             {
                 section = "loop";
-                LoopGenerator();
+                LoopGenerator(4);
             }
             else if (random == 2)
             {
