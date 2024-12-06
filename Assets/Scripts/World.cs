@@ -9,21 +9,9 @@ public class World : MonoBehaviour
     // Map Settings //
     public static bool mapSizeIsRandom = false;
     public static int currentUnitPositionOnBoard = 0;
-    public static Vector3 currentUnitPosition;
-    public static Vector3 playerOnePosition;
-    public static Vector3 playerTwoPosition;
-    public static Vector3 playerThreePosition;
-    public static Vector3 playerFourPosition;
     public static int previousUnitAvatar = 0;
     public static int newUnitPosition = 0;
-    public static int unitPositionPlayer1 = 0;
-    public static int unitPositionPlayer2 = 0;
-    public static int unitPositionPlayer3 = 0;
-    public static int unitPositionPlayer4 = 0;
     public static bool playerIsMoving;
-    public static Vector3 boardPosition;
-    public static List<Vector3> boardPositions = new List<Vector3>();
-    public static List<Vector3> localBoardPositions = new List<Vector3>();
     // Directions
     public static string currentUnitDirection;
     public static Vector3 northPosition;
@@ -35,23 +23,22 @@ public class World : MonoBehaviour
     public static Vector3 westPosition;
     public static bool westPositionAvailable = false;
     //
+    public static Vector3 boardPosition;
+    public static List<Vector3> boardPositions = new List<Vector3>();
+    public static List<Vector3> localBoardPositions = new List<Vector3>();
     public static List<Vector3> boardSlotPositions = new List<Vector3>();
     public static List<Vector3> boardCampPositions = new List<Vector3>();
     public static List<Vector3> boardCrossroads = new List<Vector3>();
+    public static Vector3 currentUnitPosition;
+    public static Vector3 playerOnePosition;
+    public static Vector3 playerTwoPosition;
+    public static Vector3 playerThreePosition;
+    public static Vector3 playerFourPosition;
     public static Dictionary<int, string> boardClockPosition = new Dictionary<int, string>();
     public static Dictionary<int, string> boardLoopDirection = new Dictionary<int, string>();
     public static Dictionary<int, string> boardStructures = new Dictionary<int, string>();
     public static Dictionary<int, string> boardUnits = new Dictionary<int, string>();
     public static int boardLength;
-    bool firstSectionActive;
-    bool secondSectionActive;
-    bool thirdSectionActive;
-    string loopDirection;
-    bool leftPassage;
-    bool rightPassage;
-    bool topPassage;
-    bool downPassage;
-    public static bool arrowsInCampEnabled = false;
     // Tiles and Tilemaps //
     [SerializeField] public Tile playerRed;
     [SerializeField] public Tile playerBlue;
@@ -98,7 +85,7 @@ public class World : MonoBehaviour
     [SerializeField] public Tilemap tilemapBoardConnectors;
     [SerializeField] public Tilemap tilemapUnits;
     // Time //
-    private float counter = 0.25f;
+    private float counter = 0.01f;
     private float tempCounter = 0f;
     private float tempCounter2 = 0f;
     private float counter2 = 0.5f;
@@ -106,7 +93,6 @@ public class World : MonoBehaviour
     public static string currentPlayerColor;
     public static bool playerCurrentlyInCamp;
     public static bool crossroadsPosition = false;
-    int playerInClockPosition = 0;
     public static int movesRemaining;
     public GUI gui;
 
@@ -115,16 +101,16 @@ public class World : MonoBehaviour
         CampGenerator();
         TerrainGenerator();
         currentUnitPosition = playerOnePosition;
+        GameMain.playerOneIsActive = true;
         boardPosition = currentUnitPosition;
         playerCurrentlyInCamp = true;
-        arrowsInCampEnabled = false;
     }
 
     void Update()
     {
         if (tempCounter <= 0f)
         {
-            if (GameMain.activePlayers > 0)
+            if (GameMain.playerOneIsActive)
             {
                 switch (GameMain.playerOneColor)
                 {
@@ -135,7 +121,7 @@ public class World : MonoBehaviour
                     case "white": tilemapUnits.SetTile(new Vector3Int((int)playerOnePosition[0], (int)playerOnePosition[1]), playerWhite); break;
                 }
             }
-            if (GameMain.activePlayers > 1)
+            if (GameMain.playerTwoIsActive)
             {
                 boardPosition = playerTwoPosition;
                 switch (GameMain.playerTwoColor)
@@ -147,7 +133,7 @@ public class World : MonoBehaviour
                     case "white": tilemapUnits.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), playerWhite); break;
                 }
             }
-            if (GameMain.activePlayers > 2)
+            if (GameMain.playerThreeIsActive)
             {
                 boardPosition = playerThreePosition;
                 switch (GameMain.playerThreeColor)
@@ -159,7 +145,7 @@ public class World : MonoBehaviour
                     case "white": tilemapUnits.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), playerWhite); break;
                 }
             }
-            if (GameMain.activePlayers > 3)
+            if (GameMain.playerFourIsActive)
             {
                 boardPosition = playerFourPosition;
                 switch (GameMain.playerFourColor)
@@ -169,13 +155,13 @@ public class World : MonoBehaviour
                     case "green": tilemapUnits.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), playerGreen); break;
                     case "purple": tilemapUnits.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), playerPurple); break;
                     case "white": tilemapUnits.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), playerWhite); break;
-                }
-                tempCounter = counter;
+                }   
             }
-            else
-            {
-                tempCounter -= Time.deltaTime;
-            }
+            tempCounter = counter;
+        }
+        else
+        {
+            tempCounter -= Time.deltaTime;
         }
         if (playerIsMoving)
         {
@@ -200,13 +186,12 @@ public class World : MonoBehaviour
                         CheckForLocalBoardPositions();
                         gui.EnableArrows(true);
                         playerIsMoving = false;
-                        Debug.Log("Crossroads True");
                     }
                 }
                 if (movesRemaining == 0)
                 {
                     gui.EnableArrows(false);
-
+                    GameMain.endTurnButtonEnabled = true;
                     playerIsMoving = false;
                 }
                 tempCounter2 = counter2;
@@ -649,6 +634,7 @@ public class World : MonoBehaviour
             case 16: boardPosition[0] = -3; boardPosition[1] = -0; break;
         }
         currentUnitPosition = boardPosition;
+        Debug.Log("Current Player: " + GameMain.currentPlayer);
         switch (GameMain.currentPlayer)
         {
             case 1: playerOnePosition = currentUnitPosition; break;

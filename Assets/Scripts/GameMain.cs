@@ -96,6 +96,10 @@ public class GameMain : MonoBehaviour
     // Current move info //
     public static int currentPlayerDice = 0;
     // Player position tracking //
+    public static bool playerOneIsActive;
+    public static bool playerTwoIsActive;
+    public static bool playerThreeIsActive;
+    public static bool playerFourIsActive;
     public static int unitPositionPlayer1;
     public static int unitPositionPlayer2;
     public static int unitPositionPlayer3;
@@ -180,7 +184,7 @@ public class GameMain : MonoBehaviour
 
     void Start()
     {
-        activePlayers = 1;
+        activePlayers = 4;
         currentTurn = 1;
         currentPlayer = 1;
         playerOneColor = "red";
@@ -260,51 +264,6 @@ public class GameMain : MonoBehaviour
                     centerDisplayText.text = "Cannot Afford To Pay!";   
                 }
                 tempCounter2 += Time.deltaTime;
-            }
-        }
-        else if (spawnRampagingElephant == true)
-        {
-            // Move the camera to the elite spawn spot //
-            GUI.SetActive(false);
-            for (int i = 0; i < boardLength; i++)
-            {
-                bool unitPositionClear = true;
-                if (unitPositionPlayer1 == i)
-                {
-                    unitPositionClear = false;
-                }
-                else if (unitPositionPlayer2 == i)
-                {
-                    unitPositionClear = false;
-                }
-                else if (unitPositionPlayer3 == i)
-                {
-                    unitPositionClear = false;
-                }
-                else if (unitPositionPlayer4 == i)
-                {
-                    unitPositionClear = false;
-                }
-                if ((boardStructures[i] == "dungeonImp" || boardStructures[i] == "dungeonBasilisk") && unitPositionClear && boardMonsters[i] == "empty")
-                {
-                    // unitOnPosition[i] = "rampagingElephant";
-                    boardMonsters[i] = "rampagingElephant";
-                    boardPosition = boardPositions[i];
-                    tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), monsterRampagingElephant);
-                }
-                else if (boardStructures[i] == "dungeonBasilisk" && unitPositionClear)
-                {
-                    int random = Random.Range(1,4);
-                    if (random == 1)
-                    {
-                        if (boardMonsters[i] == "empty")
-                        {
-                            boardMonsters[i] = "basilisk";
-                            boardPosition = boardPositions[i];
-                            tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), monsterBasilisk);
-                        }
-                    }
-                }
             }
         }
         else if (GUIEnabled)
@@ -405,91 +364,82 @@ public class GameMain : MonoBehaviour
 
     public static void EndTurn(Tilemap tilemap, Tile monsterImp, Tile monsterBasilisk, World world)
     {
-        if (currentTurn == 1)
-        {
-            World.arrowsInCampEnabled = true;
-        }
-        World.CheckForLocalBoardPositions();
         endTurnButtonEnabled = false;
-        bottomLeftLowerButtonEnabled = true;
-        secondaryButtonEnabled = false;
-        // Save current position to the relevant player
-        if (currentPlayer == 1)
-        {
-            unitPositionPlayer1 = World.currentUnitPositionOnBoard;
-        }
-        else if (currentPlayer == 2)
-        {
-            unitPositionPlayer2 = World.currentUnitPositionOnBoard;
-        }
-        else if (currentPlayer == 3)
-        {
-            unitPositionPlayer3 = World.currentUnitPositionOnBoard;
-        }
-        else if (currentPlayer == 4)
-        {
-            unitPositionPlayer4 = World.currentUnitPositionOnBoard;
-        }
-        // Determine next player //
         currentPlayer += 1;
-        if (currentPlayer <= activePlayers)
-        {
-            if (currentPlayer == 2 && !player_alive_two)
-            {
-                currentPlayer += 1;
-            }
-            if (currentPlayer == 3 && !player_alive_three)
-            {
-                currentPlayer += 1;
-            }
-            if (currentPlayer == 4 && !player_alive_four)
-            {
-                currentPlayer = 1;
-            }
-            if (currentPlayer == 1 && !player_alive_one)
-            {
-                currentPlayer += 1;
-            }
-        }
         if (currentPlayer > activePlayers)
         {
-            if (player_alive_one)
+            if (playerOneIsActive)
             {
                 currentPlayer = 1;
             }
-            else if (player_alive_two)
+            else if (playerTwoIsActive)
             {
                 currentPlayer = 2;
             }
-            else if (player_alive_three)
+            else if (playerThreeIsActive)
             {
                 currentPlayer = 3;
             }
-            else if (player_alive_four)
+            else if (playerFourIsActive)
             {
                 currentPlayer = 4;
             }
             currentTurn += 1;
-            // Spawn monsters
-            for (int i = 0; i < boardLength; i++)
+        }
+        if (currentTurn == 1)
+        {
+            switch (currentPlayer)
             {
-                bool unitPositionClear = true;
-                if (unitPositionPlayer1 == i)
-                {
-                    unitPositionClear = false;
-                }
-                else if (unitPositionPlayer2 == i)
-                {
-                    unitPositionClear = false;
-                }
-                else if (unitPositionPlayer3 == i)
-                {
-                    unitPositionClear = false;
-                }
-                else if (unitPositionPlayer4 == i)
-                {
-                    unitPositionClear = false;
-                }
+                case 2: playerTwoIsActive = true; break;
+                case 3: playerThreeIsActive = true; break;
+                case 4: playerFourIsActive = true; break;
+            }
+            world.SpawnActivePlayerAtCamp();
+        }
+        if (currentPlayer == 1)
+        {
+            currentPlayerDice = player_combatDice_one;
+            World.currentPlayerColor = playerOneColor;
+            World.currentUnitPosition = World.playerOnePosition;
+        }
+        else if (currentPlayer == 2)
+        {
+            currentPlayerDice = player_combatDice_two;
+            World.currentPlayerColor = playerTwoColor;
+            World.currentUnitPosition = World.playerTwoPosition;
+        }
+        else if (currentPlayer == 3)
+        {
+            currentPlayerDice = player_combatDice_three;
+            World.currentPlayerColor = playerThreeColor;
+            World.currentUnitPosition = World.playerThreePosition;
+        }
+        else if (currentPlayer == 4)
+        {
+            currentPlayerDice = player_combatDice_four;
+            World.currentPlayerColor = playerFourColor;
+            World.currentUnitPosition = World.playerFourPosition;
+        }
+        /*if (currentTurn > 1 && currentPlayer <= activePlayers)
+        {
+            if (currentPlayer == 2 && !playerTwoIsActive)
+            {
+                currentPlayer += 1;
+            }
+            if (currentPlayer == 3 && !playerThreeIsActive)
+            {
+                currentPlayer += 1;
+            }
+            if (currentPlayer == 4 && !playerFourIsActive)
+            {
+                currentPlayer = +1;
+            }
+            if (currentPlayer == 1 && !playerOneIsActive)
+            {
+                currentPlayer += 1;
+            }
+        }
+            Spawn monsters
                 if (boardStructures[i] == "dungeonImp" && unitPositionClear)
                 {
                     int random = Random.Range(1,5);
@@ -524,29 +474,10 @@ public class GameMain : MonoBehaviour
                 {
                     spawnRampagingElephant = true;
                 }
-            }
-        }
-        // Update current player values to match the current player
-        if (currentPlayer == 1)
-        {
-            World.currentUnitPosition = World.playerOnePosition;
-            currentPlayerDice = player_combatDice_one;
-        }
-        else if (currentPlayer == 2)
-        {
-            World.currentUnitPositionOnBoard = unitPositionPlayer2;
-            currentPlayerDice = player_combatDice_two;
-        }
-        else if (currentPlayer == 3)
-        {
-            World.currentUnitPositionOnBoard = unitPositionPlayer3;
-            currentPlayerDice = player_combatDice_three;
-        }
-        else if (currentPlayer == 4)
-        {
-            World.currentUnitPositionOnBoard = unitPositionPlayer4;
-            currentPlayerDice = player_combatDice_four;
-        }
+            }*/
+        bottomLeftLowerButtonEnabled = true;
+        secondaryButtonEnabled = false;
+        World.CheckForLocalBoardPositions();
     }
 
     public static void RollDice()

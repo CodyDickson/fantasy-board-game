@@ -89,19 +89,19 @@ public class GUI : MonoBehaviour
             arrowLeftButton.gameObject.SetActive(false);
         }
 
-        if (GameMain.activePlayers >= 1)
+        if (GameMain.playerOneIsActive)
         {
             textGoldPlayer1.text = "player " + GameMain.playerOneColor + " - gold: " + GameMain.player_gold_one + "\nlives: " + GameMain.livesPlayerOne + " move: " + GameMain.player_moveDice_one + " combat: " + GameMain.player_combatDice_one;
         }
-        if (GameMain.activePlayers >= 2)
+        if (GameMain.playerTwoIsActive)
         {
             textGoldPlayer2.text = "player " + GameMain.playerTwoColor + " - gold: " + GameMain.player_gold_two + "\nlives: " + GameMain.livesPlayerTwo + " move: " + GameMain.player_moveDice_two + " combat: " + GameMain.player_combatDice_two;
         }
-        if (GameMain.activePlayers >= 3)
+        if (GameMain.playerThreeIsActive)
         {
             textGoldPlayer3.text = "player " + GameMain.playerThreeColor + " - gold: " + GameMain.player_gold_three + "\nlives: " + GameMain.livesPlayerThree + " move: " + GameMain.player_moveDice_three + " combat: " + GameMain.player_combatDice_three;
         }
-        if (GameMain.activePlayers >= 4)
+        if (GameMain.playerFourIsActive)
         {
             textGoldPlayer4.text = "player " + GameMain.playerFourColor + " - gold: " + GameMain.player_gold_four + "\nlives: " + GameMain.livesPlayerFour + " move: " + GameMain.player_moveDice_four + " combat: " + GameMain.player_combatDice_four;
         }
@@ -115,6 +115,22 @@ public class GUI : MonoBehaviour
         {
             secondaryButton.gameObject.SetActive(false);
             secondaryButtonPanel.gameObject.SetActive(false);
+        }
+        if (GameMain.endTurnButtonEnabled && GameMain.GUIEnabled)
+        {
+            endTurnButton.gameObject.SetActive(true);
+        }
+        else if (!GameMain.endTurnButtonEnabled)
+        {
+            endTurnButton.gameObject.SetActive(false);
+        }
+        if (GameMain.bottomLeftLowerButtonEnabled && GameMain.GUIEnabled)
+        {
+            rollButton.gameObject.SetActive(true);
+        }
+        else if (!GameMain.bottomLeftLowerButtonEnabled)
+        {
+            rollButton.gameObject.SetActive(false);
         }
     }
 
