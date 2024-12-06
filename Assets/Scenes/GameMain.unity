@@ -16542,8 +16542,8 @@ MonoBehaviour:
   monsterBasilisk: {fileID: 11400000, guid: 6abf17d41a559684b8eaf9005884b30c, type: 2}
   dungeon: {fileID: 11400000, guid: 906c7e7fbb5ba5d4ab5d17485bf19f60, type: 2}
   tilemap: {fileID: 737563382}
-  tilemapStructures: {fileID: 0}
-  tilemapUnits: {fileID: 0}
+  tilemapStructures: {fileID: 737563382}
+  tilemapUnits: {fileID: 533341040}
   textGoldPlayer1: {fileID: 1445581557}
   textGoldPlayer2: {fileID: 784767244}
   textGoldPlayer3: {fileID: 762451959}
