@@ -485,6 +485,7 @@ public class World : MonoBehaviour
         else if (random == 1)
         {
             tilemapBoardConnectors.SetTile(new Vector3Int((int)midPositionOne[0], (int)midPositionOne[1]), bcHorizontal);
+            boardSlotPositions.Add(new Vector3Int((int)midPositionOne[0], (int)midPositionOne[1] - 1));
         }
         else if (random == 2)
         {
@@ -500,6 +501,7 @@ public class World : MonoBehaviour
         else if (random == 1)
         {
             tilemapBoardConnectors.SetTile(new Vector3Int((int)midPositionTwo[0], (int)midPositionTwo[1]), bcVertical);
+            boardSlotPositions.Add(new Vector3Int((int)midPositionTwo[0] - 1, (int)midPositionTwo[1]));
         }
         else if (random == 2)
         {
@@ -515,6 +517,7 @@ public class World : MonoBehaviour
         else if (random == 1)
         {
             tilemapBoardConnectors.SetTile(new Vector3Int((int)midPositionThree[0], (int)midPositionThree[1]), bcHorizontal);
+            boardSlotPositions.Add(new Vector3Int((int)midPositionThree[0], (int)midPositionThree[1] + 1));
         }
         else if (random == 2)
         {
@@ -530,6 +533,7 @@ public class World : MonoBehaviour
         else if (random == 1)
         {
             tilemapBoardConnectors.SetTile(new Vector3Int((int)midPositionFour[0], (int)midPositionFour[1]), bcVertical);
+            boardSlotPositions.Add(new Vector3Int((int)midPositionFour[0], (int)midPositionFour[1] + 1));
         }
         else if (random == 2)
         {
@@ -554,6 +558,14 @@ public class World : MonoBehaviour
             boardPositions.Add(new Vector3Int((int)midPositionThree[0] + i, (int)midPositionThree[1]));
             boardPositions.Add(new Vector3Int((int)midPositionTwo[0], (int)midPositionTwo[1] + i));
             boardPositions.Add(new Vector3Int((int)midPositionFour[0], (int)midPositionFour[1] + i));
+            boardSlotPositions.Add(new Vector3Int((int)cornerPositionThree[0] + i, (int)cornerPositionThree[1] + 1));
+            boardSlotPositions.Add(new Vector3Int((int)cornerPositionThree[0] + 1, (int)cornerPositionThree[1] + i));
+            boardSlotPositions.Add(new Vector3Int((int)cornerPositionTwo[0] - 1, (int)cornerPositionTwo[1] + i));
+            boardSlotPositions.Add(new Vector3Int((int)cornerPositionFour[0] + i, (int)cornerPositionFour[1] - 1));
+            boardSlotPositions.Add(new Vector3Int((int)midPositionOne[0] + i, (int)midPositionOne[1] - 1));
+            boardSlotPositions.Add(new Vector3Int((int)midPositionThree[0] + i, (int)midPositionThree[1] + 1));
+            boardSlotPositions.Add(new Vector3Int((int)midPositionTwo[0] - 1, (int)midPositionTwo[1] + i));
+            boardSlotPositions.Add(new Vector3Int((int)midPositionFour[0] + 1, (int)midPositionFour[1] + i));
         }
         tilemapBoardConnectors.SetTile(new Vector3Int((int)cornerPositionThree[0], (int)cornerPositionThree[1]), bcBottomLeftCorner);
         tilemapBoardConnectors.SetTile(new Vector3Int((int)cornerPositionFour[0], (int)cornerPositionFour[1]), bcTopLeftCorner);
@@ -634,7 +646,6 @@ public class World : MonoBehaviour
             case 16: boardPosition[0] = -3; boardPosition[1] = -0; break;
         }
         currentUnitPosition = boardPosition;
-        Debug.Log("Current Player: " + GameMain.currentPlayer);
         switch (GameMain.currentPlayer)
         {
             case 1: playerOnePosition = currentUnitPosition; break;

@@ -9,8 +9,13 @@ WORLD
 [ ] When generating the board, fill random board slots with Dungeons
 
 DUNGEONS
+[ ] When generating the board, there is a chance for a dungeon to spawn
+[ ] Each turn, there is a chance for a Dungeon to spread to a nearby tile
 
 VILLAGES
+[ ] Players can pay 100 Points to upgrade a village, spreading it to a nearby available spot
+[ ] Cost 50 Points to build, requires an empty slot
+[ ] Players pay 50 Points when they land on a village. If that Village has grown to nearby tiles, it's 50 points for all in the connection
 
 COMBAT
 [ ] When a player lands on another player, combat occurs. The loser goes back to camp and loses a life. The winner gets 250 Points.
@@ -30,12 +35,14 @@ GAME SET UP
 [ ] Game Mode: Standard, Odd Mode
 [ ] Game Board: Grasslands, Graveyard, Flooded Desert, Moon, Machine
 [ ] Players: Number of players, Colors, Human or Computer
-[ ] Ruleset: Dungeon Cap, Dungeon Spawn Rate, Chest Spawn Rate, Elite Spawn Rate
+[ ] Ruleset: Turn Limit, Point Limit, Dungeon Cap, Dungeon Spawn Rate, Chest Spawn Rate, Elite Spawn Rate
 
 MAIN MENU
 [ ] New Game
 [ ] Continue
 [ ] Settings
 [ ] Quit
+
+SETTINGS
 
 AI TURNS

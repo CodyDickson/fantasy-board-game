@@ -351,8 +351,10 @@ public class GameMain : MonoBehaviour
     {
         for (int i = 0; i < World.boardSlotPositions.Count; i++)
         {
-            World.boardStructures.Add(i, "dungeon" + dungeonType);
+            Debug.Log("pass");
+            // World.boardStructures.Add(i, "dungeon" + dungeonType);
             World.boardPosition = World.boardSlotPositions[i];
+            Debug.Log(World.boardSlotPositions[i]);
             tilemapStructures.SetTile(new Vector3Int((int)World.boardPosition[0], (int)World.boardPosition[1]), dungeon);
         }
     }
