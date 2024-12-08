@@ -90,19 +90,19 @@ public class GUI : MonoBehaviour
 
         if (GameMain.playerOneIsActive)
         {
-            textGoldPlayer1.text = "player " + GameMain.playerOneColor + " - gold: " + GameMain.player_gold_one + "\nlives: " + GameMain.livesPlayerOne + " move: " + GameMain.player_moveDice_one + " combat: " + GameMain.player_combatDice_one;
+            textGoldPlayer1.text = "player " + GameMain.playerOneColor + " - gold: " + GameMain.playerOneGold + "\nlives: " + GameMain.livesPlayerOne + " move: " + GameMain.player_moveDice_one + " combat: " + GameMain.player_combatDice_one;
         }
         if (GameMain.playerTwoIsActive)
         {
-            textGoldPlayer2.text = "player " + GameMain.playerTwoColor + " - gold: " + GameMain.player_gold_two + "\nlives: " + GameMain.livesPlayerTwo + " move: " + GameMain.player_moveDice_two + " combat: " + GameMain.player_combatDice_two;
+            textGoldPlayer2.text = "player " + GameMain.playerTwoColor + " - gold: " + GameMain.playerTwoGold + "\nlives: " + GameMain.livesPlayerTwo + " move: " + GameMain.player_moveDice_two + " combat: " + GameMain.player_combatDice_two;
         }
         if (GameMain.playerThreeIsActive)
         {
-            textGoldPlayer3.text = "player " + GameMain.playerThreeColor + " - gold: " + GameMain.player_gold_three + "\nlives: " + GameMain.livesPlayerThree + " move: " + GameMain.player_moveDice_three + " combat: " + GameMain.player_combatDice_three;
+            textGoldPlayer3.text = "player " + GameMain.playerThreeColor + " - gold: " + GameMain.playerThreeGold + "\nlives: " + GameMain.livesPlayerThree + " move: " + GameMain.player_moveDice_three + " combat: " + GameMain.player_combatDice_three;
         }
         if (GameMain.playerFourIsActive)
         {
-            textGoldPlayer4.text = "player " + GameMain.playerFourColor + " - gold: " + GameMain.player_gold_four + "\nlives: " + GameMain.livesPlayerFour + " move: " + GameMain.player_moveDice_four + " combat: " + GameMain.player_combatDice_four;
+            textGoldPlayer4.text = "player " + GameMain.playerFourColor + " - gold: " + GameMain.playerFourGold + "\nlives: " + GameMain.livesPlayerFour + " move: " + GameMain.player_moveDice_four + " combat: " + GameMain.player_combatDice_four;
         }
         textCurrentPlayer.text = "current player: " + GameMain.currentPlayer;
         if (GameMain.secondaryButtonEnabled && GameMain.GUIEnabled)

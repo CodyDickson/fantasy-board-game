@@ -92,19 +92,19 @@ public class ChestManager : MonoBehaviour
             updateRewardText = 1;
             if (GameMain.currentPlayer == 1)
             {
-                GameMain.player_gold_one += 100;
+                GameMain.playerOneGold += 100;
             }
             else if (GameMain.currentPlayer == 2)
             {
-                GameMain.player_gold_two += 100;
+                GameMain.playerTwoGold += 100;
             }
             else if (GameMain.currentPlayer == 3)
             {
-                GameMain.player_gold_three += 100;
+                GameMain.playerThreeGold += 100;
             }
             else if (GameMain.currentPlayer == 4)
             {
-                GameMain.player_gold_four += 100;
+                GameMain.playerFourGold += 100;
             }
         }
         else if (random == 2)
@@ -112,19 +112,19 @@ public class ChestManager : MonoBehaviour
             updateRewardText = 2;
             if (GameMain.currentPlayer == 1)
             {
-                GameMain.player_gold_one += 250;
+                GameMain.playerOneGold += 250;
             }
             else if (GameMain.currentPlayer == 2)
             {
-                GameMain.player_gold_two += 250;
+                GameMain.playerTwoGold += 250;
             }
             else if (GameMain.currentPlayer == 3)
             {
-                GameMain.player_gold_three += 250;
+                GameMain.playerThreeGold += 250;
             }
             else if (GameMain.currentPlayer == 4)
             {
-                GameMain.player_gold_four += 250;
+                GameMain.playerFourGold += 250;
             }
         }
         else if (random == 3)
@@ -132,19 +132,19 @@ public class ChestManager : MonoBehaviour
             updateRewardText = 3;
             if (GameMain.currentPlayer == 1)
             {
-                GameMain.player_gold_one += 500;
+                GameMain.playerOneGold += 500;
             }
             else if (GameMain.currentPlayer == 2)
             {
-                GameMain.player_gold_two += 500;
+                GameMain.playerTwoGold += 500;
             }
             else if (GameMain.currentPlayer == 3)
             {
-                GameMain.player_gold_three += 500;
+                GameMain.playerThreeGold += 500;
             }
             else if (GameMain.currentPlayer == 4)
             {
-                GameMain.player_gold_four += 500;
+                GameMain.playerFourGold += 500;
             }
         }
         else if (random == 4)
@@ -157,7 +157,7 @@ public class ChestManager : MonoBehaviour
             else if (GameMain.currentPlayer == 1 && GameMain.player_combatDice_one >= 3)
             {
                 updateRewardText = 2;
-                GameMain.player_gold_one += 250;
+                GameMain.playerOneGold += 250;
             }
             if (GameMain.currentPlayer == 2 && GameMain.player_combatDice_one < 3)
             {
@@ -167,7 +167,7 @@ public class ChestManager : MonoBehaviour
             else if (GameMain.currentPlayer == 2 && GameMain.player_combatDice_two >= 3)
             {
                 updateRewardText = 2;
-                GameMain.player_gold_two += 250;
+                GameMain.playerTwoGold += 250;
             }
             if (GameMain.currentPlayer == 3 && GameMain.player_combatDice_three < 3)
             {
@@ -177,7 +177,7 @@ public class ChestManager : MonoBehaviour
             else if (GameMain.currentPlayer == 3 && GameMain.player_combatDice_three >= 3)
             {
                 updateRewardText = 2;
-                GameMain.player_gold_three += 250;
+                GameMain.playerThreeGold += 250;
             }
             if (GameMain.currentPlayer == 4 && GameMain.player_combatDice_four < 3)
             {
@@ -187,7 +187,7 @@ public class ChestManager : MonoBehaviour
             else if (GameMain.currentPlayer == 4 && GameMain.player_combatDice_four >= 3)
             {
                 updateRewardText = 2;
-                GameMain.player_gold_four += 250;
+                GameMain.playerFourGold += 250;
             }
         }
         else if (random == 5)
@@ -200,7 +200,7 @@ public class ChestManager : MonoBehaviour
             else if (GameMain.currentPlayer == 1 && GameMain.player_moveDice_one >= 3)
             {
                 updateRewardText = 2;
-                GameMain.player_gold_one += 250;
+                GameMain.playerOneGold += 250;
             }
             if (GameMain.currentPlayer == 2 && GameMain.player_moveDice_one < 3)
             {
@@ -210,7 +210,7 @@ public class ChestManager : MonoBehaviour
             else if (GameMain.currentPlayer == 2 && GameMain.player_moveDice_two >= 3)
             {
                 updateRewardText = 2;
-                GameMain.player_gold_two += 250;
+                GameMain.playerTwoGold += 250;
             }
             if (GameMain.currentPlayer == 3 && GameMain.player_moveDice_three < 3)
             {
@@ -220,7 +220,7 @@ public class ChestManager : MonoBehaviour
             else if (GameMain.currentPlayer == 3 && GameMain.player_moveDice_three >= 3)
             {
                 updateRewardText = 2;
-                GameMain.player_gold_three += 250;
+                GameMain.playerThreeGold += 250;
             }
             if (GameMain.currentPlayer == 4 && GameMain.player_moveDice_four < 3)
             {
@@ -230,7 +230,7 @@ public class ChestManager : MonoBehaviour
             else if (GameMain.currentPlayer == 4 && GameMain.player_moveDice_four >= 3)
             {
                 updateRewardText = 2;
-                GameMain.player_gold_four += 250;
+                GameMain.playerFourGold += 250;
             }
         }
         else if (random == 6)

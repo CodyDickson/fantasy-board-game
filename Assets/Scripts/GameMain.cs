@@ -65,10 +65,10 @@ public class GameMain : MonoBehaviour
     public static int diceTwoResult = 0;
     public static int diceThreeResult = 0;
     // Player info //
-    public static int player_gold_one = startingGold;
-    public static int player_gold_two = startingGold;
-    public static int player_gold_three = startingGold;
-    public static int player_gold_four = startingGold;
+    public static int playerOneGold = startingGold;
+    public static int playerTwoGold = startingGold;
+    public static int playerThreeGold = startingGold;
+    public static int playerFourGold = startingGold;
     public static int player_combatDice_one = 2;
     public static int player_combatDice_two = 2;
     public static int player_combatDice_three = 2;
@@ -244,27 +244,6 @@ public class GameMain : MonoBehaviour
             GUI.SetActive(false);
             dungeonScreen.SetActive(true);
         }
-        else if (opposingVillageEncounterHappening)
-        {
-            if (tempCounter2 >= counter2)
-            {
-                opposingVillageEncounterHappening = false;
-                opposingVillageEncounterCannotPay = false;
-                centerDisplayText.text = "";
-            }
-            else
-            {
-                if (!opposingVillageEncounterCannotPay)
-                {
-                    centerDisplayText.text = "Opposing Village Encountered";
-                }
-                else if (opposingVillageEncounterCannotPay)
-                {
-                    centerDisplayText.text = "Cannot Afford To Pay!";   
-                }
-                tempCounter2 += Time.deltaTime;
-            }
-        }
         else if (GUIEnabled)
         {
             GUI.SetActive(true);
@@ -346,21 +325,22 @@ public class GameMain : MonoBehaviour
         }
     }
 
-    void SpawnDungeons()
-    {
-        for (int i = 0; i < World.boardSlotPositions.Count; i++)
-        {
-            Debug.Log("pass");
-            // World.boardStructures.Add(i, "dungeon" + dungeonType);
-            World.boardPosition = World.boardSlotPositions[i];
-            Debug.Log(World.boardSlotPositions[i]);
-            tilemapStructures.SetTile(new Vector3Int((int)World.boardPosition[0], (int)World.boardPosition[1]), dungeon);
-        }
-    }
-
     public static void EndTurn(Tilemap tilemap, Tile monsterImp, Tile monsterBasilisk, World world)
     {
         endTurnButtonEnabled = false;
+        foreach (Vector3 listVector in World.boardCampPositions)
+        {
+            if (listVector == World.currentUnitPosition)
+            {
+                switch (currentPlayer)
+                {
+                    case 1: playerOneGold += 25; break;
+                    case 2: playerTwoGold += 25; break;
+                    case 3: playerThreeGold += 25; break;
+                    case 4: playerFourGold += 25; break;
+                }
+            }
+        }
         currentPlayer += 1;
         if (currentPlayer > activePlayers)
         {
@@ -677,11 +657,11 @@ public class GameMain : MonoBehaviour
     public static void OpposingVillageEncounter(int villageOwner, Tilemap tilemap, Tile player_red, Tile player_blue, Tile player_green, Tile player_purple, Tile player_white)
     {
         opposingVillageEncounterHappening = true;
-        if (currentPlayer == 1 && player_gold_one >= villageCost)
+        if (currentPlayer == 1 && playerOneGold >= villageCost)
         {
-            player_gold_one -= villageCost;
+            playerOneGold -= villageCost;
         }
-        else if (currentPlayer == 1 && player_gold_one < villageCost)
+        else if (currentPlayer == 1 && playerOneGold < villageCost)
         {
             opposingVillageEncounterCannotPay = true;
             player_in_camp_one = true;
@@ -697,7 +677,7 @@ public class GameMain : MonoBehaviour
             tilemap.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), null);
             unitPositionPlayer1 = 0;
             World.currentUnitPositionOnBoard = 0;
-            player_gold_one -= villageCost;
+            playerOneGold -= villageCost;
             livesPlayerOne -= 1;
             if (livesPlayerOne <= 0)
             {
@@ -706,16 +686,16 @@ public class GameMain : MonoBehaviour
                 activePlayers -= 1;
                 tilemap.SetTile(new Vector3Int(0, 1), null);
             }
-            if (player_gold_one < 0)
+            if (playerOneGold < 0)
             {
-                player_gold_one = 0;
+                playerOneGold = 0;
             }
         }
-        else if (currentPlayer == 2 && player_gold_two >= villageCost)
+        else if (currentPlayer == 2 && playerTwoGold >= villageCost)
         {
-            player_gold_two -= villageCost;
+            playerTwoGold -= villageCost;
         }
-        else if (currentPlayer == 2 && player_gold_two < villageCost)
+        else if (currentPlayer == 2 && playerTwoGold < villageCost)
         {
             opposingVillageEncounterCannotPay = true;
             player_in_camp_two = true;
@@ -731,7 +711,7 @@ public class GameMain : MonoBehaviour
             tilemap.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), null);
             unitPositionPlayer2 = 0;
             World.currentUnitPositionOnBoard = 0;
-            player_gold_two -= villageCost;
+            playerTwoGold -= villageCost;
             livesPlayerTwo -= 1;
             if (livesPlayerTwo <= 0)
             {
@@ -740,16 +720,16 @@ public class GameMain : MonoBehaviour
                 activePlayers -= 1;
                 tilemap.SetTile(new Vector3Int(1, 0), null);
             }
-            if (player_gold_two < 0)
+            if (playerTwoGold < 0)
             {
-                player_gold_two = 0;
+                playerTwoGold = 0;
             }
         }
-        else if (currentPlayer == 3 && player_gold_three >= villageCost)
+        else if (currentPlayer == 3 && playerThreeGold >= villageCost)
         {
-            player_gold_three -= villageCost;
+            playerThreeGold -= villageCost;
         }
-        else if (currentPlayer == 3 && player_gold_three < villageCost)
+        else if (currentPlayer == 3 && playerThreeGold < villageCost)
         {
             opposingVillageEncounterCannotPay = true;
             player_in_camp_three = true;
@@ -765,7 +745,7 @@ public class GameMain : MonoBehaviour
             tilemap.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), null);
             unitPositionPlayer3 = 0;
             World.currentUnitPositionOnBoard = 0;
-            player_gold_three -= villageCost;
+            playerThreeGold -= villageCost;
             livesPlayerThree -= 1;
             if (livesPlayerThree <= 0)
             {
@@ -774,16 +754,16 @@ public class GameMain : MonoBehaviour
                 activePlayers -= 1;
                 tilemap.SetTile(new Vector3Int(0, -1), null);
             }
-            if (player_gold_three < 0)
+            if (playerThreeGold < 0)
             {
-                player_gold_three = 0;
+                playerThreeGold = 0;
             }
         }
-        else if (currentPlayer == 4 && player_gold_four >= villageCost)
+        else if (currentPlayer == 4 && playerFourGold >= villageCost)
         {
-            player_gold_four -= villageCost;
+            playerFourGold -= villageCost;
         }
-        else if (currentPlayer == 4 && player_gold_four < villageCost)
+        else if (currentPlayer == 4 && playerFourGold < villageCost)
         {
             opposingVillageEncounterCannotPay = true;
             player_in_camp_four = true;
@@ -799,7 +779,7 @@ public class GameMain : MonoBehaviour
             tilemap.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), null);
             unitPositionPlayer4 = 0;
             World.currentUnitPositionOnBoard = 0;
-            player_gold_four -= villageCost;
+            playerFourGold -= villageCost;
             livesPlayerFour -= 1;
             if (livesPlayerFour <= 0)
             {
@@ -808,26 +788,26 @@ public class GameMain : MonoBehaviour
                 activePlayers -= 1;
                 tilemap.SetTile(new Vector3Int(-1, 0), null);
             }
-            if (player_gold_four < 0)
+            if (playerFourGold < 0)
             {
-                player_gold_four = 0;
+                playerFourGold = 0;
             }
         }
         if (villageOwner == 1)
         {
-            player_gold_one += villageCost;
+            playerOneGold += villageCost;
         }
         else if (villageOwner == 2)
         {
-            player_gold_two += villageCost;
+            playerTwoGold += villageCost;
         }
         else if (villageOwner == 3)
         {
-            player_gold_three += villageCost;
+            playerThreeGold += villageCost;
         }
         else if (villageOwner == 4)
         {
-            player_gold_four += villageCost;
+            playerFourGold += villageCost;
         }
     }
 }

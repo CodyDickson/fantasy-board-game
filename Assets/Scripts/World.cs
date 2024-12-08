@@ -45,7 +45,10 @@ public class World : MonoBehaviour
     public static List<Vector3> boardCrossroads = new List<Vector3>();
     public static List<Vector3> boardCampPositions = new List<Vector3>();
     public static List<Vector3> boardDungeonPositions = new List<Vector3>();
-    public static List<Vector3> boardVillagePositions = new List<Vector3>();
+    public static Dictionary<Vector3, int> boardPlayerOneVillagePositions = new Dictionary<Vector3, int>();
+    public static Dictionary<Vector3, int> boardPlayerTwoVillagePositions = new Dictionary<Vector3, int>();
+    public static Dictionary<Vector3, int> boardPlayerThreeVillagePositions = new Dictionary<Vector3, int>();
+    public static Dictionary<Vector3, int> boardPlayerFourVillagePositions = new Dictionary<Vector3, int>();
     public static List<Vector3> boardEmptySlotPositions = new List<Vector3>();
     //
     public static List<Vector3> boardSlotPositions = new List<Vector3>();
@@ -218,6 +221,14 @@ public class World : MonoBehaviour
                     {
                         GameMain.secondaryButtonEnabled = true;
                     }
+                    else
+                    {
+                        CheckForLocalVillages();
+                        if (GameMain.currentPlayer != Villages.villageOwner)
+                        {
+                            Villages.PlayerLandedOnOpposingVillage();
+                        }
+                    }
                 }
                 tempCounter2 = counter2;
             }
@@ -317,15 +328,6 @@ public class World : MonoBehaviour
         currentUnitPosition = boardPosition;
     }
 
-    void CheckOnLanding()
-    {
-        CheckForLocalEmptySlots();
-        Debug.Log(northEmpty);
-        Debug.Log(eastEmpty);
-        Debug.Log(southEmpty);
-        Debug.Log(westEmpty);
-    }
-
     public static void CheckForLocalBoardPositions()
     {
         northPositionAvailable = false;
@@ -398,40 +400,41 @@ public class World : MonoBehaviour
 
     public static void CheckForLocalVillages()
     {
-        northVillage = false;
-        eastVillage = false;
-        southVillage = false;
-        westVillage = false;
         Vector3 north = new Vector3(currentUnitPosition[0], currentUnitPosition[1] + 1);
         Vector3 east = new Vector3(currentUnitPosition[0] + 1, currentUnitPosition[1]);
         Vector3 south = new Vector3(currentUnitPosition[0], currentUnitPosition[1] - 1);
         Vector3 west = new Vector3(currentUnitPosition[0] - 1, currentUnitPosition[1]);
-        foreach (Vector3 listVector in boardVillagePositions)
+        foreach (Vector3 listVector in boardPlayerOneVillagePositions.Keys)
         {
-            if (listVector == north)
+            if (listVector == north || listVector == east || listVector == south || listVector == west)
             {
-                northSlotPosition = north;
-                northVillage = true;
+                Villages.villageOwner = 1;
             }
-            if (listVector == east)
+        }
+        foreach (Vector3 listVector in boardPlayerTwoVillagePositions.Keys)
+        {
+            if (listVector == north || listVector == east || listVector == south || listVector == west)
             {
-                eastSlotPosition = east;
-                eastVillage = true;
+                Villages.villageOwner = 2;
             }
-            if (listVector == south)
+        }
+        foreach (Vector3 listVector in boardPlayerThreeVillagePositions.Keys)
+        {
+            if (listVector == north || listVector == east || listVector == south || listVector == west)
             {
-                southSlotPosition = south;
-                southVillage = true;
+                Villages.villageOwner = 3;
             }
-            if (listVector == west)
+        }
+        foreach (Vector3 listVector in boardPlayerFourVillagePositions.Keys)
+        {
+            if (listVector == north || listVector == east || listVector == south || listVector == west)
             {
-                westSlotPosition = west;
-                westVillage = true;
+                Villages.villageOwner = 4;
             }
         }
     }
 
-    void CheckForLocalEmptySlots()
+    public static void CheckForLocalEmptySlots()
     {
         northEmpty = false;
         eastEmpty = false;

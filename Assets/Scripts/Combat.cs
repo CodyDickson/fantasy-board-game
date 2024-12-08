@@ -662,19 +662,19 @@ public class Combat : MonoBehaviour
             {
                 if (combatUnitOne == 1)
                 {
-                    GameMain.player_gold_one += 250;
+                    GameMain.playerOneGold += 250;
                 }
                 else if (combatUnitOne == 2)
                 {
-                    GameMain.player_gold_two += 250;
+                    GameMain.playerTwoGold += 250;
                 }
                 else if (combatUnitOne == 3)
                 {
-                    GameMain.player_gold_three += 250;
+                    GameMain.playerThreeGold += 250;
                 }
                 else if (combatUnitOne == 4)
                 {
-                    GameMain.player_gold_four += 250;
+                    GameMain.playerFourGold += 250;
                 }
             }
             // Basilisk Combat Rewards
@@ -682,19 +682,19 @@ public class Combat : MonoBehaviour
             {
                 if (combatUnitOne == 1)
                 {
-                    GameMain.player_gold_one += 500;
+                    GameMain.playerOneGold += 500;
                 }
                 else if (combatUnitOne == 2)
                 {
-                    GameMain.player_gold_two += 500;
+                    GameMain.playerTwoGold += 500;
                 }
                 else if (combatUnitOne == 3)
                 {
-                    GameMain.player_gold_three += 500;
+                    GameMain.playerThreeGold += 500;
                 }
                 else if (combatUnitOne == 4)
                 {
-                    GameMain.player_gold_four += 500;
+                    GameMain.playerFourGold += 500;
                 }
             }
             GameMain.boardMonsters[World.currentUnitPositionOnBoard] = "empty";
