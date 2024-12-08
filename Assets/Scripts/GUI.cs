@@ -23,12 +23,11 @@ public class GUI : MonoBehaviour
     [SerializeField] public Tile player_green;
     [SerializeField] public Tile player_purple;
     [SerializeField] public Tile player_white;
-    [SerializeField] public Tile village;
-    [SerializeField] public Tile village_red;
-    [SerializeField] public Tile village_blue;
-    [SerializeField] public Tile village_green;
-    [SerializeField] public Tile village_purple;
-    [SerializeField] public Tile village_white;
+    [SerializeField] public Tile villageRed;
+    [SerializeField] public Tile villageBlue;
+    [SerializeField] public Tile villageGreen;
+    [SerializeField] public Tile villagePurple;
+    [SerializeField] public Tile villageWhite;
     [SerializeField] public Tile monster;
     [SerializeField] public Tile monsterImp;
     [SerializeField] public Tile monsterBasilisk;
@@ -154,7 +153,7 @@ public class GUI : MonoBehaviour
 
     void OnClickSecondaryButton()
     {
-        GameMain.BuildVillage(tilemap, village, village_red, village_blue, village_green, village_purple, village_white);
+        Villages.BuildVillage(tilemap, villageRed, villageBlue, villageGreen, villagePurple, villageWhite);
     }
 
     void OnClickEndTurn()

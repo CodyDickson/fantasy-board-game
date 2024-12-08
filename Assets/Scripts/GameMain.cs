@@ -142,12 +142,11 @@ public class GameMain : MonoBehaviour
     [SerializeField] public Tile chest;
     [SerializeField] public Tile oddity;
     [SerializeField] public Tile dungeon;
-    [SerializeField] public Tile village;
-    [SerializeField] public Tile village_red;
-    [SerializeField] public Tile village_blue;
-    [SerializeField] public Tile village_green;
-    [SerializeField] public Tile village_purple;
-    [SerializeField] public Tile village_white;
+    [SerializeField] public Tile villageRed;
+    [SerializeField] public Tile villageBlue;
+    [SerializeField] public Tile villageGreen;
+    [SerializeField] public Tile villagePurple;
+    [SerializeField] public Tile villageWhite;
     [SerializeField] public Tile grassOne;
     [SerializeField] public Tile grassTwo;
     [SerializeField] public Tile grassThree;
@@ -206,7 +205,7 @@ public class GameMain : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.V) && secondaryButtonEnabled)
         {
-            BuildVillage(tilemapStructures, village, village_red, village_blue, village_green, village_purple, village_white);
+            Villages.BuildVillage(tilemapStructures, villageRed, villageBlue, villageGreen,villagePurple, villageWhite);
         }
         if (Input.GetKeyDown(KeyCode.RightArrow) && rightArrowButtonEnabled)
         {
@@ -357,11 +356,6 @@ public class GameMain : MonoBehaviour
             Debug.Log(World.boardSlotPositions[i]);
             tilemapStructures.SetTile(new Vector3Int((int)World.boardPosition[0], (int)World.boardPosition[1]), dungeon);
         }
-    }
-
-    void GameStart()
-    {
-        currentTurn += 1;
     }
 
     public static void EndTurn(Tilemap tilemap, Tile monsterImp, Tile monsterBasilisk, World world)
@@ -834,145 +828,6 @@ public class GameMain : MonoBehaviour
         else if (villageOwner == 4)
         {
             player_gold_four += villageCost;
-        }
-    }
-
-    public static void BuildVillage(Tilemap tilemap, Tile village, Tile village_red, Tile village_blue, Tile village_green, Tile village_purple, Tile village_white)
-    {
-        boardPosition = boardSlotPositions[World.currentUnitPositionOnBoard];
-        string currentSpaceSlot = boardStructures[World.currentUnitPositionOnBoard];
-        secondaryButtonEnabled = false;
-        if (currentPlayer == 1 && player_gold_one >= villageCost && currentSpaceSlot == "empty")
-        {
-            player_gold_one -= villageCost;
-            boardStructures[World.currentUnitPositionOnBoard] = "village_player_one";
-            if (playerOneColor == "red")
-            {
-                tilemap.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), village_red);
-            }
-            else if (playerOneColor == "blue")
-            {
-                tilemap.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), village_blue);
-            }
-            else if (playerOneColor == "green")
-            {
-                tilemap.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), village_green);
-            }
-            else if (playerOneColor == "purple")
-            {
-                tilemap.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), village_purple);
-            }
-            else if (playerOneColor == "white")
-            {
-                tilemap.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), village_white);
-            }
-        }
-        else if (currentPlayer == 1 && player_gold_one < villageCost)
-        {
-            Debug.Log("Can't afford it");
-        }
-        else if (currentPlayer == 1 && currentSpaceSlot != "empty")
-        {
-            Debug.Log("Can't build here");
-        }
-        else if (currentPlayer == 2 && player_gold_two >= villageCost && currentSpaceSlot == "empty")
-        {
-            player_gold_two -= villageCost;
-            boardStructures[World.currentUnitPositionOnBoard] = "village_player_two";
-            if (playerTwoColor == "red")
-            {
-                tilemap.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), village_red);
-            }
-            else if (playerTwoColor == "blue")
-            {
-                tilemap.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), village_blue);
-            }
-            else if (playerTwoColor == "green")
-            {
-                tilemap.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), village_green);
-            }
-            else if (playerTwoColor == "purple")
-            {
-                tilemap.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), village_purple);
-            }
-            else if (playerTwoColor == "white")
-            {
-                tilemap.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), village_white);
-            }
-        }
-        else if (currentPlayer == 2 && player_gold_two < villageCost)
-        {
-            Debug.Log("Can't afford it");
-        }
-        else if (currentPlayer == 2 && currentSpaceSlot != "empty")
-        {
-            Debug.Log("Can't build here");
-        }
-        else if (currentPlayer == 3 && player_gold_three >= villageCost && currentSpaceSlot == "empty")
-        {
-            player_gold_three -= 50;
-            boardStructures[World.currentUnitPositionOnBoard] = "village_player_three";
-            if (playerThreeColor == "red")
-            {
-                tilemap.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), village_red);
-            }
-            else if (playerThreeColor == "blue")
-            {
-                tilemap.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), village_blue);
-            }
-            else if (playerThreeColor == "green")
-            {
-                tilemap.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), village_green);
-            }
-            else if (playerThreeColor == "purple")
-            {
-                tilemap.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), village_purple);
-            }
-            else if (playerThreeColor == "white")
-            {
-                tilemap.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), village_white);
-            }
-        }
-        else if (currentPlayer == 3 && player_gold_three < villageCost)
-        {
-            Debug.Log("Can't afford it");
-        }
-        else if (currentPlayer == 3 && currentSpaceSlot != "empty")
-        {
-            Debug.Log("Can't build here");
-        }
-        else if (currentPlayer == 4 && player_gold_three >= villageCost && currentSpaceSlot == "empty")
-        {
-            player_gold_four -= 50;
-            boardStructures[World.currentUnitPositionOnBoard] = "village_player_four";
-            if (playerFourColor == "red")
-            {
-                tilemap.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), village_red);
-            }
-            else if (playerFourColor == "blue")
-            {
-                tilemap.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), village_blue);
-            }
-            else if (playerFourColor == "green")
-            {
-                tilemap.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), village_green);
-            }
-            else if (playerFourColor == "purple")
-            {
-                tilemap.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), village_purple);
-            }
-            else if (playerFourColor == "white")
-            {
-                tilemap.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), village_white);
-            }
-        }
-        else if (currentPlayer == 4 && player_gold_four < villageCost)
-        {
-            Debug.Log("Can't afford it");
-        }
-        else if (currentPlayer == 4 && currentSpaceSlot != "empty")
-        {
-            Debug.Log("Can't build here");
         }
     }
 }

@@ -22,13 +22,33 @@ public class World : MonoBehaviour
     public static bool southPositionAvailable = false;
     public static Vector3 westPosition;
     public static bool westPositionAvailable = false;
+    public static Vector3 northSlotPosition;
+    public static bool northDungeon = false;
+    public static bool northVillage = false;
+    public static bool northEmpty = false;
+    public static Vector3 eastSlotPosition;
+    public static bool eastDungeon = false;
+    public static bool eastVillage = false;
+    public static bool eastEmpty = false;
+    public static Vector3 southSlotPosition;
+    public static bool southDungeon = false;
+    public static bool southVillage = false;
+    public static bool southEmpty= false;
+    public static Vector3 westSlotPosition;
+    public static bool westDungeon = false;
+    public static bool westVillage = false;
+    public static bool westEmpty = false;
     //
     public static Vector3 boardPosition;
     public static List<Vector3> boardPositions = new List<Vector3>();
     public static List<Vector3> localBoardPositions = new List<Vector3>();
-    public static List<Vector3> boardSlotPositions = new List<Vector3>();
-    public static List<Vector3> boardCampPositions = new List<Vector3>();
     public static List<Vector3> boardCrossroads = new List<Vector3>();
+    public static List<Vector3> boardCampPositions = new List<Vector3>();
+    public static List<Vector3> boardDungeonPositions = new List<Vector3>();
+    public static List<Vector3> boardVillagePositions = new List<Vector3>();
+    public static List<Vector3> boardEmptySlotPositions = new List<Vector3>();
+    //
+    public static List<Vector3> boardSlotPositions = new List<Vector3>();
     public static Vector3 currentUnitPosition;
     public static Vector3 playerOnePosition;
     public static Vector3 playerTwoPosition;
@@ -98,7 +118,7 @@ public class World : MonoBehaviour
 
     void Start()
     {
-        CampGenerator();
+        CampGenerator(dungeon);
         TerrainGenerator();
         currentUnitPosition = playerOnePosition;
         GameMain.playerOneIsActive = true;
@@ -193,6 +213,11 @@ public class World : MonoBehaviour
                     gui.EnableArrows(false);
                     GameMain.endTurnButtonEnabled = true;
                     playerIsMoving = false;
+                    CheckForLocalEmptySlots();
+                    if (northEmpty || eastEmpty || southEmpty || westEmpty)
+                    {
+                        GameMain.secondaryButtonEnabled = true;
+                    }
                 }
                 tempCounter2 = counter2;
             }
@@ -292,6 +317,15 @@ public class World : MonoBehaviour
         currentUnitPosition = boardPosition;
     }
 
+    void CheckOnLanding()
+    {
+        CheckForLocalEmptySlots();
+        Debug.Log(northEmpty);
+        Debug.Log(eastEmpty);
+        Debug.Log(southEmpty);
+        Debug.Log(westEmpty);
+    }
+
     public static void CheckForLocalBoardPositions()
     {
         northPositionAvailable = false;
@@ -327,9 +361,109 @@ public class World : MonoBehaviour
         }
     }
 
-    void CheckForLocalBoardSlots()
+    void CheckForLocalDungeons()
     {
+        northDungeon = false;
+        eastDungeon = false;
+        southDungeon = false;
+        westDungeon = false;
+        Vector3 north = new Vector3(currentUnitPosition[0], currentUnitPosition[1] + 1);
+        Vector3 east = new Vector3(currentUnitPosition[0] + 1, currentUnitPosition[1]);
+        Vector3 south = new Vector3(currentUnitPosition[0], currentUnitPosition[1] - 1);
+        Vector3 west = new Vector3(currentUnitPosition[0] - 1, currentUnitPosition[1]);
+        foreach (Vector3 listVector in boardDungeonPositions)
+        {
+            if (listVector == north)
+            {
+                northSlotPosition = north;
+                northDungeon = true;
+            }
+            if (listVector == east)
+            {
+                eastSlotPosition = east;
+                eastDungeon = true;
+            }
+            if (listVector == south)
+            {
+                southSlotPosition = south;
+                southDungeon = true;
+            }
+            if (listVector == west)
+            {
+                westSlotPosition = west;
+                westDungeon = true;
+            }
+        }
+    }
 
+    public static void CheckForLocalVillages()
+    {
+        northVillage = false;
+        eastVillage = false;
+        southVillage = false;
+        westVillage = false;
+        Vector3 north = new Vector3(currentUnitPosition[0], currentUnitPosition[1] + 1);
+        Vector3 east = new Vector3(currentUnitPosition[0] + 1, currentUnitPosition[1]);
+        Vector3 south = new Vector3(currentUnitPosition[0], currentUnitPosition[1] - 1);
+        Vector3 west = new Vector3(currentUnitPosition[0] - 1, currentUnitPosition[1]);
+        foreach (Vector3 listVector in boardVillagePositions)
+        {
+            if (listVector == north)
+            {
+                northSlotPosition = north;
+                northVillage = true;
+            }
+            if (listVector == east)
+            {
+                eastSlotPosition = east;
+                eastVillage = true;
+            }
+            if (listVector == south)
+            {
+                southSlotPosition = south;
+                southVillage = true;
+            }
+            if (listVector == west)
+            {
+                westSlotPosition = west;
+                westVillage = true;
+            }
+        }
+    }
+
+    void CheckForLocalEmptySlots()
+    {
+        northEmpty = false;
+        eastEmpty = false;
+        southEmpty = false;
+        westEmpty = false;
+        Vector3 north = new Vector3(currentUnitPosition[0], currentUnitPosition[1] + 1);
+        Vector3 east = new Vector3(currentUnitPosition[0] + 1, currentUnitPosition[1]);
+        Vector3 south = new Vector3(currentUnitPosition[0], currentUnitPosition[1] - 1);
+        Vector3 west = new Vector3(currentUnitPosition[0] - 1, currentUnitPosition[1]);
+        foreach (Vector3 listVector in boardEmptySlotPositions)
+        {
+            if (listVector == north)
+            {
+                northSlotPosition = north;
+                northEmpty = true;
+            }
+            if (listVector == east)
+            {
+                eastSlotPosition = east;
+                eastEmpty = true;
+            }
+            if (listVector == south)
+            {
+                southSlotPosition = south;
+                southEmpty = true;
+            }
+            if (listVector == west)
+            {
+                westSlotPosition = west;
+                westEmpty = true;
+            }
+        }
     }
 
     void TerrainGenerator()
@@ -418,7 +552,7 @@ public class World : MonoBehaviour
         }
     }
 
-    void LoopGenerator(int clockworkLocation)
+    void LoopGenerator(int clockworkLocation, Tile dungeon)
     {
         Vector3 midPositionOne = new Vector3(0,0);
         Vector3 cornerPositionOne = new Vector3(0,0);
@@ -485,7 +619,7 @@ public class World : MonoBehaviour
         else if (random == 1)
         {
             tilemapBoardConnectors.SetTile(new Vector3Int((int)midPositionOne[0], (int)midPositionOne[1]), bcHorizontal);
-            boardSlotPositions.Add(new Vector3Int((int)midPositionOne[0], (int)midPositionOne[1] - 1));
+            boardEmptySlotPositions.Add(new Vector3Int((int)midPositionOne[0], (int)midPositionOne[1] - 1));
         }
         else if (random == 2)
         {
@@ -501,7 +635,7 @@ public class World : MonoBehaviour
         else if (random == 1)
         {
             tilemapBoardConnectors.SetTile(new Vector3Int((int)midPositionTwo[0], (int)midPositionTwo[1]), bcVertical);
-            boardSlotPositions.Add(new Vector3Int((int)midPositionTwo[0] - 1, (int)midPositionTwo[1]));
+            boardEmptySlotPositions.Add(new Vector3Int((int)midPositionTwo[0] - 1, (int)midPositionTwo[1]));
         }
         else if (random == 2)
         {
@@ -517,7 +651,7 @@ public class World : MonoBehaviour
         else if (random == 1)
         {
             tilemapBoardConnectors.SetTile(new Vector3Int((int)midPositionThree[0], (int)midPositionThree[1]), bcHorizontal);
-            boardSlotPositions.Add(new Vector3Int((int)midPositionThree[0], (int)midPositionThree[1] + 1));
+            boardEmptySlotPositions.Add(new Vector3Int((int)midPositionThree[0], (int)midPositionThree[1] + 1));
         }
         else if (random == 2)
         {
@@ -533,7 +667,7 @@ public class World : MonoBehaviour
         else if (random == 1)
         {
             tilemapBoardConnectors.SetTile(new Vector3Int((int)midPositionFour[0], (int)midPositionFour[1]), bcVertical);
-            boardSlotPositions.Add(new Vector3Int((int)midPositionFour[0], (int)midPositionFour[1] + 1));
+            boardEmptySlotPositions.Add(new Vector3Int((int)midPositionFour[0] + 1, (int)midPositionFour[1]));
         }
         else if (random == 2)
         {
@@ -558,14 +692,14 @@ public class World : MonoBehaviour
             boardPositions.Add(new Vector3Int((int)midPositionThree[0] + i, (int)midPositionThree[1]));
             boardPositions.Add(new Vector3Int((int)midPositionTwo[0], (int)midPositionTwo[1] + i));
             boardPositions.Add(new Vector3Int((int)midPositionFour[0], (int)midPositionFour[1] + i));
-            boardSlotPositions.Add(new Vector3Int((int)cornerPositionThree[0] + i, (int)cornerPositionThree[1] + 1));
-            boardSlotPositions.Add(new Vector3Int((int)cornerPositionThree[0] + 1, (int)cornerPositionThree[1] + i));
-            boardSlotPositions.Add(new Vector3Int((int)cornerPositionTwo[0] - 1, (int)cornerPositionTwo[1] + i));
-            boardSlotPositions.Add(new Vector3Int((int)cornerPositionFour[0] + i, (int)cornerPositionFour[1] - 1));
-            boardSlotPositions.Add(new Vector3Int((int)midPositionOne[0] + i, (int)midPositionOne[1] - 1));
-            boardSlotPositions.Add(new Vector3Int((int)midPositionThree[0] + i, (int)midPositionThree[1] + 1));
-            boardSlotPositions.Add(new Vector3Int((int)midPositionTwo[0] - 1, (int)midPositionTwo[1] + i));
-            boardSlotPositions.Add(new Vector3Int((int)midPositionFour[0] + 1, (int)midPositionFour[1] + i));
+            boardEmptySlotPositions.Add(new Vector3Int((int)cornerPositionThree[0] + i, (int)cornerPositionThree[1] + 1));
+            boardEmptySlotPositions.Add(new Vector3Int((int)cornerPositionThree[0] + 1, (int)cornerPositionThree[1] + i));
+            boardEmptySlotPositions.Add(new Vector3Int((int)cornerPositionTwo[0] - 1, (int)cornerPositionTwo[1] + i));
+            boardEmptySlotPositions.Add(new Vector3Int((int)cornerPositionFour[0] + i, (int)cornerPositionFour[1] - 1));
+            boardEmptySlotPositions.Add(new Vector3Int((int)midPositionOne[0] + i, (int)midPositionOne[1] - 1));
+            boardEmptySlotPositions.Add(new Vector3Int((int)midPositionThree[0] + i, (int)midPositionThree[1] + 1));
+            boardEmptySlotPositions.Add(new Vector3Int((int)midPositionTwo[0] - 1, (int)midPositionTwo[1] + i));
+            boardEmptySlotPositions.Add(new Vector3Int((int)midPositionFour[0] + 1, (int)midPositionFour[1] + i));
         }
         tilemapBoardConnectors.SetTile(new Vector3Int((int)cornerPositionThree[0], (int)cornerPositionThree[1]), bcBottomLeftCorner);
         tilemapBoardConnectors.SetTile(new Vector3Int((int)cornerPositionFour[0], (int)cornerPositionFour[1]), bcTopLeftCorner);
@@ -579,6 +713,20 @@ public class World : MonoBehaviour
         boardPositions.Add(new Vector3((int)cornerPositionThree[0], (int)cornerPositionThree[1]));
         boardPositions.Add(new Vector3((int)midPositionFour[0], (int)midPositionFour[1]));
         boardPositions.Add(new Vector3((int)cornerPositionFour[0], (int)cornerPositionFour[1]));
+        for (int i = 0; i < boardEmptySlotPositions.Count; i++)
+        {
+            int randomDungeon = Random.Range(1,7);
+            if (randomDungeon == 1)
+            {
+                boardDungeonPositions.Add(boardEmptySlotPositions[i]);
+                boardEmptySlotPositions.RemoveAt(i);
+            }
+        }
+        for (int i = 0; i < boardDungeonPositions.Count; i++)
+        {
+            boardPosition = boardDungeonPositions[i];
+            tilemapStructures.SetTile(new Vector3Int((int)World.boardPosition[0], (int)World.boardPosition[1]), dungeon);
+        }
     }
 
     void BranchGenerator(int clockworkLocation)
@@ -664,7 +812,7 @@ public class World : MonoBehaviour
         Debug.Log("Starting Unit Position: " + currentUnitPosition);
     }
 
-    void CampGenerator()
+    void CampGenerator(Tile dungeon)
     {
         if (GameMain.currentBoard == "grasslands")
         {
@@ -699,12 +847,12 @@ public class World : MonoBehaviour
             if (random == 1)
             {
                 section = "loop";
-                LoopGenerator(1);
+                LoopGenerator(1, dungeon);
             }
             else if (random == 2)
             {
                 section = "toll";
-                LoopGenerator(1);
+                LoopGenerator(1, dungeon);
             }
             if (random == 3)
             {
@@ -716,12 +864,12 @@ public class World : MonoBehaviour
             if (random == 1)
             {
                 section = "loop";
-                LoopGenerator(3);
+                LoopGenerator(3, dungeon);
             }
             else if (random == 2)
             {
                 section = "toll";
-                LoopGenerator(3);
+                LoopGenerator(3, dungeon);
             }
             if (random == 3)
             {
@@ -733,12 +881,12 @@ public class World : MonoBehaviour
             if (random == 1)
             {
                 section = "loop";
-                LoopGenerator(5);
+                LoopGenerator(5, dungeon);
             }
             else if (random == 2)
             {
                 section = "toll";
-                LoopGenerator(5);
+                LoopGenerator(5, dungeon);
             }
             if (random == 3)
             {
@@ -750,12 +898,12 @@ public class World : MonoBehaviour
             if (random == 1)
             {
                 section = "loop";
-                LoopGenerator(7);
+                LoopGenerator(7, dungeon);
             }
             else if (random == 2)
             {
                 section = "toll";
-                LoopGenerator(7);
+                LoopGenerator(7, dungeon);
             }
             if (random == 3)
             {
