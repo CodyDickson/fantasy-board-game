@@ -45,6 +45,8 @@ public class World : MonoBehaviour
     public static List<Vector3> boardCrossroads = new List<Vector3>();
     public static List<Vector3> boardCampPositions = new List<Vector3>();
     public static List<Vector3> boardDungeonPositions = new List<Vector3>();
+    public static Dictionary<Vector3, int> boardImpDungeonPositions = new Dictionary<Vector3, int>();
+    public static Dictionary<Vector3, int> boardBasiliskDungeonPositions = new Dictionary<Vector3, int>();
     public static Dictionary<Vector3, int> boardPlayerOneVillagePositions = new Dictionary<Vector3, int>();
     public static Dictionary<Vector3, int> boardPlayerTwoVillagePositions = new Dictionary<Vector3, int>();
     public static Dictionary<Vector3, int> boardPlayerThreeVillagePositions = new Dictionary<Vector3, int>();
@@ -732,9 +734,122 @@ public class World : MonoBehaviour
         }
     }
 
-    void BranchGenerator(int clockworkLocation)
+    void BranchGenerator(int clockworkLocation, Tile dungeon)
     {
-        int startingPosition = clockworkLocation;
+        Vector3 midPositionOne = new Vector3(0, 0);
+        Vector3 midPositionTwo = new Vector3(0, 0);
+        Vector3 midPositionThree = new Vector3(0, 0);
+        Vector3 midPositionFour = new Vector3(0, 0);
+        int startingLocation = clockworkLocation;
+        int random;
+        if (startingLocation == 1)
+        {
+            midPositionThree = new Vector3(0, 4);
+            midPositionOne = new Vector3(midPositionThree[0], midPositionThree[1] + 7);
+            midPositionFour = new Vector3(midPositionThree[0] - 4, midPositionThree[1] + 4);
+            midPositionTwo = new Vector3(midPositionThree[0] + 4, midPositionThree[1] + 4);
+        }
+        if (startingLocation == 2)
+        {
+            midPositionThree = new Vector3(7,4);
+            if (boardClockPosition[3] == "loop")
+            {
+                Debug.Log("pass");
+                tilemapBoardConnectors.SetTile(new Vector3Int(7,3), bcThreeUp);
+            }
+            for (int i = 0; i <= 7; i++)
+            {
+                tilemapBoardConnectors.SetTile(new Vector3Int((int)midPositionThree[0], (int)midPositionThree[1] + i), bcVertical);
+            }
+        }
+        /*if (startingLocation == 3)
+        {
+            midPositionFour = new Vector3(4, 0);
+            midPositionOne = new Vector3(cornerPositionFour[0] + 3, cornerPositionFour[1]);
+            midPositionTwo = new Vector3(cornerPositionOne[0], cornerPositionOne[1] - 3);
+            midPositionThree = new Vector3(cornerPositionTwo[0] - 3, cornerPositionTwo[1]);
+        }
+        if (startingLocation == 5)
+        {
+            midPositionOne = new Vector3(0, -4);
+            midPositionTwo = new Vector3(cornerPositionOne[0], cornerPositionOne[1] - 3);
+            midPositionThree = new Vector3(cornerPositionTwo[0] - 3, cornerPositionTwo[1]);
+            midPositionFour = new Vector3(cornerPositionThree[0], cornerPositionThree[1] + 3);
+        }
+        if (startingLocation == 7)
+        {
+            midPositionTwo = new Vector3(-4, 0);
+            midPositionThree = new Vector3(cornerPositionTwo[0] - 3, cornerPositionTwo[1]);
+            midPositionFour = new Vector3(cornerPositionThree[0], cornerPositionThree[1] + 3);
+            midPositionOne = new Vector3(cornerPositionFour[0] + 3, cornerPositionFour[1]);
+        }
+        random = Random.Range(1, 3);
+        if (startingLocation == 5)
+        {
+            tilemapBoardConnectors.SetTile(new Vector3Int((int)midPositionOne[0], (int)midPositionOne[1]), bcThreeUp);
+            boardCrossroads.Add(new Vector3Int((int)midPositionOne[0], (int)midPositionOne[1]));
+        }
+        else if (random == 1)
+        {
+            tilemapBoardConnectors.SetTile(new Vector3Int((int)midPositionOne[0], (int)midPositionOne[1]), bcHorizontal);
+            boardEmptySlotPositions.Add(new Vector3Int((int)midPositionOne[0], (int)midPositionOne[1] - 1));
+        }
+        else if (random == 2)
+        {
+            tilemapBoardConnectors.SetTile(new Vector3Int((int)midPositionOne[0], (int)midPositionOne[1]), bcThreeUp);
+            boardCrossroads.Add(new Vector3Int((int)midPositionOne[0], (int)midPositionOne[1]));
+        }
+        random = Random.Range(1, 3);
+        if (startingLocation == 7)
+        {
+            tilemapBoardConnectors.SetTile(new Vector3Int((int)midPositionTwo[0], (int)midPositionTwo[1]), bcThreeRight);
+            boardCrossroads.Add(new Vector3Int((int)midPositionTwo[0], (int)midPositionTwo[1]));
+        }
+        else if (random == 1)
+        {
+            tilemapBoardConnectors.SetTile(new Vector3Int((int)midPositionTwo[0], (int)midPositionTwo[1]), bcVertical);
+            boardEmptySlotPositions.Add(new Vector3Int((int)midPositionTwo[0] - 1, (int)midPositionTwo[1]));
+        }
+        else if (random == 2)
+        {
+            tilemapBoardConnectors.SetTile(new Vector3Int((int)midPositionTwo[0], (int)midPositionTwo[1]), bcThreeRight);
+            boardCrossroads.Add(new Vector3Int((int)midPositionTwo[0], (int)midPositionTwo[1]));
+        }
+        random = Random.Range(1, 3);
+        if (startingLocation == 3)
+        {
+            tilemapBoardConnectors.SetTile(new Vector3Int((int)midPositionFour[0], (int)midPositionFour[1]), bcThreeLeft);
+            boardCrossroads.Add(new Vector3Int((int)midPositionFour[0], (int)midPositionFour[1]));
+        }
+        else if (random == 1)
+        {
+            tilemapBoardConnectors.SetTile(new Vector3Int((int)midPositionFour[0], (int)midPositionFour[1]), bcVertical);
+            boardEmptySlotPositions.Add(new Vector3Int((int)midPositionFour[0] + 1, (int)midPositionFour[1]));
+        }
+        else if (random == 2)
+        {
+            tilemapBoardConnectors.SetTile(new Vector3Int((int)midPositionFour[0], (int)midPositionFour[1]), bcThreeLeft);
+            boardCrossroads.Add(new Vector3Int((int)midPositionFour[0], (int)midPositionFour[1]));
+        }*/
+        random = Random.Range(1, 3);
+        if (startingLocation == 1)
+        {
+            for (int i = 0; i <= 7; i++)
+            {
+                tilemapBoardConnectors.SetTile(new Vector3Int((int)midPositionThree[0], (int)midPositionThree[1] + i), bcVertical);
+            }
+            // boardCrossroads.Add(new Vector3Int((int)midPositionThree[0], (int)midPositionThree[1]));
+        }
+        /*else if (random == 1)
+        {
+            tilemapBoardConnectors.SetTile(new Vector3Int((int)midPositionThree[0], (int)midPositionThree[1]), bcHorizontal);
+            boardEmptySlotPositions.Add(new Vector3Int((int)midPositionThree[0], (int)midPositionThree[1] + 1));
+        }
+        else if (random == 2)
+        {
+            tilemapBoardConnectors.SetTile(new Vector3Int((int)midPositionThree[0], (int)midPositionThree[1]), bcThreeDown);
+            boardCrossroads.Add(new Vector3Int((int)midPositionThree[0], (int)midPositionThree[1]));
+        }*/
     }
 
     void FillActiveSlots(string currentBoard, int activePlayers)
@@ -854,15 +969,30 @@ public class World : MonoBehaviour
             }
             else if (random == 2)
             {
-                section = "toll";
-                LoopGenerator(1, dungeon);
+                section = "branch";
+                // BranchGenerator(1, dungeon);
             }
             if (random == 3)
             {
                 section = "empty";
             }
             boardClockPosition.Add(1, section);
-            boardClockPosition.Add(2, "empty");
+            random = 3;
+            if (random == 1)
+            {
+                section = "loop";
+                LoopGenerator(2, dungeon);
+            }
+            else if (random == 2)
+            {
+                section = "branch";
+                BranchGenerator(2, dungeon);
+            }
+            if (random == 3)
+            {
+                section = "empty";
+            }
+            boardClockPosition.Add(2, section);
             random = Random.Range(1,4);
             if (random == 1)
             {
@@ -871,8 +1001,8 @@ public class World : MonoBehaviour
             }
             else if (random == 2)
             {
-                section = "toll";
-                LoopGenerator(3, dungeon);
+                section = "branch";
+                // BranchGenerator(3, dungeon);
             }
             if (random == 3)
             {
@@ -888,8 +1018,8 @@ public class World : MonoBehaviour
             }
             else if (random == 2)
             {
-                section = "toll";
-                LoopGenerator(5, dungeon);
+                section = "branch";
+                // BranchGenerator(5, dungeon);
             }
             if (random == 3)
             {
@@ -905,8 +1035,8 @@ public class World : MonoBehaviour
             }
             else if (random == 2)
             {
-                section = "toll";
-                LoopGenerator(7, dungeon);
+                section = "branch";
+                // BranchGenerator(7, dungeon);
             }
             if (random == 3)
             {

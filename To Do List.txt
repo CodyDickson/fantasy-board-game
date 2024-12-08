@@ -1,26 +1,33 @@
 GENERAL
-[ ] If a player ends their turn in camp, they earn 50 Points
+[ ] BUG? If a player ends their turn in camp, they earn 50 Coins.
 
 MOVEMENT
 [ ] BUG: When in a loop, after passing the first corner units move backwards (intermittent)
 
 WORLD
-[ ] When generating the board, create board slots
-[ ] When generating the board, fill random board slots with Dungeons
+[X] When generating the board, create board slots
+[X] When generating the board, fill random board slots with Dungeons
+[ ] When generating the board, there is a chance for chests to spawn in empty spots.
+[ ] Branches can spawn off of camp.
+[ ] Branches and loops can spawn in the additional clockwork positions.
+
+END TURN
+[ ] There is a chance for monsters to spawn at dungeons.
+[ ] There is a chance for chests to spawn at empty slots.
 
 DUNGEONS
-[ ] When generating the board, there is a chance for a dungeon to spawn
-[ ] Each turn, there is a chance for a Dungeon to spread to a nearby tile
+[ ] Each turn, there is a chance for a Dungeon to spread to a nearby tile (up to 3).
+[ ] When a player lands on a dungeon, they have the option to Raid Dungeon. When raiding a dungeon, there is a chance for an item, a chance for coins, a chance to spawn a monster, and a small chance to spawn an elite monster.
 
 VILLAGES
-[ ] Players can pay 100 Points to upgrade a village, spreading it to a nearby available spot
-[ ] Cost 50 Points to build, requires an empty slot
-[ ] Players pay 50 Points when they land on a village. If that Village has grown to nearby tiles, it's 50 points for all in the connection
+[ ] Players can pay 100 Coins to upgrade a village, spreading it to a nearby available spot
+[ ] Villages cost 50 Coins to build and requires an empty slot.
+[ ] Players have to pay when landing on an opposing player's Village.
 
 COMBAT
-[ ] When a player lands on another player, combat occurs. The loser goes back to camp and loses a life. The winner gets 250 Points.
-[ ] After tied combat, both players receive 50 Points
-[ ] When a player loses combat at a dungeon, they are warped back to camp and lose one life
+[ ] When a player lands on another player, combat occurs. The loser goes back to camp and loses a life. The winner gets 250 Coins.
+[ ] After tied combat, both players receive 50 Coins.
+[ ] When a player loses combat at a dungeon, they are warped back to camp and lose one life.
 
 CAMERA
 [ ] Give the camera three levels of zoom
@@ -28,6 +35,18 @@ CAMERA
 [ ] Follow the player with the camera when they move
 
 ITEMS
+[ ] Items can be obtained from chests, dungeons, and defeating elite monsters.
+[ ] Health +++
+[ ] Combat +++
+[ ] Additional Combat Dice
+[ ] Additional Movement Dice
+[ ] Village Coins +++
+[ ] Dungeon Raids always yield an item
+[ ] Combat rewards are doubled
+[ ] Extra life
+[ ] Combat with monsters can be avoided
+[ ] Able to return to camp
+[ ] No cost to build Villages
 
 GUI
 

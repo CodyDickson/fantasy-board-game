@@ -6,34 +6,34 @@ using TMPro;
 
 public class Dungeons : MonoBehaviour
 {
-    public Button closeButton;
-    public Button raidButton;
+    public Button closeDungeonWindow;
+    public Button raidDungeon;
 
     void Start()
     {
-        closeButton.onClick.AddListener(OnClickCloseButton);
-        raidButton.onClick.AddListener(OnClickRaidButton);
+        closeDungeonWindow.onClick.AddListener(OnClickCloseDungeonWindow);
+        raidDungeon.onClick.AddListener(OnClickRaidDungeon);
     }
 
     void Update()
     {
         if (Input.GetKey(KeyCode.R) && GameMain.dungeonScreenEnabled)
         {
-            OnClickRaidButton();
+            OnClickRaidDungeon();
         }
         if (Input.GetKey(KeyCode.C) && GameMain.dungeonScreenEnabled)
         {
-            OnClickCloseButton();
+            OnClickCloseDungeonWindow();
         }
     }
 
-    void OnClickRaidButton()
+    void OnClickRaidDungeon()
     {
         GameMain.dungeonScreenEnabled = false;
         GameMain.combatScreenEnabled = true;
     }
 
-    void OnClickCloseButton()
+    void OnClickCloseDungeonWindow()
     {
         GameMain.dungeonScreenEnabled = false;
         GameMain.GUIEnabled = true;
@@ -41,7 +41,7 @@ public class Dungeons : MonoBehaviour
 
     void RaidDungeon()
     {
-        int random = Random.Range(1,7);
+        int random = Random.Range(1,101);
         // Chance at gold reward
         // Chance at combat
         // Small chance of spawning an elite

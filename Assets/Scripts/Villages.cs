@@ -29,17 +29,21 @@ public class Villages : MonoBehaviour
 
     void Update()
     {
-
+        if (GameMain.villageScreenEnabled)
+        {
+            closeVillageWindow.gameObject.SetActive(true);
+        }
     }
 
     void OnClickUpgradeVillage()
     {
-        //
+        UpgradeVillage();
     }
 
     void OnClickCloseVillageWindow()
     {
-        //
+        GameMain.villageScreenEnabled = false;
+        GameMain.GUIEnabled = true;
     }
 
     public static void BuildVillage(Tilemap tilemap, Tile villageRed, Tile villageBlue, Tile villageGreen, Tile villagePurple, Tile villageWhite)
