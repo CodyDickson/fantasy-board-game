@@ -23,7 +23,6 @@ public class GameMain : MonoBehaviour
     public static int currentTurn = 0;
    // Determines which screen (and content) is displayed //
     public static bool GUIEnabled = true;
-    public static bool villageScreenEnabled = false;
     public static bool chestScreenEnabled = false;
     public static bool campScreenEnabled = false;
     public static bool dungeonScreenEnabled = false;
@@ -113,10 +112,7 @@ public class GameMain : MonoBehaviour
     public static bool endTurnButtonEnabled = false;
     public static bool bottomLeftLowerButtonEnabled = true;
     public static bool secondaryButtonEnabled = false;
-    public static bool rightArrowButtonEnabled = false;
-    public static bool leftArrowButtonEnabled = false;
-    public static bool upArrowButtonEnabled = true;
-    public static bool downArrowButtonEnabled = true;
+
     public GameObject rightArrowButton;
     public GameObject upArrowButton;
     // Board tracking //
@@ -203,18 +199,6 @@ public class GameMain : MonoBehaviour
         {
             EndTurn(tilemapStructures, monsterImp, monsterBasilisk, world);
         }
-        if (Input.GetKeyDown(KeyCode.V) && secondaryButtonEnabled)
-        {
-            Villages.BuildVillage(tilemapStructures, villageRed, villageBlue, villageGreen,villagePurple, villageWhite);
-        }
-        if (Input.GetKeyDown(KeyCode.RightArrow) && rightArrowButtonEnabled)
-        {
-            MoveUnitRight(tilemapStructures);
-        }
-        if (Input.GetKeyDown(KeyCode.UpArrow) && upArrowButtonEnabled)
-        {
-            MoveUnitUp(tilemapStructures);
-        }
         if (combatScreenEnabled)
         {
             // Display handling
@@ -229,10 +213,6 @@ public class GameMain : MonoBehaviour
             {
                 Combat.CombatEncounter(tilemapStructures, player_red, player_blue, player_green, player_purple, player_white, monsterImp, monsterBasilisk);
             }
-        }
-        else if (villageScreenEnabled)
-        {
-            GUI.SetActive(false);
         }
         else if (chestScreenEnabled)
         {
@@ -506,32 +486,6 @@ public class GameMain : MonoBehaviour
             diceSixShow = true;
         }
         ///////////////////////////////////////////////////////////////
-    }
-
-    public static void MoveUnitRight(Tilemap tilemap)
-    {
-        if (World.currentUnitPositionOnBoard == 0)
-        {
-            World.currentUnitPositionOnBoard = boardLength;
-            playerIsMovingInReverse = true;
-            tilemap.SetTile(new Vector3Int((int)onDeckPosition[0], (int)onDeckPosition[1]), null);
-            World.newUnitPosition = World.currentUnitPositionOnBoard - diceOneResult - diceTwoResult - diceThreeResult;
-        }
-        if (World.newUnitPosition < 0)
-        {
-            int nextPosition = boardLength - World.newUnitPosition;
-            World.newUnitPosition = nextPosition;
-        }
-        playerIsMoving = true;
-    }
-
-    public static void MoveUnitUp(Tilemap tilemap)
-    {
-        if (World.currentUnitPositionOnBoard == 0)
-        {
-            tilemap.SetTile(new Vector3Int((int)onDeckPosition[0], (int)onDeckPosition[1]), null);
-        }
-        playerIsMoving = true;
     }
 
     public static void MoveUnitComplete(Tilemap tilemap, Tile player_red, Tile player_blue, Tile player_green, Tile player_purple, Tile player_white)

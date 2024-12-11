@@ -930,6 +930,68 @@ public class World : MonoBehaviour
         Debug.Log("Starting Unit Position: " + currentUnitPosition);
     }
 
+    void GraveyardCampGenerator(Tile dungeon)
+    {
+        tilemapBoardConnectors.SetTile(new Vector3Int(0, 0), camp);
+        int random = Random.Range(1,3);
+        if (random == 1)
+        {
+            random = Random.Range(1,3);
+            if (random == 1)
+            {
+                for (int i = 1; i <= 9; i++)
+                {
+                    tilemapBoardConnectors.SetTile(new Vector3Int(i, 0), bcHorizontal);
+                }
+                random = Random.Range(1,3);
+                if (random == 1)
+                {
+                    tilemapBoardConnectors.SetTile(new Vector3Int(0, 10), bcTopRightCorner);
+                    for (int i = -1; i <= -5; i--)
+                    {
+                        tilemapBoardConnectors.SetTile(new Vector3Int(i, 10), bcVertical);
+                    }
+                }
+                else if (random == 2)
+                {
+                    tilemapBoardConnectors.SetTile(new Vector3Int(0, 10), bcBottomRightCorner);
+                    for (int i = 1; i <= 5; i++)
+                    {
+                        tilemapBoardConnectors.SetTile(new Vector3Int(i, 10), bcVertical);
+                    }
+                }
+            }
+        }
+        if (random == 2)
+        {
+            random = Random.Range(1, 3);
+            if (random == 1)
+            {
+                for (int i = 1; i <= 9; i++)
+                {
+                    tilemapBoardConnectors.SetTile(new Vector3Int(0, i), bcVertical);
+                }
+                random = Random.Range(1, 3);
+                if (random == 1)
+                {
+                    tilemapBoardConnectors.SetTile(new Vector3Int(10, 0), bcTopRightCorner);
+                    for (int i = -1; i <= -5; i--)
+                    {
+                        tilemapBoardConnectors.SetTile(new Vector3Int(10, i), bcHorizontal);
+                    }
+                }
+                else if (random == 2)
+                {
+                    tilemapBoardConnectors.SetTile(new Vector3Int(10, 0), bcTopLeftCorner);
+                    for (int i = 1; i <= 5; i++)
+                    {
+                        tilemapBoardConnectors.SetTile(new Vector3Int(10, i), bcHorizontal);
+                    }
+                }
+            }
+        }
+    }
+
     void CampGenerator(Tile dungeon)
     {
         if (GameMain.currentBoard == "grasslands")

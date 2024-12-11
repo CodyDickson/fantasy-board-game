@@ -17,6 +17,10 @@ public class GUI : MonoBehaviour
     public Button arrowLeftButton;
     public World world;
     private bool enableArrowButtons = false;
+    public static bool rightArrowButtonEnabled = false;
+    public static bool leftArrowButtonEnabled = false;
+    public static bool upArrowButtonEnabled = false;
+    public static bool downArrowButtonEnabled = false;
     [SerializeField] public Tile player;
     [SerializeField] public Tile player_red;
     [SerializeField] public Tile player_blue;
@@ -46,10 +50,10 @@ public class GUI : MonoBehaviour
         rollButton.onClick.AddListener(OnClickRoll);
         secondaryButton.onClick.AddListener(OnClickSecondaryButton);
         endTurnButton.onClick.AddListener(OnClickEndTurn);
-        arrowUpButton.onClick.AddListener(OnClickArrowUpButton);
-        arrowRightButton.onClick.AddListener(OnClickArrowRightButton);
-        arrowDownButton.onClick.AddListener(OnClickArrowDownButton);
-        arrowLeftButton.onClick.AddListener(OnClickArrowLeftButton);
+        arrowUpButton.onClick.AddListener(OnClickUpArrow);
+        arrowRightButton.onClick.AddListener(OnClickRightArrow);
+        arrowDownButton.onClick.AddListener(OnClickDownArrow);
+        arrowLeftButton.onClick.AddListener(OnClickLeftArrow);
         endTurnButton.gameObject.SetActive(false);
         secondaryButton.gameObject.SetActive(false);
         secondaryButtonPanel.gameObject.SetActive(false);
@@ -61,23 +65,43 @@ public class GUI : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.RightArrow) && rightArrowButtonEnabled)
+        {
+            OnClickRightArrow();
+        }
+        if (Input.GetKeyDown(KeyCode.UpArrow) && upArrowButtonEnabled)
+        {
+            OnClickUpArrow();
+        }
+        if (Input.GetKeyDown(KeyCode.DownArrow) && rightArrowButtonEnabled)
+        {
+            OnClickDownArrow();
+        }
+        if (Input.GetKeyDown(KeyCode.LeftArrow) && upArrowButtonEnabled)
+        {
+            OnClickLeftArrow();
+        }
         if (enableArrowButtons)
         {
             if (World.northPositionAvailable == true)
             {
                 arrowUpButton.gameObject.SetActive(true);
+                upArrowButtonEnabled = true;
             }
             if (World.eastPositionAvailable == true)
             {
                 arrowRightButton.gameObject.SetActive(true);
+                rightArrowButtonEnabled = true;
             }
             if (World.southPositionAvailable == true)
             {
                 arrowDownButton.gameObject.SetActive(true);
+                downArrowButtonEnabled = true;
             }
             if (World.westPositionAvailable == true)
             {
                 arrowLeftButton.gameObject.SetActive(true);
+                leftArrowButtonEnabled = true;
             }
         }
         else if (!enableArrowButtons)
@@ -168,29 +192,45 @@ public class GUI : MonoBehaviour
         }
     }
 
-    void OnClickArrowUpButton()
+    void OnClickUpArrow()
     {
+        upArrowButtonEnabled = false;
+        rightArrowButtonEnabled = false;
+        downArrowButtonEnabled = false;
+        leftArrowButtonEnabled = false;
         World.currentUnitDirection = "north";
         World.playerIsMoving = true;
         enableArrowButtons = false;
     }
 
-    void OnClickArrowRightButton()
+    void OnClickRightArrow()
     {
+        upArrowButtonEnabled = false;
+        rightArrowButtonEnabled = false;
+        downArrowButtonEnabled = false;
+        leftArrowButtonEnabled = false;
         World.currentUnitDirection = "east";
         World.playerIsMoving = true;
         enableArrowButtons = false;
     }
 
-    void OnClickArrowDownButton()
+    void OnClickDownArrow()
     {
+        upArrowButtonEnabled = false;
+        rightArrowButtonEnabled = false;
+        downArrowButtonEnabled = false;
+        leftArrowButtonEnabled = false;
         World.currentUnitDirection = "south";
         World.playerIsMoving = true;
         enableArrowButtons = false;
     }
 
-    void OnClickArrowLeftButton()
+    void OnClickLeftArrow()
     {
+        upArrowButtonEnabled = false;
+        rightArrowButtonEnabled = false;
+        downArrowButtonEnabled = false;
+        leftArrowButtonEnabled = false;
         World.currentUnitDirection = "west";
         World.playerIsMoving = true;
         enableArrowButtons = false;

@@ -18,6 +18,7 @@ public class Villages : MonoBehaviour
     public static int villageOwner;
     public Button upgradeVillage;
     public Button closeVillageWindow;
+    private bool villagesGUIEnabled = false;
 
     void Start()
     {
@@ -29,10 +30,27 @@ public class Villages : MonoBehaviour
 
     void Update()
     {
-        if (GameMain.villageScreenEnabled)
+        if (Input.GetKeyDown(KeyCode.V) && GameMain.secondaryButtonEnabled)
+        {
+            Villages.BuildVillage(tilemapStructures, villageRed, villageBlue, villageGreen, villagePurple, villageWhite);
+        }
+        if (villagesGUIEnabled)
         {
             closeVillageWindow.gameObject.SetActive(true);
         }
+        // On Mouse Click of a Village
+    }
+
+    void ClickOnVillage()
+    {
+        // Color display that matches the owner
+        // RED VILLAGE
+        // if opposing village
+        // Pay toll
+        // if player village
+        // upgrade for a reduced fee (50%-75%)
+        // or earn gold bonus
+        // Rank 1, 2, 3, X
     }
 
     void OnClickUpgradeVillage()
@@ -42,7 +60,7 @@ public class Villages : MonoBehaviour
 
     void OnClickCloseVillageWindow()
     {
-        GameMain.villageScreenEnabled = false;
+        villagesGUIEnabled = false;
         GameMain.GUIEnabled = true;
     }
 
