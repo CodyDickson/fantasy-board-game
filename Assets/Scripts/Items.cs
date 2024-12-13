@@ -17,5 +17,7 @@ public class Items : MonoBehaviour
     void GenerateItem()
     {
         // Reduces village growth time by 1 turn
+
+        // if any combat participants have burn, earn +5 Combats
     }
 }

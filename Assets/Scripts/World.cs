@@ -719,14 +719,25 @@ public class World : MonoBehaviour
             if (randomDungeon <= 15)
             {
                 int randomDungeonType = Random.Range(1,3);
-                boardDungeonPositions.Add(boardEmptySlotPositions[i], randomDungeonType);
+                if (randomDungeonType == 1)
+                {
+                    boardImpDungeonPositions.Add(boardEmptySlotPositions[i]);
+                }
+                else if (randomDungeonType == 2)
+                {
+                    boardBasiliskDungeonPositions.Add(boardEmptySlotPositions[i]);
+                }
                 boardEmptySlotPositions.RemoveAt(i);
             }
         }
-        for (int i = 0; i < boardDungeonPositions.Count; i++)
+        for (int i = 0; i < boardImpDungeonPositions.Count; i++)
         {
-            // Access Vector3 of boardDungeonPositions
-            // boardPosition = boardDungeonPositions.Keys(i);
+            boardPosition = boardImpDungeonPositions[i];
+            tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), dungeon);
+        }
+        for (int i = 0; i < boardBasiliskDungeonPositions.Count; i++)
+        {
+            boardPosition = boardBasiliskDungeonPositions[i];
             tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), dungeon);
         }
     }
