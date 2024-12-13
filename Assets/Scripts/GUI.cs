@@ -7,6 +7,7 @@ using TMPro;
 
 public class GUI : MonoBehaviour
 {
+    public GameObject playerGUI;
     public Button upperButton;
     public Button bottomButton;
     public Button rollButton;
@@ -41,6 +42,11 @@ public class GUI : MonoBehaviour
     [SerializeField] public Tilemap tilemap;
     [SerializeField] public Tilemap tilemapStructures;
     [SerializeField] public Tilemap tilemapUnits;
+    [SerializeField] public TMP_Text playerGUI_health;
+    [SerializeField] public TMP_Text playerGUI_combat;
+    [SerializeField] public TMP_Text playerGUI_gold;
+    [SerializeField] public TMP_Text playerGUI_lives;
+    [SerializeField] public TMP_Text playerGUI_initiative;
     [SerializeField] public TMP_Text textGoldPlayer1;
     [SerializeField] public TMP_Text textGoldPlayer2;
     [SerializeField] public TMP_Text textGoldPlayer3;
@@ -115,12 +121,22 @@ public class GUI : MonoBehaviour
         }
         if (GameMain.GUIEnabled)
         {
+            playerGUI.SetActive(true);
             switch (Players.currentHumanPlayer)
             {
-                case 1: break;
+                case 1: playerGUI_health.text = "Health: " + GameMain.playerOneHealth;
+                    playerGUI_gold.text = "Gold: " + GameMain.playerOneGold;
+                    playerGUI_combat.text = "Combat: " + GameMain.playerOneCombat;
+                    playerGUI_initiative.text = "Initiative: " + GameMain.playerOneInitiative;
+                    playerGUI_lives.text = "Lives: " + GameMain.playerOneLives;
+                    break;
             }
             // Update top of the screen with CURRENT TURN
             // Current Turn Order (including icons for monster spawns, players, monster movement, end turn)
+        }
+        if (!GameMain.GUIEnabled)
+        {
+            playerGUI.SetActive(false);
         }
         /*if (GameMain.playerOneIsActive)
         {

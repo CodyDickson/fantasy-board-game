@@ -253,7 +253,7 @@ public class GameMain : MonoBehaviour
         else if (GUIEnabled)
         {
             GUI.SetActive(true);
-            currentTurnText.text = "turn #" + currentTurn;
+            currentTurnText.text = "Turn " + currentTurn;
             centerDisplayText.text = centerDisplayTextContent;
             combatScreen.SetActive(false);
             chestScreen.SetActive(false);

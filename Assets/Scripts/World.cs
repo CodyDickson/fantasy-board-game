@@ -44,6 +44,10 @@ public class World : MonoBehaviour
     public static List<Vector3> localBoardPositions = new List<Vector3>();
     public static List<Vector3> boardCrossroads = new List<Vector3>();
     public static List<Vector3> boardCampPositions = new List<Vector3>();
+    public static List<Vector3> boardImpDungeonPositions = new List<Vector3>();
+    public static List<Vector3> boardBasiliskDungeonPositions = new List<Vector3>();
+    public static List<Vector3> boardSkeletonDungeonPositions = new List<Vector3>();
+    public static List<Vector3> boardGhostDungeonPositions = new List<Vector3>();
     public static Dictionary<Vector3, int> boardPlayerOneVillagePositions = new Dictionary<Vector3, int>();
     public static Dictionary<Vector3, int> boardPlayerTwoVillagePositions = new Dictionary<Vector3, int>();
     public static Dictionary<Vector3, int> boardPlayerThreeVillagePositions = new Dictionary<Vector3, int>();
