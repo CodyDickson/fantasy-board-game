@@ -44,13 +44,11 @@ public class World : MonoBehaviour
     public static List<Vector3> localBoardPositions = new List<Vector3>();
     public static List<Vector3> boardCrossroads = new List<Vector3>();
     public static List<Vector3> boardCampPositions = new List<Vector3>();
-    public static List<Vector3> boardDungeonPositions = new List<Vector3>();
-    public static Dictionary<Vector3, int> boardImpDungeonPositions = new Dictionary<Vector3, int>();
-    public static Dictionary<Vector3, int> boardBasiliskDungeonPositions = new Dictionary<Vector3, int>();
     public static Dictionary<Vector3, int> boardPlayerOneVillagePositions = new Dictionary<Vector3, int>();
     public static Dictionary<Vector3, int> boardPlayerTwoVillagePositions = new Dictionary<Vector3, int>();
     public static Dictionary<Vector3, int> boardPlayerThreeVillagePositions = new Dictionary<Vector3, int>();
     public static Dictionary<Vector3, int> boardPlayerFourVillagePositions = new Dictionary<Vector3, int>();
+    public static Dictionary<Vector3, int> boardDungeonPositions = new Dictionary<Vector3, int>();
     public static List<Vector3> boardEmptySlotPositions = new List<Vector3>();
     //
     public static List<Vector3> boardSlotPositions = new List<Vector3>();
@@ -230,6 +228,15 @@ public class World : MonoBehaviour
                         {
                             Villages.PlayerLandedOnOpposingVillage();
                         }
+                        CheckForLocalDungeons();
+                        if (Dungeons.dungeonType != "")
+                        {
+                            switch (Dungeons.dungeonType)
+                            {
+                                case "imp": break;
+                                case "basilisk": break;
+                            }
+                        }
                     }
                 }
                 tempCounter2 = counter2;
@@ -367,35 +374,19 @@ public class World : MonoBehaviour
 
     void CheckForLocalDungeons()
     {
-        northDungeon = false;
-        eastDungeon = false;
-        southDungeon = false;
-        westDungeon = false;
         Vector3 north = new Vector3(currentUnitPosition[0], currentUnitPosition[1] + 1);
         Vector3 east = new Vector3(currentUnitPosition[0] + 1, currentUnitPosition[1]);
         Vector3 south = new Vector3(currentUnitPosition[0], currentUnitPosition[1] - 1);
         Vector3 west = new Vector3(currentUnitPosition[0] - 1, currentUnitPosition[1]);
-        foreach (Vector3 listVector in boardDungeonPositions)
+        foreach (Vector3 listVector in boardDungeonPositions.Keys)
         {
-            if (listVector == north)
+            if (listVector == north || listVector == east || listVector == south || listVector == west)
             {
-                northSlotPosition = north;
-                northDungeon = true;
-            }
-            if (listVector == east)
-            {
-                eastSlotPosition = east;
-                eastDungeon = true;
-            }
-            if (listVector == south)
-            {
-                southSlotPosition = south;
-                southDungeon = true;
-            }
-            if (listVector == west)
-            {
-                westSlotPosition = west;
-                westDungeon = true;
+                switch(boardDungeonPositions[listVector])
+                {
+                    case 1: Dungeons.dungeonType = "imp"; break;
+                    case 2: Dungeons.dungeonType = "basilisk"; break;
+                }
             }
         }
     }
@@ -720,17 +711,19 @@ public class World : MonoBehaviour
         boardPositions.Add(new Vector3((int)cornerPositionFour[0], (int)cornerPositionFour[1]));
         for (int i = 0; i < boardEmptySlotPositions.Count; i++)
         {
-            int randomDungeon = Random.Range(1,7);
-            if (randomDungeon == 1)
+            int randomDungeon = Random.Range(1,101);
+            if (randomDungeon <= 15)
             {
-                boardDungeonPositions.Add(boardEmptySlotPositions[i]);
+                int randomDungeonType = Random.Range(1,3);
+                boardDungeonPositions.Add(boardEmptySlotPositions[i], randomDungeonType);
                 boardEmptySlotPositions.RemoveAt(i);
             }
         }
         for (int i = 0; i < boardDungeonPositions.Count; i++)
         {
-            boardPosition = boardDungeonPositions[i];
-            tilemapStructures.SetTile(new Vector3Int((int)World.boardPosition[0], (int)World.boardPosition[1]), dungeon);
+            // Access Vector3 of boardDungeonPositions
+            // boardPosition = boardDungeonPositions.Keys(i);
+            tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), dungeon);
         }
     }
 

@@ -13,14 +13,19 @@ public class GameMain : MonoBehaviour
     public static bool mapSizeRandom = false;
     public static int activePlayers = 4;
     public static int startingGold = 100;
+    public static int startingCombat = 3;
+    public static int startingInitiative = 1;
+    public static int startingLives = 1;
+    public static int startingHealth = 3;
     public static int villageCost = 50;
-    public static int dungeonCap = 10;
     public static int playerLives = 3;
     public static int deathCost = 250;
     public static int dungeonSpawnRate = 25;
+    // Statuses //
+    public static bool playerOneHasBurn = false;
     // Current Turn, Current Player Info //
     public static int currentPlayer = 1;
-    public static int currentTurn = 0;
+    public static int currentTurn = 1;
    // Determines which screen (and content) is displayed //
     public static bool GUIEnabled = true;
     public static bool chestScreenEnabled = false;
@@ -63,11 +68,33 @@ public class GameMain : MonoBehaviour
     public static int diceOneResult = 0;
     public static int diceTwoResult = 0;
     public static int diceThreeResult = 0;
-    // Player info //
+    // Player Main Stats //
+    // Health: Green //
+    public static int playerOneHealth = startingHealth;
+    public static int playerTwoHealth = startingHealth;
+    public static int playerThreeHealth = startingHealth;
+    public static int playerFourHealth = startingHealth;
+    // Gold: Yellow, Sack of Gold Avatar //
     public static int playerOneGold = startingGold;
     public static int playerTwoGold = startingGold;
     public static int playerThreeGold = startingGold;
     public static int playerFourGold = startingGold;
+    // Combat: Red, Sword Avatar //
+    public static int playerOneCombat = startingCombat;
+    public static int playerTwoCombat = startingCombat;
+    public static int playerThreeCombat = startingCombat;
+    public static int playerFourCombat = startingCombat;
+    // Initiative: Purple, Boot Avatar //
+    public static int playerOneInitiative = startingInitiative;
+    public static int playerTwoInitiative = startingInitiative;
+    public static int playerThreeInitiative = startingInitiative;
+    public static int playerFourInitiative = startingInitiative;
+    // Lives: White, Wings Avatar //
+    public static int playerOneLives = startingLives;
+    public static int playerTwoLives = startingLives;
+    public static int playerThreeLives = startingLives;
+    public static int playerFourLives = startingLives;
+    //
     public static int player_combatDice_one = 2;
     public static int player_combatDice_two = 2;
     public static int player_combatDice_three = 2;
@@ -112,7 +139,6 @@ public class GameMain : MonoBehaviour
     public static bool endTurnButtonEnabled = false;
     public static bool bottomLeftLowerButtonEnabled = true;
     public static bool secondaryButtonEnabled = false;
-
     public GameObject rightArrowButton;
     public GameObject upArrowButton;
     // Board tracking //
@@ -341,6 +367,7 @@ public class GameMain : MonoBehaviour
                 currentPlayer = 4;
             }
             currentTurn += 1;
+            Monsters.SpawnMonsters();
         }
         if (currentTurn == 1)
         {
@@ -376,61 +403,6 @@ public class GameMain : MonoBehaviour
             World.currentPlayerColor = playerFourColor;
             World.currentUnitPosition = World.playerFourPosition;
         }
-        /*if (currentTurn > 1 && currentPlayer <= activePlayers)
-        {
-            if (currentPlayer == 2 && !playerTwoIsActive)
-            {
-                currentPlayer += 1;
-            }
-            if (currentPlayer == 3 && !playerThreeIsActive)
-            {
-                currentPlayer += 1;
-            }
-            if (currentPlayer == 4 && !playerFourIsActive)
-            {
-                currentPlayer = +1;
-            }
-            if (currentPlayer == 1 && !playerOneIsActive)
-            {
-                currentPlayer += 1;
-            }
-        }
-            Spawn monsters
-                if (boardStructures[i] == "dungeonImp" && unitPositionClear)
-                {
-                    int random = Random.Range(1,5);
-                    if (random == 1)
-                    {
-                        if (boardMonsters[i] == "empty")
-                        {
-                            boardMonsters[i] = "imp";
-                            boardPosition = boardPositions[i];
-                            tilemap.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), monsterImp);
-                        }
-                    }
-                }
-                else if (boardStructures[i] == "dungeonBasilisk" && unitPositionClear)
-                {
-                    int random = Random.Range(1,4);
-                    if (random == 1)
-                    {
-                        if (boardMonsters[i] == "empty")
-                        {
-                            boardMonsters[i] = "basilisk";
-                            boardPosition = boardPositions[i];
-                            tilemap.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), monsterBasilisk);
-                        }
-                    }
-                }
-            }
-            if (currentTurn >= 5)
-            {
-                int chanceToSpawn = Random.Range(1,11);
-                if (chanceToSpawn <= 3)
-                {
-                    spawnRampagingElephant = true;
-                }
-            }*/
         bottomLeftLowerButtonEnabled = true;
         secondaryButtonEnabled = false;
         World.CheckForLocalBoardPositions();

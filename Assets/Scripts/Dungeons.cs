@@ -8,6 +8,7 @@ public class Dungeons : MonoBehaviour
 {
     public Button closeDungeonWindow;
     public Button raidDungeon;
+    public static string dungeonType = "";
 
     void Start()
     {
@@ -25,6 +26,14 @@ public class Dungeons : MonoBehaviour
         {
             OnClickCloseDungeonWindow();
         }
+    }
+
+    void UpdateDungeonInfo()
+    {
+        // When landing on a dungeon OR clicking on a dungeon
+        // Updates the LowerGUI, image of the dungeon on the left and "x turns to grow", "monster type"
+        // Lower button is "Raid" if the player has landed on it
+        // This opens the Raid GUI in the middle of the screen
     }
 
     void OnClickRaidDungeon()

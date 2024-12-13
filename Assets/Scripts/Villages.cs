@@ -34,23 +34,24 @@ public class Villages : MonoBehaviour
         {
             Villages.BuildVillage(tilemapStructures, villageRed, villageBlue, villageGreen, villagePurple, villageWhite);
         }
+        // button to cycle through all villages of the active player
         if (villagesGUIEnabled)
         {
             closeVillageWindow.gameObject.SetActive(true);
         }
         // On Mouse Click of a Village
+        if (GameMain.GUIEnabled)
+        {
+            // UpdateVillageInfo();
+        }
     }
-
-    void ClickOnVillage()
+    
+    void UpdateVillageInfo()
     {
-        // Color display that matches the owner
-        // RED VILLAGE
-        // if opposing village
-        // Pay toll
-        // if player village
-        // upgrade for a reduced fee (50%-75%)
-        // or earn gold bonus
-        // Rank 1, 2, 3, X
+        // When landing on a village OR clicking on a village
+        // Updates the LowerGUI, image of the color village on the left and "x turns to growth", "x gold per turn", "x gold per toll"
+        // Lower button is "Upgrade" (if available), for a reduced fee if the player has landed on it
+        // Lower button is "Pay Toll" if the player landed on an opposing village
     }
 
     void OnClickUpgradeVillage()

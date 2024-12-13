@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Tilemaps;
 using TMPro;
 
-public class ChestManager : MonoBehaviour
+public class Chests : MonoBehaviour
 {
     [SerializeField] public TMP_Text chestReward;
     [SerializeField] public TMP_Text openChestText;

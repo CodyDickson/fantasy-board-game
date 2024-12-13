@@ -7,6 +7,8 @@ using TMPro;
 
 public class GUI : MonoBehaviour
 {
+    public Button upperButton;
+    public Button bottomButton;
     public Button rollButton;
     public Button secondaryButton;
     public Button endTurnButton;
@@ -111,8 +113,16 @@ public class GUI : MonoBehaviour
             arrowDownButton.gameObject.SetActive(false);
             arrowLeftButton.gameObject.SetActive(false);
         }
-
-        if (GameMain.playerOneIsActive)
+        if (GameMain.GUIEnabled)
+        {
+            switch (Players.currentHumanPlayer)
+            {
+                case 1: break;
+            }
+            // Update top of the screen with CURRENT TURN
+            // Current Turn Order (including icons for monster spawns, players, monster movement, end turn)
+        }
+        /*if (GameMain.playerOneIsActive)
         {
             textGoldPlayer1.text = "player " + GameMain.playerOneColor + " - gold: " + GameMain.playerOneGold + "\nlives: " + GameMain.livesPlayerOne + " move: " + GameMain.player_moveDice_one + " combat: " + GameMain.player_combatDice_one;
         }
@@ -127,7 +137,7 @@ public class GUI : MonoBehaviour
         if (GameMain.playerFourIsActive)
         {
             textGoldPlayer4.text = "player " + GameMain.playerFourColor + " - gold: " + GameMain.playerFourGold + "\nlives: " + GameMain.livesPlayerFour + " move: " + GameMain.player_moveDice_four + " combat: " + GameMain.player_combatDice_four;
-        }
+        }*/
         textCurrentPlayer.text = "current player: " + GameMain.currentPlayer;
         if (GameMain.secondaryButtonEnabled && GameMain.GUIEnabled)
         {
