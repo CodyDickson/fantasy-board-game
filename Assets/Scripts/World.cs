@@ -23,21 +23,15 @@ public class World : MonoBehaviour
     public static Vector3 westPosition;
     public static bool westPositionAvailable = false;
     public static Vector3 northSlotPosition;
-    public static bool northDungeon = false;
-    public static bool northVillage = false;
     public static bool northEmpty = false;
     public static Vector3 eastSlotPosition;
-    public static bool eastDungeon = false;
-    public static bool eastVillage = false;
     public static bool eastEmpty = false;
     public static Vector3 southSlotPosition;
-    public static bool southDungeon = false;
-    public static bool southVillage = false;
     public static bool southEmpty= false;
     public static Vector3 westSlotPosition;
-    public static bool westDungeon = false;
-    public static bool westVillage = false;
     public static bool westEmpty = false;
+    public static bool villageNearby = false;
+    public static bool dungeonNearby = false;
     //
     public static Vector3 boardPosition;
     public static List<Vector3> boardPositions = new List<Vector3>();
@@ -406,6 +400,8 @@ public class World : MonoBehaviour
             if (listVector == north || listVector == east || listVector == south || listVector == west)
             {
                 Villages.villageOwner = 1;
+                villageNearby = true;
+                Villages.currentVillage = boardPlayerOneVillagePositions[listVector];
             }
         }
         foreach (Vector3 listVector in boardPlayerTwoVillagePositions.Keys)
@@ -413,6 +409,8 @@ public class World : MonoBehaviour
             if (listVector == north || listVector == east || listVector == south || listVector == west)
             {
                 Villages.villageOwner = 2;
+                villageNearby = true;
+                Villages.currentVillage = boardPlayerTwoVillagePositions[listVector];
             }
         }
         foreach (Vector3 listVector in boardPlayerThreeVillagePositions.Keys)
@@ -420,6 +418,8 @@ public class World : MonoBehaviour
             if (listVector == north || listVector == east || listVector == south || listVector == west)
             {
                 Villages.villageOwner = 3;
+                villageNearby = true;
+                Villages.currentVillage = boardPlayerThreeVillagePositions[listVector];
             }
         }
         foreach (Vector3 listVector in boardPlayerFourVillagePositions.Keys)
@@ -427,6 +427,8 @@ public class World : MonoBehaviour
             if (listVector == north || listVector == east || listVector == south || listVector == west)
             {
                 Villages.villageOwner = 4;
+                villageNearby = true;
+                Villages.currentVillage = boardPlayerFourVillagePositions[listVector];
             }
         }
     }
@@ -1039,7 +1041,8 @@ public class World : MonoBehaviour
             }
             else if (random == 2)
             {
-                section = "branch";
+                section = "loop";
+                LoopGenerator(1, dungeon);
                 // BranchGenerator(1, dungeon);
             }
             if (random == 3)
@@ -1071,7 +1074,8 @@ public class World : MonoBehaviour
             }
             else if (random == 2)
             {
-                section = "branch";
+                section = "loop";
+                LoopGenerator(3, dungeon);
                 // BranchGenerator(3, dungeon);
             }
             if (random == 3)
@@ -1088,7 +1092,8 @@ public class World : MonoBehaviour
             }
             else if (random == 2)
             {
-                section = "branch";
+                section = "loop";
+                LoopGenerator(5, dungeon);
                 // BranchGenerator(5, dungeon);
             }
             if (random == 3)
@@ -1105,7 +1110,8 @@ public class World : MonoBehaviour
             }
             else if (random == 2)
             {
-                section = "branch";
+                section = "loop";
+                LoopGenerator(7, dungeon);
                 // BranchGenerator(7, dungeon);
             }
             if (random == 3)

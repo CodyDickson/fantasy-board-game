@@ -19,6 +19,32 @@ public class Villages : MonoBehaviour
     public Button upgradeVillage;
     public Button closeVillageWindow;
     private bool villagesGUIEnabled = false;
+    public static int currentVillage;
+    // Settings //
+    public static int villageGrowth = 3;
+    public static int villageGoldPerTurnLevelOne = 10;
+    public static int villageGoldPerTurnLevelTwo = 25;
+    public static int villageGoldPerTurnLevelThree = 50;
+    public static int villageTollLevelOne = 25;
+    public static int villageTollLevelTwo = 50;
+    public static int villageTollLevelThree = 100;
+    // Village Tracking //
+    public static int playerOneTotalVillages = 0;
+    public static Dictionary<int, int> playerOneVillageGrowth = new Dictionary<int, int>();
+    public static Dictionary<int, int> playerOneVillageGoldPerTurn = new Dictionary<int, int>();
+    public static Dictionary<int, int> playerOneVillageTolls = new Dictionary<int, int>();
+    public static int playerTwoTotalVillages = 0;
+    public static Dictionary<int, int> playerTwoVillageGrowth = new Dictionary<int, int>();
+    public static Dictionary<int, int> playerTwoVillageGoldPerTurn = new Dictionary<int, int>();
+    public static Dictionary<int, int> playerTwoVillageTolls = new Dictionary<int, int>();
+    public static int playerThreeTotalVillages = 0;
+    public static Dictionary<int, int> playerThreeVillageGrowth = new Dictionary<int, int>();
+    public static Dictionary<int, int> playerThreeVillageGoldPerTurn = new Dictionary<int, int>();
+    public static Dictionary<int, int> playerThreeVillageTolls = new Dictionary<int, int>();
+    public static int playerFourTotalVillages = 0;
+    public static Dictionary<int, int> playerFourVillageGrowth = new Dictionary<int, int>();
+    public static Dictionary<int, int> playerFourVillageGoldPerTurn = new Dictionary<int, int>();
+    public static Dictionary<int, int> playerFourVillageTolls = new Dictionary<int, int>();
 
     void Start()
     {
@@ -56,7 +82,7 @@ public class Villages : MonoBehaviour
 
     void OnClickUpgradeVillage()
     {
-        UpgradeVillage();
+        UpgradeVillageWhenNearIt();
     }
 
     void OnClickCloseVillageWindow()
@@ -87,18 +113,25 @@ public class Villages : MonoBehaviour
         }
         switch (World.currentPlayerColor)
         {
-            case "red": tilemap.SetTile(new Vector3Int((int)World.boardPosition[0], (int)World.boardPosition[1]), villageRed); Debug.Log(World.boardPosition); break;
+            case "red": tilemap.SetTile(new Vector3Int((int)World.boardPosition[0], (int)World.boardPosition[1]), villageRed); break;
             case "blue": tilemap.SetTile(new Vector3Int((int)World.boardPosition[0], (int)World.boardPosition[1]), villageBlue); break;
             case "green": tilemap.SetTile(new Vector3Int((int)World.boardPosition[0], (int)World.boardPosition[1]), villageGreen); break;
             case "purple": tilemap.SetTile(new Vector3Int((int)World.boardPosition[0], (int)World.boardPosition[1]), villagePurple); break;
             case "white": tilemap.SetTile(new Vector3Int((int)World.boardPosition[0], (int)World.boardPosition[1]), villageWhite); break;
         }
+        for (int i = 0; i < World.boardEmptySlotPositions.Count; i++)
+        {
+            if (World.boardPosition == World.boardEmptySlotPositions[i])
+            {
+                World.boardEmptySlotPositions.RemoveAt(i);
+            }
+        }
         switch (GameMain.currentPlayer)
         {
-            case 1: World.boardPlayerOneVillagePositions.Add(World.boardPosition, 1); break;
-            case 2: World.boardPlayerTwoVillagePositions.Add(World.boardPosition, 1); break;
-            case 3: World.boardPlayerThreeVillagePositions.Add(World.boardPosition, 1); break;
-            case 4: World.boardPlayerFourVillagePositions.Add(World.boardPosition, 1); break;
+            case 1: playerOneTotalVillages += 1; playerOneVillageGrowth.Add(playerOneTotalVillages, villageGrowth); playerOneVillageGoldPerTurn.Add(playerOneTotalVillages, villageGoldPerTurnLevelOne); playerOneVillageTolls.Add(playerOneTotalVillages, villageTollLevelOne); World.boardPlayerOneVillagePositions.Add(World.boardPosition, playerOneTotalVillages); break;
+            case 2: playerTwoTotalVillages += 1; playerTwoVillageGrowth.Add(playerTwoTotalVillages, villageGrowth); playerTwoVillageGoldPerTurn.Add(playerTwoTotalVillages, villageGoldPerTurnLevelOne); playerTwoVillageTolls.Add(playerTwoTotalVillages, villageTollLevelOne); World.boardPlayerTwoVillagePositions.Add(World.boardPosition, playerTwoTotalVillages); break;
+            case 3: playerThreeTotalVillages += 1; playerThreeVillageGrowth.Add(playerThreeTotalVillages, villageGrowth); playerThreeVillageGoldPerTurn.Add(playerThreeTotalVillages, villageGoldPerTurnLevelOne); playerThreeVillageTolls.Add(playerThreeTotalVillages, villageTollLevelOne); World.boardPlayerThreeVillagePositions.Add(World.boardPosition, playerThreeTotalVillages); break;
+            case 4: playerFourTotalVillages += 1; playerFourVillageGrowth.Add(playerFourTotalVillages, villageGrowth); playerFourVillageGoldPerTurn.Add(playerFourTotalVillages, villageGoldPerTurnLevelOne); playerFourVillageTolls.Add(playerFourTotalVillages, villageTollLevelOne); World.boardPlayerFourVillagePositions.Add(World.boardPosition, playerFourTotalVillages); break;
         }
     }
 
@@ -108,41 +141,39 @@ public class Villages : MonoBehaviour
         Vector3 east = new Vector3(World.currentUnitPosition[0] + 1, World.currentUnitPosition[1]);
         Vector3 south = new Vector3(World.currentUnitPosition[0], World.currentUnitPosition[1] - 1);
         Vector3 west = new Vector3(World.currentUnitPosition[0] - 1, World.currentUnitPosition[1]);
-        int villageLevel = 1;
+        int villageNumber = 1;
         int villageCost = 50;
         foreach (Vector3 listVector in World.boardPlayerOneVillagePositions.Keys)
         {
             if (listVector == north || listVector == east || listVector == south || listVector == west)
             {
-                villageLevel = World.boardPlayerOneVillagePositions[listVector];
+                villageNumber = World.boardPlayerOneVillagePositions[listVector];
+                villageCost = playerOneVillageTolls[villageNumber];
             }
         }
         foreach (Vector3 listVector in World.boardPlayerTwoVillagePositions.Keys)
         {
             if (listVector == north || listVector == east || listVector == south || listVector == west)
             {
-                villageLevel = World.boardPlayerTwoVillagePositions[listVector];
+                villageNumber = World.boardPlayerTwoVillagePositions[listVector];
+                villageCost = playerTwoVillageTolls[villageNumber];
             }
         }
         foreach (Vector3 listVector in World.boardPlayerThreeVillagePositions.Keys)
         {
             if (listVector == north || listVector == east || listVector == south || listVector == west)
             {
-                villageLevel = World.boardPlayerThreeVillagePositions[listVector];
+                villageNumber = World.boardPlayerThreeVillagePositions[listVector];
+                villageCost = playerThreeVillageTolls[villageNumber];
             }
         }
         foreach (Vector3 listVector in World.boardPlayerFourVillagePositions.Keys)
         {
             if (listVector == north || listVector == east || listVector == south || listVector == west)
             {
-                villageLevel = World.boardPlayerFourVillagePositions[listVector];
+                villageNumber = World.boardPlayerFourVillagePositions[listVector];
+                villageCost = playerFourVillageTolls[villageNumber];
             }
-        }
-        switch (villageLevel)
-        {
-            case 1: villageCost = 50; break;
-            case 2: villageCost = 100; break;
-            case 3: villageCost = 150; break;
         }
         switch (GameMain.currentPlayer)
         {
@@ -160,7 +191,12 @@ public class Villages : MonoBehaviour
         }
     }
 
-    public static void UpgradeVillage()
+    public static void GrowVillage(int currentVillage)
+    {
+        //
+    }
+
+    public static void UpgradeVillageWhenNearIt()
     {
         Vector3 north = new Vector3(World.currentUnitPosition[0], World.currentUnitPosition[1] + 1);
         Vector3 east = new Vector3(World.currentUnitPosition[0] + 1, World.currentUnitPosition[1]);
@@ -194,5 +230,10 @@ public class Villages : MonoBehaviour
                 World.boardPlayerFourVillagePositions[listVector] += 1;
             }
         }
+    }
+
+    public static void UpgradeVillage()
+    {
+        //
     }
 }

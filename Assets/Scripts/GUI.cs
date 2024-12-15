@@ -8,12 +8,11 @@ using TMPro;
 public class GUI : MonoBehaviour
 {
     public GameObject playerGUI;
-    public Button upperButton;
-    public Button bottomButton;
-    public Button rollButton;
+    public GameObject infoGUI;
+    public Button primaryButton;
     public Button secondaryButton;
-    public Button endTurnButton;
     public GameObject secondaryButtonPanel;
+    public Button endTurnButton;
     public Button arrowUpButton;
     public Button arrowRightButton;
     public Button arrowDownButton;
@@ -47,15 +46,14 @@ public class GUI : MonoBehaviour
     [SerializeField] public TMP_Text playerGUI_gold;
     [SerializeField] public TMP_Text playerGUI_lives;
     [SerializeField] public TMP_Text playerGUI_initiative;
-    [SerializeField] public TMP_Text textGoldPlayer1;
-    [SerializeField] public TMP_Text textGoldPlayer2;
-    [SerializeField] public TMP_Text textGoldPlayer3;
-    [SerializeField] public TMP_Text textGoldPlayer4;
+    [SerializeField] public TMP_Text infoGUI_topText;
+    [SerializeField] public TMP_Text infoGUI_middleText;
+    [SerializeField] public TMP_Text infoGUI_bottomText;
     [SerializeField] public TMP_Text textCurrentPlayer;
 
     void Start()
     {
-        rollButton.onClick.AddListener(OnClickRoll);
+        primaryButton.onClick.AddListener(OnClickRoll);
         secondaryButton.onClick.AddListener(OnClickSecondaryButton);
         endTurnButton.onClick.AddListener(OnClickEndTurn);
         arrowUpButton.onClick.AddListener(OnClickUpArrow);
@@ -69,6 +67,7 @@ public class GUI : MonoBehaviour
         arrowRightButton.gameObject.SetActive(false);
         arrowDownButton.gameObject.SetActive(false);
         arrowLeftButton.gameObject.SetActive(false);
+        infoGUI.gameObject.SetActive(false);
     }
 
     void Update()
@@ -131,30 +130,30 @@ public class GUI : MonoBehaviour
                     playerGUI_lives.text = "Lives: " + GameMain.playerOneLives;
                     break;
             }
+            if (World.villageNearby)
+            {
+                infoGUI.SetActive(true);
+                switch (Villages.villageOwner)
+                {
+                    case 1: infoGUI_topText.text = "Growth: " + Villages.playerOneVillageGrowth[Villages.currentVillage]; infoGUI_middleText.text = "Gold Per Turn: " + Villages.playerOneVillageGoldPerTurn[Villages.currentVillage]; infoGUI_bottomText.text = "Toll: " + Villages.playerOneVillageTolls[Villages.currentVillage]; break;
+                    case 2: infoGUI_topText.text = "Growth: " + Villages.playerTwoVillageGrowth[Villages.currentVillage]; infoGUI_middleText.text = "Gold Per Turn: " + Villages.playerTwoVillageGoldPerTurn[Villages.currentVillage]; infoGUI_bottomText.text = "Toll: " + Villages.playerTwoVillageTolls[Villages.currentVillage]; break;
+                    case 3: infoGUI_topText.text = "Growth: " + Villages.playerThreeVillageGrowth[Villages.currentVillage]; infoGUI_middleText.text = "Gold Per Turn: " + Villages.playerThreeVillageGoldPerTurn[Villages.currentVillage]; infoGUI_bottomText.text = "Toll: " + Villages.playerThreeVillageTolls[Villages.currentVillage]; break;
+                    case 4: infoGUI_topText.text = "Growth: " + Villages.playerFourVillageGrowth[Villages.currentVillage]; infoGUI_middleText.text = "Gold Per Turn: " + Villages.playerFourVillageGoldPerTurn[Villages.currentVillage]; infoGUI_bottomText.text = "Toll: " + Villages.playerFourVillageTolls[Villages.currentVillage]; break;
+                }
+            }
             // Update top of the screen with CURRENT TURN
             // Current Turn Order (including icons for monster spawns, players, monster movement, end turn)
         }
         if (!GameMain.GUIEnabled)
         {
             playerGUI.SetActive(false);
+            infoGUI.SetActive(false);
         }
-        /*if (GameMain.playerOneIsActive)
+        if (!World.villageNearby)
         {
-            textGoldPlayer1.text = "player " + GameMain.playerOneColor + " - gold: " + GameMain.playerOneGold + "\nlives: " + GameMain.livesPlayerOne + " move: " + GameMain.player_moveDice_one + " combat: " + GameMain.player_combatDice_one;
+            infoGUI.SetActive(false);
         }
-        if (GameMain.playerTwoIsActive)
-        {
-            textGoldPlayer2.text = "player " + GameMain.playerTwoColor + " - gold: " + GameMain.playerTwoGold + "\nlives: " + GameMain.livesPlayerTwo + " move: " + GameMain.player_moveDice_two + " combat: " + GameMain.player_combatDice_two;
-        }
-        if (GameMain.playerThreeIsActive)
-        {
-            textGoldPlayer3.text = "player " + GameMain.playerThreeColor + " - gold: " + GameMain.playerThreeGold + "\nlives: " + GameMain.livesPlayerThree + " move: " + GameMain.player_moveDice_three + " combat: " + GameMain.player_combatDice_three;
-        }
-        if (GameMain.playerFourIsActive)
-        {
-            textGoldPlayer4.text = "player " + GameMain.playerFourColor + " - gold: " + GameMain.playerFourGold + "\nlives: " + GameMain.livesPlayerFour + " move: " + GameMain.player_moveDice_four + " combat: " + GameMain.player_combatDice_four;
-        }*/
-        textCurrentPlayer.text = "current player: " + GameMain.currentPlayer;
+        textCurrentPlayer.text = "Current Player: " + GameMain.currentPlayer;
         if (GameMain.secondaryButtonEnabled && GameMain.GUIEnabled)
         {
             secondaryButton.gameObject.SetActive(true);
@@ -175,11 +174,11 @@ public class GUI : MonoBehaviour
         }
         if (GameMain.bottomLeftLowerButtonEnabled && GameMain.GUIEnabled)
         {
-            rollButton.gameObject.SetActive(true);
+            primaryButton.gameObject.SetActive(true);
         }
         else if (!GameMain.bottomLeftLowerButtonEnabled)
         {
-            rollButton.gameObject.SetActive(false);
+            primaryButton.gameObject.SetActive(false);
         }
     }
 

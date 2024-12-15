@@ -334,6 +334,7 @@ public class GameMain : MonoBehaviour
     public static void EndTurn(Tilemap tilemap, Tile monsterImp, Tile monsterBasilisk, World world)
     {
         endTurnButtonEnabled = false;
+        World.villageNearby = false;
         foreach (Vector3 listVector in World.boardCampPositions)
         {
             if (listVector == World.currentUnitPosition)
@@ -384,24 +385,76 @@ public class GameMain : MonoBehaviour
             currentPlayerDice = player_combatDice_one;
             World.currentPlayerColor = playerOneColor;
             World.currentUnitPosition = World.playerOnePosition;
+            for (int i = 1; i <= Villages.playerOneVillageGoldPerTurn.Count; i++)
+            {
+                playerOneGold += Villages.playerOneVillageGoldPerTurn[i];
+            }
+            for (int i = 1; i <= Villages.playerOneVillageGrowth.Count; i++)
+            {
+                Villages.playerOneVillageGrowth[i] -= 1;
+                if (Villages.playerOneVillageGrowth[i] == 0)
+                {
+                    Villages.playerOneVillageGrowth[i] = 3;
+                    Villages.GrowVillage(i);
+                }
+            }
         }
         else if (currentPlayer == 2)
         {
             currentPlayerDice = player_combatDice_two;
             World.currentPlayerColor = playerTwoColor;
             World.currentUnitPosition = World.playerTwoPosition;
+            for (int i = 1; i <= Villages.playerTwoVillageGoldPerTurn.Count; i++)
+            {
+                playerTwoGold += Villages.playerTwoVillageGoldPerTurn[i];
+            }
+            for (int i = 1; i <= Villages.playerTwoVillageGrowth.Count; i++)
+            {
+                Villages.playerTwoVillageGrowth[i] -= 1;
+                if (Villages.playerTwoVillageGrowth[i] == 0)
+                {
+                    Villages.playerTwoVillageGrowth[i] = 3;
+                    Villages.GrowVillage(i);
+                }
+            }
         }
         else if (currentPlayer == 3)
         {
             currentPlayerDice = player_combatDice_three;
             World.currentPlayerColor = playerThreeColor;
             World.currentUnitPosition = World.playerThreePosition;
+            for (int i = 1; i <= Villages.playerThreeVillageGoldPerTurn.Count; i++)
+            {
+                playerThreeGold += Villages.playerThreeVillageGoldPerTurn[i];
+            }
+            for (int i = 1; i <= Villages.playerThreeVillageGrowth.Count; i++)
+            {
+                Villages.playerThreeVillageGrowth[i] -= 1;
+                if (Villages.playerThreeVillageGrowth[i] == 0)
+                {
+                    Villages.playerThreeVillageGrowth[i] = 3;
+                    Villages.GrowVillage(i);
+                }
+            }
         }
         else if (currentPlayer == 4)
         {
             currentPlayerDice = player_combatDice_four;
             World.currentPlayerColor = playerFourColor;
             World.currentUnitPosition = World.playerFourPosition;
+            for (int i = 1; i <= Villages.playerFourVillageGoldPerTurn.Count; i++)
+            {
+                playerFourGold += Villages.playerFourVillageGoldPerTurn[i];
+            }
+            for (int i = 1; i <= Villages.playerFourVillageGrowth.Count; i++)
+            {
+                Villages.playerFourVillageGrowth[i] -= 1;
+                if (Villages.playerFourVillageGrowth[i] == 0)
+                {
+                    Villages.playerFourVillageGrowth[i] = 3;
+                    Villages.GrowVillage(i);
+                }
+            }
         }
         bottomLeftLowerButtonEnabled = true;
         secondaryButtonEnabled = false;
