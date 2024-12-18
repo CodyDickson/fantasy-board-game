@@ -9,7 +9,7 @@ public class GrasslandsBoard : MonoBehaviour
     {
         int random;
         string section = "empty";
-        for (int i = 1; i <= 3; i++)
+        for (int i = 1; i <= 24; i++)
         {
             random = Random.Range(1, 10);
             random = 6;
@@ -36,6 +36,42 @@ public class GrasslandsBoard : MonoBehaviour
         }
     }
 
+    public static void HorizontalConnector(bool positiveDirection, Vector3 connectorPosition, Tilemap tilemapBoardConnectors, Tile bcHorizontal)
+    {
+        if (positiveDirection)
+        {
+            for (int i = 1; i <= 3; i++)
+            {
+                tilemapBoardConnectors.SetTile(new Vector3Int((int)connectorPosition[0] + i, (int)connectorPosition[1]), bcHorizontal);
+            }
+        }
+        else if (!positiveDirection)
+        {
+            for (int i = 1; i <= 3; i++)
+            {
+                tilemapBoardConnectors.SetTile(new Vector3Int((int)connectorPosition[0] - i, (int)connectorPosition[1]), bcHorizontal);
+            }
+        }
+    }
+
+    public static void VerticalConnector(bool positiveDirection, Vector3 connectorPosition, Tilemap tilemapBoardConnectors, Tile bcVertical)
+    {
+        if (positiveDirection)
+        {
+            for (int i = 1; i <= 3; i++)
+            {
+                tilemapBoardConnectors.SetTile(new Vector3Int((int)connectorPosition[0], (int)connectorPosition[1] + i), bcVertical);
+            }
+        }
+        else if (!positiveDirection)
+        {
+            for (int i = 1; i <= 3; i++)
+            {
+                tilemapBoardConnectors.SetTile(new Vector3Int((int)connectorPosition[0], (int)connectorPosition[1] - i), bcVertical);
+            }
+        }
+    }
+
     public static void LoopGenerator(int clockworkLocation, Tilemap tilemapBoardConnectors, Tile camp, Tile bcHorizontal, Tile bcThreeDown, Tile bcVertical, Tile bcThreeUp, Tile bcThreeLeft, Tile bcThreeRight, Tile bcTopRightCorner, Tile bcBottomLeftCorner, Tile bcBottomRightCorner, Tile bcTopLeftCorner)
     {
         Vector3 midPositionOne = new Vector3(0, 0);
@@ -46,6 +82,7 @@ public class GrasslandsBoard : MonoBehaviour
         Vector3 cornerPositionThree = new Vector3(0, 0);
         Vector3 midPositionFour = new Vector3(0, 0);
         Vector3 cornerPositionFour = new Vector3(0, 0);
+        Vector3 connectorPosition = new Vector3(0, 0);
         int startingLocation = clockworkLocation;
         int shortSide = 2;
         switch (startingLocation)
@@ -53,8 +90,27 @@ public class GrasslandsBoard : MonoBehaviour
             case 1: midPositionOne = new Vector3(0, 14); break;
             case 2: midPositionOne = new Vector3(11, 14); break;
             case 3: midPositionOne = new Vector3(11, 3); break;
-            case 4: midPositionOne = new Vector3(11, -14); break;
-            case 5: midPositionOne = new Vector3(0, -14); break;
+            case 4: midPositionOne = new Vector3(11, -8); break;
+            case 5: midPositionOne = new Vector3(0, -8); break;
+            case 6: midPositionOne = new Vector3(-11, -8); break;
+            case 7: midPositionOne = new Vector3(-11, 3); break;
+            case 8: midPositionOne = new Vector3(-11, 14); break;
+            case 9: midPositionOne = new Vector3(-11, 25); break;
+            case 10: midPositionOne = new Vector3(0, 25); break;
+            case 11: midPositionOne = new Vector3(11, 25); break;
+            case 12: midPositionOne = new Vector3(21, 25); break;
+            case 13: midPositionOne = new Vector3(21, 14); break;
+            case 14: midPositionOne = new Vector3(21, 3); break;
+            case 15: midPositionOne = new Vector3(21, -8); break;
+            case 16: midPositionOne = new Vector3(21, -18); break;
+            case 17: midPositionOne = new Vector3(11, -18); break;
+            case 18: midPositionOne = new Vector3(0, -18); break;
+            case 19: midPositionOne = new Vector3(-11, -18); break;
+            case 20: midPositionOne = new Vector3(-21, -18); break;
+            case 21: midPositionOne = new Vector3(-21, -8); break;
+            case 22: midPositionOne = new Vector3(-21, 3); break;
+            case 23: midPositionOne = new Vector3(-21, 14); break;
+            case 24: midPositionOne = new Vector3(-21, 25); break;
         }
         cornerPositionOne = new Vector3(midPositionOne[0] + shortSide + 1, midPositionOne[1]);
         midPositionTwo = new Vector3(cornerPositionOne[0], cornerPositionOne[1] - shortSide - 1);
@@ -65,12 +121,7 @@ public class GrasslandsBoard : MonoBehaviour
         cornerPositionFour = new Vector3(midPositionFour[0], midPositionFour[1] + shortSide + 1);
         int random;
         random = Random.Range(1, 3);
-        if (startingLocation == 5)
-        {
-            tilemapBoardConnectors.SetTile(new Vector3Int((int)midPositionOne[0], (int)midPositionOne[1]), bcThreeUp);
-            World.boardCrossroads.Add(new Vector3Int((int)midPositionOne[0], (int)midPositionOne[1]));
-        }
-        else if (random == 1)
+        if (random == 1)
         {
             tilemapBoardConnectors.SetTile(new Vector3Int((int)midPositionOne[0], (int)midPositionOne[1]), bcHorizontal);
             World.boardEmptySlotPositions.Add(new Vector3Int((int)midPositionOne[0], (int)midPositionOne[1] - 1));
@@ -79,14 +130,12 @@ public class GrasslandsBoard : MonoBehaviour
         {
             tilemapBoardConnectors.SetTile(new Vector3Int((int)midPositionOne[0], (int)midPositionOne[1]), bcThreeUp);
             World.boardCrossroads.Add(new Vector3Int((int)midPositionOne[0], (int)midPositionOne[1]));
+            World.boardEmptySlotPositions.Add(new Vector3Int((int)midPositionOne[0], (int)midPositionOne[1] - 1));
+            connectorPosition = new Vector3((int)midPositionOne[0], (int)midPositionOne[1]);
+            VerticalConnector(true, connectorPosition, tilemapBoardConnectors, bcVertical);
         }
         random = Random.Range(1, 3);
-        if (startingLocation == 7)
-        {
-            tilemapBoardConnectors.SetTile(new Vector3Int((int)midPositionTwo[0], (int)midPositionTwo[1]), bcThreeRight);
-            World.boardCrossroads.Add(new Vector3Int((int)midPositionTwo[0], (int)midPositionTwo[1]));
-        }
-        else if (random == 1)
+        if (random == 1)
         {
             tilemapBoardConnectors.SetTile(new Vector3Int((int)midPositionTwo[0], (int)midPositionTwo[1]), bcVertical);
             World.boardEmptySlotPositions.Add(new Vector3Int((int)midPositionTwo[0] - 1, (int)midPositionTwo[1]));
@@ -95,14 +144,12 @@ public class GrasslandsBoard : MonoBehaviour
         {
             tilemapBoardConnectors.SetTile(new Vector3Int((int)midPositionTwo[0], (int)midPositionTwo[1]), bcThreeRight);
             World.boardCrossroads.Add(new Vector3Int((int)midPositionTwo[0], (int)midPositionTwo[1]));
+            World.boardEmptySlotPositions.Add(new Vector3Int((int)midPositionTwo[0] - 1, (int)midPositionTwo[1]));
+            connectorPosition = new Vector3((int)midPositionTwo[0], (int)midPositionTwo[1]);
+            HorizontalConnector(true, connectorPosition, tilemapBoardConnectors, bcHorizontal);
         }
         random = Random.Range(1, 3);
-        if (startingLocation == 1)
-        {
-            tilemapBoardConnectors.SetTile(new Vector3Int((int)midPositionThree[0], (int)midPositionThree[1]), bcThreeDown);
-            World.boardCrossroads.Add(new Vector3Int((int)midPositionThree[0], (int)midPositionThree[1]));
-        }
-        else if (random == 1)
+        if (random == 1)
         {
             tilemapBoardConnectors.SetTile(new Vector3Int((int)midPositionThree[0], (int)midPositionThree[1]), bcHorizontal);
             World.boardEmptySlotPositions.Add(new Vector3Int((int)midPositionThree[0], (int)midPositionThree[1] + 1));
@@ -111,14 +158,12 @@ public class GrasslandsBoard : MonoBehaviour
         {
             tilemapBoardConnectors.SetTile(new Vector3Int((int)midPositionThree[0], (int)midPositionThree[1]), bcThreeDown);
             World.boardCrossroads.Add(new Vector3Int((int)midPositionThree[0], (int)midPositionThree[1]));
+            World.boardEmptySlotPositions.Add(new Vector3Int((int)midPositionThree[0], (int)midPositionThree[1] + 1));
+            connectorPosition = new Vector3((int)midPositionThree[0], (int)midPositionThree[1]);
+            VerticalConnector(false, connectorPosition, tilemapBoardConnectors, bcVertical);
         }
         random = Random.Range(1, 3);
-        if (startingLocation == 3)
-        {
-            tilemapBoardConnectors.SetTile(new Vector3Int((int)midPositionFour[0], (int)midPositionFour[1]), bcThreeLeft);
-            World.boardCrossroads.Add(new Vector3Int((int)midPositionFour[0], (int)midPositionFour[1]));
-        }
-        else if (random == 1)
+        if (random == 1)
         {
             tilemapBoardConnectors.SetTile(new Vector3Int((int)midPositionFour[0], (int)midPositionFour[1]), bcVertical);
             World.boardEmptySlotPositions.Add(new Vector3Int((int)midPositionFour[0] + 1, (int)midPositionFour[1]));
@@ -127,6 +172,9 @@ public class GrasslandsBoard : MonoBehaviour
         {
             tilemapBoardConnectors.SetTile(new Vector3Int((int)midPositionFour[0], (int)midPositionFour[1]), bcThreeLeft);
             World.boardCrossroads.Add(new Vector3Int((int)midPositionFour[0], (int)midPositionFour[1]));
+            World.boardEmptySlotPositions.Add(new Vector3Int((int)midPositionFour[0] + 1, (int)midPositionFour[1]));
+            connectorPosition = new Vector3((int)midPositionFour[0], (int)midPositionFour[1]);
+            HorizontalConnector(false, connectorPosition, tilemapBoardConnectors, bcHorizontal);
         }
         for (int i = 1; i <= shortSide; i++)
         {
@@ -167,6 +215,30 @@ public class GrasslandsBoard : MonoBehaviour
         World.boardPositions.Add(new Vector3((int)cornerPositionThree[0], (int)cornerPositionThree[1]));
         World.boardPositions.Add(new Vector3((int)midPositionFour[0], (int)midPositionFour[1]));
         World.boardPositions.Add(new Vector3((int)cornerPositionFour[0], (int)cornerPositionFour[1]));
+        if (startingLocation == 7)
+        {
+            tilemapBoardConnectors.SetTile(new Vector3Int((int)midPositionTwo[0], (int)midPositionTwo[1]), bcThreeRight);
+            World.boardCrossroads.Add(new Vector3Int((int)midPositionTwo[0], (int)midPositionTwo[1]));
+            World.boardEmptySlotPositions.Add(new Vector3Int((int)midPositionTwo[0] - 1, (int)midPositionTwo[1]));
+        }
+        if (startingLocation == 1)
+        {
+            tilemapBoardConnectors.SetTile(new Vector3Int((int)midPositionThree[0], (int)midPositionThree[1]), bcThreeDown);
+            World.boardCrossroads.Add(new Vector3Int((int)midPositionThree[0], (int)midPositionThree[1]));
+            World.boardEmptySlotPositions.Add(new Vector3Int((int)midPositionThree[0], (int)midPositionThree[1] + 1));
+        }
+        if (startingLocation == 3)
+        {
+            tilemapBoardConnectors.SetTile(new Vector3Int((int)midPositionFour[0], (int)midPositionFour[1]), bcThreeLeft);
+            World.boardCrossroads.Add(new Vector3Int((int)midPositionFour[0], (int)midPositionFour[1]));
+            World.boardEmptySlotPositions.Add(new Vector3Int((int)midPositionFour[0] + 1, (int)midPositionFour[1]));
+        }
+        if (startingLocation == 5)
+        {
+            tilemapBoardConnectors.SetTile(new Vector3Int((int)midPositionOne[0], (int)midPositionOne[1]), bcThreeUp);
+            World.boardCrossroads.Add(new Vector3Int((int)midPositionOne[0], (int)midPositionOne[1]));
+            World.boardEmptySlotPositions.Add(new Vector3Int((int)midPositionOne[0], (int)midPositionOne[1] - 1));
+        }
     }
 
     public static void BranchGenerator(int clockworkLocation, Tilemap tilemapBoardConnectors, Tile camp, Tile bcHorizontal, Tile bcThreeDown, Tile bcVertical, Tile bcThreeUp, Tile bcThreeLeft, Tile bcThreeRight, Tile bcTopRightCorner, Tile bcBottomLeftCorner, Tile bcBottomRightCorner, Tile bcTopLeftCorner)

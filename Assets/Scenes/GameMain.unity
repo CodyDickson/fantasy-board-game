@@ -24070,6 +24070,9 @@ MonoBehaviour:
   bcBottomRightCorner: {fileID: 11400000, guid: 693b55232d927204b87bb679b67b95b9, type: 2}
   bcTopLeftCorner: {fileID: 11400000, guid: 1a6c985cbf2430241bb24cc6e0f5347a, type: 2}
   tilemapTerrain: {fileID: 1893063730}
+  tilemapStructures: {fileID: 737563382}
+  tilemapBoardConnectors: {fileID: 842877893}
+  tilemapUnits: {fileID: 533341040}
   gui: {fileID: 1077264794}
 --- !u!4 &2054497523
 Transform:
@@ -24107,7 +24110,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2054497521}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97fcb579b73a7a146b7948d0b946265f, type: 3}
+  m_Script: {fileID: 11500000, guid: 5fac2e9aae5585e4895bef7227450de4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &2054497526
@@ -24119,7 +24122,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2054497521}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fac2e9aae5585e4895bef7227450de4, type: 3}
+  m_Script: {fileID: 11500000, guid: 97fcb579b73a7a146b7948d0b946265f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2069619466
