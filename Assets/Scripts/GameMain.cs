@@ -9,6 +9,7 @@ public class GameMain : MonoBehaviour
 {
     // Game Settings //
     public static string currentBoard = "grasslands";
+    public static int currentMap = 1;
     public static string mapSize = "medium";
     public static bool mapSizeRandom = false;
     public static int activePlayers = 4;

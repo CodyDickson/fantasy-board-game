@@ -901,27 +901,7 @@ public class World : MonoBehaviour
 
     public void SpawnActivePlayerAtCamp()
     {
-        int random;
-        random = Random.Range(1, 17);
-        switch (random)
-        {
-            case 1: boardPosition[0] = 0; boardPosition[1] = 1; break;
-            case 2: boardPosition[0] = 0; boardPosition[1] = -1; break;
-            case 3: boardPosition[0] = 1; boardPosition[1] = 0; break;
-            case 4: boardPosition[0] = -1; boardPosition[1] = 0; break;
-            case 5: boardPosition[0] = -1; boardPosition[1] = -1; break;
-            case 6: boardPosition[0] = 1; boardPosition[1] = 1; break;
-            case 7: boardPosition[0] = -1; boardPosition[1] = 1; break;
-            case 8: boardPosition[0] = 1; boardPosition[1] = -1; break;
-            case 9: boardPosition[0] = 0; boardPosition[1] = 2; break;
-            case 10: boardPosition[0] = 0; boardPosition[1] = 3; break;
-            case 11: boardPosition[0] = 0; boardPosition[1] = -2; break;
-            case 12: boardPosition[0] = 0; boardPosition[1] = -3; break;
-            case 13: boardPosition[0] = 2; boardPosition[1] = 0; break;
-            case 14: boardPosition[0] = 3; boardPosition[1] = 0; break;
-            case 15: boardPosition[0] = -2; boardPosition[1] = 0; break;
-            case 16: boardPosition[0] = -3; boardPosition[1] = -0; break;
-        }
+        Camp.SpawnPlayerInCamp();
         currentUnitPosition = boardPosition;
         switch (GameMain.currentPlayer)
         {
@@ -938,7 +918,6 @@ public class World : MonoBehaviour
             case "purple": tilemapUnits.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), playerPurple); break;
             case "white": tilemapUnits.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), playerWhite); break;
         }
-        Debug.Log("Starting Unit Position: " + currentUnitPosition);
     }
 
     void GraveyardCampGenerator(Tile dungeon)
