@@ -24007,8 +24007,11 @@ GameObject:
   m_Component:
   - component: {fileID: 2054497523}
   - component: {fileID: 2054497522}
+  - component: {fileID: 2054497526}
+  - component: {fileID: 2054497525}
+  - component: {fileID: 2054497524}
   m_Layer: 0
-  m_Name: WorldManager
+  m_Name: World Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24067,9 +24070,6 @@ MonoBehaviour:
   bcBottomRightCorner: {fileID: 11400000, guid: 693b55232d927204b87bb679b67b95b9, type: 2}
   bcTopLeftCorner: {fileID: 11400000, guid: 1a6c985cbf2430241bb24cc6e0f5347a, type: 2}
   tilemapTerrain: {fileID: 1893063730}
-  tilemapStructures: {fileID: 737563382}
-  tilemapBoardConnectors: {fileID: 842877893}
-  tilemapUnits: {fileID: 533341040}
   gui: {fileID: 1077264794}
 --- !u!4 &2054497523
 Transform:
@@ -24086,6 +24086,42 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2054497524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2054497521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db6a1d5a0c0cf3d4da5feee91c7b47dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2054497525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2054497521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97fcb579b73a7a146b7948d0b946265f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2054497526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2054497521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fac2e9aae5585e4895bef7227450de4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2069619466
 GameObject:
   m_ObjectHideFlags: 0

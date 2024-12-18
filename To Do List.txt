@@ -1,13 +1,25 @@
-[X] BUG: If a player ends their movement in camp, they lose 50 Coins.
 [ ] BUG: When in a loop, after passing the first corner units move backwards (intermittent).
 [ ] Branches can spawn off of camp.
 [ ] Branches and loops can spawn across all clockwork positions on the Grasslands map.
-[ ] Update Player GUI for any active players.
+[X] Update Player GUI for any active players.
 [ ] Add a Settings GUI in the top right corner.
-[ ] Add a "View All Players" option to the Settings GUI, which shows all players (human and computer) and their current stats.
+[ ] Add a "View All Players" option to the Settings GUI, which shows all players and their current stats.
+[ ] Dungeons can be raided.
+[ ] Shopkeepers can spawn.
+[ ] Villages naturally grow.
 
 GAME SET UP
 [ ] Game Mode: Standard, Odd Mode
 [ ] Game Board: Grasslands, Graveyard, Volcano, Machine
 [ ] Players: Number of players, Colors, Human or Computer
 [ ] Ruleset: Turn Limit, Starting Gold / Combat / Lives / Health, Quick Movement for Computer / Human / Monster, Randomize Turn Order
+
+ACHIEVEMENTS
+Grasslands
+[ ]
+Graveyard
+[ ] 
+Volcano
+[ ] 
+Machine
+[ ] 

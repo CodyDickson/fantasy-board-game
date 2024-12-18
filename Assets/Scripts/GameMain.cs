@@ -209,7 +209,6 @@ public class GameMain : MonoBehaviour
         activePlayers = 2;
         currentTurn = 1;
         currentPlayer = 1;
-        world.SpawnActivePlayerAtCamp();
         GUI.SetActive(true);
     }
 
@@ -377,7 +376,7 @@ public class GameMain : MonoBehaviour
                 case 3: playerThreeIsActive = true; break;
                 case 4: playerFourIsActive = true; break;
             }
-            world.SpawnActivePlayerAtCamp();
+            Camp.SpawnActivePlayerInCamp();
         }
         if (currentPlayer == 1)
         {
