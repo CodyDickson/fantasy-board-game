@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Players : MonoBehaviour
+public class Player : MonoBehaviour
 {
     public static int currentHumanPlayer = 1;
     public bool playerOneIsActive;
@@ -17,14 +17,4 @@ public class Players : MonoBehaviour
     public static int playerTwoGold = 100;
     public static int playerThreeGold = 100;
     public static int playerFourGold = 100;
-
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
 }

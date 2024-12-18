@@ -8,6 +8,7 @@ using TMPro;
 public class GUI : MonoBehaviour
 {
     public GameObject playerGUI;
+    public Image playerGUI_Avatar;
     public GameObject infoGUI;
     public Button primaryButton;
     public Button secondaryButton;
@@ -18,11 +19,14 @@ public class GUI : MonoBehaviour
     public Button arrowDownButton;
     public Button arrowLeftButton;
     public World world;
+    public Sprite playerRed, playerBlue;
     private bool enableArrowButtons = false;
     public static bool rightArrowButtonEnabled = false;
     public static bool leftArrowButtonEnabled = false;
     public static bool upArrowButtonEnabled = false;
     public static bool downArrowButtonEnabled = false;
+    public static bool updateGUIColor = false;
+    public bool GUIColorHasBeenUpdated = false;
     [SerializeField] public Tile player;
     [SerializeField] public Tile player_red;
     [SerializeField] public Tile player_blue;
@@ -68,6 +72,7 @@ public class GUI : MonoBehaviour
         arrowDownButton.gameObject.SetActive(false);
         arrowLeftButton.gameObject.SetActive(false);
         infoGUI.gameObject.SetActive(false);
+        playerGUI_Avatar = GetComponent<Image>();
     }
 
     void Update()
@@ -121,15 +126,24 @@ public class GUI : MonoBehaviour
         if (GameMain.GUIEnabled)
         {
             playerGUI.SetActive(true);
-            switch (Players.currentHumanPlayer)
+            switch (Player.currentHumanPlayer)
             {
-                case 1: playerGUI_health.text = "Health: " + GameMain.playerOneHealth;
+                case 1:
+                    playerGUI_health.text = "Health: " + GameMain.playerOneHealth;
                     playerGUI_gold.text = "Gold: " + GameMain.playerOneGold;
                     playerGUI_combat.text = "Combat: " + GameMain.playerOneCombat;
                     playerGUI_initiative.text = "Initiative: " + GameMain.playerOneInitiative;
                     playerGUI_lives.text = "Lives: " + GameMain.playerOneLives;
                     break;
+                case 2:
+                    playerGUI_health.text = "Health: " + GameMain.playerTwoHealth;
+                    playerGUI_gold.text = "Gold: " + GameMain.playerTwoGold;
+                    playerGUI_combat.text = "Combat: " + GameMain.playerTwoCombat;
+                    playerGUI_initiative.text = "Initiative: " + GameMain.playerTwoInitiative;
+                    playerGUI_lives.text = "Lives: " + GameMain.playerTwoLives;
+                    break;
             }
+            if (UpdatePlayerGUIAvatar.playerGUIAvatarHasBeenUpdated == false) { UpdatePlayerGUIAvatar.updatePlayerGUIAvatar = true; };
             if (World.villageNearby)
             {
                 infoGUI.SetActive(true);

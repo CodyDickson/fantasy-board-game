@@ -12,7 +12,7 @@ public class GameMain : MonoBehaviour
     public static string mapSize = "medium";
     public static bool mapSizeRandom = false;
     public static int activePlayers = 4;
-    public static int startingGold = 100;
+    public static int startingGold = 250;
     public static int startingCombat = 3;
     public static int startingInitiative = 1;
     public static int startingLives = 1;
@@ -205,11 +205,9 @@ public class GameMain : MonoBehaviour
 
     void Start()
     {
-        activePlayers = 4;
+        activePlayers = 2;
         currentTurn = 1;
         currentPlayer = 1;
-        playerOneColor = "red";
-        World.currentPlayerColor = playerOneColor;
         world.SpawnActivePlayerAtCamp();
         GUI.SetActive(true);
     }
@@ -456,9 +454,11 @@ public class GameMain : MonoBehaviour
                 }
             }
         }
+        UpdatePlayerGUIAvatar.playerGUIAvatarHasBeenUpdated = false;
         bottomLeftLowerButtonEnabled = true;
         secondaryButtonEnabled = false;
         World.CheckForLocalBoardPositions();
+        UpdateGUIColor.updateGUIColor = true;
     }
 
     public static void RollDice()

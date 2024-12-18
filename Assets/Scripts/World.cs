@@ -111,7 +111,7 @@ public class World : MonoBehaviour
     private float tempCounter2 = 0f;
     private float counter2 = 0.5f;
     // Other //
-    public static string currentPlayerColor;
+    public static string currentPlayerColor = "red";
     public static bool playerCurrentlyInCamp;
     public static bool crossroadsPosition = false;
     public static int movesRemaining;
@@ -222,7 +222,7 @@ public class World : MonoBehaviour
                     else
                     {
                         CheckForLocalVillages();
-                        if (GameMain.currentPlayer != Villages.villageOwner)
+                        if (villageNearby && GameMain.currentPlayer != Villages.villageOwner)
                         {
                             Villages.PlayerLandedOnOpposingVillage();
                         }
@@ -391,6 +391,7 @@ public class World : MonoBehaviour
 
     public static void CheckForLocalVillages()
     {
+        villageNearby = false;
         Vector3 north = new Vector3(currentUnitPosition[0], currentUnitPosition[1] + 1);
         Vector3 east = new Vector3(currentUnitPosition[0] + 1, currentUnitPosition[1]);
         Vector3 south = new Vector3(currentUnitPosition[0], currentUnitPosition[1] - 1);

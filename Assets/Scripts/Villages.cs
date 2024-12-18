@@ -193,7 +193,16 @@ public class Villages : MonoBehaviour
 
     public static void GrowVillage(int currentVillage)
     {
-        //
+        if (GameMain.currentPlayer == 1)
+        {
+            foreach (int villageToGrow in World.boardPlayerOneVillagePositions.Values)
+            {
+                if (villageToGrow == currentVillage)
+                {
+                    // Vector3 villageLocation = World.boardPlayerOneVillagePositions[villageToGrow];
+                }
+            }
+        }
     }
 
     public static void UpgradeVillageWhenNearIt()
