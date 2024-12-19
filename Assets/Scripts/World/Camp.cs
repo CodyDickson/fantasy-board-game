@@ -51,22 +51,6 @@ public class Camp : MonoBehaviour
     public static void GrasslandsCampDesign(Tilemap tilemapBoardConnectors, Tile camp, Tile bcHorizontal, Tile bcThreeDown, Tile bcVertical, Tile bcThreeUp, Tile bcThreeLeft, Tile bcThreeRight, Tile bcTopRightCorner, Tile bcBottomLeftCorner, Tile bcBottomRightCorner, Tile bcTopLeftCorner)
     {
         tilemapBoardConnectors.SetTile(new Vector3Int(0, 0), camp);
-        tilemapBoardConnectors.SetTile(new Vector3Int(0, 7), bcVertical);
-        tilemapBoardConnectors.SetTile(new Vector3Int(0, 8), bcThreeDown);
-        World.boardPositions.Add(new Vector3Int(0, 8));
-        World.boardCrossroads.Add(new Vector3Int(0, 8));
-        tilemapBoardConnectors.SetTile(new Vector3Int(7, 0), bcHorizontal);
-        tilemapBoardConnectors.SetTile(new Vector3Int(8, 0), bcThreeLeft);
-        World.boardPositions.Add(new Vector3Int(8, 0));
-        World.boardCrossroads.Add(new Vector3Int(8, 0));
-        tilemapBoardConnectors.SetTile(new Vector3Int(0, -7), bcVertical);
-        tilemapBoardConnectors.SetTile(new Vector3Int(0, -8), bcThreeUp);
-        World.boardPositions.Add(new Vector3Int(0, -8));
-        World.boardCrossroads.Add(new Vector3Int(0, -8));
-        tilemapBoardConnectors.SetTile(new Vector3Int(-7, 0), bcHorizontal);
-        tilemapBoardConnectors.SetTile(new Vector3Int(-8, 0), bcThreeRight);
-        World.boardPositions.Add(new Vector3Int(-8, 0));
-        World.boardCrossroads.Add(new Vector3Int(-8, 0));
     }
 
     public static void GraveyardCampSpawn()
