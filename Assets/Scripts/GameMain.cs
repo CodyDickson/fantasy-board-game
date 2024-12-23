@@ -27,6 +27,7 @@ public class GameMain : MonoBehaviour
     // Current Turn, Current Player Info //
     public static int currentPlayer = 1;
     public static int currentTurn = 1;
+    public static bool currentPlayerInCamp = true;
    // Determines which screen (and content) is displayed //
     public static bool GUIEnabled = true;
     public static bool chestScreenEnabled = false;
@@ -144,7 +145,6 @@ public class GameMain : MonoBehaviour
     public GameObject upArrowButton;
     // Board tracking //
     public static List<Vector3> boardPositions = new List<Vector3>();
-    public static List<Vector3> boardSlotPositions = new List<Vector3>();
     public static Dictionary<int, string> boardStructures = new Dictionary<int, string>();
     public static Dictionary<int, string> boardUnits = new Dictionary<int, string>();
     public static int boardLength;
@@ -333,19 +333,6 @@ public class GameMain : MonoBehaviour
     {
         endTurnButtonEnabled = false;
         World.villageNearby = false;
-        foreach (Vector3 listVector in World.boardCampPositions)
-        {
-            if (listVector == World.currentUnitPosition)
-            {
-                switch (currentPlayer)
-                {
-                    case 1: playerOneGold += 25; break;
-                    case 2: playerTwoGold += 25; break;
-                    case 3: playerThreeGold += 25; break;
-                    case 4: playerFourGold += 25; break;
-                }
-            }
-        }
         currentPlayer += 1;
         if (currentPlayer > activePlayers)
         {
@@ -372,9 +359,9 @@ public class GameMain : MonoBehaviour
         {
             switch (currentPlayer)
             {
-                case 2: playerTwoIsActive = true; break;
-                case 3: playerThreeIsActive = true; break;
-                case 4: playerFourIsActive = true; break;
+                case 2: playerTwoIsActive = true; World.playerCurrentlyInCamp = true; break;
+                case 3: playerThreeIsActive = true; World.playerCurrentlyInCamp = true; break;
+                case 4: playerFourIsActive = true; World.playerCurrentlyInCamp = true; break;
             }
             Camp.SpawnActivePlayerInCamp();
         }
@@ -566,7 +553,7 @@ public class GameMain : MonoBehaviour
         {
             chestScreenEnabled = true;
             diceShouldFadeAwayImmediately = true;
-            boardPosition = boardSlotPositions[World.currentUnitPositionOnBoard];
+            // boardPosition = boardSlotPositions[World.currentUnitPositionOnBoard];
             tilemap.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), null);
             boardStructures[World.newUnitPosition] = "empty";
         }

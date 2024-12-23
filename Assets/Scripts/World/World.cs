@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
@@ -27,7 +28,7 @@ public class World : MonoBehaviour
     public static Vector3 eastSlotPosition;
     public static bool eastEmpty = false;
     public static Vector3 southSlotPosition;
-    public static bool southEmpty= false;
+    public static bool southEmpty = false;
     public static Vector3 westSlotPosition;
     public static bool westEmpty = false;
     public static bool villageNearby = false;
@@ -90,7 +91,7 @@ public class World : MonoBehaviour
     [SerializeField] public Tile oceanOne;
     [SerializeField] public Tile oceanTwo;
     [SerializeField] public Tile oceanThree;
-    [SerializeField] public Tile camp, bcHorizontal, bcThreeDown, bcVertical, bcThreeUp, bcThreeLeft, bcThreeRight, bcTopRightCorner, bcBottomLeftCorner, bcBottomRightCorner, bcTopLeftCorner;
+    [SerializeField] public Tile camp, bcHorizontal, bcThreeDown, bcVertical, bcThreeUp, bcThreeLeft, bcThreeRight, bcTopRightCorner, bcBottomLeftCorner, bcBottomRightCorner, bcTopLeftCorner, emptySlot;
     [SerializeField] public Tilemap tilemapTerrain;
     [SerializeField] public Tilemap tilemapStructures;
     [SerializeField] public Tilemap tilemapBoardConnectors;
@@ -114,6 +115,7 @@ public class World : MonoBehaviour
         TerrainGenerator();
         Camp.SpawnActivePlayerInCamp();
         GameMain.playerOneIsActive = true;
+        FillEmptySlots(tilemapBoardConnectors, emptySlot);
     }
 
     void Update()
@@ -165,7 +167,7 @@ public class World : MonoBehaviour
                     case "green": tilemapUnits.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), playerGreen); break;
                     case "purple": tilemapUnits.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), playerPurple); break;
                     case "white": tilemapUnits.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), playerWhite); break;
-                }   
+                }
             }
             tempCounter = counter;
         }
@@ -173,7 +175,58 @@ public class World : MonoBehaviour
         {
             tempCounter -= Time.deltaTime;
         }
-        if (playerIsMoving)
+        if (playerIsMoving && GameMain.currentPlayerInCamp)
+        {
+            tilemapUnits.SetTile(new Vector3Int((int)currentUnitPosition[0], (int)currentUnitPosition[1]), null);
+            GameMain.currentPlayerInCamp = false;
+            playerIsMoving = false;
+            if (currentUnitDirection == "north")
+            {
+                currentUnitPosition = boardCampPositions[0];
+                switch (GameMain.currentPlayer)
+                {
+                    case 1: playerOnePosition = currentUnitPosition; break;
+                    case 2: playerTwoPosition = currentUnitPosition; break;
+                    case 3: playerThreePosition = currentUnitPosition; break;
+                    case 4: playerFourPosition = currentUnitPosition; break;
+                }
+            }
+            if (currentUnitDirection == "east")
+            {
+                currentUnitPosition = boardCampPositions[1];
+                switch (GameMain.currentPlayer)
+                {
+                    case 1: playerOnePosition = currentUnitPosition; break;
+                    case 2: playerTwoPosition = currentUnitPosition; break;
+                    case 3: playerThreePosition = currentUnitPosition; break;
+                    case 4: playerFourPosition = currentUnitPosition; break;
+                }
+            }
+            if (currentUnitDirection == "south")
+            {
+                currentUnitPosition = boardCampPositions[2];
+                switch (GameMain.currentPlayer)
+                {
+                    case 1: playerOnePosition = currentUnitPosition; break;
+                    case 2: playerTwoPosition = currentUnitPosition; break;
+                    case 3: playerThreePosition = currentUnitPosition; break;
+                    case 4: playerFourPosition = currentUnitPosition; break;
+                }
+            }
+            if (currentUnitDirection == "west")
+            {
+                currentUnitPosition = boardCampPositions[3];
+                switch (GameMain.currentPlayer)
+                {
+                    case 1: playerOnePosition = currentUnitPosition; break;
+                    case 2: playerTwoPosition = currentUnitPosition; break;
+                    case 3: playerThreePosition = currentUnitPosition; break;
+                    case 4: playerFourPosition = currentUnitPosition; break;
+                }
+            }
+            GameMain.bottomLeftLowerButtonEnabled = true;
+        }
+        if (playerIsMoving && !GameMain.currentPlayerInCamp)
         {
             if (tempCounter2 <= 0f)
             {
@@ -181,7 +234,7 @@ public class World : MonoBehaviour
                 {
                     CheckForLocalBoardPositions();
                     DetermineNextBoardPosition(tilemapUnits);
-                    gui.EnableArrows(false);
+                    // gui.EnableArrows(false);
                     CheckForBoardCrossroads(gui);
                     switch (GameMain.currentPlayer)
                     {
@@ -369,7 +422,7 @@ public class World : MonoBehaviour
         {
             if (listVector == north || listVector == east || listVector == south || listVector == west)
             {
-                switch(boardDungeonPositions[listVector])
+                switch (boardDungeonPositions[listVector])
                 {
                     case 1: Dungeons.dungeonType = "imp"; break;
                     case 2: Dungeons.dungeonType = "basilisk"; break;
@@ -467,7 +520,7 @@ public class World : MonoBehaviour
         {
             for (int x = 0; x <= xSize; x++, z++)
             {
-                randomTerrainType = Random.Range(1,101);
+                randomTerrainType = Random.Range(1, 101);
                 if (GameMain.currentBoard == "grasslands")
                 {
                     if (randomTerrainType <= 25)
@@ -544,39 +597,11 @@ public class World : MonoBehaviour
         }
     }
 
-    void FillActiveSlots(string currentBoard, int activePlayers)
+    public static void FillEmptySlots(Tilemap tilemapBoardConnectors, Tile emptySlot)
     {
-        // Board Structures
-        for (int x = 0; x < boardLength; x++)
+        foreach (Vector3 listVector in World.boardEmptySlotPositions)
         {
-            int random = Random.Range(1,101);
-            if (random <= 20)
-            {
-                if (currentBoard == "grasslands")
-                {
-                    int randomEnemy = Random.Range(1,3);
-                    if (randomEnemy == 1)
-                    {
-                        GameMain.dungeonType = "Imp";
-                    }
-                    else if (randomEnemy == 2)
-                    {
-                        GameMain.dungeonType = "Basilisk";
-                    }
-                }
-                tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), dungeon);
-            }
-            else if (random >= 80 && random < 99)
-            {
-                boardStructures.Add(x, "chest");
-                tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), chest);
-            }
-            else if (random >= 99)
-            {
-                boardStructures.Add(x, "oddity");
-                tilemapStructures.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), oddity);
-            }
-            GameMain.boardMonsters.Add(x, "empty");
+            tilemapBoardConnectors.SetTile(new Vector3Int((int)listVector[0], (int)listVector[1]), emptySlot);
         }
     }
 }

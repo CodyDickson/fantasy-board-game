@@ -5,6 +5,14 @@ using UnityEngine.Tilemaps;
 
 public class Camp : MonoBehaviour
 {
+    void Update()
+    {
+        if (World.playerIsMoving && GameMain.currentPlayerInCamp)
+        {
+            
+        }
+    }
+
     public static void GenerateCamp(Tilemap tilemapBoardConnectors, Tile camp, Tile bcHorizontal, Tile bcThreeDown, Tile bcVertical, Tile bcThreeUp, Tile bcThreeLeft, Tile bcThreeRight, Tile bcTopRightCorner, Tile bcBottomLeftCorner, Tile bcBottomRightCorner, Tile bcTopLeftCorner)
     {
         switch(GameMain.currentMap)

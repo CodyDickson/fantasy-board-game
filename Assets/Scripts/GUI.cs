@@ -11,15 +11,18 @@ public class GUI : MonoBehaviour
     public Image playerGUI_Avatar;
     public GameObject infoGUI;
     public Button primaryButton;
+    public GameObject primaryButtonPanel;
     public Button secondaryButton;
     public GameObject secondaryButtonPanel;
     public Button endTurnButton;
+    public GameObject endTurnButtonPanel;
     public Button arrowUpButton;
     public Button arrowRightButton;
     public Button arrowDownButton;
     public Button arrowLeftButton;
     public World world;
     public Sprite playerRed, playerBlue;
+    public TMP_Text centerText;
     private bool enableArrowButtons = false;
     public static bool rightArrowButtonEnabled = false;
     public static bool leftArrowButtonEnabled = false;
@@ -53,7 +56,6 @@ public class GUI : MonoBehaviour
     [SerializeField] public TMP_Text infoGUI_topText;
     [SerializeField] public TMP_Text infoGUI_middleText;
     [SerializeField] public TMP_Text infoGUI_bottomText;
-    [SerializeField] public TMP_Text textCurrentPlayer;
 
     void Start()
     {
@@ -65,36 +67,52 @@ public class GUI : MonoBehaviour
         arrowDownButton.onClick.AddListener(OnClickDownArrow);
         arrowLeftButton.onClick.AddListener(OnClickLeftArrow);
         endTurnButton.gameObject.SetActive(false);
+        endTurnButtonPanel.gameObject.SetActive(false);
         secondaryButton.gameObject.SetActive(false);
         secondaryButtonPanel.gameObject.SetActive(false);
+        primaryButton.gameObject.SetActive(false);
+        primaryButtonPanel.gameObject.SetActive(false);
         arrowUpButton.gameObject.SetActive(false);
         arrowRightButton.gameObject.SetActive(false);
         arrowDownButton.gameObject.SetActive(false);
         arrowLeftButton.gameObject.SetActive(false);
         infoGUI.gameObject.SetActive(false);
         playerGUI_Avatar = GetComponent<Image>();
+        centerText.SetText("Choose your path...");
+        if (GameMain.currentPlayerInCamp)
+        {
+            EnableArrows(true);
+            arrowUpButton.gameObject.SetActive(true);
+            arrowRightButton.gameObject.SetActive(true);
+            arrowDownButton.gameObject.SetActive(true);
+            arrowLeftButton.gameObject.SetActive(true);
+        }
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.RightArrow) && rightArrowButtonEnabled)
+        if (World.playerIsMoving && GameMain.currentPlayerInCamp)
         {
-            OnClickRightArrow();
-        }
-        if (Input.GetKeyDown(KeyCode.UpArrow) && upArrowButtonEnabled)
-        {
-            OnClickUpArrow();
-        }
-        if (Input.GetKeyDown(KeyCode.DownArrow) && rightArrowButtonEnabled)
-        {
-            OnClickDownArrow();
-        }
-        if (Input.GetKeyDown(KeyCode.LeftArrow) && upArrowButtonEnabled)
-        {
-            OnClickLeftArrow();
+            centerText.SetText("");
         }
         if (enableArrowButtons)
         {
+            if (Input.GetKeyDown(KeyCode.RightArrow) && rightArrowButtonEnabled)
+            {
+                OnClickRightArrow();
+            }
+            if (Input.GetKeyDown(KeyCode.UpArrow) && upArrowButtonEnabled)
+            {
+                OnClickUpArrow();
+            }
+            if (Input.GetKeyDown(KeyCode.DownArrow) && rightArrowButtonEnabled)
+            {
+                OnClickDownArrow();
+            }
+            if (Input.GetKeyDown(KeyCode.LeftArrow) && upArrowButtonEnabled)
+            {
+                OnClickLeftArrow();
+            }
             if (World.northPositionAvailable == true)
             {
                 arrowUpButton.gameObject.SetActive(true);
@@ -167,7 +185,6 @@ public class GUI : MonoBehaviour
         {
             infoGUI.SetActive(false);
         }
-        textCurrentPlayer.text = "Current Player: " + GameMain.currentPlayer;
         if (GameMain.secondaryButtonEnabled && GameMain.GUIEnabled)
         {
             secondaryButton.gameObject.SetActive(true);
@@ -181,18 +198,22 @@ public class GUI : MonoBehaviour
         if (GameMain.endTurnButtonEnabled && GameMain.GUIEnabled)
         {
             endTurnButton.gameObject.SetActive(true);
+            endTurnButtonPanel.gameObject.SetActive(true);
         }
         else if (!GameMain.endTurnButtonEnabled)
         {
             endTurnButton.gameObject.SetActive(false);
+            endTurnButtonPanel.gameObject.SetActive(false);
         }
         if (GameMain.bottomLeftLowerButtonEnabled && GameMain.GUIEnabled)
         {
             primaryButton.gameObject.SetActive(true);
+            primaryButtonPanel.gameObject.SetActive(true);
         }
         else if (!GameMain.bottomLeftLowerButtonEnabled)
         {
             primaryButton.gameObject.SetActive(false);
+            primaryButtonPanel.gameObject.SetActive(false);
         }
     }
 
