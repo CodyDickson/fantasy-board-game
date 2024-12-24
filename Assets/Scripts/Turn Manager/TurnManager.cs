@@ -67,7 +67,7 @@ public class TurnManager : MonoBehaviour
         UpdatePlayerGUIAvatar.playerGUIAvatarHasBeenUpdated = false;
         UpdateGUIColor.updateGUIColor = true;
         GUI.enablePrimaryButton = true;
-        gui.EnableSecondaryButton(true);
+        GUI.primaryButtonAssignedTo = "move";
         World.CheckForLocalBoardPositions();
     }
 

@@ -8,6 +8,7 @@ using TMPro;
 public class GameMain : MonoBehaviour
 {
     // Game Settings //
+    [SerializeField] public static bool devMode = false;
     public static string currentBoard = "grasslands";
     public static int currentMap = 1;
     public static string mapSize = "medium";

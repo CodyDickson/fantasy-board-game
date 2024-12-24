@@ -25,11 +25,13 @@ public class GUI : MonoBehaviour
     public TMP_Text centerText;
     public static bool enablePrimaryButton = false;
     public static bool primaryButtonEnabled = false;
-    private bool enableSecondaryButton = false;
+    public static string primaryButtonAssignedTo = "";
+    public static bool enableSecondaryButton = false;
     public static bool secondaryButtonEnabled = false;
-    private bool enableEndTurnButton = false;
+    public static string secondaryButtonAssignedTo = "";
+    public static bool enableEndTurnButton = false;
     public static bool endTurnButtonEnabled = false;
-    private bool enableArrowButtons = false;
+    public static bool enableArrowButtons = false;
     public static bool arrowButtonsEnabled = false;
     public static bool rightArrowButtonEnabled = false;
     public static bool leftArrowButtonEnabled = false;
@@ -88,7 +90,7 @@ public class GUI : MonoBehaviour
         centerText.SetText("Choose your path...");
         if (GameMain.currentPlayerInCamp)
         {
-            EnableArrows(true);
+            enableArrowButtons = true;
             arrowUpButton.gameObject.SetActive(true);
             arrowRightButton.gameObject.SetActive(true);
             arrowDownButton.gameObject.SetActive(true);
@@ -98,16 +100,22 @@ public class GUI : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Z) && primaryButtonEnabled)
+        if (Input.GetKeyDown(KeyCode.X) && primaryButtonEnabled)
         {
-            World.MoveUnit();
-            EnableArrows(true);
+            if (primaryButtonAssignedTo == "move")
+            {
+                World.MoveUnit();
+                enableArrowButtons = true;
+            }
         }
-        if (Input.GetKeyDown(KeyCode.A) && secondaryButtonEnabled)
+        if (Input.GetKeyDown(KeyCode.Z) && secondaryButtonEnabled)
         {
-            Villages.BuildVillage(tilemapStructures, villageRed, villageBlue, villageGreen, villagePurple, villageWhite);
+            if (secondaryButtonAssignedTo == "build")
+            {
+                Villages.BuildVillage(tilemapStructures, villageRed, villageBlue, villageGreen, villagePurple, villageWhite);
+            }
         }
-        if (Input.GetKeyDown(KeyCode.E) && endTurnButtonEnabled)
+        if (Input.GetKeyDown(KeyCode.M) && endTurnButtonEnabled)
         {
             TurnManager.TurnProgressionHandler();
             GameMain.EndTurn(tilemapStructures, monsterImp, monsterBasilisk, world);
@@ -166,12 +174,24 @@ public class GUI : MonoBehaviour
         if (enablePrimaryButton && !primaryButtonEnabled)
         {
             primaryButtonPanel.gameObject.SetActive(true);
+            primaryButton.gameObject.SetActive(true);
             primaryButtonEnabled = true;
         }
         else if (!enablePrimaryButton && primaryButtonEnabled)
         {
             primaryButtonPanel.gameObject.SetActive(false);
+            primaryButton.gameObject.SetActive(false);
             primaryButtonEnabled = false;
+        }
+        if (enableSecondaryButton && !secondaryButtonEnabled)
+        {
+            secondaryButtonPanel.gameObject.SetActive(true);
+            secondaryButtonEnabled = true;
+        }
+        else if (!enableSecondaryButton && secondaryButtonEnabled)
+        {
+            secondaryButtonPanel.gameObject.SetActive(false);
+            secondaryButtonEnabled = false;
         }
         if (GameMain.GUIEnabled)
         {
@@ -223,27 +243,15 @@ public class GUI : MonoBehaviour
         }
     }
 
-    public void EnableArrows(bool enableArrowButtons)
-    {
-        this.enableArrowButtons = enableArrowButtons;
-    }
-
-    public void EnableSecondaryButton(bool enableSecondaryButton)
-    {
-        this.enableSecondaryButton = enableSecondaryButton;
-    }
-
-    public void EnableEndTurnButton(bool enableEndTurnButton)
-    {
-        this.enableEndTurnButton = enableEndTurnButton;
-    }
-
     void OnClickPrimaryButton()
     {
         if (primaryButtonEnabled)
         {
-            World.MoveUnit();
-            EnableArrows(true);
+            switch (primaryButtonAssignedTo)
+            {
+                case "move": World.MoveUnit(); enableArrowButtons = true; enablePrimaryButton = false; break;
+                case "build": Villages.BuildVillage(tilemap, villageRed, villageBlue, villageGreen, villagePurple, villageWhite); enablePrimaryButton = false; break;
+            }
         }
         else
         {
@@ -255,8 +263,10 @@ public class GUI : MonoBehaviour
     {
         if (secondaryButtonEnabled)
         {
-            Villages.BuildVillage(tilemap, villageRed, villageBlue, villageGreen, villagePurple, villageWhite);
-            EnableSecondaryButton(false);
+            switch (primaryButtonAssignedTo)
+            {
+                case "build": Villages.BuildVillage(tilemap, villageRed, villageBlue, villageGreen, villagePurple, villageWhite); GUI.enableSecondaryButton = false; break;
+            }  
         }
         else
         {
@@ -270,7 +280,7 @@ public class GUI : MonoBehaviour
         {
             GameMain.EndTurn(tilemap, monsterImp, monsterBasilisk, world);
             TurnManager.TurnProgressionHandler();
-            EnableEndTurnButton(false);
+            GUI.enableEndTurnButton = false;
         }
         else
         {

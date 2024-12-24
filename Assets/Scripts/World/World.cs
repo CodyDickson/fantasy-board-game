@@ -82,18 +82,9 @@ public class World : MonoBehaviour
     [SerializeField] public Tile villageGreen;
     [SerializeField] public Tile villagePurple;
     [SerializeField] public Tile villageWhite;
-    [SerializeField] public Tile grass;
-    [SerializeField] public Tile grassOne;
-    [SerializeField] public Tile grassTwo;
-    [SerializeField] public Tile grassThree;
-    [SerializeField] public Tile graveyardOne;
-    [SerializeField] public Tile graveyardTwo;
-    [SerializeField] public Tile graveyardThree;
-    [SerializeField] public Tile oceanOne;
-    [SerializeField] public Tile oceanTwo;
-    [SerializeField] public Tile oceanThree;
+    [SerializeField] public Tile grass, grassObject, grassObject2;
     [SerializeField] public Tile camp, bcHorizontal, bcThreeDown, bcVertical, bcThreeUp, bcThreeLeft, bcThreeRight, bcTopRightCorner, bcBottomLeftCorner, bcBottomRightCorner, bcTopLeftCorner, emptySlot;
-    [SerializeField] public Tilemap tilemapTerrain;
+    [SerializeField] public Tilemap tilemapTerrain, tilemapTerrainObjects;
     [SerializeField] public Tilemap tilemapStructures;
     [SerializeField] public Tilemap tilemapBoardConnectors;
     [SerializeField] public Tilemap tilemapUnits;
@@ -113,10 +104,13 @@ public class World : MonoBehaviour
     {
         Camp.GenerateCamp(tilemapBoardConnectors, camp, bcHorizontal, bcThreeDown, bcVertical, bcThreeUp, bcThreeLeft, bcThreeRight, bcTopRightCorner, bcBottomLeftCorner, bcBottomRightCorner, bcTopLeftCorner);
         Board.GenerateGameBoard(tilemapBoardConnectors, camp, bcHorizontal, bcThreeDown, bcVertical, bcThreeUp, bcThreeLeft, bcThreeRight, bcTopRightCorner, bcBottomLeftCorner, bcBottomRightCorner, bcTopLeftCorner);
-        Terrain.GenerateGrasslandsTerrain(tilemapTerrain, grass);
+        Terrain.GenerateGrasslandsTerrain(tilemapTerrain, tilemapTerrainObjects, grass, grassObject, grassObject2);
         Camp.SpawnActivePlayerInCamp();
-        FillEmptySlots(tilemapBoardConnectors, emptySlot);
         TurnManager.SetInitialTurnOrder();
+        if (GameMain.devMode)
+        {
+            FillEmptySlots(tilemapBoardConnectors, emptySlot);
+        }
     }
 
     void Update()
@@ -226,6 +220,7 @@ public class World : MonoBehaviour
                 }
             }
             GUI.enablePrimaryButton = true;
+            GUI.primaryButtonAssignedTo = "move";
         }
         if (playerIsMoving && !GameMain.currentPlayerInCamp)
         {
@@ -248,19 +243,23 @@ public class World : MonoBehaviour
                     if (crossroadsPosition == true)
                     {
                         CheckForLocalBoardPositions();
-                        gui.EnableArrows(true);
+                        GUI.enableArrowButtons = true;;
                         playerIsMoving = false;
                     }
                 }
                 if (movesRemaining == 0)
                 {
-                    gui.EnableArrows(false);
-                    gui.EnableEndTurnButton(false);
+                    GUI.enableArrowButtons = false;
+                    GUI.enableEndTurnButton = false;
                     playerIsMoving = false;
                     CheckForLocalEmptySlots();
                     if (northEmpty || eastEmpty || southEmpty || westEmpty)
                     {
-                        gui.EnableSecondaryButton(true);
+                        if (GUI.primaryButtonAssignedTo == "")
+                        {
+                            GUI.enablePrimaryButton = true;
+                            GUI.primaryButtonAssignedTo = "build";
+                        }
                     }
                     else
                     {
@@ -293,6 +292,7 @@ public class World : MonoBehaviour
     {
         GameMain.RollDice();
         GUI.enablePrimaryButton = false;
+        GUI.primaryButtonAssignedTo = "";
         movesRemaining = GameMain.diceOneResult + GameMain.diceTwoResult + GameMain.diceThreeResult;
         Debug.Log("Moves Remaining: " + movesRemaining);
         CheckForLocalBoardPositions();
@@ -508,92 +508,6 @@ public class World : MonoBehaviour
             {
                 westSlotPosition = west;
                 westEmpty = true;
-            }
-        }
-    }
-
-    void TerrainGenerator()
-    {
-        int randomTerrainType = 0;
-        int xSize = 50;
-        int ySize = 50;
-        for (int z = 0, y = 0; y <= ySize; y++)
-        {
-            for (int x = 0; x <= xSize; x++, z++)
-            {
-                randomTerrainType = Random.Range(1, 101);
-                if (GameMain.currentBoard == "grasslands")
-                {
-                    if (randomTerrainType <= 25)
-                    {
-                        tilemapTerrain.SetTile(new Vector3Int(x, y), grassOne);
-                        tilemapTerrain.SetTile(new Vector3Int(-x, y), grassOne);
-                        tilemapTerrain.SetTile(new Vector3Int(x, -y), grassOne);
-                        tilemapTerrain.SetTile(new Vector3Int(-x, -y), grassOne);
-                    }
-                    else if (randomTerrainType > 25 && randomTerrainType <= 50)
-                    {
-                        tilemapTerrain.SetTile(new Vector3Int(x, y), grassTwo);
-                        tilemapTerrain.SetTile(new Vector3Int(-x, y), grassTwo);
-                        tilemapTerrain.SetTile(new Vector3Int(x, -y), grassTwo);
-                        tilemapTerrain.SetTile(new Vector3Int(-x, -y), grassTwo);
-                    }
-                    else if (randomTerrainType > 50 && randomTerrainType < 101)
-                    {
-                        tilemapTerrain.SetTile(new Vector3Int(x, y), grassThree);
-                        tilemapTerrain.SetTile(new Vector3Int(-x, y), grassThree);
-                        tilemapTerrain.SetTile(new Vector3Int(x, -y), grassThree);
-                        tilemapTerrain.SetTile(new Vector3Int(-x, -y), grassThree);
-                    }
-                }
-                if (GameMain.currentBoard == "graveyard")
-                {
-                    if (randomTerrainType <= 25)
-                    {
-                        tilemapTerrain.SetTile(new Vector3Int(x, y), graveyardOne);
-                        tilemapTerrain.SetTile(new Vector3Int(-x, y), graveyardOne);
-                        tilemapTerrain.SetTile(new Vector3Int(x, -y), graveyardOne);
-                        tilemapTerrain.SetTile(new Vector3Int(-x, -y), graveyardOne);
-                    }
-                    else if (randomTerrainType > 25 && randomTerrainType <= 50)
-                    {
-                        tilemapTerrain.SetTile(new Vector3Int(x, y), graveyardTwo);
-                        tilemapTerrain.SetTile(new Vector3Int(-x, y), graveyardTwo);
-                        tilemapTerrain.SetTile(new Vector3Int(x, -y), graveyardTwo);
-                        tilemapTerrain.SetTile(new Vector3Int(-x, -y), graveyardTwo);
-                    }
-                    else if (randomTerrainType > 50 && randomTerrainType < 101)
-                    {
-                        tilemapTerrain.SetTile(new Vector3Int(x, y), graveyardThree);
-                        tilemapTerrain.SetTile(new Vector3Int(-x, y), graveyardThree);
-                        tilemapTerrain.SetTile(new Vector3Int(x, -y), graveyardThree);
-                        tilemapTerrain.SetTile(new Vector3Int(-x, -y), graveyardThree);
-                    }
-                }
-                if (GameMain.currentBoard == "ocean")
-                {
-                    if (randomTerrainType <= 25)
-                    {
-                        tilemapTerrain.SetTile(new Vector3Int(x, y), oceanOne);
-                        tilemapTerrain.SetTile(new Vector3Int(-x, y), oceanOne);
-                        tilemapTerrain.SetTile(new Vector3Int(x, -y), oceanOne);
-                        tilemapTerrain.SetTile(new Vector3Int(-x, -y), oceanOne);
-                    }
-                    else if (randomTerrainType > 25 && randomTerrainType <= 50)
-                    {
-                        tilemapTerrain.SetTile(new Vector3Int(x, y), oceanTwo);
-                        tilemapTerrain.SetTile(new Vector3Int(-x, y), oceanTwo);
-                        tilemapTerrain.SetTile(new Vector3Int(x, -y), oceanTwo);
-                        tilemapTerrain.SetTile(new Vector3Int(-x, -y), oceanTwo);
-                    }
-                    else if (randomTerrainType > 50 && randomTerrainType < 101)
-                    {
-                        tilemapTerrain.SetTile(new Vector3Int(x, y), oceanThree);
-                        tilemapTerrain.SetTile(new Vector3Int(-x, y), oceanThree);
-                        tilemapTerrain.SetTile(new Vector3Int(x, -y), oceanThree);
-                        tilemapTerrain.SetTile(new Vector3Int(-x, -y), oceanThree);
-                    }
-                }
             }
         }
     }
