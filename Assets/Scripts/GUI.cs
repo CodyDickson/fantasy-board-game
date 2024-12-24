@@ -23,7 +23,14 @@ public class GUI : MonoBehaviour
     public World world;
     public Sprite playerRed, playerBlue;
     public TMP_Text centerText;
+    public static bool enablePrimaryButton = false;
+    public static bool primaryButtonEnabled = false;
+    private bool enableSecondaryButton = false;
+    public static bool secondaryButtonEnabled = false;
+    private bool enableEndTurnButton = false;
+    public static bool endTurnButtonEnabled = false;
     private bool enableArrowButtons = false;
+    public static bool arrowButtonsEnabled = false;
     public static bool rightArrowButtonEnabled = false;
     public static bool leftArrowButtonEnabled = false;
     public static bool upArrowButtonEnabled = false;
@@ -59,7 +66,7 @@ public class GUI : MonoBehaviour
 
     void Start()
     {
-        primaryButton.onClick.AddListener(OnClickRoll);
+        primaryButton.onClick.AddListener(OnClickPrimaryButton);
         secondaryButton.onClick.AddListener(OnClickSecondaryButton);
         endTurnButton.onClick.AddListener(OnClickEndTurn);
         arrowUpButton.onClick.AddListener(OnClickUpArrow);
@@ -91,11 +98,21 @@ public class GUI : MonoBehaviour
 
     void Update()
     {
-        if (World.playerIsMoving && GameMain.currentPlayerInCamp)
+        if (Input.GetKeyDown(KeyCode.Z) && primaryButtonEnabled)
         {
-            centerText.SetText("");
+            World.MoveUnit();
+            EnableArrows(true);
         }
-        if (enableArrowButtons)
+        if (Input.GetKeyDown(KeyCode.A) && secondaryButtonEnabled)
+        {
+            Villages.BuildVillage(tilemapStructures, villageRed, villageBlue, villageGreen, villagePurple, villageWhite);
+        }
+        if (Input.GetKeyDown(KeyCode.E) && endTurnButtonEnabled)
+        {
+            TurnManager.TurnProgressionHandler();
+            GameMain.EndTurn(tilemapStructures, monsterImp, monsterBasilisk, world);
+        }
+        if (arrowButtonsEnabled)
         {
             if (Input.GetKeyDown(KeyCode.RightArrow) && rightArrowButtonEnabled)
             {
@@ -113,6 +130,9 @@ public class GUI : MonoBehaviour
             {
                 OnClickLeftArrow();
             }
+        }
+        if (enableArrowButtons && !arrowButtonsEnabled)
+        {
             if (World.northPositionAvailable == true)
             {
                 arrowUpButton.gameObject.SetActive(true);
@@ -133,13 +153,25 @@ public class GUI : MonoBehaviour
                 arrowLeftButton.gameObject.SetActive(true);
                 leftArrowButtonEnabled = true;
             }
+            arrowButtonsEnabled = true;
         }
-        else if (!enableArrowButtons)
+        else if (!enableArrowButtons && arrowButtonsEnabled)
         {
             arrowUpButton.gameObject.SetActive(false);
             arrowRightButton.gameObject.SetActive(false);
             arrowDownButton.gameObject.SetActive(false);
             arrowLeftButton.gameObject.SetActive(false);
+            arrowButtonsEnabled = false;
+        }
+        if (enablePrimaryButton && !primaryButtonEnabled)
+        {
+            primaryButtonPanel.gameObject.SetActive(true);
+            primaryButtonEnabled = true;
+        }
+        else if (!enablePrimaryButton && primaryButtonEnabled)
+        {
+            primaryButtonPanel.gameObject.SetActive(false);
+            primaryButtonEnabled = false;
         }
         if (GameMain.GUIEnabled)
         {
@@ -175,6 +207,10 @@ public class GUI : MonoBehaviour
             }
             // Update top of the screen with CURRENT TURN
             // Current Turn Order (including icons for monster spawns, players, monster movement, end turn)
+            if (World.playerIsMoving && GameMain.currentPlayerInCamp)
+            {
+                centerText.SetText("");
+            }
         }
         if (!GameMain.GUIEnabled)
         {
@@ -185,36 +221,6 @@ public class GUI : MonoBehaviour
         {
             infoGUI.SetActive(false);
         }
-        if (GameMain.secondaryButtonEnabled && GameMain.GUIEnabled)
-        {
-            secondaryButton.gameObject.SetActive(true);
-            secondaryButtonPanel.gameObject.SetActive(true);
-        }
-        else if (!GameMain.secondaryButtonEnabled)
-        {
-            secondaryButton.gameObject.SetActive(false);
-            secondaryButtonPanel.gameObject.SetActive(false);
-        }
-        if (GameMain.endTurnButtonEnabled && GameMain.GUIEnabled)
-        {
-            endTurnButton.gameObject.SetActive(true);
-            endTurnButtonPanel.gameObject.SetActive(true);
-        }
-        else if (!GameMain.endTurnButtonEnabled)
-        {
-            endTurnButton.gameObject.SetActive(false);
-            endTurnButtonPanel.gameObject.SetActive(false);
-        }
-        if (GameMain.bottomLeftLowerButtonEnabled && GameMain.GUIEnabled)
-        {
-            primaryButton.gameObject.SetActive(true);
-            primaryButtonPanel.gameObject.SetActive(true);
-        }
-        else if (!GameMain.bottomLeftLowerButtonEnabled)
-        {
-            primaryButton.gameObject.SetActive(false);
-            primaryButtonPanel.gameObject.SetActive(false);
-        }
     }
 
     public void EnableArrows(bool enableArrowButtons)
@@ -222,29 +228,49 @@ public class GUI : MonoBehaviour
         this.enableArrowButtons = enableArrowButtons;
     }
 
-    void OnClickRoll()
+    public void EnableSecondaryButton(bool enableSecondaryButton)
     {
-        if (GameMain.bottomLeftLowerButtonEnabled)
+        this.enableSecondaryButton = enableSecondaryButton;
+    }
+
+    public void EnableEndTurnButton(bool enableEndTurnButton)
+    {
+        this.enableEndTurnButton = enableEndTurnButton;
+    }
+
+    void OnClickPrimaryButton()
+    {
+        if (primaryButtonEnabled)
         {
             World.MoveUnit();
             EnableArrows(true);
         }
         else
         {
-            Debug.Log("Move is currently disabled");
+            Debug.Log("Primary is currently disabled");
         }
     }
 
     void OnClickSecondaryButton()
     {
-        Villages.BuildVillage(tilemap, villageRed, villageBlue, villageGreen, villagePurple, villageWhite);
+        if (secondaryButtonEnabled)
+        {
+            Villages.BuildVillage(tilemap, villageRed, villageBlue, villageGreen, villagePurple, villageWhite);
+            EnableSecondaryButton(false);
+        }
+        else
+        {
+            Debug.Log("Secondary is currently disabled");
+        }
     }
 
     void OnClickEndTurn()
     {
-        if (GameMain.endTurnButtonEnabled)
+        if (endTurnButtonEnabled)
         {
             GameMain.EndTurn(tilemap, monsterImp, monsterBasilisk, world);
+            TurnManager.TurnProgressionHandler();
+            EnableEndTurnButton(false);
         }
         else
         {

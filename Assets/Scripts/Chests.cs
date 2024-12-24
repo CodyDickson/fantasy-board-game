@@ -14,11 +14,12 @@ public class Chests : MonoBehaviour
     [SerializeField] public Button continueButton;
     public static int updateRewardText = 0;
     public static bool rewardUpdated = false;
+    public GUI gui;
 
     void Start()
     {
         openChestButton.onClick.AddListener(OnClickOpenChestButton);
-        continueButton.onClick.AddListener(OnClickContinueButton);
+        // continueButton.onClick.AddListener(OnClickContinueButton(gui));
         continueButton.gameObject.SetActive(false);
         continueText.gameObject.SetActive(false);
     }
@@ -31,7 +32,7 @@ public class Chests : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.C) && rewardUpdated && GameMain.chestScreenEnabled)
         {
-            OnClickContinueButton();
+            OnClickContinueButton(gui);
         }
 
         if (GameMain.chestScreenEnabled && !rewardUpdated)
@@ -256,12 +257,12 @@ public class Chests : MonoBehaviour
         rewardUpdated = true;
     }
 
-    public static void OnClickContinueButton()
+    public static void OnClickContinueButton(GUI gui)
     {
         rewardUpdated = false;
         updateRewardText = 0;
         GameMain.chestScreenEnabled = false;
         GameMain.GUIEnabled = true;
-        GameMain.secondaryButtonEnabled = true;
+        GUI.enablePrimaryButton = true;
     }
 }

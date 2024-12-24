@@ -526,7 +526,7 @@ public class Combat : MonoBehaviour
         GameMain.combatScreenEnabled = false;
         GameMain.combatEncounterHappening = false;
         GameMain.GUIEnabled = true;
-        GameMain.endTurnButtonEnabled = true;
+        GUI.endTurnButtonEnabled = true;
         avatar_one_set = false;
         avatar_two_set = false;
         namesAreUpdated = false;
@@ -771,7 +771,6 @@ public class Combat : MonoBehaviour
                     GameMain.player_alive_four = false;
                 }
             }
-            GameMain.MoveUnitComplete(tilemap, player_red, player_blue, player_green, player_purple, player_white);
         }
         else if (combatUnitOne_DiceTotal < combatUnitTwo_DiceTotal)
         {

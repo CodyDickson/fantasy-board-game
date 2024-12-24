@@ -82,6 +82,7 @@ public class World : MonoBehaviour
     [SerializeField] public Tile villageGreen;
     [SerializeField] public Tile villagePurple;
     [SerializeField] public Tile villageWhite;
+    [SerializeField] public Tile grass;
     [SerializeField] public Tile grassOne;
     [SerializeField] public Tile grassTwo;
     [SerializeField] public Tile grassThree;
@@ -112,10 +113,10 @@ public class World : MonoBehaviour
     {
         Camp.GenerateCamp(tilemapBoardConnectors, camp, bcHorizontal, bcThreeDown, bcVertical, bcThreeUp, bcThreeLeft, bcThreeRight, bcTopRightCorner, bcBottomLeftCorner, bcBottomRightCorner, bcTopLeftCorner);
         Board.GenerateGameBoard(tilemapBoardConnectors, camp, bcHorizontal, bcThreeDown, bcVertical, bcThreeUp, bcThreeLeft, bcThreeRight, bcTopRightCorner, bcBottomLeftCorner, bcBottomRightCorner, bcTopLeftCorner);
-        TerrainGenerator();
+        Terrain.GenerateGrasslandsTerrain(tilemapTerrain, grass);
         Camp.SpawnActivePlayerInCamp();
-        GameMain.playerOneIsActive = true;
         FillEmptySlots(tilemapBoardConnectors, emptySlot);
+        TurnManager.SetInitialTurnOrder();
     }
 
     void Update()
@@ -224,7 +225,7 @@ public class World : MonoBehaviour
                     case 4: playerFourPosition = currentUnitPosition; break;
                 }
             }
-            GameMain.bottomLeftLowerButtonEnabled = true;
+            GUI.enablePrimaryButton = true;
         }
         if (playerIsMoving && !GameMain.currentPlayerInCamp)
         {
@@ -254,12 +255,12 @@ public class World : MonoBehaviour
                 if (movesRemaining == 0)
                 {
                     gui.EnableArrows(false);
-                    GameMain.endTurnButtonEnabled = true;
+                    gui.EnableEndTurnButton(false);
                     playerIsMoving = false;
                     CheckForLocalEmptySlots();
                     if (northEmpty || eastEmpty || southEmpty || westEmpty)
                     {
-                        GameMain.secondaryButtonEnabled = true;
+                        gui.EnableSecondaryButton(true);
                     }
                     else
                     {
@@ -291,7 +292,7 @@ public class World : MonoBehaviour
     public static void MoveUnit()
     {
         GameMain.RollDice();
-        GameMain.bottomLeftLowerButtonEnabled = false;
+        GUI.enablePrimaryButton = false;
         movesRemaining = GameMain.diceOneResult + GameMain.diceTwoResult + GameMain.diceThreeResult;
         Debug.Log("Moves Remaining: " + movesRemaining);
         CheckForLocalBoardPositions();

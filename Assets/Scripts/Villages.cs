@@ -56,10 +56,7 @@ public class Villages : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.V) && GameMain.secondaryButtonEnabled)
-        {
-            Villages.BuildVillage(tilemapStructures, villageRed, villageBlue, villageGreen, villagePurple, villageWhite);
-        }
+
         // button to cycle through all villages of the active player
         if (villagesGUIEnabled)
         {
@@ -93,7 +90,6 @@ public class Villages : MonoBehaviour
 
     public static void BuildVillage(Tilemap tilemap, Tile villageRed, Tile villageBlue, Tile villageGreen, Tile villagePurple, Tile villageWhite)
     {
-        GameMain.secondaryButtonEnabled = false;
         World.CheckForLocalEmptySlots();
         if (World.northEmpty)
         {
