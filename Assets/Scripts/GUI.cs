@@ -117,7 +117,7 @@ public class GUI : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.M) && endTurnButtonEnabled)
         {
-            TurnManager.TurnProgressionHandler();
+            TurnManager.TurnProgressionHandler(tilemapStructures);
             GameMain.EndTurn(tilemapStructures, monsterImp, monsterBasilisk, world);
         }
         if (arrowButtonsEnabled)
@@ -279,7 +279,7 @@ public class GUI : MonoBehaviour
         if (endTurnButtonEnabled)
         {
             GameMain.EndTurn(tilemap, monsterImp, monsterBasilisk, world);
-            TurnManager.TurnProgressionHandler();
+            TurnManager.TurnProgressionHandler(tilemapStructures);
             GUI.enableEndTurnButton = false;
         }
         else

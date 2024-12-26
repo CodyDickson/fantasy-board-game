@@ -18650,6 +18650,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerColors: []
+  dungeonsListInEditor: []
 --- !u!1 &1253343308
 GameObject:
   m_ObjectHideFlags: 0
@@ -23459,6 +23460,9 @@ MonoBehaviour:
   - {r: 0.6226415, g: 0.11160549, b: 0.11160549, a: 1}
   - {r: 0.14178619, g: 0.19294068, b: 0.67295593, a: 1}
   - {r: 0.24335375, g: 0.69182384, b: 0.1979746, a: 1}
+  dungeonsListInEditor:
+  - {fileID: 11400000, guid: dab10ab520475fd4dbe5f57e1877063b, type: 2}
+  - {fileID: 11400000, guid: e9269b222411d3041b780dcf01b00567, type: 2}
 --- !u!4 &1872756049
 Transform:
   m_ObjectHideFlags: 0
@@ -24764,8 +24768,8 @@ MonoBehaviour:
   tilemapTerrain: {fileID: 1089704673}
   tilemapTerrainObjects: {fileID: 559942291}
   tilemapStructures: {fileID: 737563382}
-  tilemapBoardConnectors: {fileID: 842877893}
   tilemapUnits: {fileID: 533341040}
+  tilemapBoardConnectors: {fileID: 842877893}
   gui: {fileID: 1077264794}
 --- !u!4 &2054497523
 Transform:

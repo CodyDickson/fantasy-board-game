@@ -84,10 +84,7 @@ public class World : MonoBehaviour
     [SerializeField] public Tile villageWhite;
     [SerializeField] public Tile grass, grassObject, grassObject2;
     [SerializeField] public Tile camp, bcHorizontal, bcThreeDown, bcVertical, bcThreeUp, bcThreeLeft, bcThreeRight, bcTopRightCorner, bcBottomLeftCorner, bcBottomRightCorner, bcTopLeftCorner, emptySlot;
-    [SerializeField] public Tilemap tilemapTerrain, tilemapTerrainObjects;
-    [SerializeField] public Tilemap tilemapStructures;
-    [SerializeField] public Tilemap tilemapBoardConnectors;
-    [SerializeField] public Tilemap tilemapUnits;
+    [SerializeField] public Tilemap tilemapTerrain, tilemapTerrainObjects, tilemapStructures, tilemapUnits, tilemapBoardConnectors;
     // Time //
     private float counter = 0.01f;
     private float tempCounter = 0f;
@@ -111,6 +108,7 @@ public class World : MonoBehaviour
         {
             FillEmptySlots(tilemapBoardConnectors, emptySlot);
         }
+        TurnManager.TurnProgressionHandler(tilemapStructures);
     }
 
     void Update()
