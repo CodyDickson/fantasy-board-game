@@ -18556,6 +18556,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 167f8f5bbc009fe489a2be83e2a7cf2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  devMode: 0
   centerDisplayText: {fileID: 106139610}
   currentTurnText: {fileID: 1943074356}
   GUI: {fileID: 1077264789}
@@ -18595,16 +18596,6 @@ MonoBehaviour:
   grassTwo: {fileID: 11400000, guid: ab8e7291bb2ec044c8397223058798c5, type: 2}
   grassThree: {fileID: 11400000, guid: 0795193288c536640a30c4dbbac8da95, type: 2}
   camp: {fileID: 11400000, guid: e9d1119bcafe74546b2040eda45f18a2, type: 2}
-  bcHorizontal: {fileID: 11400000, guid: 42fe42d0cfbd94f489b318e0fed0e9d9, type: 2}
-  bcThreeDown: {fileID: 11400000, guid: 4eb636e2c3ecafa48b5fcc0ee1c1108a, type: 2}
-  bcVertical: {fileID: 11400000, guid: 6270631973c18e9409055c604091d7fc, type: 2}
-  bcThreeUp: {fileID: 11400000, guid: 468c1776d2343a041b0d097a63f43cc4, type: 2}
-  bcThreeLeft: {fileID: 11400000, guid: b211e8de053ecb34f8291c5fa45c2b19, type: 2}
-  bcThreeRight: {fileID: 11400000, guid: 99e2e826bcc0eb44b99d6e799f66750d, type: 2}
-  bcTopRightCorner: {fileID: 11400000, guid: b081844a4b526cf439d60f05f1bb1dc6, type: 2}
-  bcBottomLeftCorner: {fileID: 11400000, guid: 2a56345c697dcb94f8bec325aae0785a, type: 2}
-  bcBottomRightCorner: {fileID: 11400000, guid: 693b55232d927204b87bb679b67b95b9, type: 2}
-  bcTopLeftCorner: {fileID: 11400000, guid: 1a6c985cbf2430241bb24cc6e0f5347a, type: 2}
   tilemapTerrain: {fileID: 1893063730}
   tilemapStructures: {fileID: 737563382}
   tilemapBoardConnectors: {fileID: 842877893}
@@ -18646,11 +18637,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1253125874}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d131845e8eb7db4e949711012b4bc55, type: 3}
+  m_Script: {fileID: 11500000, guid: 2fec615f3472af04e8f0d1c666e60da8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerColors: []
-  dungeonsListInEditor: []
+  tilemapStructures: {fileID: 1055304989}
 --- !u!1 &1253343308
 GameObject:
   m_ObjectHideFlags: 0
@@ -23456,13 +23446,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d131845e8eb7db4e949711012b4bc55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerColors:
-  - {r: 0.6226415, g: 0.11160549, b: 0.11160549, a: 1}
-  - {r: 0.14178619, g: 0.19294068, b: 0.67295593, a: 1}
-  - {r: 0.24335375, g: 0.69182384, b: 0.1979746, a: 1}
+  playerColorsListInEditor: []
   dungeonsListInEditor:
   - {fileID: 11400000, guid: dab10ab520475fd4dbe5f57e1877063b, type: 2}
   - {fileID: 11400000, guid: e9269b222411d3041b780dcf01b00567, type: 2}
+  - {fileID: 11400000, guid: c9c6fe8bf9cacd84a8171bd5896b338a, type: 2}
+  villagesListInEditor:
+  - {fileID: 11400000, guid: e318ef84fb531e741abbb64b7bcb46d7, type: 2}
+  - {fileID: 11400000, guid: 9a4ba94a9a333404b97f65d062e0cf43, type: 2}
+  monstersListInEditor:
+  - {fileID: 11400000, guid: c706f75e7277fe74ca76657676aec595, type: 2}
+  - {fileID: 11400000, guid: 7c86482b90b09ab4fbeda313c0301dfb, type: 2}
+  - {fileID: 11400000, guid: fdafde5eded754347a736890cb85067c, type: 2}
+  playersListInEditor:
+  - {fileID: 11400000, guid: 9fd52c950bd89164a8c0876a87638906, type: 2}
+  - {fileID: 11400000, guid: 2613c16f3da7d8a48af5bf4805c02f32, type: 2}
+  - {fileID: 11400000, guid: 7fcd23b836bec5d4b9b8aecd48d53d68, type: 2}
+  - {fileID: 11400000, guid: 77ef651c4e6f00e49ac01aa6a9be0e16, type: 2}
+  - {fileID: 11400000, guid: 195a13ec80b8ec94c982ee8d558f70ff, type: 2}
+  - {fileID: 11400000, guid: 2d97ce44e8982434087291928cca6f51, type: 2}
+  merchantsListInEditor:
+  - {fileID: 11400000, guid: 195a13ec80b8ec94c982ee8d558f70ff, type: 2}
+  - {fileID: 11400000, guid: 7e02794e4bf093144a735974395d0314, type: 2}
+  - {fileID: 11400000, guid: b578b79c60502d941b09ce19ce37279e, type: 2}
+  - {fileID: 11400000, guid: dc6eeb2c1f0c3714fbd08ea269b3bee5, type: 2}
+  objectsListInEditor: []
+  tilemapsListInEditor: []
 --- !u!4 &1872756049
 Transform:
   m_ObjectHideFlags: 0
@@ -24750,9 +24759,9 @@ MonoBehaviour:
   villageGreen: {fileID: 11400000, guid: d101ffbb00471744797fc8770de1d1e4, type: 2}
   villagePurple: {fileID: 11400000, guid: 002ea42d544431543be9addfb409a386, type: 2}
   villageWhite: {fileID: 11400000, guid: dd447d893de0e7349baca36adcd02aa3, type: 2}
-  grass: {fileID: 11400000, guid: f422375ca5f384446a3a44d4a2ae10d0, type: 2}
+  grass: {fileID: 11400000, guid: 948399d749a7e8b4e9873b0b3c1c55fc, type: 2}
   grassObject: {fileID: 11400000, guid: 5ae74c592f54d5d47aa0b3ad43cf06aa, type: 2}
-  grassObject2: {fileID: 11400000, guid: 1ed0f33247f7df64baa13b2891aeba64, type: 2}
+  grassObject2: {fileID: 11400000, guid: f204912f642e5a749993d02e25c84cb1, type: 2}
   camp: {fileID: 11400000, guid: e9d1119bcafe74546b2040eda45f18a2, type: 2}
   bcHorizontal: {fileID: 11400000, guid: 42fe42d0cfbd94f489b318e0fed0e9d9, type: 2}
   bcThreeDown: {fileID: 11400000, guid: 4eb636e2c3ecafa48b5fcc0ee1c1108a, type: 2}

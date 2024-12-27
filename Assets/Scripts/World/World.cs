@@ -38,6 +38,9 @@ public class World : MonoBehaviour
     public static List<Vector3> boardPositions = new List<Vector3>();
     public static List<Vector3> localBoardPositions = new List<Vector3>();
     public static List<Vector3> boardCrossroads = new List<Vector3>();
+    public static List<Vector3> boardMerchantPositions = new List<Vector3>();
+    public static List<Vector3> boardOddityPositions = new List<Vector3>();
+    public static List<Vector3> boardTollPositions = new List<Vector3>();
     public static List<Vector3> boardCampPositions = new List<Vector3>();
     public static List<Vector3> boardImpDungeonPositions = new List<Vector3>();
     public static List<Vector3> boardBasiliskDungeonPositions = new List<Vector3>();
@@ -104,10 +107,10 @@ public class World : MonoBehaviour
         Terrain.GenerateGrasslandsTerrain(tilemapTerrain, tilemapTerrainObjects, grass, grassObject, grassObject2);
         Camp.SpawnActivePlayerInCamp();
         TurnManager.SetInitialTurnOrder();
-        if (GameMain.devMode)
+        /*if (GameMain.devMode)
         {
             FillEmptySlots(tilemapBoardConnectors, emptySlot);
-        }
+        }*/
         TurnManager.TurnProgressionHandler(tilemapStructures);
     }
 
@@ -230,6 +233,7 @@ public class World : MonoBehaviour
                     DetermineNextBoardPosition(tilemapUnits);
                     // gui.EnableArrows(false);
                     CheckForBoardCrossroads(gui);
+                    Debug.Log("Current Unit Position: " + currentUnitPosition);
                     switch (GameMain.currentPlayer)
                     {
                         case 1: playerOnePosition = currentUnitPosition; break;

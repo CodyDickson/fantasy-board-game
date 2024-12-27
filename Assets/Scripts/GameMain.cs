@@ -8,7 +8,7 @@ using TMPro;
 public class GameMain : MonoBehaviour
 {
     // Game Settings //
-    [SerializeField] public static bool devMode = false;
+    [SerializeField] public bool devMode = false;
     public static string currentBoard = "grasslands";
     public static int currentMap = 1;
     public static string mapSize = "medium";
@@ -22,12 +22,13 @@ public class GameMain : MonoBehaviour
     public static int villageCost = 50;
     public static int playerLives = 3;
     public static int deathCost = 250;
-    public static int dungeonSpawnRate = 25;
+    // Player Info //
+    public static int currentPlayer = 1;
+    public static int currentPlayerAvatar = 1;
+    public static int currentTurn = 1;
+    public static int currentPlayerCombatDice = 1;
     // Statuses //
     public static bool playerOneHasBurn = false;
-    // Current Turn, Current Player Info //
-    public static int currentPlayer = 1;
-    public static int currentTurn = 1;
     public static bool currentPlayerInCamp = true;
    // Determines which screen (and content) is displayed //
     public static bool GUIEnabled = true;
@@ -172,16 +173,6 @@ public class GameMain : MonoBehaviour
     [SerializeField] public Tile grassTwo;
     [SerializeField] public Tile grassThree;
     [SerializeField] public Tile camp;
-    [SerializeField] public Tile bcHorizontal;
-    [SerializeField] public Tile bcThreeDown;
-    [SerializeField] public Tile bcVertical;
-    [SerializeField] public Tile bcThreeUp;
-    [SerializeField] public Tile bcThreeLeft;
-    [SerializeField] public Tile bcThreeRight;
-    [SerializeField] public Tile bcTopRightCorner;
-    [SerializeField] public Tile bcBottomLeftCorner;
-    [SerializeField] public Tile bcBottomRightCorner;
-    [SerializeField] public Tile bcTopLeftCorner;
     [SerializeField] public Tilemap tilemapTerrain;
     [SerializeField] public Tilemap tilemapStructures;
     [SerializeField] public Tilemap tilemapBoardConnectors;

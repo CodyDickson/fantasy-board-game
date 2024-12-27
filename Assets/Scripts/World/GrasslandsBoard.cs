@@ -12,7 +12,6 @@ public class GrasslandsBoard : MonoBehaviour
     {
         int random;
         string section = "empty";
-        // RESET TO 24
         for (int i = 1; i <= 24; i++)
         {
             random = Random.Range(1, 10);

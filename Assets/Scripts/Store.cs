@@ -6,13 +6,19 @@ using UnityEngine.Tilemaps;
 public class Store : MonoBehaviour
 {
     [SerializeField] public Color[] playerColorsListInEditor;
-    [SerializeField] public Tile[] dungeonsListInEditor;
+    [SerializeField] public Sprite[] dungeonsListInEditor, villagesListInEditor, monstersListInEditor, playersListInEditor, merchantsListInEditor, objectsListInEditor;
+    [SerializeField] public Tilemap[] tilemapsListInEditor;
     public static Color[] playerColors;
-    public static Tile[] dungeons;
+    public static Sprite[] dungeons, villages, monsters, players, merchants, objects;
 
     private void Awake()
     {
         playerColors = playerColorsListInEditor;
         dungeons = dungeonsListInEditor;
+        villages = villagesListInEditor;
+        monsters = monstersListInEditor;
+        players = playersListInEditor;
+        merchants = merchantsListInEditor;
+        objects = objectsListInEditor;
     }
 }

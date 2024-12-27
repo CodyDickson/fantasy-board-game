@@ -4,6 +4,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 public class TurnManager : MonoBehaviour
 {
@@ -11,9 +12,31 @@ public class TurnManager : MonoBehaviour
     public static List<string> turnPool = new List<string>();
     public static int currentTurnItem = 0;
     public static GUI gui;
+    public static bool continueTurnProgression = false;
+    private float counter = 0.5f;
+    private float tempCounter = 0f;
+    public Tilemap tilemapStructures;
+
+    void Update()
+    {
+        if (continueTurnProgression)
+        {
+            if (tempCounter <= 0f)
+            {
+                TurnProgressionHandler(tilemapStructures);
+                tempCounter = counter;
+                continueTurnProgression = false;
+            }
+            else
+            {
+                tempCounter -= Time.deltaTime;
+            }
+        }
+    }
 
     public static void SetInitialTurnOrder()
     {
+        turnOrder.Add("");
         turnOrder.Add("spawnDungeons");
         turnOrder.Add("spawnMerchants");
         for (int i = 1; i <= GameMain.activePlayers; i++)
@@ -22,10 +45,21 @@ public class TurnManager : MonoBehaviour
         }
         turnOrder.Add("spawnMonsters");
         turnOrder.Add("endTurn");
+        int random = Random.Range(1, 5);
+        for (int i = 1; i <= GameMain.activePlayers; i++) { turnPool.Add("player"); }
+        turnPool.Add("moveMonsters");
+        if (random == 1) { turnPool.Add("spawnDungeons"); }
+        if (random == 3) { turnPool.Add("spawnMonsters"); }
+        turnPool.Add("spawnEliteMonsters");
+        if (random == 5) { random = Random.Range(1, 3); if (random == 1) { turnPool.Add("spawnOddity"); } }
+        if (random == 2) { turnPool.Add("spawnMerchants"); }
     }
 
     public static void TurnProgressionHandler(Tilemap tilemapStructures)
     {
+        currentTurnItem += 1;
+        Debug.Log("Current Turn Item Number: " + currentTurnItem);
+        Debug.Log("Current Turn Item: " + turnOrder[currentTurnItem]);
         switch (turnOrder[currentTurnItem])
         {
             case "player": PlayerTurn(); break;
@@ -36,27 +70,24 @@ public class TurnManager : MonoBehaviour
             case "spawnOddity": break;
             case "spawnMerchants": SpawnMerchants(tilemapStructures); break;
             case "endTurn": EndTurn(gui); break;
+            default: Debug.Log("pass"); break;
         }
         turnOrder.Remove(turnOrder[currentTurnItem]);
         if (turnPool.Count == 0)
         {
-            for (int i = 1; i <= GameMain.activePlayers; i++)
-            {
-                turnPool.Add("player");
-            }
+            int random = Random.Range(1,5);
+            for (int i = 1; i <= GameMain.activePlayers; i++) { turnPool.Add("player"); }
             turnPool.Add("moveMonsters");
-            turnPool.Add("spawnDungeons");
-            turnPool.Add("spawnMonsters");
+            if (random == 1) { turnPool.Add("spawnDungeons"); }
+            if (random == 3) { turnPool.Add("spawnMonsters"); }
             turnPool.Add("spawnEliteMonsters");
-            turnPool.Add("spawnOddity");
-            turnPool.Add("spawnMerchants");
-            currentTurnItem = 0;
+            if (random == 5) { random = Random.Range(1, 3); if (random == 1) { turnPool.Add("spawnOddity"); } }
+            if (random == 2) { turnPool.Add("spawnMerchants"); }
         }
         else
         {
             turnOrder.Add(turnPool.First());
             turnPool.RemoveAt(0);
-            currentTurnItem++;
         }
     }
 
@@ -72,6 +103,7 @@ public class TurnManager : MonoBehaviour
 
     public static void PlayerTurn()
     {
+        Debug.Log("Player Turn, Current Player is " + GameMain.currentPlayer);
         GameMain.currentPlayer += 1;
         if (GameMain.currentPlayer > GameMain.activePlayers)
         {
@@ -91,7 +123,6 @@ public class TurnManager : MonoBehaviour
             {
                 GameMain.currentPlayer = 4;
             }
-            GameMain.currentTurn += 1;
         }
         if (GameMain.currentTurn == 1)
         {
@@ -112,15 +143,6 @@ public class TurnManager : MonoBehaviour
             {
                 GameMain.playerOneGold += Villages.playerOneVillageGoldPerTurn[i];
             }
-            for (int i = 1; i <= Villages.playerOneVillageGrowth.Count; i++)
-            {
-                Villages.playerOneVillageGrowth[i] -= 1;
-                if (Villages.playerOneVillageGrowth[i] == 0)
-                {
-                    Villages.playerOneVillageGrowth[i] = 3;
-                    Villages.GrowVillage(i);
-                }
-            }
         }
         else if (GameMain.currentPlayer == 2)
         {
@@ -130,15 +152,6 @@ public class TurnManager : MonoBehaviour
             for (int i = 1; i <= Villages.playerTwoVillageGoldPerTurn.Count; i++)
             {
                 GameMain.playerTwoGold += Villages.playerTwoVillageGoldPerTurn[i];
-            }
-            for (int i = 1; i <= Villages.playerTwoVillageGrowth.Count; i++)
-            {
-                Villages.playerTwoVillageGrowth[i] -= 1;
-                if (Villages.playerTwoVillageGrowth[i] == 0)
-                {
-                    Villages.playerTwoVillageGrowth[i] = 3;
-                    Villages.GrowVillage(i);
-                }
             }
         }
         else if (GameMain.currentPlayer == 3)
@@ -150,15 +163,6 @@ public class TurnManager : MonoBehaviour
             {
                 GameMain.playerThreeGold += Villages.playerThreeVillageGoldPerTurn[i];
             }
-            for (int i = 1; i <= Villages.playerThreeVillageGrowth.Count; i++)
-            {
-                Villages.playerThreeVillageGrowth[i] -= 1;
-                if (Villages.playerThreeVillageGrowth[i] == 0)
-                {
-                    Villages.playerThreeVillageGrowth[i] = 3;
-                    Villages.GrowVillage(i);
-                }
-            }
         }
         else if (GameMain.currentPlayer == 4)
         {
@@ -169,22 +173,12 @@ public class TurnManager : MonoBehaviour
             {
                 GameMain.playerFourGold += Villages.playerFourVillageGoldPerTurn[i];
             }
-            for (int i = 1; i <= Villages.playerFourVillageGrowth.Count; i++)
-            {
-                Villages.playerFourVillageGrowth[i] -= 1;
-                if (Villages.playerFourVillageGrowth[i] == 0)
-                {
-                    Villages.playerFourVillageGrowth[i] = 3;
-                    Villages.GrowVillage(i);
-                }
-            }
         }
     }
 
     public static void SpawnDungeons(Tilemap tilemapStructures)
     {
-        Debug.Log("Spawn Dungeons");
-        foreach (Vector3 listVector in World.boardSlotPositions)
+        foreach (Vector3 listVector in World.boardPositions)
         {
             Vector3 vector3 = listVector;
             World.currentUnitPosition = listVector;
@@ -258,7 +252,7 @@ public class TurnManager : MonoBehaviour
                     random = Random.Range(1, 3);
                     if (random == 1)
                     {
-                        vector3[0] = -1;
+                        vector3[0] -= 1;
                         World.boardImpDungeonPositions.Add(vector3);
                         vector3 = listVector;
                     }
@@ -279,13 +273,12 @@ public class TurnManager : MonoBehaviour
         {
             tilemapStructures.SetTile(new Vector3Int((int)basiliskDungeon[0], (int)basiliskDungeon[1]), Store.dungeons[1]);
         }
-        TurnProgressionHandler(tilemapStructures);
+        continueTurnProgression = true;
     }
 
     public static void SpawnMerchants(Tilemap tilemapStructures)
     {
-        Debug.Log("Spawn Merchants");
-        /*foreach (Vector3 listVector in World.boardEmptySlotPositions)
+        foreach (Vector3 listVector in World.boardPositions)
         {
             Vector3 vector3 = listVector;
             World.currentUnitPosition = listVector;
@@ -293,55 +286,57 @@ public class TurnManager : MonoBehaviour
             int random;
             if (!World.northPositionAvailable)
             {
-                random = Random.Range(1, 10);
+                random = Random.Range(1, 101);
                 if (random == 1)
                 {
-                    random = Random.Range(1,3);
-                    if (random == 1)
-                    {
-                        vector3[1] += 1;
-                        World.boardImpDungeonPositions.Add(vector3);
-                        vector3 = listVector;
-                    }
-                    else if (random == 2)
-                    {
-                        vector3[1] += 1;
-                        World.boardBasiliskDungeonPositions.Add(vector3);
-                        vector3 = listVector;
-                    }
+                    vector3[1] += 1;
+                    World.boardMerchantPositions.Add(vector3);
+                    vector3 = listVector;
                 }
             }
             if (!World.eastPositionAvailable)
             {
-                random = Random.Range(1, 10);
+                random = Random.Range(1, 101);
                 if (random == 1)
                 {
                     vector3[0] += 1;
-                    World.boardEmptySlotPositions.Add(vector3);
+                    World.boardMerchantPositions.Add(vector3);
                     vector3 = listVector;
                 }
             }
             if (!World.southPositionAvailable)
             {
-                random = Random.Range(1, 10);
+                random = Random.Range(1, 101);
                 if (random == 1)
                 {
                     vector3[1] -= 1;
-                    World.boardEmptySlotPositions.Add(vector3);
+                    World.boardMerchantPositions.Add(vector3);
                     vector3 = listVector;
                 }
             }
             if (!World.westPositionAvailable)
             {
-                random = Random.Range(1, 10);
+                random = Random.Range(1, 101);
                 if (random == 1)
                 {
                     vector3[0] -= 1;
-                    World.boardEmptySlotPositions.Add(vector3);
+                    World.boardMerchantPositions.Add(vector3);
                     vector3 = listVector;
                 }
             }
-        }*/
-        TurnProgressionHandler(tilemapStructures);
+        }
+        foreach (Vector3 merchant in World.boardMerchantPositions)
+        {
+            int random = Random.Range(0,5);
+            switch (random)
+            {
+                case 0: tilemapStructures.SetTile(new Vector3Int((int)merchant[0], (int)merchant[1]), Store.merchants[0]); break;
+                case 1: tilemapStructures.SetTile(new Vector3Int((int)merchant[0], (int)merchant[1]), Store.merchants[1]); break;
+                case 2: tilemapStructures.SetTile(new Vector3Int((int)merchant[0], (int)merchant[1]), Store.merchants[2]); break;
+                case 3: tilemapStructures.SetTile(new Vector3Int((int)merchant[0], (int)merchant[1]), Store.merchants[3]); break;
+            }
+            
+        }
+        continueTurnProgression = true;
     }
 }

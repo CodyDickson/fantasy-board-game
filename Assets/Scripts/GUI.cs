@@ -214,19 +214,6 @@ public class GUI : MonoBehaviour
                     break;
             }
             if (UpdatePlayerGUIAvatar.playerGUIAvatarHasBeenUpdated == false) { UpdatePlayerGUIAvatar.updatePlayerGUIAvatar = true; };
-            if (World.villageNearby)
-            {
-                infoGUI.SetActive(true);
-                switch (Villages.villageOwner)
-                {
-                    case 1: infoGUI_topText.text = "Growth: " + Villages.playerOneVillageGrowth[Villages.currentVillage]; infoGUI_middleText.text = "Gold Per Turn: " + Villages.playerOneVillageGoldPerTurn[Villages.currentVillage]; infoGUI_bottomText.text = "Toll: " + Villages.playerOneVillageTolls[Villages.currentVillage]; break;
-                    case 2: infoGUI_topText.text = "Growth: " + Villages.playerTwoVillageGrowth[Villages.currentVillage]; infoGUI_middleText.text = "Gold Per Turn: " + Villages.playerTwoVillageGoldPerTurn[Villages.currentVillage]; infoGUI_bottomText.text = "Toll: " + Villages.playerTwoVillageTolls[Villages.currentVillage]; break;
-                    case 3: infoGUI_topText.text = "Growth: " + Villages.playerThreeVillageGrowth[Villages.currentVillage]; infoGUI_middleText.text = "Gold Per Turn: " + Villages.playerThreeVillageGoldPerTurn[Villages.currentVillage]; infoGUI_bottomText.text = "Toll: " + Villages.playerThreeVillageTolls[Villages.currentVillage]; break;
-                    case 4: infoGUI_topText.text = "Growth: " + Villages.playerFourVillageGrowth[Villages.currentVillage]; infoGUI_middleText.text = "Gold Per Turn: " + Villages.playerFourVillageGoldPerTurn[Villages.currentVillage]; infoGUI_bottomText.text = "Toll: " + Villages.playerFourVillageTolls[Villages.currentVillage]; break;
-                }
-            }
-            // Update top of the screen with CURRENT TURN
-            // Current Turn Order (including icons for monster spawns, players, monster movement, end turn)
             if (World.playerIsMoving && GameMain.currentPlayerInCamp)
             {
                 centerText.SetText("");
