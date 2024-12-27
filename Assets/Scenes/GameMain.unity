@@ -23447,30 +23447,44 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerColorsListInEditor: []
-  dungeonsListInEditor:
-  - {fileID: 11400000, guid: dab10ab520475fd4dbe5f57e1877063b, type: 2}
+  dungeonSpritesListInEditor:
+  - {fileID: -436443989, guid: ad8888aa4b5973e49a90bf15365dcf0b, type: 3}
+  - {fileID: -968549342, guid: ad8888aa4b5973e49a90bf15365dcf0b, type: 3}
+  villageSpritesListInEditor:
+  - {fileID: -1876576991, guid: ad8888aa4b5973e49a90bf15365dcf0b, type: 3}
+  monsterSpritesListInEditor:
+  - {fileID: -1146568332, guid: ad8888aa4b5973e49a90bf15365dcf0b, type: 3}
+  - {fileID: 1142479097, guid: ad8888aa4b5973e49a90bf15365dcf0b, type: 3}
+  playerSpritesListInEditor:
+  - {fileID: -8786129, guid: ad8888aa4b5973e49a90bf15365dcf0b, type: 3}
+  - {fileID: 282726670, guid: ad8888aa4b5973e49a90bf15365dcf0b, type: 3}
+  - {fileID: 332007938, guid: ad8888aa4b5973e49a90bf15365dcf0b, type: 3}
+  - {fileID: 1034164227, guid: ad8888aa4b5973e49a90bf15365dcf0b, type: 3}
+  merchantSpritesListInEditor:
+  - {fileID: 355412921, guid: ad8888aa4b5973e49a90bf15365dcf0b, type: 3}
+  - {fileID: 1034164227, guid: ad8888aa4b5973e49a90bf15365dcf0b, type: 3}
+  - {fileID: 1421206575, guid: ad8888aa4b5973e49a90bf15365dcf0b, type: 3}
+  - {fileID: -1656055275, guid: ad8888aa4b5973e49a90bf15365dcf0b, type: 3}
+  objectSpritesListInEditor: []
+  dungeonTilesListInEditor:
   - {fileID: 11400000, guid: e9269b222411d3041b780dcf01b00567, type: 2}
-  - {fileID: 11400000, guid: c9c6fe8bf9cacd84a8171bd5896b338a, type: 2}
-  villagesListInEditor:
-  - {fileID: 11400000, guid: e318ef84fb531e741abbb64b7bcb46d7, type: 2}
+  - {fileID: 11400000, guid: dab10ab520475fd4dbe5f57e1877063b, type: 2}
+  villageTilesListInEditor:
   - {fileID: 11400000, guid: 9a4ba94a9a333404b97f65d062e0cf43, type: 2}
-  monstersListInEditor:
+  monsterTilesListInEditor:
   - {fileID: 11400000, guid: c706f75e7277fe74ca76657676aec595, type: 2}
   - {fileID: 11400000, guid: 7c86482b90b09ab4fbeda313c0301dfb, type: 2}
-  - {fileID: 11400000, guid: fdafde5eded754347a736890cb85067c, type: 2}
-  playersListInEditor:
-  - {fileID: 11400000, guid: 9fd52c950bd89164a8c0876a87638906, type: 2}
+  playerTilesListInEditor:
   - {fileID: 11400000, guid: 2613c16f3da7d8a48af5bf4805c02f32, type: 2}
   - {fileID: 11400000, guid: 7fcd23b836bec5d4b9b8aecd48d53d68, type: 2}
-  - {fileID: 11400000, guid: 77ef651c4e6f00e49ac01aa6a9be0e16, type: 2}
+  - {fileID: 11400000, guid: 9fd52c950bd89164a8c0876a87638906, type: 2}
   - {fileID: 11400000, guid: 195a13ec80b8ec94c982ee8d558f70ff, type: 2}
+  merchantTilesListInEditor:
   - {fileID: 11400000, guid: 2d97ce44e8982434087291928cca6f51, type: 2}
-  merchantsListInEditor:
   - {fileID: 11400000, guid: 195a13ec80b8ec94c982ee8d558f70ff, type: 2}
-  - {fileID: 11400000, guid: 7e02794e4bf093144a735974395d0314, type: 2}
-  - {fileID: 11400000, guid: b578b79c60502d941b09ce19ce37279e, type: 2}
   - {fileID: 11400000, guid: dc6eeb2c1f0c3714fbd08ea269b3bee5, type: 2}
-  objectsListInEditor: []
+  - {fileID: 11400000, guid: 77ef651c4e6f00e49ac01aa6a9be0e16, type: 2}
+  objectTilesListInEditor: []
   tilemapsListInEditor: []
 --- !u!4 &1872756049
 Transform:

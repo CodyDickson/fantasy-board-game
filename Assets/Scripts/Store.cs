@@ -6,19 +6,27 @@ using UnityEngine.Tilemaps;
 public class Store : MonoBehaviour
 {
     [SerializeField] public Color[] playerColorsListInEditor;
-    [SerializeField] public Sprite[] dungeonsListInEditor, villagesListInEditor, monstersListInEditor, playersListInEditor, merchantsListInEditor, objectsListInEditor;
+    [SerializeField] public Sprite[] dungeonSpritesListInEditor, villageSpritesListInEditor, monsterSpritesListInEditor, playerSpritesListInEditor, merchantSpritesListInEditor, objectSpritesListInEditor;
+    [SerializeField] public Tile[] dungeonTilesListInEditor, villageTilesListInEditor, monsterTilesListInEditor, playerTilesListInEditor, merchantTilesListInEditor, objectTilesListInEditor;
     [SerializeField] public Tilemap[] tilemapsListInEditor;
     public static Color[] playerColors;
-    public static Sprite[] dungeons, villages, monsters, players, merchants, objects;
+    public static Sprite[] dungeonSprites, villageSprites, monsterSprites, playerSprites, merchantSprites, objectSprites;
+    public static Tile[] dungeonTiles, villageTiles, monsterTiles, playerTiles, merchantTiles, objectTiles;
 
     private void Awake()
     {
         playerColors = playerColorsListInEditor;
-        dungeons = dungeonsListInEditor;
-        villages = villagesListInEditor;
-        monsters = monstersListInEditor;
-        players = playersListInEditor;
-        merchants = merchantsListInEditor;
-        objects = objectsListInEditor;
+        dungeonSprites = dungeonSpritesListInEditor;
+        villageSprites = villageSpritesListInEditor;
+        monsterSprites = monsterSpritesListInEditor;
+        playerSprites = playerSpritesListInEditor;
+        merchantSprites = merchantSpritesListInEditor;
+        objectSprites = objectSpritesListInEditor;
+        dungeonTiles = dungeonTilesListInEditor;
+        villageTiles = villageTilesListInEditor;
+        monsterTiles = monsterTilesListInEditor;
+        playerTiles = playerTilesListInEditor;
+        merchantTiles = merchantTilesListInEditor;
+        objectTiles = objectTilesListInEditor;
     }
 }

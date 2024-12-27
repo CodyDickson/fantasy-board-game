@@ -23,8 +23,8 @@ public class UpdateInfoGUI : MonoBehaviour
         {
             switch (GameMain.currentPlayerAvatar)
             {
-                case 0: gameObject.GetComponent<Image>().sprite = Store.players[0]; break;
-                case 1: gameObject.GetComponent<Image>().sprite = Store.players[1]; break;
+                case 0: gameObject.GetComponent<Image>().sprite = Store.playerSprites[0]; break;
+                case 1: gameObject.GetComponent<Image>().sprite = Store.playerSprites[1]; break;
             }
             updateInfoGUI = false;
             infoGUIHasBeenUpdated = true;

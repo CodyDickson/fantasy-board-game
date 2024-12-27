@@ -22,11 +22,46 @@ public class GameMain : MonoBehaviour
     public static int villageCost = 50;
     public static int playerLives = 3;
     public static int deathCost = 250;
-    // Player Info //
-    public static int currentPlayer = 1;
-    public static int currentPlayerAvatar = 1;
+    // Current Player Info //
     public static int currentTurn = 1;
+    public static int currentPlayer = 1;
+    public static int currentPlayerHealth = 1;
+    public static int currentPlayerAvatar = 1;
     public static int currentPlayerCombatDice = 1;
+    public static int currentPlayerMovementDice = 1;
+    public static bool currentPlayerIsHuman = true;
+    // All Player Info //
+    // Health: Green //
+    public static int playerOneHealth = startingHealth;
+    public static int playerTwoHealth = startingHealth;
+    public static int playerThreeHealth = startingHealth;
+    public static int playerFourHealth = startingHealth;
+    // Gold: Yellow //
+    public static int playerOneGold = startingGold;
+    public static int playerTwoGold = startingGold;
+    public static int playerThreeGold = startingGold;
+    public static int playerFourGold = startingGold;
+    // Combat: Red //
+    public static int playerOneCombat = startingCombat;
+    public static int playerTwoCombat = startingCombat;
+    public static int playerThreeCombat = startingCombat;
+    public static int playerFourCombat = startingCombat;
+    // Lives: White //
+    public static int playerOneLives = startingLives;
+    public static int playerTwoLives = startingLives;
+    public static int playerThreeLives = startingLives;
+    public static int playerFourLives = startingLives;
+    // Avatars //
+    public static int playerOneAvatar = 0;
+    public static int playerTwoAvatar = 1;
+    public static int playerThreeAvatar = 2;
+    public static int playerFourAvatar = 3;
+    // Human or Computer? //
+    public static bool playerOneHuman = true;
+    public static bool playerTwoHuman = true;
+    public static bool playerThreeHuman = false;
+    public static bool playerFourHuman = false;
+    //
     // Statuses //
     public static bool playerOneHasBurn = false;
     public static bool currentPlayerInCamp = true;
@@ -72,33 +107,6 @@ public class GameMain : MonoBehaviour
     public static int diceOneResult = 0;
     public static int diceTwoResult = 0;
     public static int diceThreeResult = 0;
-    // Player Main Stats //
-    // Health: Green //
-    public static int playerOneHealth = startingHealth;
-    public static int playerTwoHealth = startingHealth;
-    public static int playerThreeHealth = startingHealth;
-    public static int playerFourHealth = startingHealth;
-    // Gold: Yellow, Sack of Gold Avatar //
-    public static int playerOneGold = startingGold;
-    public static int playerTwoGold = startingGold;
-    public static int playerThreeGold = startingGold;
-    public static int playerFourGold = startingGold;
-    // Combat: Red, Sword Avatar //
-    public static int playerOneCombat = startingCombat;
-    public static int playerTwoCombat = startingCombat;
-    public static int playerThreeCombat = startingCombat;
-    public static int playerFourCombat = startingCombat;
-    // Initiative: Purple, Boot Avatar //
-    public static int playerOneInitiative = startingInitiative;
-    public static int playerTwoInitiative = startingInitiative;
-    public static int playerThreeInitiative = startingInitiative;
-    public static int playerFourInitiative = startingInitiative;
-    // Lives: White, Wings Avatar //
-    public static int playerOneLives = startingLives;
-    public static int playerTwoLives = startingLives;
-    public static int playerThreeLives = startingLives;
-    public static int playerFourLives = startingLives;
-    //
     public static int player_combatDice_one = 2;
     public static int player_combatDice_two = 2;
     public static int player_combatDice_three = 2;
@@ -134,10 +142,6 @@ public class GameMain : MonoBehaviour
     public static int unitPositionPlayer2;
     public static int unitPositionPlayer3;
     public static int unitPositionPlayer4;
-    public static int campPositionPlayer1 = 0;
-    public static int campPositionPlayer2 = 0;
-    public static int campPositionPlayer3 = 0;
-    public static int campPositionPlayer4 = 0;
     public static int[] xy = new int[2];
     // Buttons //
     public GameObject rightArrowButton;

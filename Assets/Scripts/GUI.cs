@@ -202,14 +202,12 @@ public class GUI : MonoBehaviour
                     playerGUI_health.text = "Health: " + GameMain.playerOneHealth;
                     playerGUI_gold.text = "Gold: " + GameMain.playerOneGold;
                     playerGUI_combat.text = "Combat: " + GameMain.playerOneCombat;
-                    playerGUI_initiative.text = "Initiative: " + GameMain.playerOneInitiative;
                     playerGUI_lives.text = "Lives: " + GameMain.playerOneLives;
                     break;
                 case 2:
                     playerGUI_health.text = "Health: " + GameMain.playerTwoHealth;
                     playerGUI_gold.text = "Gold: " + GameMain.playerTwoGold;
                     playerGUI_combat.text = "Combat: " + GameMain.playerTwoCombat;
-                    playerGUI_initiative.text = "Initiative: " + GameMain.playerTwoInitiative;
                     playerGUI_lives.text = "Lives: " + GameMain.playerTwoLives;
                     break;
             }
