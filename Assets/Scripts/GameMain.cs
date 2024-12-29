@@ -9,62 +9,51 @@ public class GameMain : MonoBehaviour
 {
     // Game Settings //
     [SerializeField] public bool devMode = false;
-    public static string currentBoard = "grasslands";
-    public static int currentMap = 1;
-    public static string mapSize = "medium";
-    public static bool mapSizeRandom = false;
-    public static int activePlayers = 4;
+    public static int currentBoard = 1;
+    public static int activePlayers = 2;
     public static int startingGold = 250;
-    public static int startingCombat = 3;
-    public static int startingInitiative = 1;
+    public static int startingCombat = 0;
     public static int startingLives = 1;
     public static int startingHealth = 3;
-    public static int villageCost = 50;
-    public static int playerLives = 3;
-    public static int deathCost = 250;
+    public static int startingArmor = 0;
+    public static bool standardMode = true;
+    public static bool oddMode = false;
+    public static bool randomizeTurnOrder = false;
     // Current Player Info //
-    public static int currentTurn = 1;
-    public static int currentPlayer = 1;
-    public static int currentPlayerHealth = 1;
-    public static int currentPlayerAvatar = 1;
-    public static int currentPlayerCombatDice = 1;
+    public static int currentTurn;
+    public static int currentPlayer;
+    public static int currentPlayerHealth;
+    public static int currentPlayerArmor;
+    public static int currentPlayerAvatar;
+    public static int currentPlayerLives;
+    public static int currentPlayerCombat;
+    public static int currentPlayerGold;
+    public static int currentPlayerColor;
     public static int currentPlayerMovementDice = 1;
+    public static int currentHumanPlayer = 1;
     public static bool currentPlayerIsHuman = true;
-    // All Player Info //
-    // Health: Green //
-    public static int playerOneHealth = startingHealth;
-    public static int playerTwoHealth = startingHealth;
-    public static int playerThreeHealth = startingHealth;
-    public static int playerFourHealth = startingHealth;
-    // Gold: Yellow //
-    public static int playerOneGold = startingGold;
-    public static int playerTwoGold = startingGold;
-    public static int playerThreeGold = startingGold;
-    public static int playerFourGold = startingGold;
-    // Combat: Red //
-    public static int playerOneCombat = startingCombat;
-    public static int playerTwoCombat = startingCombat;
-    public static int playerThreeCombat = startingCombat;
-    public static int playerFourCombat = startingCombat;
-    // Lives: White //
-    public static int playerOneLives = startingLives;
-    public static int playerTwoLives = startingLives;
-    public static int playerThreeLives = startingLives;
-    public static int playerFourLives = startingLives;
-    // Avatars //
-    public static int playerOneAvatar = 0;
-    public static int playerTwoAvatar = 1;
-    public static int playerThreeAvatar = 2;
-    public static int playerFourAvatar = 3;
-    // Human or Computer? //
-    public static bool playerOneHuman = true;
-    public static bool playerTwoHuman = true;
-    public static bool playerThreeHuman = false;
-    public static bool playerFourHuman = false;
-    //
-    // Statuses //
-    public static bool playerOneHasBurn = false;
     public static bool currentPlayerInCamp = true;
+    // All Player Info //
+    // Avatar //
+    public static List<int> playerAvatar = new List<int>();
+    // Color //
+    public static List<int> playerColor = new List<int>();
+    // Health, Green //
+    public static List<int> playerHealth = new List<int>();
+    // Armor, Gray //
+    public static List<int> playerArmor = new List<int>();
+    // Lives, White //
+    public static List<int> playerLives = new List<int>();
+    // Gold, Yellow //
+    public static List<int> playerGold = new List<int>();
+    // Combat, Red //
+    public static List<int> playerCombat = new List<int>();
+    // Human or Computer? //
+    public static List<bool> playerIsHuman = new List<bool>();
+    // Statuses //
+    public static List<bool> playerHasBurn = new List<bool>();
+    public static List<int> playerHasFrozen = new List<int>();
+    public static List<int> playerHasCurse = new List<int>();
    // Determines which screen (and content) is displayed //
     public static bool GUIEnabled = true;
     public static bool chestScreenEnabled = false;
@@ -107,18 +96,10 @@ public class GameMain : MonoBehaviour
     public static int diceOneResult = 0;
     public static int diceTwoResult = 0;
     public static int diceThreeResult = 0;
-    public static int player_combatDice_one = 2;
-    public static int player_combatDice_two = 2;
-    public static int player_combatDice_three = 2;
-    public static int player_combatDice_four = 2;
     public static int player_moveDice_one = 1;
     public static int player_moveDice_two = 1;
     public static int player_moveDice_three = 1;
     public static int player_moveDice_four = 1;
-    public static int livesPlayerOne = playerLives;
-    public static int livesPlayerTwo = playerLives;
-    public static int livesPlayerThree = playerLives;
-    public static int livesPlayerFour = playerLives;
     public static bool player_alive_one = true;
     public static bool player_alive_two = true;
     public static bool player_alive_three = true;
@@ -134,18 +115,7 @@ public class GameMain : MonoBehaviour
     // Current move info //
     public static int currentPlayerDice = 0;
     // Player position tracking //
-    public static bool playerOneIsActive;
-    public static bool playerTwoIsActive;
-    public static bool playerThreeIsActive;
-    public static bool playerFourIsActive;
-    public static int unitPositionPlayer1;
-    public static int unitPositionPlayer2;
-    public static int unitPositionPlayer3;
-    public static int unitPositionPlayer4;
     public static int[] xy = new int[2];
-    // Buttons //
-    public GameObject rightArrowButton;
-    public GameObject upArrowButton;
     // Board tracking //
     public static List<Vector3> boardPositions = new List<Vector3>();
     public static Dictionary<int, string> boardStructures = new Dictionary<int, string>();
@@ -200,10 +170,10 @@ public class GameMain : MonoBehaviour
     void Start()
     {
         activePlayers = 2;
-        currentTurn = 1;
-        currentPlayer = 1;
-        playerOneIsActive = true;
+        GameSetup();
         GUI.SetActive(true);
+        Camp.SpawnActivePlayerInCamp();
+        TurnManager.SetInitialTurnOrder();
     }
 
     void Update()
@@ -314,9 +284,50 @@ public class GameMain : MonoBehaviour
         }
     }
 
-    public static void EndTurn(Tilemap tilemap, Tile monsterImp, Tile monsterBasilisk, World world)
+    public static void UpdateCurrentPlayerInfo()
     {
+        currentPlayerLives = playerLives[currentPlayer];
+        currentPlayerHealth = playerHealth[currentPlayer];
+        currentPlayerArmor = playerArmor[currentPlayer];
+        currentPlayerCombat = playerCombat[currentPlayer];
+        currentPlayerGold = playerGold[currentPlayer];
+        currentPlayerAvatar = playerAvatar[currentPlayer];
+        currentPlayerColor = playerColor[currentPlayer];
+    }
 
+    public static void GameSetup()
+    {
+        playerLives[0] = startingLives;
+        for (int i = 1; i <= activePlayers; i++)
+        {
+            playerLives[i] = playerLives[0];
+        }
+        playerHealth[0] = startingHealth;
+        for (int i = 1; i <= activePlayers; i++)
+        {
+            playerHealth[i] = playerHealth[0];
+        }
+        playerGold[0] = startingGold;
+        for (int i = 1; i <= activePlayers; i++)
+        {
+            playerGold[i] = playerGold[0];
+        }
+        playerCombat[0] = startingCombat;
+        for (int i = 1; i <= activePlayers; i++)
+        {
+            playerCombat[i] = playerCombat[0];
+        }
+        playerArmor[0] = startingArmor;
+        for (int i = 1; i <= activePlayers; i++)
+        {
+            playerArmor[i] = playerArmor[0];
+        }
+        // Player Avatar will need to be set from the game set up menu
+        playerAvatar[0] = 0;
+        for (int i = 1; i <= activePlayers; i++)
+        {
+            playerAvatar[i] = 1;
+        }
     }
 
     public static void RollDice()

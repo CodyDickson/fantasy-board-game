@@ -1,7 +1,6 @@
 [ ] BUG: When in a loop, after passing the first corner units move backwards (intermittent).
 [ ] Branches can spawn off of camp.
 [ ] Branches and loops can spawn across all clockwork positions on the Grasslands map.
-[X] Update Player GUI for any active players.
 [ ] Add a Settings GUI in the top right corner.
 [ ] Add a "View All Players" option to the Settings GUI, which shows all players and their current stats.
 [ ] Dungeons can be raided.
@@ -11,8 +10,39 @@
 GAME SET UP
 [ ] Game Mode: Standard, Odd Mode
 [ ] Game Board: Grasslands, Graveyard, Volcano, Machine
-[ ] Players: Number of players, Colors, Human or Computer
+[ ] Players: Number of players, Human or Computer, Class, Colors
 [ ] Ruleset: Turn Limit, Starting Gold / Combat / Lives / Health, Quick Movement for Computer / Human / Monster, Randomize Turn Order
+
+CLASSES
+[ ] Nomad: Starts with a "Walking Stick" weapon.
+[ ] Warrior: Starts with the "Sword" weapon.
+[ ] Mage: Starts with the "Fire Staff" weapon.
+[ ] Archer: Starts with the "Bow" weapon.
+[ ] Berserker: Starts with the "Great Axe" weapon. Has 2 Weapon Slots and 2 Oddity Slots.
+[ ] Gambler: Cannot equip a weapon. Has an additional Oddity slot. Starts with the "Bag of Dice", which determines all combat by rolling dice.
+
+WEAPONS
+
+ODDITIES
+[ ] Bag Of Dice: All combat is determined by dice roll.
+[ ] Bloody Thorn: Engage in combat with any passing player or monster.
+
+BRAINSTORMING
+Players have 1 Weapon Slot, 3 Oddity Slots, and 2 Consumable Slots. Each class starts with a unique weapon but they can change their weapon if they find one on the board. Artifacts can be swapped out and provide bonuses.
+
+Player turn begins. Move button is enabled. Villages are enabled and the player can click on their own villages to upgrade them.
+While moving, a "passing encounter" can occur:
+-aggressive monster
+-aggressive player
+-crossroads
+-pay toll
+When landing, a "landing encounter" can occur:
+-fight monster
+-earn gold from owned village
+-pay gold to opposing village
+-raid dungeon
+-merchant
+Player turn ends. Player values are updated to match current player values.
 
 ACHIEVEMENTS
 Grasslands
@@ -22,4 +52,4 @@ Graveyard
 Volcano
 [ ] 
 Machine
-[ ] 
+[ ]

@@ -8,7 +8,6 @@ using UnityEngine.UI;
 public class World : MonoBehaviour
 {
     // Map Settings //
-    public static bool mapSizeIsRandom = false;
     public static int currentUnitPositionOnBoard = 0;
     public static int previousUnitAvatar = 0;
     public static int newUnitPosition = 0;
@@ -95,7 +94,6 @@ public class World : MonoBehaviour
     private float counter2 = 0.5f;
     // Other //
     public static string currentPlayerColor = "red";
-    public static bool playerCurrentlyInCamp;
     public static bool crossroadsPosition = false;
     public static int movesRemaining;
     public GUI gui;
@@ -105,8 +103,7 @@ public class World : MonoBehaviour
         Camp.GenerateCamp(tilemapBoardConnectors, camp, bcHorizontal, bcThreeDown, bcVertical, bcThreeUp, bcThreeLeft, bcThreeRight, bcTopRightCorner, bcBottomLeftCorner, bcBottomRightCorner, bcTopLeftCorner);
         Board.GenerateGameBoard(tilemapBoardConnectors, camp, bcHorizontal, bcThreeDown, bcVertical, bcThreeUp, bcThreeLeft, bcThreeRight, bcTopRightCorner, bcBottomLeftCorner, bcBottomRightCorner, bcTopLeftCorner);
         Terrain.GenerateGrasslandsTerrain(tilemapTerrain, tilemapTerrainObjects, grass, grassObject, grassObject2);
-        Camp.SpawnActivePlayerInCamp();
-        TurnManager.SetInitialTurnOrder();
+
         /*if (GameMain.devMode)
         {
             FillEmptySlots(tilemapBoardConnectors, emptySlot);
@@ -118,7 +115,7 @@ public class World : MonoBehaviour
     {
         if (tempCounter <= 0f)
         {
-            if (GameMain.playerOneIsActive)
+            if (GameMain.playerLives[1] > 0)
             {
                 switch (GameMain.playerOneColor)
                 {
@@ -129,7 +126,7 @@ public class World : MonoBehaviour
                     case "white": tilemapUnits.SetTile(new Vector3Int((int)playerOnePosition[0], (int)playerOnePosition[1]), playerWhite); break;
                 }
             }
-            if (GameMain.playerTwoIsActive)
+            if (GameMain.playerLives[2] > 0)
             {
                 boardPosition = playerTwoPosition;
                 switch (GameMain.playerTwoColor)
@@ -141,7 +138,7 @@ public class World : MonoBehaviour
                     case "white": tilemapUnits.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), playerWhite); break;
                 }
             }
-            if (GameMain.playerThreeIsActive)
+            if (GameMain.playerLives[3] > 0)
             {
                 boardPosition = playerThreePosition;
                 switch (GameMain.playerThreeColor)
@@ -153,7 +150,7 @@ public class World : MonoBehaviour
                     case "white": tilemapUnits.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), playerWhite); break;
                 }
             }
-            if (GameMain.playerFourIsActive)
+            if (GameMain.playerLives[4] > 0)
             {
                 boardPosition = playerFourPosition;
                 switch (GameMain.playerFourColor)

@@ -556,7 +556,7 @@ public class Combat : MonoBehaviour
         // Sets combat unit one and combat unit two
         combatUnitOne = GameMain.currentPlayer;
         Debug.Log("Combat Unit One: " + combatUnitOne);
-        if (GameMain.currentPlayer == 1)
+        /*if (GameMain.currentPlayer == 1)
         {
             combatUnitOne_AmountOfCombatDice = GameMain.player_combatDice_one;            
         }
@@ -606,13 +606,13 @@ public class Combat : MonoBehaviour
         {
             combatUnitTwo = 7;
             combatUnitTwo_AmountOfCombatDice = 3;
-        }
+        }*/
         preFightScreenActive = true;
     }
 
     public static void CombatEncounter(Tilemap tilemap, Tile player_red, Tile player_blue, Tile player_green, Tile player_purple, Tile player_white, Tile monsterImp, Tile monsterBasilisk)
     {
-        GameMain.combatEncounterHappening = true;
+        /*GameMain.combatEncounterHappening = true;
         // Determines dice roll for combat unit one
         combatUnitOne_DiceTotal = 0;
         for (int x = 1; x <= combatUnitOne_AmountOfCombatDice; x++)
@@ -1027,6 +1027,6 @@ public class Combat : MonoBehaviour
                     tilemap.SetTile(new Vector3Int((int)GameMain.boardPosition[0], (int)GameMain.boardPosition[1]), monsterBasilisk);
                 }
             }
-        }
+        }*/
     }
 }

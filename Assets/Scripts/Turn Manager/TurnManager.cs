@@ -58,15 +58,14 @@ public class TurnManager : MonoBehaviour
         Debug.Log("Current Turn Item: " + turnOrder[0]);
         switch (turnOrder[0])
         {
-            case "player": PlayerTurn(); break;
+            case "player": StartPlayerTurn(); break;
             case "moveMonsters": break;
             case "spawnDungeons": SpawnDungeons(tilemapStructures); break;
             case "spawnMonsters": break;
             case "spawnEliteMonster": break;
             case "spawnOddity": break;
             case "spawnMerchants": SpawnMerchants(tilemapStructures); break;
-            case "endTurn": EndTurn(gui); break;
-            default: Debug.Log("pass"); break;
+            default: Debug.Log("This Should Never Show"); break;
         }
         turnOrder.Remove(turnOrder.First());
         turnOrder.Add(turnPool.First());
@@ -84,26 +83,37 @@ public class TurnManager : MonoBehaviour
         }
     }
 
-    public static void EndTurn(GUI gui)
+    public static void EndPlayerTurn(GUI gui)
     {
-        GameMain.currentPlayer += 1;
-        if (GameMain.currentPlayer > GameMain.activePlayers)
+        if (GameMain.currentPlayer == 1)
         {
-            if (GameMain.playerOneIsActive)
+            for (int i = 0; i <= Villages.playerOneVillageGoldPerTurn.Count; i++)
             {
-                GameMain.currentPlayer = 1;
+                GameMain.playerGold[1] += Villages.playerOneVillageGoldPerTurn[i];
             }
-            else if (GameMain.playerTwoIsActive)
+        }
+        if (GameMain.currentPlayer == 2)
+        {
+            World.currentUnitPosition = World.playerTwoPosition;
+            for (int i = 0; i <= Villages.playerTwoVillageGoldPerTurn.Count; i++)
             {
-                GameMain.currentPlayer = 2;
+                GameMain.playerGold[2] += Villages.playerTwoVillageGoldPerTurn[i];
             }
-            else if (GameMain.playerThreeIsActive)
+        }
+        if (GameMain.currentPlayer == 3)
+        {
+            World.currentUnitPosition = World.playerThreePosition;
+            for (int i = 0; i <= Villages.playerThreeVillageGoldPerTurn.Count; i++)
             {
-                GameMain.currentPlayer = 3;
+                GameMain.playerGold[3] += Villages.playerThreeVillageGoldPerTurn[i];
             }
-            else if (GameMain.playerFourIsActive)
+        }
+        if (GameMain.currentPlayer == 4)
+        {
+            World.currentUnitPosition = World.playerFourPosition;
+            for (int i = 0; i <= Villages.playerFourVillageGoldPerTurn.Count; i++)
             {
-                GameMain.currentPlayer = 4;
+                GameMain.playerGold[4] += Villages.playerFourVillageGoldPerTurn[i];
             }
         }
         World.villageNearby = false;
@@ -114,64 +124,49 @@ public class TurnManager : MonoBehaviour
         World.CheckForLocalBoardPositions();
     }
 
-    public static void PlayerTurn()
+    public static void StartPlayerTurn()
     {
+        GameMain.currentPlayer += 1;
         Debug.Log("Player Turn, Current Player is " + GameMain.currentPlayer);
+        if (GameMain.currentPlayer > GameMain.activePlayers)
+        {
+            if (GameMain.playerLives[1] > 0)
+            {
+                GameMain.currentPlayer = 1;
+            }
+            else if (GameMain.playerLives[2] > 0)
+            {
+                GameMain.currentPlayer = 2;
+            }
+            else if (GameMain.playerLives[3] > 0)
+            {
+                GameMain.currentPlayer = 3;
+            }
+            else if (GameMain.playerLives[4] > 0)
+            {
+                GameMain.currentPlayer = 4;
+            }
+        }
         if (GameMain.currentTurn == 1)
         {
-            switch (GameMain.currentPlayer)
-            {
-                case 2: GameMain.playerTwoIsActive = true; World.playerCurrentlyInCamp = true; break;
-                case 3: GameMain.playerThreeIsActive = true; World.playerCurrentlyInCamp = true; break;
-                case 4: GameMain.playerFourIsActive = true; World.playerCurrentlyInCamp = true; break;
-            }
+            Camp.playerCurrentlyInCamp = true;
             Camp.SpawnActivePlayerInCamp();
         }
-        if (GameMain.currentPlayer == 1)
+        GameMain.UpdateCurrentPlayerInfo();
+        switch (GameMain.currentPlayer)
         {
-            GameMain.currentPlayerCombatDice = GameMain.playerOneCombat;
-            GameMain.currentPlayerAvatar = GameMain.playerOneAvatar;
-            World.currentPlayerColor = GameMain.playerOneColor;
-            World.currentUnitPosition = World.playerOnePosition;
-            for (int i = 1; i <= Villages.playerOneVillageGoldPerTurn.Count; i++)
-            {
-                GameMain.playerOneGold += Villages.playerOneVillageGoldPerTurn[i];
-            }
+            case 1: World.currentUnitPosition = World.playerOnePosition;  break;
+            case 2: World.currentUnitPosition = World.playerTwoPosition; break;
+            case 3: World.currentUnitPosition = World.playerThreePosition; break;
+            case 4: World.currentUnitPosition = World.playerFourPosition; break;
         }
-        else if (GameMain.currentPlayer == 2)
-        {
-            GameMain.currentPlayerDice = GameMain.player_combatDice_two;
-            World.currentPlayerColor = GameMain.playerTwoColor;
-            World.currentUnitPosition = World.playerTwoPosition;
-            for (int i = 1; i <= Villages.playerTwoVillageGoldPerTurn.Count; i++)
-            {
-                GameMain.playerTwoGold += Villages.playerTwoVillageGoldPerTurn[i];
-            }
-        }
-        else if (GameMain.currentPlayer == 3)
-        {
-            GameMain.currentPlayerDice = GameMain.player_combatDice_three;
-            World.currentPlayerColor = GameMain.playerThreeColor;
-            World.currentUnitPosition = World.playerThreePosition;
-            for (int i = 1; i <= Villages.playerThreeVillageGoldPerTurn.Count; i++)
-            {
-                GameMain.playerThreeGold += Villages.playerThreeVillageGoldPerTurn[i];
-            }
-        }
-        else if (GameMain.currentPlayer == 4)
-        {
-            GameMain.currentPlayerDice = GameMain.player_combatDice_four;
-            World.currentPlayerColor = GameMain.playerFourColor;
-            World.currentUnitPosition = World.playerFourPosition;
-            for (int i = 1; i <= Villages.playerFourVillageGoldPerTurn.Count; i++)
-            {
-                GameMain.playerFourGold += Villages.playerFourVillageGoldPerTurn[i];
-            }
-        }
+        if (GameMain.playerIsHuman[GameMain.currentPlayer] == true) { GameMain.currentPlayerIsHuman = true; }
         if (!GameMain.currentPlayerIsHuman)
         {
             ComputerPlayerTurn();
         }
+        GUI.primaryButtonAssignedTo = "move";
+        GUI.enablePrimaryButton = true;
     }
 
     public static void ComputerPlayerTurn()

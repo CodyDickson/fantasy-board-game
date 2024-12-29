@@ -171,20 +171,9 @@ public class Villages : MonoBehaviour
                 villageCost = playerFourVillageTolls[villageNumber];
             }
         }
-        switch (GameMain.currentPlayer)
-        {
-            case 1: GameMain.playerOneGold -= villageCost; break;
-            case 2: GameMain.playerTwoGold -= villageCost; break;
-            case 3: GameMain.playerThreeGold -= villageCost; break;
-            case 4: GameMain.playerFourGold -= villageCost; break;
-        }
-        switch (villageOwner)
-        {
-            case 1: GameMain.playerOneGold += villageCost; break;
-            case 2: GameMain.playerTwoGold += villageCost; break;
-            case 3: GameMain.playerThreeGold += villageCost; break;
-            case 4: GameMain.playerFourGold += villageCost; break;
-        }
+        GameMain.playerGold[GameMain.currentPlayer] -= villageCost;
+        GameMain.playerGold[villageOwner] += villageCost;
+        GameMain.UpdateCurrentPlayerInfo();
     }
 
     public static void GrowVillage(int currentVillage)

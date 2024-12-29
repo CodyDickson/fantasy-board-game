@@ -5,9 +5,11 @@ using UnityEngine.Tilemaps;
 
 public class Camp : MonoBehaviour
 {
+    public static bool playerCurrentlyInCamp;
+
     public static void GenerateCamp(Tilemap tilemapBoardConnectors, Tile camp, Tile bcHorizontal, Tile bcThreeDown, Tile bcVertical, Tile bcThreeUp, Tile bcThreeLeft, Tile bcThreeRight, Tile bcTopRightCorner, Tile bcBottomLeftCorner, Tile bcBottomRightCorner, Tile bcTopLeftCorner)
     {
-        switch(GameMain.currentMap)
+        switch(GameMain.currentBoard)
         {
             case 1: GrasslandsCampDesign(tilemapBoardConnectors, camp, bcHorizontal, bcThreeDown, bcVertical, bcThreeUp, bcThreeLeft, bcThreeRight, bcTopRightCorner, bcBottomLeftCorner, bcBottomRightCorner, bcTopLeftCorner); break;
             case 2: GraveyardCampSpawn(); break;
@@ -18,7 +20,7 @@ public class Camp : MonoBehaviour
 
     public static void SpawnActivePlayerInCamp()
     {
-        switch (GameMain.currentMap)
+        switch (GameMain.currentBoard)
         {
             case 1: GrasslandsCampSpawn(); break;
             case 2: GraveyardCampSpawn(); break;

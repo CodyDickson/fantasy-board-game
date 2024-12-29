@@ -39,6 +39,7 @@ public class GUI : MonoBehaviour
     public static bool downArrowButtonEnabled = false;
     public static bool updateGUIColor = false;
     public bool GUIColorHasBeenUpdated = false;
+    public bool playerGUIHasBeenUpdated;
     [SerializeField] public Tile player;
     [SerializeField] public Tile player_red;
     [SerializeField] public Tile player_blue;
@@ -57,11 +58,7 @@ public class GUI : MonoBehaviour
     [SerializeField] public Tilemap tilemap;
     [SerializeField] public Tilemap tilemapStructures;
     [SerializeField] public Tilemap tilemapUnits;
-    [SerializeField] public TMP_Text playerGUI_health;
-    [SerializeField] public TMP_Text playerGUI_combat;
-    [SerializeField] public TMP_Text playerGUI_gold;
-    [SerializeField] public TMP_Text playerGUI_lives;
-    [SerializeField] public TMP_Text playerGUI_initiative;
+    [SerializeField] public TMP_Text playerGUI_health, playerGUI_combat, playerGUI_gold, playerGUI_lives, playerGUI_armor;
     [SerializeField] public TMP_Text infoGUI_topText;
     [SerializeField] public TMP_Text infoGUI_middleText;
     [SerializeField] public TMP_Text infoGUI_bottomText;
@@ -118,7 +115,6 @@ public class GUI : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.M) && endTurnButtonEnabled)
         {
             TurnManager.TurnProgressionHandler(tilemapStructures);
-            GameMain.EndTurn(tilemapStructures, monsterImp, monsterBasilisk, world);
         }
         if (arrowButtonsEnabled)
         {
@@ -193,29 +189,20 @@ public class GUI : MonoBehaviour
             secondaryButtonPanel.gameObject.SetActive(false);
             secondaryButtonEnabled = false;
         }
-        if (GameMain.GUIEnabled)
+        if (GameMain.GUIEnabled && !playerGUIHasBeenUpdated)
         {
             playerGUI.SetActive(true);
-            switch (Player.currentHumanPlayer)
-            {
-                case 1:
-                    playerGUI_health.text = "Health: " + GameMain.playerOneHealth;
-                    playerGUI_gold.text = "Gold: " + GameMain.playerOneGold;
-                    playerGUI_combat.text = "Combat: " + GameMain.playerOneCombat;
-                    playerGUI_lives.text = "Lives: " + GameMain.playerOneLives;
-                    break;
-                case 2:
-                    playerGUI_health.text = "Health: " + GameMain.playerTwoHealth;
-                    playerGUI_gold.text = "Gold: " + GameMain.playerTwoGold;
-                    playerGUI_combat.text = "Combat: " + GameMain.playerTwoCombat;
-                    playerGUI_lives.text = "Lives: " + GameMain.playerTwoLives;
-                    break;
-            }
+            playerGUI_health.text = "Health: " + GameMain.playerHealth[GameMain.currentHumanPlayer];
+            playerGUI_gold.text = "Gold: " + GameMain.playerGold[GameMain.currentHumanPlayer];
+            playerGUI_combat.text = "Combat: " + GameMain.playerCombat[GameMain.currentHumanPlayer];
+            playerGUI_lives.text = "Lives: " + GameMain.playerLives[GameMain.currentHumanPlayer];
+            playerGUI_armor.text = "Armor: " + GameMain.playerArmor[GameMain.currentHumanPlayer];
             if (UpdatePlayerGUIAvatar.playerGUIAvatarHasBeenUpdated == false) { UpdatePlayerGUIAvatar.updatePlayerGUIAvatar = true; };
             if (World.playerIsMoving && GameMain.currentPlayerInCamp)
             {
                 centerText.SetText("");
             }
+            playerGUIHasBeenUpdated = true;
         }
         if (!GameMain.GUIEnabled)
         {
@@ -263,7 +250,6 @@ public class GUI : MonoBehaviour
     {
         if (endTurnButtonEnabled)
         {
-            GameMain.EndTurn(tilemap, monsterImp, monsterBasilisk, world);
             TurnManager.TurnProgressionHandler(tilemapStructures);
             GUI.enableEndTurnButton = false;
         }
