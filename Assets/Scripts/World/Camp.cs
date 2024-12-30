@@ -48,6 +48,7 @@ public class Camp : MonoBehaviour
             case 3: World.playerThreePosition = World.currentUnitPosition; break;
             case 4: World.playerFourPosition = World.currentUnitPosition; break;
         }
+        GameMain.playerLives[GameMain.currentPlayer] = GameMain.playerLives[0];
     }
 
     public static void GrasslandsCampDesign(Tilemap tilemapBoardConnectors, Tile camp, Tile bcHorizontal, Tile bcThreeDown, Tile bcVertical, Tile bcThreeUp, Tile bcThreeLeft, Tile bcThreeRight, Tile bcTopRightCorner, Tile bcBottomLeftCorner, Tile bcBottomRightCorner, Tile bcTopLeftCorner)

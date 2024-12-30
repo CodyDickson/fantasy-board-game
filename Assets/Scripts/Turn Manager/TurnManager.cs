@@ -288,7 +288,8 @@ public class TurnManager : MonoBehaviour
                 if (random == 1)
                 {
                     vector3[1] += 1;
-                    World.boardMerchantPositions.Add(vector3);
+                    random = Random.Range(1,4);
+                    World.boardMerchantPositions.Add(vector3, random);
                     vector3 = listVector;
                 }
             }
@@ -298,7 +299,8 @@ public class TurnManager : MonoBehaviour
                 if (random == 1)
                 {
                     vector3[0] += 1;
-                    World.boardMerchantPositions.Add(vector3);
+                    random = Random.Range(1, 4);
+                    World.boardMerchantPositions.Add(vector3, random);
                     vector3 = listVector;
                 }
             }
@@ -308,8 +310,8 @@ public class TurnManager : MonoBehaviour
                 if (random == 1)
                 {
                     vector3[1] -= 1;
-                    World.boardMerchantPositions.Add(vector3);
-                    vector3 = listVector;
+                    random = Random.Range(1, 4);
+                    World.boardMerchantPositions.Add(vector3, random);
                 }
             }
             if (!World.westPositionAvailable)
@@ -318,22 +320,13 @@ public class TurnManager : MonoBehaviour
                 if (random == 1)
                 {
                     vector3[0] -= 1;
-                    World.boardMerchantPositions.Add(vector3);
+                    random = Random.Range(1, 4);
+                    World.boardMerchantPositions.Add(vector3, random);
                     vector3 = listVector;
                 }
             }
         }
-        foreach (Vector3 merchant in World.boardMerchantPositions)
-        {
-            int random = Random.Range(0,5);
-            switch (random)
-            {
-                case 0: tilemapStructures.SetTile(new Vector3Int((int)merchant[0], (int)merchant[1]), Store.merchantTiles[0]); break;
-                case 1: tilemapStructures.SetTile(new Vector3Int((int)merchant[0], (int)merchant[1]), Store.merchantTiles[1]); break;
-                case 2: tilemapStructures.SetTile(new Vector3Int((int)merchant[0], (int)merchant[1]), Store.merchantTiles[2]); break;
-                case 3: tilemapStructures.SetTile(new Vector3Int((int)merchant[0], (int)merchant[1]), Store.merchantTiles[3]); break;
-            }
-        }
+        foreach (var merchant in World.boardMerchantPositions) {tilemapStructures.SetTile(new Vector3Int((int)merchant.Key[0], (int)merchant.Key[1]), Store.merchantTiles[merchant.Value]);}
         continueTurnProgression = true;
     }
 }

@@ -10,12 +10,16 @@ public class GUI : MonoBehaviour
     public GameObject playerGUI;
     public Image playerGUI_Avatar;
     public GameObject infoGUI;
+    public TMP_Text primaryButtonText;
     public Button primaryButton;
     public GameObject primaryButtonPanel;
     public Button secondaryButton;
+    public TMP_Text secondaryButtonText;
     public GameObject secondaryButtonPanel;
     public Button endTurnButton;
     public GameObject endTurnButtonPanel;
+    public Button moveButton;
+    public GameObject moveButtonPanel;
     public Button arrowUpButton;
     public Button arrowRightButton;
     public Button arrowDownButton;
@@ -31,6 +35,8 @@ public class GUI : MonoBehaviour
     public static string secondaryButtonAssignedTo = "";
     public static bool enableEndTurnButton = false;
     public static bool endTurnButtonEnabled = false;
+    public static bool enableMoveButton = false;
+    public static bool moveButtonEnabled = false;
     public static bool enableArrowButtons = false;
     public static bool arrowButtonsEnabled = false;
     public static bool rightArrowButtonEnabled = false;
@@ -59,9 +65,7 @@ public class GUI : MonoBehaviour
     [SerializeField] public Tilemap tilemapStructures;
     [SerializeField] public Tilemap tilemapUnits;
     [SerializeField] public TMP_Text playerGUI_health, playerGUI_combat, playerGUI_gold, playerGUI_lives, playerGUI_armor;
-    [SerializeField] public TMP_Text infoGUI_topText;
-    [SerializeField] public TMP_Text infoGUI_middleText;
-    [SerializeField] public TMP_Text infoGUI_bottomText;
+    [SerializeField] public TMP_Text infoGUI_topText, infoGUI_middleText,infoGUI_bottomText;
 
     void Start()
     {
@@ -78,6 +82,8 @@ public class GUI : MonoBehaviour
         secondaryButtonPanel.gameObject.SetActive(false);
         primaryButton.gameObject.SetActive(false);
         primaryButtonPanel.gameObject.SetActive(false);
+        moveButton.gameObject.SetActive(false);
+        moveButtonPanel.gameObject.SetActive(false);
         arrowUpButton.gameObject.SetActive(false);
         arrowRightButton.gameObject.SetActive(false);
         arrowDownButton.gameObject.SetActive(false);
@@ -115,6 +121,11 @@ public class GUI : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.M) && endTurnButtonEnabled)
         {
             TurnManager.TurnProgressionHandler(tilemapStructures);
+        }
+        if (Input.GetKeyDown(KeyCode.N) && moveButtonEnabled)
+        {
+            World.MoveUnit();
+            enableArrowButtons = true;
         }
         if (arrowButtonsEnabled)
         {
@@ -188,6 +199,16 @@ public class GUI : MonoBehaviour
         {
             secondaryButtonPanel.gameObject.SetActive(false);
             secondaryButtonEnabled = false;
+        }
+        if (enableMoveButton && !moveButtonEnabled)
+        {
+            moveButtonPanel.gameObject.SetActive(true);
+            moveButtonEnabled = true;
+        }
+        else if (!enableMoveButton && moveButtonEnabled)
+        {
+            moveButtonPanel.gameObject.SetActive(false);
+            moveButtonEnabled = false;
         }
         if (GameMain.GUIEnabled && !playerGUIHasBeenUpdated)
         {

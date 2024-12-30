@@ -37,8 +37,9 @@ public class World : MonoBehaviour
     public static List<Vector3> boardPositions = new List<Vector3>();
     public static List<Vector3> localBoardPositions = new List<Vector3>();
     public static List<Vector3> boardCrossroads = new List<Vector3>();
-    public static List<Vector3> boardMerchantPositions = new List<Vector3>();
-    public static List<Vector3> boardOddityPositions = new List<Vector3>();
+    // 1: Weapons, 2: Oddities, 3: Rarities, 4: Consumables
+    public static Dictionary<Vector3, int> boardMerchantPositions = new Dictionary<Vector3, int>();
+    //
     public static List<Vector3> boardTollPositions = new List<Vector3>();
     public static List<Vector3> boardCampPositions = new List<Vector3>();
     public static List<Vector3> boardImpDungeonPositions = new List<Vector3>();
@@ -103,7 +104,6 @@ public class World : MonoBehaviour
         Camp.GenerateCamp(tilemapBoardConnectors, camp, bcHorizontal, bcThreeDown, bcVertical, bcThreeUp, bcThreeLeft, bcThreeRight, bcTopRightCorner, bcBottomLeftCorner, bcBottomRightCorner, bcTopLeftCorner);
         Board.GenerateGameBoard(tilemapBoardConnectors, camp, bcHorizontal, bcThreeDown, bcVertical, bcThreeUp, bcThreeLeft, bcThreeRight, bcTopRightCorner, bcBottomLeftCorner, bcBottomRightCorner, bcTopLeftCorner);
         Terrain.GenerateGrasslandsTerrain(tilemapTerrain, tilemapTerrainObjects, grass, grassObject, grassObject2);
-
         /*if (GameMain.devMode)
         {
             FillEmptySlots(tilemapBoardConnectors, emptySlot);
@@ -115,51 +115,30 @@ public class World : MonoBehaviour
     {
         if (tempCounter <= 0f)
         {
-            if (GameMain.playerLives[1] > 0)
+            for (int i = 1; i <= GameMain.activePlayers; i++)
             {
-                switch (GameMain.playerOneColor)
+                if (GameMain.playerLives[i] > 0)
                 {
-                    case "red": tilemapUnits.SetTile(new Vector3Int((int)playerOnePosition[0], (int)playerOnePosition[1]), playerRed); break;
-                    case "blue": tilemapUnits.SetTile(new Vector3Int((int)playerOnePosition[0], (int)playerOnePosition[1]), playerBlue); break;
-                    case "green": tilemapUnits.SetTile(new Vector3Int((int)playerOnePosition[0], (int)playerOnePosition[1]), playerGreen); break;
-                    case "purple": tilemapUnits.SetTile(new Vector3Int((int)playerOnePosition[0], (int)playerOnePosition[1]), playerPurple); break;
-                    case "white": tilemapUnits.SetTile(new Vector3Int((int)playerOnePosition[0], (int)playerOnePosition[1]), playerWhite); break;
-                }
-            }
-            if (GameMain.playerLives[2] > 0)
-            {
-                boardPosition = playerTwoPosition;
-                switch (GameMain.playerTwoColor)
-                {
-                    case "red": tilemapUnits.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), playerRed); break;
-                    case "blue": tilemapUnits.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), playerBlue); break;
-                    case "green": tilemapUnits.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), playerGreen); break;
-                    case "purple": tilemapUnits.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), playerPurple); break;
-                    case "white": tilemapUnits.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), playerWhite); break;
-                }
-            }
-            if (GameMain.playerLives[3] > 0)
-            {
-                boardPosition = playerThreePosition;
-                switch (GameMain.playerThreeColor)
-                {
-                    case "red": tilemapUnits.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), playerRed); break;
-                    case "blue": tilemapUnits.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), playerBlue); break;
-                    case "green": tilemapUnits.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), playerGreen); break;
-                    case "purple": tilemapUnits.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), playerPurple); break;
-                    case "white": tilemapUnits.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), playerWhite); break;
-                }
-            }
-            if (GameMain.playerLives[4] > 0)
-            {
-                boardPosition = playerFourPosition;
-                switch (GameMain.playerFourColor)
-                {
-                    case "red": tilemapUnits.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), playerRed); break;
-                    case "blue": tilemapUnits.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), playerBlue); break;
-                    case "green": tilemapUnits.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), playerGreen); break;
-                    case "purple": tilemapUnits.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), playerPurple); break;
-                    case "white": tilemapUnits.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), playerWhite); break;
+                    if (i == 1)
+                    {
+                        boardPosition = playerOnePosition;
+                        tilemapUnits.SetTile(new Vector3Int((int)playerOnePosition[0], (int)playerOnePosition[1]), Store.playerTiles[GameMain.playerAvatar[i]]);
+                    }
+                    if (i == 2)
+                    {
+                        boardPosition = playerTwoPosition;
+                        tilemapUnits.SetTile(new Vector3Int((int)playerTwoPosition[0], (int)playerTwoPosition[1]), Store.playerTiles[GameMain.playerAvatar[i]]);
+                    }
+                    if (i == 3)
+                    {
+                        boardPosition = playerThreePosition;
+                        tilemapUnits.SetTile(new Vector3Int((int)playerThreePosition[0], (int)playerThreePosition[1]), Store.playerTiles[GameMain.playerAvatar[i]]);
+                    }
+                    if (i == 4)
+                    {
+                        boardPosition = playerFourPosition;
+                        tilemapUnits.SetTile(new Vector3Int((int)playerFourPosition[0], (int)playerFourPosition[1]), Store.playerTiles[GameMain.playerAvatar[i]]);
+                    }
                 }
             }
             tempCounter = counter;

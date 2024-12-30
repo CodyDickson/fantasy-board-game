@@ -13,19 +13,59 @@ GAME SET UP
 [ ] Players: Number of players, Human or Computer, Class, Colors
 [ ] Ruleset: Turn Limit, Starting Gold / Combat / Lives / Health, Quick Movement for Computer / Human / Monster, Randomize Turn Order
 
-CLASSES
-[ ] Nomad: Starts with a "Walking Stick" weapon.
-[ ] Warrior: Starts with the "Sword" weapon.
-[ ] Mage: Starts with the "Fire Staff" weapon.
-[ ] Archer: Starts with the "Bow" weapon.
-[ ] Berserker: Starts with the "Great Axe" weapon. Has 2 Weapon Slots and 2 Oddity Slots.
+Classes:
+[ ] Nomad: Starts with a Walking Stick. (Unlocked from start)
+[ ] Warrior: Starts with a Sword.
+[ ] Mage: Starts with a Fire Staff.
+[ ] Archer: Starts with a Bow.
+[ ] Berserker: Starts with an Axe. Has 2 Weapon Slots and 2 Oddity Slots.
 [ ] Gambler: Cannot equip a weapon. Has an additional Oddity slot. Starts with the "Bag of Dice", which determines all combat by rolling dice.
+[ ] Cat: Begin with 9 lives. Starts with Claws.
+[ ] Hunter: Every five turns, an enemy is marked. Killing it earns a bonus reward. Starts with a bow.
+[ ] Thief
+[ ] Bard
+[ ] Peddler
+[ ] Paladin
+[ ] Mimic
 
-WEAPONS
+Weapons:
+[ ] Walking Stick: +3-5 Combat Damage.
+[ ] Claws: +3 Combat Damage. 50% chance to hit twice.
+[ ] Sword: +5 Combat Damage.
+[ ] Fire Staff: +3-5 Combat Damage. 50% chance to inflict Burn.
+[ ] Poison Staff: +2-4 Combat Damage. 50% chance to inflict Poison.
+[ ] Axe: +2-7 Combat Damage.
+[ ] Great Axe: +5-15 Combat Damage. Requires two weapon slots to wield.
+[ ] Bow: 4 Damage. Deals additional damage further away.
+[ ] Dagger
 
-ODDITIES
+Oddities:
 [ ] Bag Of Dice: All combat is determined by dice roll.
 [ ] Bloody Thorn: Engage in combat with any passing player or monster.
+[ ] + Armor
+[ ] + Health
+[ ] + Combat
+[ ] 25% chance for movement to double.
+[ ] Increased weapon range.
+[ ] Recover 1 Health at the end of each turn.
+[ ] Earn additional gold for each monster slain.
+[ ] 50% chance to avoid statuses.
+[ ] Immune to Burn.
+[ ] Immune to Curse.
+
+Rarities:
+[ ] Upgrade your villages for free by landing on them.
+[ ] 50% chance to double poison when fighting inflicted enemies.
+[ ] Village tolls are doubled.
+[ ] Earn +1 to a random stat for each monster slain.
+[ ] Consumables have a 50% chance to trigger twice.
+
+Consumables:
+[ ] Inflict 1 Poison for the next three battles
+[ ] Whistle: Return to camp
+[ ] Restore all health
+[ ] One life
+[ ] Transport to a random player
 
 BRAINSTORMING
 Players have 1 Weapon Slot, 3 Oddity Slots, and 2 Consumable Slots. Each class starts with a unique weapon but they can change their weapon if they find one on the board. Artifacts can be swapped out and provide bonuses.
@@ -36,6 +76,7 @@ While moving, a "passing encounter" can occur:
 -aggressive player
 -crossroads
 -pay toll
+-merchants
 When landing, a "landing encounter" can occur:
 -fight monster
 -earn gold from owned village

@@ -297,36 +297,48 @@ public class GameMain : MonoBehaviour
 
     public static void GameSetup()
     {
-        playerLives[0] = startingLives;
+        playerLives.Add(startingLives);
         for (int i = 1; i <= activePlayers; i++)
         {
-            playerLives[i] = playerLives[0];
+            playerLives.Add(playerLives[0]);
         }
-        playerHealth[0] = startingHealth;
+        playerHealth.Add(startingHealth);
         for (int i = 1; i <= activePlayers; i++)
         {
-            playerHealth[i] = playerHealth[0];
+            playerHealth.Add(playerHealth[0]);
         }
-        playerGold[0] = startingGold;
+        playerGold.Add(startingGold);
         for (int i = 1; i <= activePlayers; i++)
         {
-            playerGold[i] = playerGold[0];
+            playerGold.Add(playerGold[0]);
         }
-        playerCombat[0] = startingCombat;
+        playerCombat.Add(startingCombat);
         for (int i = 1; i <= activePlayers; i++)
         {
-            playerCombat[i] = playerCombat[0];
+            playerCombat.Add(playerCombat[0]);
         }
-        playerArmor[0] = startingArmor;
+        playerArmor.Add(startingArmor);
         for (int i = 1; i <= activePlayers; i++)
         {
-            playerArmor[i] = playerArmor[0];
+            playerArmor.Add(playerArmor[0]);
         }
         // Player Avatar will need to be set from the game set up menu
-        playerAvatar[0] = 0;
+        playerAvatar.Add(0);
         for (int i = 1; i <= activePlayers; i++)
         {
-            playerAvatar[i] = 1;
+            playerAvatar.Add(i);
+        }
+        // Player Color will need to be set from the game set up menu
+        playerColor.Add(0);
+        for (int i = 1; i <= activePlayers; i++)
+        {
+            playerColor.Add(i);
+        }
+        // Player Is Human will need to be set from the game set up menu
+        playerIsHuman.Add(false);
+        for (int i = 1; i <= activePlayers; i++)
+        {
+            playerIsHuman.Add(true);
         }
     }
 
