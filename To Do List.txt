@@ -68,7 +68,7 @@ Consumables:
 [ ] Transport to a random player
 
 BRAINSTORMING
-Players have 1 Weapon Slot, 3 Oddity Slots, and 2 Consumable Slots. Each class starts with a unique weapon but they can change their weapon if they find one on the board. Artifacts can be swapped out and provide bonuses.
+Prisms located around the map. Each time one spawns, the first player to reach it chooses a category - Gold, Combat. Whichever one gives that player a bonus in that type. Towards the end of the game when a certain percentage of the map has been opened up, multiple Prisms spawn. Whichever one got more 'votes' (Gold, Combat), that becomes the winning factor for the game board. Combat means all other players must be eliminated. Gold gives a gold number that must be hit to trigger victory (or countdown of 10 turns).
 
 Player turn begins. Move button is enabled. Villages are enabled and the player can click on their own villages to upgrade them.
 While moving, a "passing encounter" can occur:
