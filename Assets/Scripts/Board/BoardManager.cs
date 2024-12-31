@@ -30,7 +30,6 @@ public class BoardManager : MonoBehaviour
     public static void SpawnPlayersInCamp()
     {
         if (playerPositions.Count == 0) { playerPositions.Add(new Vector3Int(0, 0)); }
-        if (GameMain.playerInCamp.Count == 0) { GameMain.playerInCamp.Add(false); }
         for (int i = 1; i <= GameMain.totalPlayers; i++)
         {
             switch (GameMain.currentBoard)

@@ -34,8 +34,6 @@ public class TurnManager : MonoBehaviour
 
     public static void SetInitialTurnOrder()
     {
-        turnOrder.Add("spawnDungeons");
-        turnOrder.Add("spawnMerchants");
         for (int i = 1; i <= GameMain.totalPlayers; i++)
         {
             turnOrder.Add("player");

@@ -41,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
             if (currentUnitDirection == "north")
             {
                 BoardManager.currentUnitPosition = BoardManager.campExitPositions[0];
+                Debug.Log("Player Exiting Camp to Position: " + BoardManager.currentUnitPosition);
                 BoardManager.playerPositions[GameMain.currentPlayer] = BoardManager.campExitPositions[0];
             }
             if (currentUnitDirection == "east")
