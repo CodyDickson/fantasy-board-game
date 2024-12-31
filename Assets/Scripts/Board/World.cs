@@ -86,8 +86,6 @@ public class World : MonoBehaviour
     [SerializeField] public Tilemap tilemapTerrain, tilemapTerrainObjects, tilemapStructures, tilemapUnits, tilemapBoardConnectors;
     [SerializeField] public Tilemap terrain, terrainObjects;
     // Time //
-    private float counter = 0.01f;
-    private float tempCounter = 0f;
     private float tempCounter2 = 0f;
     private float counter2 = 0.5f;
     // Other //
@@ -100,51 +98,12 @@ public class World : MonoBehaviour
 
     void Start()
     {
-        Camp.GenerateCamp(tilemapBoardConnectors, camp, bcHorizontal, bcThreeDown, bcVertical, bcThreeUp, bcThreeLeft, bcThreeRight, bcTopRightCorner, bcBottomLeftCorner, bcBottomRightCorner, bcTopLeftCorner);
-        Board.GenerateGameBoard(tilemapBoardConnectors, camp, bcHorizontal, bcThreeDown, bcVertical, bcThreeUp, bcThreeLeft, bcThreeRight, bcTopRightCorner, bcBottomLeftCorner, bcBottomRightCorner, bcTopLeftCorner);
-        Terrain.Generate_Grasslands_Terrain(terrain, terrainObjects, ground, tree);
         FillEmptySlots(tilemapBoardConnectors, emptySlot);
         TurnManager.TurnProgressionHandler(tilemapStructures);
-        Fog.GenerateFog(fog, fogTile);
-        Fog.RemoveLocalFog(0, fog);
     }
 
     void Update()
     {
-        if (tempCounter <= 0f)
-        {
-            for (int i = 1; i <= GameMain.totalPlayers; i++)
-            {
-                if (GameMain.playerLives[i] > 0)
-                {
-                    if (i == 1)
-                    {
-                        boardPosition = playerOnePosition;
-                        tilemapUnits.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), Store.playerTiles[GameMain.playerAvatar[i]]);
-                    }
-                    if (i == 2)
-                    {
-                        boardPosition = playerTwoPosition;
-                        tilemapUnits.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), Store.playerTiles[GameMain.playerAvatar[i]]);
-                    }
-                    if (i == 3)
-                    {
-                        boardPosition = playerThreePosition;
-                        tilemapUnits.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), Store.playerTiles[GameMain.playerAvatar[i]]);
-                    }
-                    if (i == 4)
-                    {
-                        boardPosition = playerFourPosition;
-                        tilemapUnits.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), Store.playerTiles[GameMain.playerAvatar[i]]);
-                    }
-                }
-            }
-            tempCounter = counter;
-        }
-        else
-        {
-            tempCounter -= Time.deltaTime;
-        }
         if (playerIsMoving && GameMain.currentPlayerInCamp)
         {
             tilemapUnits.SetTile(new Vector3Int((int)currentUnitPosition[0], (int)currentUnitPosition[1]), null);

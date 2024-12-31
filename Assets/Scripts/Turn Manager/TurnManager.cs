@@ -147,12 +147,11 @@ public class TurnManager : MonoBehaviour
                 GameMain.currentPlayer = 4;
             }
         }
-        if (GameMain.playerIsActive[GameMain.currentPlayer] == false && GameMain.playerIsAlive[GameMain.currentPlayer] == true)
+        if (GameMain.playerIsActive[GameMain.currentPlayer] == false && GameMain.playerLives[GameMain.currentPlayer] > 0)
         {
             GameMain.playerIsActive[GameMain.currentPlayer] = true;
             GameMain.currentPlayerInCamp = true;
             // GUI.playerGUIHasBeenUpdated = false;
-            Camp.SpawnActivePlayerInCamp();
         }
         else
         {

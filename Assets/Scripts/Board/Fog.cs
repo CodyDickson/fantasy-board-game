@@ -5,8 +5,10 @@ using UnityEngine.Tilemaps;
 
 public class Fog : MonoBehaviour
 {
-    public static void GenerateFog(Tilemap fog, Tile fogTile)
+    public static void GenerateFog()
     {
+        Tilemap fog = Store.tilemaps[5];
+        Tile fogTile = Store.fogTiles[0];
         int xSize = 50;
         int ySize = 50;
         for (int z = 0, y = 0; y <= ySize; y++)
@@ -21,8 +23,9 @@ public class Fog : MonoBehaviour
         }
     }
 
-    public static void RemoveLocalFog(int clockworkLocation, Tilemap fog)
+    public static void RemoveLocalFog(int clockworkLocation)
     {
+        Tilemap fog = Store.tilemaps[5];
         Vector3 center = new Vector3(0, 0);
         switch (clockworkLocation)
         {
@@ -52,8 +55,8 @@ public class Fog : MonoBehaviour
             case 23: center = new Vector3(-26, 13); break;
             case 24: center = new Vector3(-26, 26); break;
         }
-        int xSize = 9;
-        int ySize = 9;
+        int xSize = 10;
+        int ySize = 10;
         for (int z = (int)center[0], y = (int)center[1]; y <= ySize; y++)
         {
             for (int x = 0; x <= xSize; x++, z++)

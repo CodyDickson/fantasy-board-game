@@ -34,10 +34,8 @@ public class GameMain : MonoBehaviour
     public static bool currentPlayerIsHuman = true;
     public static bool currentPlayerInCamp = true;
     // All Player Info //
-    // Active Players // 
+    // Active Players are alive but may not be present on the board // 
     public static List<bool> playerIsActive = new List<bool>();
-    // Alive or Dead //
-    public static List<bool> playerIsAlive = new List<bool>();
     // Avatar //
     public static List<int> playerAvatar = new List<int>();
     // Color //
@@ -126,33 +124,6 @@ public class GameMain : MonoBehaviour
     public static int boardLength;
     public static Vector3 boardPosition;
     public static Vector3 onDeckPosition;
-    // Tiles and tilemaps //
-    [SerializeField] public Tile player;
-    [SerializeField] public Tile player_red;
-    [SerializeField] public Tile player_blue;
-    [SerializeField] public Tile player_green;
-    [SerializeField] public Tile player_purple;
-    [SerializeField] public Tile player_white;
-    [SerializeField] public Tile playerGreen;
-    [SerializeField] public Tile playerBlue;
-    [SerializeField] public Tile monsterImp;
-    [SerializeField] public Tile monsterBasilisk;
-    [SerializeField] public Tile monsterRampagingElephant;
-    [SerializeField] public Tile chest;
-    [SerializeField] public Tile oddity;
-    [SerializeField] public Tile dungeon;
-    [SerializeField] public Tile villageRed;
-    [SerializeField] public Tile villageBlue;
-    [SerializeField] public Tile villageGreen;
-    [SerializeField] public Tile villagePurple;
-    [SerializeField] public Tile villageWhite;
-    [SerializeField] public Tile grassOne;
-    [SerializeField] public Tile grassTwo;
-    [SerializeField] public Tile grassThree;
-    [SerializeField] public Tile camp;
-    [SerializeField] public Tilemap tilemapTerrain;
-    [SerializeField] public Tilemap tilemapStructures;
-    [SerializeField] public Tilemap tilemapBoardConnectors;
     // Combat //
     public static string currentEnemy = "";
     public static string dungeonType = "";
@@ -173,46 +144,18 @@ public class GameMain : MonoBehaviour
     void Start()
     {
         totalPlayers = 2;
+        currentBoard = 1;
+        BoardManager.GenerateGameBoard();
+        Fog.GenerateFog();
+        Fog.RemoveLocalFog(0);
         GameSetup();
         GUI.SetActive(true);
-        Camp.SpawnActivePlayerInCamp();
+        BoardManager.SpawnPlayersInCamp();
         TurnManager.SetInitialTurnOrder();
     }
 
     void Update()
     {
-        if (combatScreenEnabled)
-        {
-            // Display handling
-            GUI.SetActive(false);
-            if (!dungeonScreenEnabled)
-            {
-                dungeonScreen.SetActive(false);
-            }
-            combatScreen.SetActive(true);
-            
-            if (!combatEncounterHappening)
-            {
-                Combat.CombatEncounter(tilemapStructures, player_red, player_blue, player_green, player_purple, player_white, monsterImp, monsterBasilisk);
-            }
-        }
-        else if (chestScreenEnabled)
-        {
-            GUI.SetActive(false);
-            chestScreen.SetActive(true);
-        }
-        else if (dungeonScreenEnabled)
-        {
-            GUI.SetActive(false);
-            dungeonScreen.SetActive(true);
-        }
-        else if (GUIEnabled)
-        {
-            GUI.SetActive(true);
-            combatScreen.SetActive(false);
-            chestScreen.SetActive(false);
-            dungeonScreen.SetActive(false);
-        }
         if (diceShouldShow)
         {
             if (diceOneShow)
@@ -345,11 +288,6 @@ public class GameMain : MonoBehaviour
         for (int i = 1; i <= totalPlayers; i++)
         {
             playerIsActive.Add(playerIsActive[0]);
-        }
-        playerIsAlive.Add(true);
-        for (int i = 1; i <= totalPlayers; i++)
-        {
-            playerIsAlive.Add(playerIsAlive[0]);
         }
     }
 

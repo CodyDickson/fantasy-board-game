@@ -7,11 +7,11 @@ public class Store : MonoBehaviour
 {
     [SerializeField] public Color[] playerColorsListInEditor;
     [SerializeField] public Sprite[] dungeonSpritesListInEditor, villageSpritesListInEditor, monsterSpritesListInEditor, playerSpritesListInEditor, merchantSpritesListInEditor, objectSpritesListInEditor;
-    [SerializeField] public Tile[] dungeonTilesListInEditor, villageTilesListInEditor, monsterTilesListInEditor, playerTilesListInEditor, merchantTilesListInEditor, objectTilesListInEditor;
+    [SerializeField] public Tile[] dungeonTilesListInEditor, villageTilesListInEditor, monsterTilesListInEditor, playerTilesListInEditor, merchantTilesListInEditor, objectTilesListInEditor, boardConnectorTilesInEditor, fogTilesInEditor, terrainTilesInEditor;
     [SerializeField] public Tilemap[] tilemapsListInEditor;
     public static Color[] playerColors;
     public static Sprite[] dungeonSprites, villageSprites, monsterSprites, playerSprites, merchantSprites, objectSprites;
-    public static Tile[] dungeonTiles, villageTiles, monsterTiles, playerTiles, merchantTiles, objectTiles;
+    public static Tile[] dungeonTiles, villageTiles, monsterTiles, playerTiles, merchantTiles, objectTiles, boardConnectorTiles, fogTiles, terrainTiles;
     public static Tilemap[] tilemaps;
 
     private void Awake()
@@ -29,6 +29,9 @@ public class Store : MonoBehaviour
         playerTiles = playerTilesListInEditor;
         merchantTiles = merchantTilesListInEditor;
         objectTiles = objectTilesListInEditor;
+        boardConnectorTiles = boardConnectorTilesInEditor;
+        fogTiles = fogTilesInEditor;
+        terrainTiles = terrainTilesInEditor;
         tilemaps = tilemapsListInEditor;
     }
 }
