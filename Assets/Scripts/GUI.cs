@@ -97,7 +97,7 @@ public class GUI : MonoBehaviour
             arrowDownButton.gameObject.SetActive(true);
             arrowLeftButton.gameObject.SetActive(true);
         }
-        Invoke("ClearCenterText(clearCenterText)", 1.5f);
+        Invoke("ClearCenterText", 1.5f);
     }
 
     void Update()
@@ -232,10 +232,6 @@ public class GUI : MonoBehaviour
         {
             playerGUI.SetActive(false);
         }
-        if (World.playerIsMoving && GameMain.currentPlayerInCamp)
-        {
-            ClearCenterText(clearCenterText);
-        }
         if (clearCenterText)
         {
             centerText.SetText("");
@@ -243,7 +239,7 @@ public class GUI : MonoBehaviour
         }
     }
 
-    public static void ClearCenterText(bool clearCenterText)
+    public void ClearCenterText()
     {
         clearCenterText = true;
     }
@@ -331,8 +327,8 @@ public class GUI : MonoBehaviour
         rightArrowButtonEnabled = false;
         downArrowButtonEnabled = false;
         leftArrowButtonEnabled = false;
-        World.currentUnitDirection = "east";
-        World.playerIsMoving = true;
+        PlayerMovement.currentUnitDirection = "east";
+        PlayerMovement.playerIsMoving = true;
         enableArrowButtons = false;
     }
 
@@ -342,8 +338,8 @@ public class GUI : MonoBehaviour
         rightArrowButtonEnabled = false;
         downArrowButtonEnabled = false;
         leftArrowButtonEnabled = false;
-        World.currentUnitDirection = "south";
-        World.playerIsMoving = true;
+        PlayerMovement.currentUnitDirection = "south";
+        PlayerMovement.playerIsMoving = true;
         enableArrowButtons = false;
     }
 
@@ -353,8 +349,8 @@ public class GUI : MonoBehaviour
         rightArrowButtonEnabled = false;
         downArrowButtonEnabled = false;
         leftArrowButtonEnabled = false;
-        World.currentUnitDirection = "west";
-        World.playerIsMoving = true;
+        PlayerMovement.currentUnitDirection = "west";
+        PlayerMovement.playerIsMoving = true;
         enableArrowButtons = false;
     }
 }

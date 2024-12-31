@@ -36,6 +36,8 @@ public class GameMain : MonoBehaviour
     // All Player Info //
     // Active Players are alive but may not be present on the board // 
     public static List<bool> playerIsActive = new List<bool>();
+    // In Camp // 
+    public static List<bool> playerInCamp = new List<bool>();
     // Avatar //
     public static List<int> playerAvatar = new List<int>();
     // Color //
@@ -288,6 +290,11 @@ public class GameMain : MonoBehaviour
         for (int i = 1; i <= totalPlayers; i++)
         {
             playerIsActive.Add(playerIsActive[0]);
+        }
+        playerInCamp.Add(false);
+        for (int i = 1; i <= totalPlayers; i++)
+        {
+            playerInCamp.Add(playerInCamp[0]);
         }
     }
 

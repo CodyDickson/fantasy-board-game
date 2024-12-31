@@ -104,57 +104,7 @@ public class World : MonoBehaviour
 
     void Update()
     {
-        if (playerIsMoving && GameMain.currentPlayerInCamp)
-        {
-            tilemapUnits.SetTile(new Vector3Int((int)currentUnitPosition[0], (int)currentUnitPosition[1]), null);
-            if (currentUnitDirection == "north")
-            {
-                currentUnitPosition = boardCampPositions[0];
-                switch (GameMain.currentPlayer)
-                {
-                    case 1: playerOnePosition = currentUnitPosition; break;
-                    case 2: playerTwoPosition = currentUnitPosition; break;
-                    case 3: playerThreePosition = currentUnitPosition; break;
-                    case 4: playerFourPosition = currentUnitPosition; break;
-                }
-            }
-            if (currentUnitDirection == "east")
-            {
-                currentUnitPosition = boardCampPositions[1];
-                switch (GameMain.currentPlayer)
-                {
-                    case 1: playerOnePosition = currentUnitPosition; break;
-                    case 2: playerTwoPosition = currentUnitPosition; break;
-                    case 3: playerThreePosition = currentUnitPosition; break;
-                    case 4: playerFourPosition = currentUnitPosition; break;
-                }
-            }
-            if (currentUnitDirection == "south")
-            {
-                currentUnitPosition = boardCampPositions[2];
-                switch (GameMain.currentPlayer)
-                {
-                    case 1: playerOnePosition = currentUnitPosition; break;
-                    case 2: playerTwoPosition = currentUnitPosition; break;
-                    case 3: playerThreePosition = currentUnitPosition; break;
-                    case 4: playerFourPosition = currentUnitPosition; break;
-                }
-            }
-            if (currentUnitDirection == "west")
-            {
-                currentUnitPosition = boardCampPositions[3];
-                switch (GameMain.currentPlayer)
-                {
-                    case 1: playerOnePosition = currentUnitPosition; break;
-                    case 2: playerTwoPosition = currentUnitPosition; break;
-                    case 3: playerThreePosition = currentUnitPosition; break;
-                    case 4: playerFourPosition = currentUnitPosition; break;
-                }
-            }
-            GameMain.currentPlayerInCamp = false;
-            playerIsMoving = false;
-            GUI.ToggleMoveButton(true);
-        }
+
         if (playerIsMoving && !GameMain.currentPlayerInCamp)
         {
             if (tempCounter2 <= 0f)
