@@ -4,22 +4,22 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UpdateInfoGUI : MonoBehaviour
+public class InfoGUI : MonoBehaviour
 {
     public static bool updateInfoGUI = false;
     public static bool infoGUIHasBeenUpdated = false;
-    public TMP_Text infoGUI_topText, infoGUI_middleText, infoGUI_BottomText;
+    public TMP_Text infoGUI_topText, infoGUI_middleText, infoGUI_bottomText;
     public Image infoGUI_avatar;
-
+    public GameObject infoGUI;
 
     void Start()
     {
-        updateInfoGUI = true;
+        infoGUI.gameObject.SetActive(false);
     }
 
     void Update()
     {
-        if (updateInfoGUI)
+        /*if (updateInfoGUI)
         {
             switch (GameMain.currentPlayerAvatar)
             {
@@ -28,9 +28,12 @@ public class UpdateInfoGUI : MonoBehaviour
             }
             updateInfoGUI = false;
             infoGUIHasBeenUpdated = true;
+        }*/
+        if (!GameMain.GUIEnabled)
+        {
+            infoGUI.SetActive(false);
         }
-        /*
-        if (World.villageNearby)
+        if (GameMain.GUIEnabled && World.villageNearby && !infoGUIHasBeenUpdated)
         {
             infoGUI.SetActive(true);
             switch (Villages.villageOwner)
@@ -40,6 +43,7 @@ public class UpdateInfoGUI : MonoBehaviour
                 case 3: infoGUI_topText.text = "Growth: " + Villages.playerThreeVillageGrowth[Villages.currentVillage]; infoGUI_middleText.text = "Gold Per Turn: " + Villages.playerThreeVillageGoldPerTurn[Villages.currentVillage]; infoGUI_bottomText.text = "Toll: " + Villages.playerThreeVillageTolls[Villages.currentVillage]; break;
                 case 4: infoGUI_topText.text = "Growth: " + Villages.playerFourVillageGrowth[Villages.currentVillage]; infoGUI_middleText.text = "Gold Per Turn: " + Villages.playerFourVillageGoldPerTurn[Villages.currentVillage]; infoGUI_bottomText.text = "Toll: " + Villages.playerFourVillageTolls[Villages.currentVillage]; break;
             }
-        }*/
+            infoGUIHasBeenUpdated = true;
+        }
     }
 }

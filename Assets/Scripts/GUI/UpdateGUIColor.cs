@@ -5,32 +5,20 @@ using UnityEngine.UI;
 
 public class UpdateGUIColor : MonoBehaviour
 {
-    public Image[] panelsToChange;
-    public Color[] colors;
+    public static Image[] panelsToChange;
     public static bool updateGUIColor = false;
 
     void Start()
     {
+        panelsToChange = gameObject.GetComponentsInChildren<Image>();
         ChangeGUIColor();
     }
 
-    void Update()
-    {
-        if (updateGUIColor)
-        {
-            ChangeGUIColor();
-        }
-    }
-
-    public void ChangeGUIColor()
+    public static void ChangeGUIColor()
     {
         foreach (Image panel in panelsToChange)
         {
-            switch (World.currentPlayerColor)
-            {
-                case "red": panel.color = colors[0]; break;
-                case "blue": panel.color = colors[1]; break;
-            }
+            panel.color = Store.playerColors[GameMain.currentPlayer];
         }
         updateGUIColor = false;
     }

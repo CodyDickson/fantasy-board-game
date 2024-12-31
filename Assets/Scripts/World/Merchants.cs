@@ -13,4 +13,9 @@ public class Merchants : MonoBehaviour
     {
         
     }
+
+    public static void SpawnMerchant()
+    {
+        int random = Random.Range(1, 4);
+    }
 }

@@ -36,14 +36,14 @@ public class TurnManager : MonoBehaviour
     {
         turnOrder.Add("spawnDungeons");
         turnOrder.Add("spawnMerchants");
-        for (int i = 1; i <= GameMain.activePlayers; i++)
+        for (int i = 1; i <= GameMain.totalPlayers; i++)
         {
             turnOrder.Add("player");
         }
         turnOrder.Add("spawnMonsters");
         turnOrder.Add("endTurn");
         int random = Random.Range(1, 5);
-        for (int i = 1; i <= GameMain.activePlayers; i++) { turnPool.Add("player"); }
+        for (int i = 1; i <= GameMain.totalPlayers; i++) { turnPool.Add("player"); }
         turnPool.Add("moveMonsters");
         if (random == 1) { turnPool.Add("spawnDungeons"); }
         if (random == 3) { turnPool.Add("spawnMonsters"); }
@@ -73,7 +73,7 @@ public class TurnManager : MonoBehaviour
         if (turnPool.Count == 0)
         {
             int random = Random.Range(1,5);
-            for (int i = 1; i <= GameMain.activePlayers; i++) { turnPool.Add("player"); }
+            for (int i = 1; i <= GameMain.totalPlayers; i++) { turnPool.Add("player"); }
             turnPool.Add("moveMonsters");
             if (random == 1) { turnPool.Add("spawnDungeons"); }
             if (random == 3) { turnPool.Add("spawnMonsters"); }
@@ -118,7 +118,7 @@ public class TurnManager : MonoBehaviour
         }
         World.villageNearby = false;
         UpdatePlayerGUIAvatar.playerGUIAvatarHasBeenUpdated = false;
-        UpdateGUIColor.updateGUIColor = true;
+        UpdateGUIColor.ChangeGUIColor();
         GUI.enablePrimaryButton = true;
         GUI.primaryButtonAssignedTo = "move";
         World.CheckForLocalBoardPositions();
@@ -128,7 +128,7 @@ public class TurnManager : MonoBehaviour
     {
         GameMain.currentPlayer += 1;
         Debug.Log("Player Turn, Current Player is " + GameMain.currentPlayer);
-        if (GameMain.currentPlayer > GameMain.activePlayers)
+        if (GameMain.currentPlayer > GameMain.totalPlayers)
         {
             if (GameMain.playerLives[1] > 0)
             {
@@ -147,10 +147,16 @@ public class TurnManager : MonoBehaviour
                 GameMain.currentPlayer = 4;
             }
         }
-        if (GameMain.currentTurn == 1)
+        if (GameMain.playerIsActive[GameMain.currentPlayer] == false && GameMain.playerIsAlive[GameMain.currentPlayer] == true)
         {
-            Camp.playerCurrentlyInCamp = true;
+            GameMain.playerIsActive[GameMain.currentPlayer] = true;
+            GameMain.currentPlayerInCamp = true;
+            // GUI.playerGUIHasBeenUpdated = false;
             Camp.SpawnActivePlayerInCamp();
+        }
+        else
+        {
+            GUI.ToggleMoveButton(true);
         }
         GameMain.UpdateCurrentPlayerInfo();
         switch (GameMain.currentPlayer)
@@ -165,8 +171,6 @@ public class TurnManager : MonoBehaviour
         {
             ComputerPlayerTurn();
         }
-        GUI.primaryButtonAssignedTo = "move";
-        GUI.enablePrimaryButton = true;
     }
 
     public static void ComputerPlayerTurn()

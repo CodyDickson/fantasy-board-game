@@ -9,7 +9,6 @@ public class GUI : MonoBehaviour
 {
     public GameObject playerGUI;
     public Image playerGUI_Avatar;
-    public GameObject infoGUI;
     public TMP_Text primaryButtonText;
     public Button primaryButton;
     public GameObject primaryButtonPanel;
@@ -43,9 +42,9 @@ public class GUI : MonoBehaviour
     public static bool leftArrowButtonEnabled = false;
     public static bool upArrowButtonEnabled = false;
     public static bool downArrowButtonEnabled = false;
-    public static bool updateGUIColor = false;
     public bool GUIColorHasBeenUpdated = false;
-    public bool playerGUIHasBeenUpdated;
+    public bool playerGUIHasBeenUpdated = false;
+    public static bool clearCenterText = false;
     [SerializeField] public Tile player;
     [SerializeField] public Tile player_red;
     [SerializeField] public Tile player_blue;
@@ -88,7 +87,6 @@ public class GUI : MonoBehaviour
         arrowRightButton.gameObject.SetActive(false);
         arrowDownButton.gameObject.SetActive(false);
         arrowLeftButton.gameObject.SetActive(false);
-        infoGUI.gameObject.SetActive(false);
         playerGUI_Avatar = GetComponent<Image>();
         centerText.SetText("Choose your path...");
         if (GameMain.currentPlayerInCamp)
@@ -99,6 +97,7 @@ public class GUI : MonoBehaviour
             arrowDownButton.gameObject.SetActive(true);
             arrowLeftButton.gameObject.SetActive(true);
         }
+        Invoke("ClearCenterText(clearCenterText)", 1.5f);
     }
 
     void Update()
@@ -182,32 +181,40 @@ public class GUI : MonoBehaviour
         {
             primaryButtonPanel.gameObject.SetActive(true);
             primaryButton.gameObject.SetActive(true);
+            primaryButtonText.text = primaryButtonAssignedTo;
             primaryButtonEnabled = true;
         }
         else if (!enablePrimaryButton && primaryButtonEnabled)
         {
             primaryButtonPanel.gameObject.SetActive(false);
             primaryButton.gameObject.SetActive(false);
+            primaryButtonText.text = "";
             primaryButtonEnabled = false;
         }
         if (enableSecondaryButton && !secondaryButtonEnabled)
         {
             secondaryButtonPanel.gameObject.SetActive(true);
+            secondaryButton.gameObject.SetActive(true);
+            secondaryButtonText.text = secondaryButtonAssignedTo;
             secondaryButtonEnabled = true;
         }
         else if (!enableSecondaryButton && secondaryButtonEnabled)
         {
             secondaryButtonPanel.gameObject.SetActive(false);
+            secondaryButton.gameObject.SetActive(false);
+            secondaryButtonText.text = "";
             secondaryButtonEnabled = false;
         }
         if (enableMoveButton && !moveButtonEnabled)
         {
             moveButtonPanel.gameObject.SetActive(true);
+            moveButton.gameObject.SetActive(true);
             moveButtonEnabled = true;
         }
         else if (!enableMoveButton && moveButtonEnabled)
         {
             moveButtonPanel.gameObject.SetActive(false);
+            moveButton.gameObject.SetActive(false);
             moveButtonEnabled = false;
         }
         if (GameMain.GUIEnabled && !playerGUIHasBeenUpdated)
@@ -219,21 +226,48 @@ public class GUI : MonoBehaviour
             playerGUI_lives.text = "Lives: " + GameMain.playerLives[GameMain.currentHumanPlayer];
             playerGUI_armor.text = "Armor: " + GameMain.playerArmor[GameMain.currentHumanPlayer];
             if (UpdatePlayerGUIAvatar.playerGUIAvatarHasBeenUpdated == false) { UpdatePlayerGUIAvatar.updatePlayerGUIAvatar = true; };
-            if (World.playerIsMoving && GameMain.currentPlayerInCamp)
-            {
-                centerText.SetText("");
-            }
             playerGUIHasBeenUpdated = true;
         }
         if (!GameMain.GUIEnabled)
         {
             playerGUI.SetActive(false);
-            infoGUI.SetActive(false);
         }
-        if (!World.villageNearby)
+        if (World.playerIsMoving && GameMain.currentPlayerInCamp)
         {
-            infoGUI.SetActive(false);
+            ClearCenterText(clearCenterText);
         }
+        if (clearCenterText)
+        {
+            centerText.SetText("");
+            clearCenterText = false;
+        }
+    }
+
+    public static void ClearCenterText(bool clearCenterText)
+    {
+        clearCenterText = true;
+    }
+
+    public static void TogglePrimaryButton(bool enable, string buttonText)
+    {
+        primaryButtonAssignedTo = buttonText;
+        enablePrimaryButton = enable;
+    }
+
+    public static void ToggleSecondaryButton(bool enable, string buttonText)
+    {
+        secondaryButtonAssignedTo = buttonText;
+        enableSecondaryButton = enable;
+    }
+
+    public static void ToggleEndTurnButton(bool enable)
+    {
+        enableEndTurnButton = enable;
+    }
+
+    public static void ToggleMoveButton(bool enable)
+    {
+        enableMoveButton = enable;
     }
 
     void OnClickPrimaryButton()

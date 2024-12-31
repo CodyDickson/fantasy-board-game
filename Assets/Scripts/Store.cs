@@ -12,6 +12,7 @@ public class Store : MonoBehaviour
     public static Color[] playerColors;
     public static Sprite[] dungeonSprites, villageSprites, monsterSprites, playerSprites, merchantSprites, objectSprites;
     public static Tile[] dungeonTiles, villageTiles, monsterTiles, playerTiles, merchantTiles, objectTiles;
+    public static Tilemap[] tilemaps;
 
     private void Awake()
     {
@@ -28,5 +29,6 @@ public class Store : MonoBehaviour
         playerTiles = playerTilesListInEditor;
         merchantTiles = merchantTilesListInEditor;
         objectTiles = objectTilesListInEditor;
+        tilemaps = tilemapsListInEditor;
     }
 }

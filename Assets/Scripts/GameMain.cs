@@ -10,7 +10,7 @@ public class GameMain : MonoBehaviour
     // Game Settings //
     [SerializeField] public bool devMode = false;
     public static int currentBoard = 1;
-    public static int activePlayers = 2;
+    public static int totalPlayers = 2;
     public static int startingGold = 250;
     public static int startingCombat = 0;
     public static int startingLives = 1;
@@ -34,6 +34,10 @@ public class GameMain : MonoBehaviour
     public static bool currentPlayerIsHuman = true;
     public static bool currentPlayerInCamp = true;
     // All Player Info //
+    // Active Players // 
+    public static List<bool> playerIsActive = new List<bool>();
+    // Alive or Dead //
+    public static List<bool> playerIsAlive = new List<bool>();
     // Avatar //
     public static List<int> playerAvatar = new List<int>();
     // Color //
@@ -67,7 +71,6 @@ public class GameMain : MonoBehaviour
     [SerializeField] public TMP_Text centerDisplayText;
     public static string centerDisplayTextContent;
     [SerializeField] public TMP_Text currentTurnText;
-    public static bool playerIsMoving = false;
     public static bool playerIsFinishedMoving = false;
     public static bool playerIsMovingInReverse = false;
     public static bool playerRecentlyDied = false;
@@ -169,7 +172,7 @@ public class GameMain : MonoBehaviour
 
     void Start()
     {
-        activePlayers = 2;
+        totalPlayers = 2;
         GameSetup();
         GUI.SetActive(true);
         Camp.SpawnActivePlayerInCamp();
@@ -206,8 +209,6 @@ public class GameMain : MonoBehaviour
         else if (GUIEnabled)
         {
             GUI.SetActive(true);
-            currentTurnText.text = "Turn " + currentTurn;
-            centerDisplayText.text = centerDisplayTextContent;
             combatScreen.SetActive(false);
             chestScreen.SetActive(false);
             dungeonScreen.SetActive(false);
@@ -298,47 +299,57 @@ public class GameMain : MonoBehaviour
     public static void GameSetup()
     {
         playerLives.Add(startingLives);
-        for (int i = 1; i <= activePlayers; i++)
+        for (int i = 1; i <= totalPlayers; i++)
         {
             playerLives.Add(playerLives[0]);
         }
         playerHealth.Add(startingHealth);
-        for (int i = 1; i <= activePlayers; i++)
+        for (int i = 1; i <= totalPlayers; i++)
         {
             playerHealth.Add(playerHealth[0]);
         }
         playerGold.Add(startingGold);
-        for (int i = 1; i <= activePlayers; i++)
+        for (int i = 1; i <= totalPlayers; i++)
         {
             playerGold.Add(playerGold[0]);
         }
         playerCombat.Add(startingCombat);
-        for (int i = 1; i <= activePlayers; i++)
+        for (int i = 1; i <= totalPlayers; i++)
         {
             playerCombat.Add(playerCombat[0]);
         }
         playerArmor.Add(startingArmor);
-        for (int i = 1; i <= activePlayers; i++)
+        for (int i = 1; i <= totalPlayers; i++)
         {
             playerArmor.Add(playerArmor[0]);
         }
         // Player Avatar will need to be set from the game set up menu
         playerAvatar.Add(0);
-        for (int i = 1; i <= activePlayers; i++)
+        for (int i = 1; i <= totalPlayers; i++)
         {
             playerAvatar.Add(i);
         }
         // Player Color will need to be set from the game set up menu
         playerColor.Add(0);
-        for (int i = 1; i <= activePlayers; i++)
+        for (int i = 1; i <= totalPlayers; i++)
         {
             playerColor.Add(i);
         }
         // Player Is Human will need to be set from the game set up menu
         playerIsHuman.Add(false);
-        for (int i = 1; i <= activePlayers; i++)
+        for (int i = 1; i <= totalPlayers; i++)
         {
             playerIsHuman.Add(true);
+        }
+        playerIsActive.Add(false);
+        for (int i = 1; i <= totalPlayers; i++)
+        {
+            playerIsActive.Add(playerIsActive[0]);
+        }
+        playerIsAlive.Add(true);
+        for (int i = 1; i <= totalPlayers; i++)
+        {
+            playerIsAlive.Add(playerIsAlive[0]);
         }
     }
 

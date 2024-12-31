@@ -32,6 +32,7 @@ public class World : MonoBehaviour
     public static bool westEmpty = false;
     public static bool villageNearby = false;
     public static bool dungeonNearby = false;
+    public static bool merchantNearby = false;
     //
     public static Vector3 boardPosition;
     public static List<Vector3> boardPositions = new List<Vector3>();
@@ -80,14 +81,10 @@ public class World : MonoBehaviour
     [SerializeField] public Tile chest;
     [SerializeField] public Tile oddity;
     [SerializeField] public Tile dungeon;
-    [SerializeField] public Tile villageRed;
-    [SerializeField] public Tile villageBlue;
-    [SerializeField] public Tile villageGreen;
-    [SerializeField] public Tile villagePurple;
-    [SerializeField] public Tile villageWhite;
-    [SerializeField] public Tile grass, grassObject, grassObject2;
+    [SerializeField] public Tile ground, tree;
     [SerializeField] public Tile camp, bcHorizontal, bcThreeDown, bcVertical, bcThreeUp, bcThreeLeft, bcThreeRight, bcTopRightCorner, bcBottomLeftCorner, bcBottomRightCorner, bcTopLeftCorner, emptySlot;
     [SerializeField] public Tilemap tilemapTerrain, tilemapTerrainObjects, tilemapStructures, tilemapUnits, tilemapBoardConnectors;
+    [SerializeField] public Tilemap terrain, terrainObjects;
     // Time //
     private float counter = 0.01f;
     private float tempCounter = 0f;
@@ -98,46 +95,47 @@ public class World : MonoBehaviour
     public static bool crossroadsPosition = false;
     public static int movesRemaining;
     public GUI gui;
+    [SerializeField] public Tile fogTile;
+    [SerializeField] public Tilemap fog;
 
     void Start()
     {
         Camp.GenerateCamp(tilemapBoardConnectors, camp, bcHorizontal, bcThreeDown, bcVertical, bcThreeUp, bcThreeLeft, bcThreeRight, bcTopRightCorner, bcBottomLeftCorner, bcBottomRightCorner, bcTopLeftCorner);
         Board.GenerateGameBoard(tilemapBoardConnectors, camp, bcHorizontal, bcThreeDown, bcVertical, bcThreeUp, bcThreeLeft, bcThreeRight, bcTopRightCorner, bcBottomLeftCorner, bcBottomRightCorner, bcTopLeftCorner);
-        Terrain.GenerateGrasslandsTerrain(tilemapTerrain, tilemapTerrainObjects, grass, grassObject, grassObject2);
-        /*if (GameMain.devMode)
-        {
-            FillEmptySlots(tilemapBoardConnectors, emptySlot);
-        }*/
+        Terrain.Generate_Grasslands_Terrain(terrain, terrainObjects, ground, tree);
+        FillEmptySlots(tilemapBoardConnectors, emptySlot);
         TurnManager.TurnProgressionHandler(tilemapStructures);
+        Fog.GenerateFog(fog, fogTile);
+        Fog.RemoveLocalFog(0, fog);
     }
 
     void Update()
     {
         if (tempCounter <= 0f)
         {
-            for (int i = 1; i <= GameMain.activePlayers; i++)
+            for (int i = 1; i <= GameMain.totalPlayers; i++)
             {
                 if (GameMain.playerLives[i] > 0)
                 {
                     if (i == 1)
                     {
                         boardPosition = playerOnePosition;
-                        tilemapUnits.SetTile(new Vector3Int((int)playerOnePosition[0], (int)playerOnePosition[1]), Store.playerTiles[GameMain.playerAvatar[i]]);
+                        tilemapUnits.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), Store.playerTiles[GameMain.playerAvatar[i]]);
                     }
                     if (i == 2)
                     {
                         boardPosition = playerTwoPosition;
-                        tilemapUnits.SetTile(new Vector3Int((int)playerTwoPosition[0], (int)playerTwoPosition[1]), Store.playerTiles[GameMain.playerAvatar[i]]);
+                        tilemapUnits.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), Store.playerTiles[GameMain.playerAvatar[i]]);
                     }
                     if (i == 3)
                     {
                         boardPosition = playerThreePosition;
-                        tilemapUnits.SetTile(new Vector3Int((int)playerThreePosition[0], (int)playerThreePosition[1]), Store.playerTiles[GameMain.playerAvatar[i]]);
+                        tilemapUnits.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), Store.playerTiles[GameMain.playerAvatar[i]]);
                     }
                     if (i == 4)
                     {
                         boardPosition = playerFourPosition;
-                        tilemapUnits.SetTile(new Vector3Int((int)playerFourPosition[0], (int)playerFourPosition[1]), Store.playerTiles[GameMain.playerAvatar[i]]);
+                        tilemapUnits.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), Store.playerTiles[GameMain.playerAvatar[i]]);
                     }
                 }
             }
@@ -150,8 +148,6 @@ public class World : MonoBehaviour
         if (playerIsMoving && GameMain.currentPlayerInCamp)
         {
             tilemapUnits.SetTile(new Vector3Int((int)currentUnitPosition[0], (int)currentUnitPosition[1]), null);
-            GameMain.currentPlayerInCamp = false;
-            playerIsMoving = false;
             if (currentUnitDirection == "north")
             {
                 currentUnitPosition = boardCampPositions[0];
@@ -196,8 +192,9 @@ public class World : MonoBehaviour
                     case 4: playerFourPosition = currentUnitPosition; break;
                 }
             }
-            GUI.enablePrimaryButton = true;
-            GUI.primaryButtonAssignedTo = "move";
+            GameMain.currentPlayerInCamp = false;
+            playerIsMoving = false;
+            GUI.ToggleMoveButton(true);
         }
         if (playerIsMoving && !GameMain.currentPlayerInCamp)
         {
@@ -228,15 +225,15 @@ public class World : MonoBehaviour
                 if (movesRemaining == 0)
                 {
                     GUI.enableArrowButtons = false;
-                    GUI.enableEndTurnButton = false;
+                    GUI.ToggleEndTurnButton(false);
                     playerIsMoving = false;
                     CheckForLocalEmptySlots();
                     if (northEmpty || eastEmpty || southEmpty || westEmpty)
                     {
                         if (GUI.primaryButtonAssignedTo == "")
                         {
-                            GUI.enablePrimaryButton = true;
-                            GUI.primaryButtonAssignedTo = "build";
+                            GUI.TogglePrimaryButton(true, "build");
+                            GUI.ToggleEndTurnButton(true);
                         }
                     }
                     else
@@ -244,9 +241,31 @@ public class World : MonoBehaviour
                         CheckForLocalVillages();
                         if (villageNearby && GameMain.currentPlayer != Villages.villageOwner)
                         {
-                            Villages.PlayerLandedOnOpposingVillage();
+                            if (GUI.primaryButtonAssignedTo == "")
+                            {
+                                GUI.TogglePrimaryButton(true, "payToll");
+                                GUI.ToggleEndTurnButton(false);
+                            }
+                            else
+                            {
+                                GUI.ToggleSecondaryButton(true, "payToll");
+                                GUI.ToggleEndTurnButton(false);
+                            }
                         }
-                        CheckForLocalDungeons();
+                        else if (villageNearby && GameMain.currentPlayer == Villages.villageOwner)
+                        {
+                            if (GUI.primaryButtonAssignedTo == "")
+                            {
+                                GUI.TogglePrimaryButton(true, "upgrade");
+                                GUI.ToggleEndTurnButton(true);
+                            }
+                            else
+                            {
+                                GUI.ToggleSecondaryButton(true, "upgrade");
+                                GUI.ToggleEndTurnButton(true);
+                            }
+                        }
+                            CheckForLocalDungeons();
                         if (Dungeons.dungeonType != "")
                         {
                             switch (Dungeons.dungeonType)
@@ -393,6 +412,7 @@ public class World : MonoBehaviour
 
     void CheckForLocalDungeons()
     {
+        dungeonNearby = false;
         Vector3 north = new Vector3(currentUnitPosition[0], currentUnitPosition[1] + 1);
         Vector3 east = new Vector3(currentUnitPosition[0] + 1, currentUnitPosition[1]);
         Vector3 south = new Vector3(currentUnitPosition[0], currentUnitPosition[1] - 1);

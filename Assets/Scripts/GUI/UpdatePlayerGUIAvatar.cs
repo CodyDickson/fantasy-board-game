@@ -18,14 +18,7 @@ public class UpdatePlayerGUIAvatar : MonoBehaviour
     {
         if (updatePlayerGUIAvatar)
         {
-            switch (World.currentPlayerColor)
-            {
-                case "red": gameObject.GetComponent<Image>().sprite = playerRed; break;
-                case "blue": gameObject.GetComponent<Image>().sprite = playerBlue; break;
-                case "green": gameObject.GetComponent<Image>().sprite = playerGreen; break;
-                case "purple": gameObject.GetComponent<Image>().sprite = playerPurple; break;
-                case "white": gameObject.GetComponent<Image>().sprite = playerWhite; break;
-            }
+            gameObject.GetComponent<Image>().sprite = Store.playerSprites[GameMain.currentPlayer];
             updatePlayerGUIAvatar = false;
             playerGUIAvatarHasBeenUpdated = true;
         }
