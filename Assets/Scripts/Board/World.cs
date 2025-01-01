@@ -69,8 +69,7 @@ public class World : MonoBehaviour
     private float counter2 = 0.5f;
     // Other //
     public static string currentPlayerColor = "red";
-    public static bool crossroadsPosition = false;
-    public static int movesRemaining;
+
     public GUI gui;
     [SerializeField] public Tile fogTile;
     [SerializeField] public Tilemap fog;
@@ -82,15 +81,5 @@ public class World : MonoBehaviour
 
     void Update()
     {
-    }
-
-    public static void MoveUnit()
-    {
-        GameMain.RollDice();
-        GUI.enablePrimaryButton = false;
-        GUI.primaryButtonAssignedTo = "";
-        movesRemaining = GameMain.diceOneResult + GameMain.diceTwoResult + GameMain.diceThreeResult;
-        Debug.Log("Moves Remaining: " + movesRemaining);
-        BoardManager.CheckForLocalBoardPositions();
     }
 }

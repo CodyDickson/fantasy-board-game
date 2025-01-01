@@ -106,7 +106,7 @@ public class GUI : MonoBehaviour
         {
             if (primaryButtonAssignedTo == "move")
             {
-                World.MoveUnit();
+                PlayerMovement.MoveUnit();
                 enableArrowButtons = true;
             }
         }
@@ -123,7 +123,7 @@ public class GUI : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.N) && moveButtonEnabled)
         {
-            World.MoveUnit();
+            PlayerMovement.MoveUnit();
             enableArrowButtons = true;
         }
         if (arrowButtonsEnabled)
@@ -272,7 +272,7 @@ public class GUI : MonoBehaviour
         {
             switch (primaryButtonAssignedTo)
             {
-                case "move": World.MoveUnit(); enableArrowButtons = true; enablePrimaryButton = false; break;
+                case "move": PlayerMovement.MoveUnit(); enableArrowButtons = true; enablePrimaryButton = false; break;
                 case "build": Villages.BuildVillage(tilemap, villageRed, villageBlue, villageGreen, villagePurple, villageWhite); enablePrimaryButton = false; break;
             }
         }

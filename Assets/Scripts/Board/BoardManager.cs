@@ -38,6 +38,7 @@ public class BoardManager : MonoBehaviour
     public static bool merchantNearby = false;
     //
     public static Tilemap structures;
+    public static bool crossroadsPosition = false;
 
     public static void GenerateGameBoard()
     {

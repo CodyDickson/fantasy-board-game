@@ -61,7 +61,6 @@ public class TurnManager : MonoBehaviour
             case "spawnMonsters": break;
             case "spawnEliteMonster": break;
             case "spawnOddity": break;
-            case "spawnMerchants": Merchants.SpawnMerchants(tilemapStructures); break;
             default: Debug.Log("This Should Never Show"); break;
         }
         turnOrder.Remove(turnOrder.First());
