@@ -356,6 +356,7 @@ public class BoardManager : MonoBehaviour
                     vector3[0] += 1;
                     emptyBoardSlots.Add(vector3);
                     vector3 = listVector;
+
                 }
                 if (!southPositionAvailable)
                 {

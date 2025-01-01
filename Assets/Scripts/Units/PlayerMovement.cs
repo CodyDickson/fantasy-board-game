@@ -73,7 +73,7 @@ public class PlayerMovement : MonoBehaviour
                 case "west": clockwork = 7; break;
             }
             Fog.RemoveLocalFog(clockwork);
-            Dungeons.SpawnDungeons();
+            Dungeons.SpawnDungeons(clockwork);
         }
         // Player moving on the board
         /*if (playerIsMoving && !GameMain.currentPlayerInCamp)
