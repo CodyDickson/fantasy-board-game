@@ -13,9 +13,43 @@ public class BoardManager : MonoBehaviour
     public static List<Vector3> crossroads = new List<Vector3>();
     public static List<Vector3> campExitPositions = new List<Vector3>();
     public static List<Vector3> playerPositions = new List<Vector3>();
-    // Tiles
-    public static Tile bcVertical, bcHorizontal, bcTopLeftCorner, bcTopRightCorner, bcBottomLeftCorner, bcBottomRightCorner, bcThreeUp, bcThreeDown, bcThreeLeft, bcThreeRight;
 
+    public static Vector3 CheckClockworkPosition(int clockworkLocation)
+    {
+        Vector3 center = new Vector3(0,0);
+        if (GameMain.currentBoard == 1)
+        {
+            switch (clockworkLocation)
+            {
+                case 0: center = new Vector3(0, 0); break;
+                case 1: center = new Vector3(0, 13); break;
+                case 2: center = new Vector3(13, 13); break;
+                case 3: center = new Vector3(13, 0); break;
+                case 4: center = new Vector3(13, -13); break;
+                case 5: center = new Vector3(0, -13); break;
+                case 6: center = new Vector3(-13, -13); break;
+                case 7: center = new Vector3(-13, 0); break;
+                case 8: center = new Vector3(-13, 13); break;
+                case 9: center = new Vector3(-13, 26); break;
+                case 10: center = new Vector3(0, 26); break;
+                case 11: center = new Vector3(13, 26); break;
+                case 12: center = new Vector3(26, 26); break;
+                case 13: center = new Vector3(26, 13); break;
+                case 14: center = new Vector3(26, 0); break;
+                case 15: center = new Vector3(26, -13); break;
+                case 16: center = new Vector3(26, -26); break;
+                case 17: center = new Vector3(13, -26); break;
+                case 18: center = new Vector3(0, -26); break;
+                case 19: center = new Vector3(-13, -26); break;
+                case 20: center = new Vector3(-26, -26); break;
+                case 21: center = new Vector3(-26, -13); break;
+                case 22: center = new Vector3(-26, 0); break;
+                case 23: center = new Vector3(-26, 13); break;
+                case 24: center = new Vector3(-26, 26); break;
+            }
+        }
+        return center;
+    }
     public static void GenerateGameBoard()
     {
         switch (GameMain.currentBoard)

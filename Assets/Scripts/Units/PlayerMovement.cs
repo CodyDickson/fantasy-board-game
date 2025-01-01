@@ -37,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
         if (playerIsMoving && GameMain.playerInCamp[GameMain.currentPlayer])
         {
             Tilemap units = Store.tilemaps[4];
+            BoardManager.currentUnitPosition = BoardManager.playerPositions[GameMain.currentPlayer];
             units.SetTile(new Vector3Int((int)BoardManager.currentUnitPosition[0], (int)BoardManager.currentUnitPosition[1]), null);
             if (currentUnitDirection == "north")
             {
@@ -62,6 +63,8 @@ public class PlayerMovement : MonoBehaviour
             playerIsMoving = false;
             GameMain.playerInCamp[GameMain.currentPlayer] = false;
             GUI.ToggleMoveButton(true);
+            Fog.RemoveLocalFog(1);
         }
+        // Player moving on the board
     }
 }
