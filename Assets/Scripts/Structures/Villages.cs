@@ -90,7 +90,7 @@ public class Villages : MonoBehaviour
 
     public static void BuildVillage(Tilemap tilemap, Tile villageRed, Tile villageBlue, Tile villageGreen, Tile villagePurple, Tile villageWhite)
     {
-        World.CheckForLocalEmptySlots();
+        /*World.CheckForLocalEmptySlots();
         if (World.northEmpty)
         {
             World.boardPosition = World.northSlotPosition;
@@ -128,7 +128,7 @@ public class Villages : MonoBehaviour
             case 2: playerTwoTotalVillages += 1; playerTwoVillageGrowth.Add(playerTwoTotalVillages, villageGrowth); playerTwoVillageGoldPerTurn.Add(playerTwoTotalVillages, villageGoldPerTurnLevelOne); playerTwoVillageTolls.Add(playerTwoTotalVillages, villageTollLevelOne); World.boardPlayerTwoVillagePositions.Add(World.boardPosition, playerTwoTotalVillages); break;
             case 3: playerThreeTotalVillages += 1; playerThreeVillageGrowth.Add(playerThreeTotalVillages, villageGrowth); playerThreeVillageGoldPerTurn.Add(playerThreeTotalVillages, villageGoldPerTurnLevelOne); playerThreeVillageTolls.Add(playerThreeTotalVillages, villageTollLevelOne); World.boardPlayerThreeVillagePositions.Add(World.boardPosition, playerThreeTotalVillages); break;
             case 4: playerFourTotalVillages += 1; playerFourVillageGrowth.Add(playerFourTotalVillages, villageGrowth); playerFourVillageGoldPerTurn.Add(playerFourTotalVillages, villageGoldPerTurnLevelOne); playerFourVillageTolls.Add(playerFourTotalVillages, villageTollLevelOne); World.boardPlayerFourVillagePositions.Add(World.boardPosition, playerFourTotalVillages); break;
-        }
+        }*/
     }
 
     public static void PlayerLandedOnOpposingVillage()

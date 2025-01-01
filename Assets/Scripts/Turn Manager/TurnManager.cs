@@ -58,11 +58,11 @@ public class TurnManager : MonoBehaviour
         {
             case "player": StartPlayerTurn(); break;
             case "moveMonsters": break;
-            case "spawnDungeons": SpawnDungeons(tilemapStructures); break;
+            case "spawnDungeons": Dungeons.SpawnDungeons(); break;
             case "spawnMonsters": break;
             case "spawnEliteMonster": break;
             case "spawnOddity": break;
-            case "spawnMerchants": SpawnMerchants(tilemapStructures); break;
+            case "spawnMerchants": Merchants.SpawnMerchants(tilemapStructures); break;
             default: Debug.Log("This Should Never Show"); break;
         }
         turnOrder.Remove(turnOrder.First());
@@ -114,12 +114,12 @@ public class TurnManager : MonoBehaviour
                 GameMain.playerGold[4] += Villages.playerFourVillageGoldPerTurn[i];
             }
         }
-        World.villageNearby = false;
+        BoardManager.villageNearby = false;
         UpdatePlayerGUIAvatar.playerGUIAvatarHasBeenUpdated = false;
         UpdateGUIColor.ChangeGUIColor();
         GUI.enablePrimaryButton = true;
         GUI.primaryButtonAssignedTo = "move";
-        World.CheckForLocalBoardPositions();
+        BoardManager.CheckForLocalBoardPositions();
     }
 
     public static void StartPlayerTurn()
@@ -173,161 +173,5 @@ public class TurnManager : MonoBehaviour
     public static void ComputerPlayerTurn()
     {
         //
-    }
-
-    public static void SpawnDungeons(Tilemap tilemapStructures)
-    {
-        foreach (Vector3 listVector in World.boardPositions)
-        {
-            Vector3 vector3 = listVector;
-            World.currentUnitPosition = listVector;
-            World.CheckForLocalBoardPositions();
-            int random;
-            if (!World.northPositionAvailable)
-            {
-                random = Random.Range(1, 10);
-                if (random == 1)
-                {
-                    random = Random.Range(1, 3);
-                    if (random == 1)
-                    {
-                        vector3[1] += 1;
-                        World.boardImpDungeonPositions.Add(vector3);
-                        vector3 = listVector;
-                    }
-                    else if (random == 2)
-                    {
-                        vector3[1] += 1;
-                        World.boardBasiliskDungeonPositions.Add(vector3);
-                        vector3 = listVector;
-                    }
-                }
-            }
-            if (!World.eastPositionAvailable)
-            {
-                random = Random.Range(1, 10);
-                if (random == 1)
-                {
-                    random = Random.Range(1, 3);
-                    if (random == 1)
-                    {
-                        vector3[0] += 1;
-                        World.boardImpDungeonPositions.Add(vector3);
-                        vector3 = listVector;
-                    }
-                    else if (random == 2)
-                    {
-                        vector3[0] += 1;
-                        World.boardBasiliskDungeonPositions.Add(vector3);
-                        vector3 = listVector;
-                    }
-                }
-            }
-            if (!World.southPositionAvailable)
-            {
-                random = Random.Range(1, 10);
-                if (random == 1)
-                {
-                    random = Random.Range(1, 3);
-                    if (random == 1)
-                    {
-                        vector3[1] -= 1;
-                        World.boardImpDungeonPositions.Add(vector3);
-                        vector3 = listVector;
-                    }
-                    else if (random == 2)
-                    {
-                        vector3[1] -= 1;
-                        World.boardBasiliskDungeonPositions.Add(vector3);
-                        vector3 = listVector;
-                    }
-                }
-            }
-            if (!World.westPositionAvailable)
-            {
-                random = Random.Range(1, 10);
-                if (random == 1)
-                {
-                    random = Random.Range(1, 3);
-                    if (random == 1)
-                    {
-                        vector3[0] -= 1;
-                        World.boardImpDungeonPositions.Add(vector3);
-                        vector3 = listVector;
-                    }
-                    else if (random == 2)
-                    {
-                        vector3[0] -= 1;
-                        World.boardBasiliskDungeonPositions.Add(vector3);
-                        vector3 = listVector;
-                    }
-                }
-            }
-        }
-        foreach (Vector3 impDungeon in World.boardImpDungeonPositions)
-        {
-            tilemapStructures.SetTile(new Vector3Int((int)impDungeon[0], (int)impDungeon[1]), Store.dungeonTiles[0]);
-        }
-        foreach (Vector3 basiliskDungeon in World.boardBasiliskDungeonPositions)
-        {
-            tilemapStructures.SetTile(new Vector3Int((int)basiliskDungeon[0], (int)basiliskDungeon[1]), Store.dungeonTiles[1]);
-        }
-        continueTurnProgression = true;
-    }
-
-    public static void SpawnMerchants(Tilemap tilemapStructures)
-    {
-        foreach (Vector3 listVector in World.boardPositions)
-        {
-            Vector3 vector3 = listVector;
-            World.currentUnitPosition = listVector;
-            World.CheckForLocalBoardPositions();
-            int random;
-            if (!World.northPositionAvailable)
-            {
-                random = Random.Range(1, 101);
-                if (random == 1)
-                {
-                    vector3[1] += 1;
-                    random = Random.Range(1,4);
-                    World.boardMerchantPositions.Add(vector3, random);
-                    vector3 = listVector;
-                }
-            }
-            if (!World.eastPositionAvailable)
-            {
-                random = Random.Range(1, 101);
-                if (random == 1)
-                {
-                    vector3[0] += 1;
-                    random = Random.Range(1, 4);
-                    World.boardMerchantPositions.Add(vector3, random);
-                    vector3 = listVector;
-                }
-            }
-            if (!World.southPositionAvailable)
-            {
-                random = Random.Range(1, 101);
-                if (random == 1)
-                {
-                    vector3[1] -= 1;
-                    random = Random.Range(1, 4);
-                    World.boardMerchantPositions.Add(vector3, random);
-                }
-            }
-            if (!World.westPositionAvailable)
-            {
-                random = Random.Range(1, 101);
-                if (random == 1)
-                {
-                    vector3[0] -= 1;
-                    random = Random.Range(1, 4);
-                    World.boardMerchantPositions.Add(vector3, random);
-                    vector3 = listVector;
-                }
-            }
-        }
-        foreach (var merchant in World.boardMerchantPositions) {tilemapStructures.SetTile(new Vector3Int((int)merchant.Key[0], (int)merchant.Key[1]), Store.merchantTiles[merchant.Value]);}
-        continueTurnProgression = true;
     }
 }

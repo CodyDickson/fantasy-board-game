@@ -3,56 +3,109 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Tilemaps;
 
 public class Dungeons : MonoBehaviour
 {
-    public Button closeDungeonWindow;
-    public Button raidDungeon;
     public static string dungeonType = "";
 
-    void Start()
+    public static void SpawnDungeons()
     {
-        closeDungeonWindow.onClick.AddListener(OnClickCloseDungeonWindow);
-        raidDungeon.onClick.AddListener(OnClickRaidDungeon);
-    }
-
-    void Update()
-    {
-        if (Input.GetKey(KeyCode.R) && GameMain.dungeonScreenEnabled)
+        /*foreach (Vector3 listVector in BoardManager.)
         {
-            OnClickRaidDungeon();
+            Vector3 vector3 = listVector;
+            World.currentUnitPosition = listVector;
+            World.CheckForLocalBoardPositions();
+            int random;
+            if (!World.northPositionAvailable)
+            {
+                random = Random.Range(1, 10);
+                if (random == 1)
+                {
+                    random = Random.Range(1, 3);
+                    if (random == 1)
+                    {
+                        vector3[1] += 1;
+                        World.boardImpDungeonPositions.Add(vector3);
+                        vector3 = listVector;
+                    }
+                    else if (random == 2)
+                    {
+                        vector3[1] += 1;
+                        World.boardBasiliskDungeonPositions.Add(vector3);
+                        vector3 = listVector;
+                    }
+                }
+            }
+            if (!World.eastPositionAvailable)
+            {
+                random = Random.Range(1, 10);
+                if (random == 1)
+                {
+                    random = Random.Range(1, 3);
+                    if (random == 1)
+                    {
+                        vector3[0] += 1;
+                        World.boardImpDungeonPositions.Add(vector3);
+                        vector3 = listVector;
+                    }
+                    else if (random == 2)
+                    {
+                        vector3[0] += 1;
+                        World.boardBasiliskDungeonPositions.Add(vector3);
+                        vector3 = listVector;
+                    }
+                }
+            }
+            if (!World.southPositionAvailable)
+            {
+                random = Random.Range(1, 10);
+                if (random == 1)
+                {
+                    random = Random.Range(1, 3);
+                    if (random == 1)
+                    {
+                        vector3[1] -= 1;
+                        World.boardImpDungeonPositions.Add(vector3);
+                        vector3 = listVector;
+                    }
+                    else if (random == 2)
+                    {
+                        vector3[1] -= 1;
+                        World.boardBasiliskDungeonPositions.Add(vector3);
+                        vector3 = listVector;
+                    }
+                }
+            }
+            if (!World.westPositionAvailable)
+            {
+                random = Random.Range(1, 10);
+                if (random == 1)
+                {
+                    random = Random.Range(1, 3);
+                    if (random == 1)
+                    {
+                        vector3[0] -= 1;
+                        World.boardImpDungeonPositions.Add(vector3);
+                        vector3 = listVector;
+                    }
+                    else if (random == 2)
+                    {
+                        vector3[0] -= 1;
+                        World.boardBasiliskDungeonPositions.Add(vector3);
+                        vector3 = listVector;
+                    }
+                }
+            }
         }
-        if (Input.GetKey(KeyCode.C) && GameMain.dungeonScreenEnabled)
+        foreach (Vector3 impDungeon in World.boardImpDungeonPositions)
         {
-            OnClickCloseDungeonWindow();
+            tilemapStructures.SetTile(new Vector3Int((int)impDungeon[0], (int)impDungeon[1]), Store.dungeonTiles[0]);
         }
-    }
-
-    void UpdateDungeonInfo()
-    {
-        // When landing on a dungeon OR clicking on a dungeon
-        // Updates the LowerGUI, image of the dungeon on the left and "x turns to grow", "monster type"
-        // Lower button is "Raid" if the player has landed on it
-        // This opens the Raid GUI in the middle of the screen
-    }
-
-    void OnClickRaidDungeon()
-    {
-        GameMain.dungeonScreenEnabled = false;
-        GameMain.combatScreenEnabled = true;
-    }
-
-    void OnClickCloseDungeonWindow()
-    {
-        GameMain.dungeonScreenEnabled = false;
-        GameMain.GUIEnabled = true;
-    }
-
-    void RaidDungeon()
-    {
-        int random = Random.Range(1,101);
-        // Chance at gold reward
-        // Chance at combat
-        // Small chance of spawning an elite
+        foreach (Vector3 basiliskDungeon in World.boardBasiliskDungeonPositions)
+        {
+            tilemapStructures.SetTile(new Vector3Int((int)basiliskDungeon[0], (int)basiliskDungeon[1]), Store.dungeonTiles[1]);
+        }
+        continueTurnProgression = true;*/
     }
 }

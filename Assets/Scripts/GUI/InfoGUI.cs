@@ -33,7 +33,7 @@ public class InfoGUI : MonoBehaviour
         {
             infoGUI.SetActive(false);
         }
-        if (GameMain.GUIEnabled && World.villageNearby && !infoGUIHasBeenUpdated)
+        if (GameMain.GUIEnabled && BoardManager.villageNearby && !infoGUIHasBeenUpdated)
         {
             infoGUI.SetActive(true);
             switch (Villages.villageOwner)

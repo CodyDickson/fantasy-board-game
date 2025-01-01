@@ -147,22 +147,22 @@ public class GUI : MonoBehaviour
         }
         if (enableArrowButtons && !arrowButtonsEnabled)
         {
-            if (World.northPositionAvailable == true)
+            if (BoardManager.northPositionAvailable == true)
             {
                 arrowUpButton.gameObject.SetActive(true);
                 upArrowButtonEnabled = true;
             }
-            if (World.eastPositionAvailable == true)
+            if (BoardManager.eastPositionAvailable == true)
             {
                 arrowRightButton.gameObject.SetActive(true);
                 rightArrowButtonEnabled = true;
             }
-            if (World.southPositionAvailable == true)
+            if (BoardManager.southPositionAvailable == true)
             {
                 arrowDownButton.gameObject.SetActive(true);
                 downArrowButtonEnabled = true;
             }
-            if (World.westPositionAvailable == true)
+            if (BoardManager.westPositionAvailable == true)
             {
                 arrowLeftButton.gameObject.SetActive(true);
                 leftArrowButtonEnabled = true;
