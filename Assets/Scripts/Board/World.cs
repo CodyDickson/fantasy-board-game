@@ -77,7 +77,6 @@ public class World : MonoBehaviour
 
     void Start()
     {
-        FillEmptySlots(tilemapBoardConnectors, emptySlot);
         TurnManager.TurnProgressionHandler(tilemapStructures);
     }
 
@@ -93,13 +92,5 @@ public class World : MonoBehaviour
         movesRemaining = GameMain.diceOneResult + GameMain.diceTwoResult + GameMain.diceThreeResult;
         Debug.Log("Moves Remaining: " + movesRemaining);
         BoardManager.CheckForLocalBoardPositions();
-    }
-
-    public static void FillEmptySlots(Tilemap tilemapBoardConnectors, Tile emptySlot)
-    {
-        foreach (Vector3 listVector in World.boardEmptySlotPositions)
-        {
-            tilemapBoardConnectors.SetTile(new Vector3Int((int)listVector[0], (int)listVector[1]), emptySlot);
-        }
     }
 }

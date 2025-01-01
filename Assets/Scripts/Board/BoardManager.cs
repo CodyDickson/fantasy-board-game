@@ -36,6 +36,8 @@ public class BoardManager : MonoBehaviour
     public static bool villageNearby = false;
     public static bool dungeonNearby = false;
     public static bool merchantNearby = false;
+    //
+    public static Tilemap structures;
 
     public static void GenerateGameBoard()
     {
@@ -62,6 +64,15 @@ public class BoardManager : MonoBehaviour
             }
             GameMain.playerIsActive[i] = true;
             GameMain.playerInCamp[i] = true;
+        }
+    }
+
+    public static void FillEmptySlots()
+    {
+        structures = Store.tilemaps[3];
+        foreach (Vector3 listVector in emptyBoardSlots)
+        {
+            structures.SetTile(new Vector3Int((int)listVector[0], (int)listVector[1]), Store.objectTiles[2]);
         }
     }
 
@@ -315,5 +326,50 @@ public class BoardManager : MonoBehaviour
                 crossroadsPosition = true;
             }
         }*/
+    }
+
+    public static void UpdateEmptySlotPositions()
+    {
+        foreach (Vector3 listVector in boardPositions)
+        {
+            Vector3 vector3 = listVector;
+            currentUnitPosition = listVector;
+            CheckForLocalBoardPositions();
+            bool ignorePosition = false;
+            foreach (Vector3 exitVector in campExitPositions)
+            {
+                if (listVector == exitVector)
+                {
+                    ignorePosition = true;
+                }
+            }
+            if (!ignorePosition)
+            {
+                if (!northPositionAvailable)
+                {
+                    vector3[1] += 1;
+                    emptyBoardSlots.Add(vector3);
+                    vector3 = listVector;
+                }
+                if (!eastPositionAvailable)
+                {
+                    vector3[0] += 1;
+                    emptyBoardSlots.Add(vector3);
+                    vector3 = listVector;
+                }
+                if (!southPositionAvailable)
+                {
+                    vector3[1] -= 1;
+                    emptyBoardSlots.Add(vector3);
+                    vector3 = listVector;
+                }
+                if (!westPositionAvailable)
+                {
+                    vector3[0] -= 1;
+                    emptyBoardSlots.Add(vector3);
+                    vector3 = listVector;
+                }
+            }
+        }
     }
 }

@@ -20222,6 +20222,7 @@ MonoBehaviour:
   objectTilesListInEditor:
   - {fileID: 11400000, guid: e9d1119bcafe74546b2040eda45f18a2, type: 2}
   - {fileID: 11400000, guid: 228124ba330bdd846a24f3b453d372ad, type: 2}
+  - {fileID: 11400000, guid: 841e5481995a4e84ca5a889467661f98, type: 2}
   boardConnectorTilesInEditor:
   - {fileID: 11400000, guid: 6270631973c18e9409055c604091d7fc, type: 2}
   - {fileID: 11400000, guid: 42fe42d0cfbd94f489b318e0fed0e9d9, type: 2}
