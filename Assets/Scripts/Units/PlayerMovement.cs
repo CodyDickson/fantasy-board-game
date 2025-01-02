@@ -9,7 +9,6 @@ public class PlayerMovement : MonoBehaviour
     //
     public static bool playerIsMoving = false;
     public static int movesRemaining;
-    public static string currentUnitDirection;
     public Tilemap units;
     // Time //
     private float avatar_counter = 0.01f;
@@ -53,9 +52,9 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (movesRemaining > 0)
                 {
-                    units.SetTile(new Vector3Int((int)BoardManager.currentUnitPosition[0], (int)BoardManager.currentUnitPosition[1]), null);
                     BoardManager.CheckForLocalBoardPositions();
                     BoardManager.DetermineNextBoardPosition();
+                    units.SetTile(new Vector3Int((int)BoardManager.currentUnitPosition[0], (int)BoardManager.currentUnitPosition[1]), Store.playerTiles[GameMain.currentPlayer]);
                     // BoardManager.CheckForBoardCrossroads(gui);
                     Debug.Log("Current Unit Position: " + BoardManager.currentUnitPosition);
                     // BoardManager.playerPositions[GameMain.currentPlayer] = BoardManager.currentUnitPosition;
@@ -74,6 +73,7 @@ public class PlayerMovement : MonoBehaviour
                     GUI.ToggleEndTurnButton(true);
                     playerIsMoving = false;
                     BoardManager.CheckForLocalEmptySlots();
+                    InfoGUI.ToggleInfoGUI(true);
                     if (BoardManager.northEmpty || BoardManager.eastEmpty || BoardManager.southEmpty || BoardManager.westEmpty)
                     {
                         if (GUI.primaryButtonAssignedTo == "")
@@ -144,22 +144,22 @@ public class PlayerMovement : MonoBehaviour
         Tilemap units = Store.tilemaps[4];
         BoardManager.currentUnitPosition = BoardManager.playerPositions[GameMain.currentPlayer];
         units.SetTile(new Vector3Int((int)BoardManager.currentUnitPosition[0], (int)BoardManager.currentUnitPosition[1]), null);
-        if (currentUnitDirection == "north")
+        if (BoardManager.currentUnitDirection == "north")
         {
             BoardManager.currentUnitPosition = BoardManager.campExitPositions[0];
             BoardManager.playerPositions[GameMain.currentPlayer] = BoardManager.campExitPositions[0];
         }
-        if (currentUnitDirection == "east")
+        if (BoardManager.currentUnitDirection == "east")
         {
             BoardManager.currentUnitPosition = BoardManager.campExitPositions[1];
             BoardManager.playerPositions[GameMain.currentPlayer] = BoardManager.campExitPositions[1];
         }
-        if (currentUnitDirection == "south")
+        if (BoardManager.currentUnitDirection == "south")
         {
             BoardManager.currentUnitPosition = BoardManager.campExitPositions[2];
             BoardManager.playerPositions[GameMain.currentPlayer] = BoardManager.campExitPositions[2];
         }
-        if (currentUnitDirection == "west")
+        if (BoardManager.currentUnitDirection == "west")
         {
             BoardManager.currentUnitPosition = BoardManager.campExitPositions[3];
             BoardManager.playerPositions[GameMain.currentPlayer] = BoardManager.campExitPositions[3];
@@ -167,7 +167,7 @@ public class PlayerMovement : MonoBehaviour
         playerIsMoving = false;
         GameMain.playerInCamp[GameMain.currentPlayer] = false;
         int clockwork = 0;
-        switch (currentUnitDirection)
+        switch (BoardManager.currentUnitDirection)
         {
             case "north": clockwork = 1; break;
             case "east": clockwork = 3; break;

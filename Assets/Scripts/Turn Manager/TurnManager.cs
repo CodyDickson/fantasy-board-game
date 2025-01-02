@@ -81,6 +81,7 @@ public class TurnManager : MonoBehaviour
 
     public static void EndPlayerTurn(GUI gui)
     {
+        InfoGUI.ToggleInfoGUI(true);
         if (GameMain.currentPlayer == 1)
         {
             for (int i = 0; i <= Villages.playerOneVillageGoldPerTurn.Count; i++)
@@ -113,15 +114,17 @@ public class TurnManager : MonoBehaviour
             }
         }
         BoardManager.villageNearby = false;
+        BoardManager.dungeonNearby = false;
+        BoardManager.merchantNearby = false;
         UpdatePlayerGUIAvatar.playerGUIAvatarHasBeenUpdated = false;
         UpdateGUIColor.ChangeGUIColor();
-        GUI.enablePrimaryButton = true;
-        GUI.primaryButtonAssignedTo = "move";
+        GUI.ToggleMoveButton(true);
         BoardManager.CheckForLocalBoardPositions();
     }
 
     public static void StartPlayerTurn()
     {
+        UpdatePlayerGUIAvatar.updatePlayerGUIAvatar = true;
         GameMain.currentPlayer += 1;
         Debug.Log("Player Turn, Current Player is " + GameMain.currentPlayer);
         if (GameMain.currentPlayer > GameMain.totalPlayers)

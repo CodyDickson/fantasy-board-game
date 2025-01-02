@@ -1,15 +1,12 @@
 [ ] BUG: When in a loop, after passing the first corner units move backwards (intermittent).
-[X] Branches can spawn off of camp.
-[X] Branches and loops can spawn across all clockwork positions on the Grasslands map.
 [ ] Add a Settings GUI in the top right corner.
 [ ] Add a "View All Players" option to the Settings GUI, which shows all players and their current stats.
 [ ] Dungeons can be raided.
-[ ] Shopkeepers can spawn.
 
 GAME SET UP
 [ ] Game Mode: Standard, Odd Mode
 [ ] Game Board: Grasslands, Graveyard, Volcano, Machine
-[ ] Players: Number of players, Human or Computer, Class, Colors
+[ ] Players: Number of players, Human or Computer, Colors, Classes
 [ ] Ruleset: Turn Limit, Starting Gold / Combat / Lives / Health, Quick Movement for Computer / Human / Monster, Randomize Turn Order
 
 COLLECTION
@@ -18,12 +15,11 @@ COLLECTION
 [ ] Oddities
 [ ] Rarities
 [ ] Game Boards
-[ ] Game Modes
 
 Classes:
-All classes begin with a unique weapon and an oddity. Classes are unlocked by completing Achievements.
+All classes begin with a unique weapon and have special modifiers. Classes are unlocked by completing Achievements (typically defeating Elite Monsters).
 [ ] Nomad: Starts with a Walking Stick. (Unlocked from start)
-[ ] Warrior: Starts with a Sword.
+[ ] Fighter: Starts with a Sword.
 [ ] Mage: Starts with a Fire Staff.
 [ ] Archer: Starts with a Bow.
 [ ] Berserker: Starts with an Axe. Has 2 Weapon Slots and 2 Oddity Slots.
@@ -66,13 +62,13 @@ Oddities:
 [ ] Inflict 1 Poison when attacking.
 [ ] 50% chance to inflict 1 additional damage.
 [ ] 25% chance to inflict 3 additional damage.
-
-Oddities (Mythic):
 [ ] Upgrade your villages for free by landing on them.
 [ ] 50% chance to double poison when fighting inflicted enemies.
 [ ] All village tolls are doubled.
 [ ] Whistle: Return to camp at the cost of 1 action.
 [ ] One additional action point per turn.
+[ ] At the end of each turn, 25% chance to claim an unowned tile in the world.
+[ ] Conquering a dungeon claims all adjacent tiles.
 
 Oddities (Charms):
 [ ] Cat Charm: Start the game with 9 lives. Cannot be obtained through normal gameplay.
@@ -91,13 +87,16 @@ Players have 3 Actions. Travel costs 1. Resting (recover health) costs 1. Raidin
 
 Prisms located around the map. Each time one spawns, the first player to reach it chooses a category - Gold, Combat. Whichever one gives that player a bonus in that type. Towards the end of the game when a certain percentage of the map has been opened up, multiple Prisms spawn. Whichever one got more 'votes' (Gold, Combat), that becomes the winning factor for the game board. Combat means all other players must be eliminated. Gold gives a gold number that must be hit to trigger victory (or countdown of 10 turns).
 
-Player turn begins. Move button is enabled. Villages are enabled and the player can click on their own villages to upgrade them.
+Player turn begins: MAGENTA FIGHTER, WHITE WIZARD, etc.
+3 Actions.
+Move button is enabled. Villages are enabled and the player can click on their own villages to upgrade them by spending gold.
+Clicking move rolls the dice and shows the arrow keys (if more than one direction are available). Costs 1 Action to move.
 While moving, a "passing encounter" can occur:
--aggressive monster
--aggressive player
--crossroads
--pay toll
--merchants
+-aggressive monster (monster damages player, player returns attack on the monster)
+-aggressive player (opposing player first, then traveling player)
+-crossroads (choose a direction)
+-pay toll (to continue forward)
+-merchants (to shop)
 When landing, a "landing encounter" can occur:
 -fight monster
 -earn gold from owned village

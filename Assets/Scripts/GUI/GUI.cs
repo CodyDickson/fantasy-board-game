@@ -104,11 +104,6 @@ public class GUI : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.X) && primaryButtonEnabled)
         {
-            if (primaryButtonAssignedTo == "move")
-            {
-                PlayerMovement.MoveUnit();
-                enableArrowButtons = true;
-            }
         }
         if (Input.GetKeyDown(KeyCode.Z) && secondaryButtonEnabled)
         {
@@ -217,6 +212,18 @@ public class GUI : MonoBehaviour
             moveButton.gameObject.SetActive(false);
             moveButtonEnabled = false;
         }
+        if (enableEndTurnButton && !endTurnButtonEnabled)
+        {
+            endTurnButtonPanel.gameObject.SetActive(true);
+            endTurnButton.gameObject.SetActive(true);
+            endTurnButtonEnabled = true;
+        }
+        else if (!enableEndTurnButton && endTurnButtonEnabled)
+        {
+            endTurnButtonPanel.gameObject.SetActive(false);
+            endTurnButton.gameObject.SetActive(false);
+            endTurnButtonEnabled = false;
+        }
         if (GameMain.GUIEnabled && !playerGUIHasBeenUpdated)
         {
             playerGUI.SetActive(true);
@@ -317,7 +324,7 @@ public class GUI : MonoBehaviour
         downArrowButtonEnabled = false;
         leftArrowButtonEnabled = false;
         enableArrowButtons = false;
-        PlayerMovement.currentUnitDirection = "north";
+        BoardManager.currentUnitDirection = "north";
         PlayerMovement.playerIsMoving = true;
     }
 
@@ -327,7 +334,7 @@ public class GUI : MonoBehaviour
         rightArrowButtonEnabled = false;
         downArrowButtonEnabled = false;
         leftArrowButtonEnabled = false;
-        PlayerMovement.currentUnitDirection = "east";
+        BoardManager.currentUnitDirection = "east";
         PlayerMovement.playerIsMoving = true;
         enableArrowButtons = false;
     }
@@ -338,7 +345,7 @@ public class GUI : MonoBehaviour
         rightArrowButtonEnabled = false;
         downArrowButtonEnabled = false;
         leftArrowButtonEnabled = false;
-        PlayerMovement.currentUnitDirection = "south";
+        BoardManager.currentUnitDirection = "south";
         PlayerMovement.playerIsMoving = true;
         enableArrowButtons = false;
     }
@@ -349,7 +356,7 @@ public class GUI : MonoBehaviour
         rightArrowButtonEnabled = false;
         downArrowButtonEnabled = false;
         leftArrowButtonEnabled = false;
-        PlayerMovement.currentUnitDirection = "west";
+        BoardManager.currentUnitDirection = "west";
         PlayerMovement.playerIsMoving = true;
         enableArrowButtons = false;
     }

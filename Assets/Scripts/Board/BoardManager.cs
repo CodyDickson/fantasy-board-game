@@ -253,6 +253,7 @@ public class BoardManager : MonoBehaviour
     {
         Tilemap tilemapUnits = Store.tilemaps[4];
         boardPosition = currentUnitPosition;
+        Debug.Log("Check Board Position: " + boardPosition);
         tilemapUnits.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), null);
         if (currentUnitDirection == "north" && northPositionAvailable)
         {
@@ -315,6 +316,7 @@ public class BoardManager : MonoBehaviour
             }
         }
         currentUnitPosition = boardPosition;
+        playerPositions[GameMain.currentPlayer] = currentUnitPosition;
     }
 
     public static void CheckForBoardCrossroads(GUI gui)
