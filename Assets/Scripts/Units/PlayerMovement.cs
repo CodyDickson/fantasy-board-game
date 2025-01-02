@@ -58,12 +58,13 @@ public class PlayerMovement : MonoBehaviour
                     BoardManager.DetermineNextBoardPosition();
                     // BoardManager.CheckForBoardCrossroads(gui);
                     Debug.Log("Current Unit Position: " + BoardManager.currentUnitPosition);
-                    BoardManager.playerPositions[GameMain.currentPlayer] = BoardManager.currentUnitPosition;
+                    // BoardManager.playerPositions[GameMain.currentPlayer] = BoardManager.currentUnitPosition;
                     movesRemaining -= 1;
                     /*if (crossroadsPosition == true)
                     {
                         BoardManager.CheckForLocalBoardPositions();
-                        GUI.enableArrowButtons = true; ;
+                        GUI.enableArrowButtons = true;
+
                         playerIsMoving = false;
                     }*/
                 }
