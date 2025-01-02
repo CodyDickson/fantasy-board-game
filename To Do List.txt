@@ -1,11 +1,10 @@
 [ ] BUG: When in a loop, after passing the first corner units move backwards (intermittent).
-[ ] Branches can spawn off of camp.
-[ ] Branches and loops can spawn across all clockwork positions on the Grasslands map.
+[X] Branches can spawn off of camp.
+[X] Branches and loops can spawn across all clockwork positions on the Grasslands map.
 [ ] Add a Settings GUI in the top right corner.
 [ ] Add a "View All Players" option to the Settings GUI, which shows all players and their current stats.
 [ ] Dungeons can be raided.
 [ ] Shopkeepers can spawn.
-[ ] Villages naturally grow.
 
 GAME SET UP
 [ ] Game Mode: Standard, Odd Mode
@@ -13,20 +12,30 @@ GAME SET UP
 [ ] Players: Number of players, Human or Computer, Class, Colors
 [ ] Ruleset: Turn Limit, Starting Gold / Combat / Lives / Health, Quick Movement for Computer / Human / Monster, Randomize Turn Order
 
+COLLECTION
+[ ] Classes
+[ ] Weapons
+[ ] Oddities
+[ ] Rarities
+[ ] Game Boards
+[ ] Game Modes
+
 Classes:
+All classes begin with a unique weapon and an oddity. Classes are unlocked by completing Achievements.
 [ ] Nomad: Starts with a Walking Stick. (Unlocked from start)
 [ ] Warrior: Starts with a Sword.
 [ ] Mage: Starts with a Fire Staff.
 [ ] Archer: Starts with a Bow.
 [ ] Berserker: Starts with an Axe. Has 2 Weapon Slots and 2 Oddity Slots.
 [ ] Gambler: Cannot equip a weapon. Has an additional Oddity slot. Starts with the "Bag of Dice", which determines all combat by rolling dice.
-[ ] Cat: Begin with 9 lives. Starts with Claws.
-[ ] Hunter: Every five turns, an enemy is marked. Killing it earns a bonus reward. Starts with a bow.
+[ ] Cat: Starts with Claws and the Cat Charm.
+[ ] Huntsman: Every five turns, an enemy is marked. Killing it earns a bonus reward. Starts with a bow.
 [ ] Thief
 [ ] Bard
 [ ] Peddler
 [ ] Paladin
 [ ] Mimic
+[ ] Lich
 
 Weapons:
 [ ] Walking Stick: +3-5 Combat Damage.
@@ -40,7 +49,7 @@ Weapons:
 [ ] Dagger
 
 Oddities:
-[ ] Bag Of Dice: All combat is determined by dice roll.
+[ ] Bag Of Dice: Deal 1-6 additional damage when attacking.
 [ ] Bloody Thorn: Engage in combat with any passing player or monster.
 [ ] + Armor
 [ ] + Health
@@ -52,22 +61,34 @@ Oddities:
 [ ] 50% chance to avoid statuses.
 [ ] Immune to Burn.
 [ ] Immune to Curse.
+[ ] Immune to Poison.
+[ ] If you land on an unowned tile, you can claim it with 1 Action.
+[ ] Inflict 1 Poison when attacking.
+[ ] 50% chance to inflict 1 additional damage.
+[ ] 25% chance to inflict 3 additional damage.
 
-Rarities:
+Oddities (Mythic):
 [ ] Upgrade your villages for free by landing on them.
 [ ] 50% chance to double poison when fighting inflicted enemies.
-[ ] Village tolls are doubled.
-[ ] Earn +1 to a random stat for each monster slain.
-[ ] Consumables have a 50% chance to trigger twice.
+[ ] All village tolls are doubled.
+[ ] Whistle: Return to camp at the cost of 1 action.
+[ ] One additional action point per turn.
 
-Consumables:
-[ ] Inflict 1 Poison for the next three battles
-[ ] Whistle: Return to camp
-[ ] Restore all health
-[ ] One life
-[ ] Transport to a random player
+Oddities (Charms):
+[ ] Cat Charm: Start the game with 9 lives. Cannot be obtained through normal gameplay.
+[ ] Warrior Charm: Start the game with two weapon slots. Cannot be obtained through normal gameplay.
+
+Rarities:
+[ ] Magenta (Color)
+[ ] White (Color)
+[ ] Black (Color)
+[ ] Sunrise (Color, Orange)
+[ ] Neon (Color, Special)
+[ ] Glitter (Color, Special)
 
 BRAINSTORMING
+Players have 3 Actions. Travel costs 1. Resting (recover health) costs 1. Raiding costs 1. Fighting another player costs 1. Building a village costs 1.
+
 Prisms located around the map. Each time one spawns, the first player to reach it chooses a category - Gold, Combat. Whichever one gives that player a bonus in that type. Towards the end of the game when a certain percentage of the map has been opened up, multiple Prisms spawn. Whichever one got more 'votes' (Gold, Combat), that becomes the winning factor for the game board. Combat means all other players must be eliminated. Gold gives a gold number that must be hit to trigger victory (or countdown of 10 turns).
 
 Player turn begins. Move button is enabled. Villages are enabled and the player can click on their own villages to upgrade them.
