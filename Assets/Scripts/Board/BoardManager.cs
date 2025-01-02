@@ -252,7 +252,7 @@ public class BoardManager : MonoBehaviour
     public static void DetermineNextBoardPosition()
     {
         Tilemap tilemapUnits = Store.tilemaps[4];
-        boardPosition = currentUnitPosition;
+        boardPosition = playerPositions[GameMain.currentPlayer];
         tilemapUnits.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), null);
         if (currentUnitDirection == "north" && northPositionAvailable)
         {
@@ -314,8 +314,9 @@ public class BoardManager : MonoBehaviour
                 boardPosition[1] -= 1;
             }
         }
-        currentUnitPosition = boardPosition;
+        playerPositions[GameMain.currentPlayer] = boardPosition;
     }
+
     public static void CheckForBoardCrossroads(GUI gui)
     {
         /*crossroadsPosition = false;

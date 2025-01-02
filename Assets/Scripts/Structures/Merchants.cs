@@ -7,6 +7,11 @@ public class Merchants : MonoBehaviour
 {
     public static int merchantCount;
 
+    private void Update()
+    {
+        
+    }
+
     public static void SpawnMerchants(int location)
     {
         Tilemap structures = Store.tilemaps[3];

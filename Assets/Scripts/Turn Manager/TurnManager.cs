@@ -146,7 +146,6 @@ public class TurnManager : MonoBehaviour
         if (GameMain.playerIsActive[GameMain.currentPlayer] == false && GameMain.playerLives[GameMain.currentPlayer] > 0)
         {
             GameMain.playerIsActive[GameMain.currentPlayer] = true;
-            GameMain.currentPlayerInCamp = true;
             // GUI.playerGUIHasBeenUpdated = false;
         }
         else
@@ -154,13 +153,7 @@ public class TurnManager : MonoBehaviour
             GUI.ToggleMoveButton(true);
         }
         GameMain.UpdateCurrentPlayerInfo();
-        switch (GameMain.currentPlayer)
-        {
-            case 1: World.currentUnitPosition = World.playerOnePosition;  break;
-            case 2: World.currentUnitPosition = World.playerTwoPosition; break;
-            case 3: World.currentUnitPosition = World.playerThreePosition; break;
-            case 4: World.currentUnitPosition = World.playerFourPosition; break;
-        }
+        BoardManager.currentUnitPosition = BoardManager.playerPositions[GameMain.currentPlayer];
         if (GameMain.playerIsHuman[GameMain.currentPlayer] == true) { GameMain.currentPlayerIsHuman = true; }
         if (!GameMain.currentPlayerIsHuman)
         {

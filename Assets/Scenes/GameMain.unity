@@ -20215,7 +20215,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2613c16f3da7d8a48af5bf4805c02f32, type: 2}
   - {fileID: 11400000, guid: 195a13ec80b8ec94c982ee8d558f70ff, type: 2}
   merchantTilesListInEditor:
-  - {fileID: 11400000, guid: 2d97ce44e8982434087291928cca6f51, type: 2}
+  - {fileID: 11400000, guid: dc6eeb2c1f0c3714fbd08ea269b3bee5, type: 2}
   - {fileID: 11400000, guid: 195a13ec80b8ec94c982ee8d558f70ff, type: 2}
   - {fileID: 11400000, guid: dc6eeb2c1f0c3714fbd08ea269b3bee5, type: 2}
   - {fileID: 11400000, guid: 77ef651c4e6f00e49ac01aa6a9be0e16, type: 2}

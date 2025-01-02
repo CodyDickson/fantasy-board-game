@@ -316,10 +316,9 @@ public class GUI : MonoBehaviour
         rightArrowButtonEnabled = false;
         downArrowButtonEnabled = false;
         leftArrowButtonEnabled = false;
+        enableArrowButtons = false;
         PlayerMovement.currentUnitDirection = "north";
         PlayerMovement.playerIsMoving = true;
-        Debug.Log(GameMain.playerInCamp[GameMain.currentPlayer]);
-        enableArrowButtons = false;
     }
 
     void OnClickRightArrow()

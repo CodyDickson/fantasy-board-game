@@ -10,11 +10,17 @@ public class PlayerMovement : MonoBehaviour
     public static bool playerIsMoving = false;
     public static int movesRemaining;
     public static string currentUnitDirection;
+    public Tilemap units;
     // Time //
     private float avatar_counter = 0.01f;
     private float avatar_tempCounter = 0f;
     private float movement_tempCounter = 0f;
     private float movement_counter = 0.5f;
+
+    private void Start()
+    {
+        units = Store.tilemaps[4];
+    }
 
     void Update()
     {
@@ -41,12 +47,13 @@ public class PlayerMovement : MonoBehaviour
             PlayerExitingCamp();
         }
         // Player moving on the board
-        if (playerIsMoving && !GameMain.currentPlayerInCamp)
+        if (playerIsMoving && !GameMain.playerInCamp[GameMain.currentPlayer])
         {
             if (movement_tempCounter <= 0f)
             {
                 if (movesRemaining > 0)
                 {
+                    units.SetTile(new Vector3Int((int)BoardManager.currentUnitPosition[0], (int)BoardManager.currentUnitPosition[1]), null);
                     BoardManager.CheckForLocalBoardPositions();
                     BoardManager.DetermineNextBoardPosition();
                     // BoardManager.CheckForBoardCrossroads(gui);
@@ -139,7 +146,6 @@ public class PlayerMovement : MonoBehaviour
         if (currentUnitDirection == "north")
         {
             BoardManager.currentUnitPosition = BoardManager.campExitPositions[0];
-            Debug.Log("Player Exiting Camp to Position: " + BoardManager.currentUnitPosition);
             BoardManager.playerPositions[GameMain.currentPlayer] = BoardManager.campExitPositions[0];
         }
         if (currentUnitDirection == "east")
