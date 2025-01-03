@@ -8,6 +8,7 @@ public class Villages : MonoBehaviour
 {
     //
     public int villageCost = 100;
+    public static int villageBuildCost = 100;
     // Tiles and Tilemaps //
     [SerializeField] public Tile villageRed;
     [SerializeField] public Tile villageBlue;

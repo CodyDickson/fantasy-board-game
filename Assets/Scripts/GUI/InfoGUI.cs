@@ -1,72 +1,163 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class InfoGUI : MonoBehaviour
 {
+    //
     public static bool updateInfoGUI = false;
     public static bool disableInfoGUI = false;
-    public static bool infoGUIHasBeenUpdated = false;
-    public TMP_Text top, middle, bottom;
-    public Image infoGUI_avatar;
-    public GameObject infoGUI;
+    //
+    public static List<string> infoGUIPool = new List<string>();
+    // 
+    public TMP_Text main_top, buttonText_top, buttonText_bottom, main_bottom;
+    public Image avatar_top, avatar_bottom, buttonAvatar_top, buttonAvatar_bottom;
+    public Button button_top, button_bottom;
+    public GameObject infoGUI_top, infoGUI_bottom;
 
     void Start()
     {
-        infoGUI.gameObject.SetActive(false);
+        infoGUI_top.gameObject.SetActive(false);
+        infoGUI_bottom.gameObject.SetActive(false);
+        Image avatar_top = GameObject.Find("AvatarTop").GetComponent<Image>();
+        avatar_bottom = GameObject.Find("AvatarBottom").GetComponent<Image>();
+        buttonAvatar_top = GameObject.Find("buttonAvatar_top").GetComponent<Image>();
+        buttonAvatar_bottom = GameObject.Find("buttonAvatar_bottom").GetComponent<Image>();
     }
 
     void Update()
     {
-        /*if (updateInfoGUI)
+        if (updateInfoGUI && GameMain.GUIEnabled)
         {
-            switch (GameMain.currentPlayerAvatar)
+            DeterminePoolContents();
+            infoGUI_bottom.SetActive(true);
+            UpdateBottomInfoGUI(infoGUIPool[0], main_bottom, buttonText_bottom, avatar_bottom, buttonAvatar_bottom);
+            if (infoGUIPool.Count > 1)
             {
-                case 0: gameObject.GetComponent<Image>().sprite = Store.playerSprites[0]; break;
-                case 1: gameObject.GetComponent<Image>().sprite = Store.playerSprites[1]; break;
+                infoGUI_top.SetActive(true);
+                UpdateTopInfoGUI(infoGUIPool[1], main_top, buttonText_top, avatar_top, buttonAvatar_top);
             }
             updateInfoGUI = false;
-            infoGUIHasBeenUpdated = true;
-        }*/
-        if (!GameMain.GUIEnabled)
-        {
-            infoGUI.SetActive(false);
         }
-        if (updateInfoGUI)
+        if (disableInfoGUI)
         {
-            infoGUI.SetActive(true);
-            gameObject.GetComponent<Image>().sprite = null;
-            if (GameMain.GUIEnabled && BoardManager.villageNearby)
-            {
-                switch (Villages.villageOwner)
-                {
-                    case 1: top.text = "Growth: " + Villages.playerOneVillageGrowth[Villages.currentVillage]; middle.text = "Gold Per Turn: " + Villages.playerOneVillageGoldPerTurn[Villages.currentVillage]; bottom.text = "Toll: " + Villages.playerOneVillageTolls[Villages.currentVillage]; break;
-                    case 2: top.text = "Growth: " + Villages.playerTwoVillageGrowth[Villages.currentVillage]; middle.text = "Gold Per Turn: " + Villages.playerTwoVillageGoldPerTurn[Villages.currentVillage]; bottom.text = "Toll: " + Villages.playerTwoVillageTolls[Villages.currentVillage]; break;
-                    case 3: top.text = "Growth: " + Villages.playerThreeVillageGrowth[Villages.currentVillage]; middle.text = "Gold Per Turn: " + Villages.playerThreeVillageGoldPerTurn[Villages.currentVillage]; bottom.text = "Toll: " + Villages.playerThreeVillageTolls[Villages.currentVillage]; break;
-                    case 4: top.text = "Growth: " + Villages.playerFourVillageGrowth[Villages.currentVillage]; middle.text = "Gold Per Turn: " + Villages.playerFourVillageGoldPerTurn[Villages.currentVillage]; bottom.text = "Toll: " + Villages.playerFourVillageTolls[Villages.currentVillage]; break;
-                }
-                updateInfoGUI = false;
-            }
-            if (GameMain.GUIEnabled && !BoardManager.villageNearby && !BoardManager.dungeonNearby && !BoardManager.merchantNearby)
-            {
-                ClearInfoGUI(top, middle, bottom);
-                middle.text = "There's nothing here.";
-                updateInfoGUI = false;
-            }
+            infoGUI_top.gameObject.SetActive(false);
+            infoGUI_bottom.gameObject.SetActive(false);
+            disableInfoGUI = false;
         }
     }
 
-    public static void ClearInfoGUI(TMP_Text top, TMP_Text middle, TMP_Text bottom)
+    public static void DeterminePoolContents()
     {
-        top.text = "";
-        middle.text = "";
-        bottom.text = "";
+        BoardManager.CheckForLocalStructures();
+        if (BoardManager.northEmpty) { infoGUIPool.Add("empty"); }
+        if (BoardManager.eastEmpty) { infoGUIPool.Add("empty"); }
+        if (BoardManager.southEmpty) { infoGUIPool.Add("empty"); }
+        if (BoardManager.westEmpty) { infoGUIPool.Add("empty"); }
+        if (BoardManager.dungeonNorth) { infoGUIPool.Add("dungeon"); }
+        if (BoardManager.dungeonEast) { infoGUIPool.Add("dungeon"); }
+        if (BoardManager.dungeonSouth) { infoGUIPool.Add("dungeon"); }
+        if (BoardManager.dungeonWest) { infoGUIPool.Add("dungeon"); }
+        if (BoardManager.villageNorth) { infoGUIPool.Add("village"); }
+        if (BoardManager.villageEast) { infoGUIPool.Add("village"); }
+        if (BoardManager.villageSouth) { infoGUIPool.Add("village"); }
+        if (BoardManager.villageWest) { infoGUIPool.Add("village"); }
+        if (BoardManager.merchantNorth) { infoGUIPool.Add("merchant"); }
+        if (BoardManager.merchantEast) { infoGUIPool.Add("merchant"); }
+        if (BoardManager.merchantSouth) { infoGUIPool.Add("merchant"); }
+        if (BoardManager.merchantWest) { infoGUIPool.Add("merchant"); }
+    }
+
+    public static void UpdateTopInfoGUI(string content, TMP_Text main, TMP_Text buttonText, Image avatar, Image buttonAvatar)
+    {
+        if (content == "empty")
+        {
+            main.text = "Empty\nTile";
+            avatar.sprite = Store.GUIElements[2];
+            if (GameMain.playerGold[GameMain.currentPlayer] >= Villages.villageBuildCost)
+            {
+                buttonText.text = "Build";
+                buttonAvatar.sprite = Store.GUIElements[1];
+            }
+            else
+            {
+                buttonAvatar.sprite = Store.GUIElements[0];
+            }
+        }
+        if (content == "dungeon")
+        {
+            main.text = "Dungeon";
+            avatar.sprite = Store.dungeonSprites[0];
+            buttonText.text = "Raid";
+            buttonAvatar.sprite = Store.GUIElements[1];
+        }
+        if (content == "village")
+        {
+            main.text = "Village";
+            avatar.sprite = Store.villageSprites[0];
+            buttonText.text = "Pay Toll";
+            buttonAvatar.sprite = Store.GUIElements[1];
+        }
+        if (content == "merchant")
+        {
+            main.text = "Merchant";
+            avatar.sprite = Store.merchantSprites[0];
+            buttonText.text = "Shop";
+            buttonAvatar.sprite = Store.GUIElements[1];
+        }
+    }
+
+    public static void UpdateBottomInfoGUI(string content, TMP_Text main, TMP_Text buttonText, Image avatar, Image buttonAvatar)
+    {
+        if (content == "empty")
+        {
+            main.text = "Empty\nTile";
+            avatar.sprite = Store.GUIElements[2];
+            if (GameMain.playerGold[GameMain.currentPlayer] >= Villages.villageBuildCost)
+            {
+                buttonText.text = "Build";
+                buttonAvatar.sprite = Store.GUIElements[1];
+            }
+            else
+            {
+                buttonAvatar.sprite = Store.GUIElements[0];
+            }
+        }
+        if (content == "dungeon")
+        {
+            main.text = "Dungeon";
+            avatar.sprite = Store.dungeonSprites[0];
+            buttonText.text = "Raid";
+            buttonAvatar.sprite = Store.GUIElements[1];
+        }
+        if (content == "village")
+        {
+            main.text = "Village";
+            avatar.sprite = Store.villageSprites[0];
+            buttonText.text = "Pay Toll";
+            buttonAvatar.sprite = Store.GUIElements[1];
+        }
+        if (content == "merchant")
+        {
+            main.text = "Merchant";
+            avatar.sprite = Store.merchantSprites[0];
+            buttonText.text = "Shop";
+            buttonAvatar.sprite = Store.GUIElements[1];
+        }
     }
 
     public static void ToggleInfoGUI(bool status)
     {
-        updateInfoGUI = status;
+        if (status == true)
+        {
+            updateInfoGUI = true;
+        }
+        else
+        {
+            disableInfoGUI = true;
+        }
     }
 }

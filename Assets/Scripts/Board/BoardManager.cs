@@ -13,6 +13,9 @@ public class BoardManager : MonoBehaviour
     public static List<Vector3> crossroads = new List<Vector3>();
     public static List<Vector3> campExitPositions = new List<Vector3>();
     public static List<Vector3> playerPositions = new List<Vector3>();
+    public static List<Vector3> dungeonPositions = new List<Vector3>();
+    public static List<Vector3> villagePositions = new List<Vector3>();
+    public static List<Vector3> merchantPositions = new List<Vector3>();
     public static List<Vector3> emptyBoardSlots = new List<Vector3>();
     // Directions
     public static string currentUnitDirection;
@@ -34,8 +37,20 @@ public class BoardManager : MonoBehaviour
     public static bool westEmpty = false;
     // Nearby
     public static bool villageNearby = false;
+    public static bool villageNorth = false;
+    public static bool villageEast = false;
+    public static bool villageSouth = false;
+    public static bool villageWest = false;
     public static bool dungeonNearby = false;
+    public static bool dungeonNorth = false;
+    public static bool dungeonEast = false;
+    public static bool dungeonSouth = false;
+    public static bool dungeonWest = false;
     public static bool merchantNearby = false;
+    public static bool merchantNorth = false;
+    public static bool merchantEast = false;
+    public static bool merchantSouth = false;
+    public static bool merchantWest = false;
     //
     public static Tilemap structures;
     public static bool crossroadsPosition = false;
@@ -149,106 +164,6 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    public static void CheckForLocalEmptySlots()
-    {
-        northEmpty = false;
-        eastEmpty = false;
-        southEmpty = false;
-        westEmpty = false;
-        Vector3 north = new Vector3(currentUnitPosition[0], currentUnitPosition[1] + 1);
-        Vector3 east = new Vector3(currentUnitPosition[0] + 1, currentUnitPosition[1]);
-        Vector3 south = new Vector3(currentUnitPosition[0], currentUnitPosition[1] - 1);
-        Vector3 west = new Vector3(currentUnitPosition[0] - 1, currentUnitPosition[1]);
-        foreach (Vector3 listVector in emptyBoardSlots)
-        {
-            if (listVector == north)
-            {
-                northSlotPosition = north;
-                northEmpty = true;
-            }
-            if (listVector == east)
-            {
-                eastSlotPosition = east;
-                eastEmpty = true;
-            }
-            if (listVector == south)
-            {
-                southSlotPosition = south;
-                southEmpty = true;
-            }
-            if (listVector == west)
-            {
-                westSlotPosition = west;
-                westEmpty = true;
-            }
-        }
-    }
-
-    void CheckForLocalDungeons()
-    {
-        /*dungeonNearby = false;
-        Vector3 north = new Vector3(currentUnitPosition[0], currentUnitPosition[1] + 1);
-        Vector3 east = new Vector3(currentUnitPosition[0] + 1, currentUnitPosition[1]);
-        Vector3 south = new Vector3(currentUnitPosition[0], currentUnitPosition[1] - 1);
-        Vector3 west = new Vector3(currentUnitPosition[0] - 1, currentUnitPosition[1]);
-        foreach (Vector3 listVector in boardDungeonPositions.Keys)
-        {
-            if (listVector == north || listVector == east || listVector == south || listVector == west)
-            {
-                switch (boardDungeonPositions[listVector])
-                {
-                    case 1: Dungeons.dungeonType = "imp"; break;
-                    case 2: Dungeons.dungeonType = "basilisk"; break;
-                }
-            }
-        }*/
-    }
-
-    public static void CheckForLocalVillages()
-    {
-        /*villageNearby = false;
-        Vector3 north = new Vector3(currentUnitPosition[0], currentUnitPosition[1] + 1);
-        Vector3 east = new Vector3(currentUnitPosition[0] + 1, currentUnitPosition[1]);
-        Vector3 south = new Vector3(currentUnitPosition[0], currentUnitPosition[1] - 1);
-        Vector3 west = new Vector3(currentUnitPosition[0] - 1, currentUnitPosition[1]);
-        foreach (Vector3 listVector in boardPlayerOneVillagePositions.Keys)
-        {
-            if (listVector == north || listVector == east || listVector == south || listVector == west)
-            {
-                Villages.villageOwner = 1;
-                villageNearby = true;
-                Villages.currentVillage = boardPlayerOneVillagePositions[listVector];
-            }
-        }
-        foreach (Vector3 listVector in boardPlayerTwoVillagePositions.Keys)
-        {
-            if (listVector == north || listVector == east || listVector == south || listVector == west)
-            {
-                Villages.villageOwner = 2;
-                villageNearby = true;
-                Villages.currentVillage = boardPlayerTwoVillagePositions[listVector];
-            }
-        }
-        foreach (Vector3 listVector in boardPlayerThreeVillagePositions.Keys)
-        {
-            if (listVector == north || listVector == east || listVector == south || listVector == west)
-            {
-                Villages.villageOwner = 3;
-                villageNearby = true;
-                Villages.currentVillage = boardPlayerThreeVillagePositions[listVector];
-            }
-        }
-        foreach (Vector3 listVector in boardPlayerFourVillagePositions.Keys)
-        {
-            if (listVector == north || listVector == east || listVector == south || listVector == west)
-            {
-                Villages.villageOwner = 4;
-                villageNearby = true;
-                Villages.currentVillage = boardPlayerFourVillagePositions[listVector];
-            }
-        }*/
-    }
-
     public static void DetermineNextBoardPosition()
     {
         Tilemap tilemapUnits = Store.tilemaps[4];
@@ -319,7 +234,107 @@ public class BoardManager : MonoBehaviour
         playerPositions[GameMain.currentPlayer] = currentUnitPosition;
     }
 
-    public static void CheckForBoardCrossroads(GUI gui)
+    public static void CheckForLocalStructures()
+    {
+        CheckForLocalDungeons();
+        CheckForLocalVillages();
+        CheckForLocalMerchants();
+        CheckForLocalEmptySlots();
+    }
+
+    public static void CheckForLocalDungeons()
+    {
+        dungeonNorth = false;
+        dungeonEast = false;
+        dungeonSouth = false;
+        dungeonWest = false;
+        Vector3 north = new Vector3(currentUnitPosition[0], currentUnitPosition[1] + 1);
+        Vector3 east = new Vector3(currentUnitPosition[0] + 1, currentUnitPosition[1]);
+        Vector3 south = new Vector3(currentUnitPosition[0], currentUnitPosition[1] - 1);
+        Vector3 west = new Vector3(currentUnitPosition[0] - 1, currentUnitPosition[1]);
+        foreach (Vector3 listVector in dungeonPositions)
+        {
+            if (listVector == north) { dungeonNorth = true; }
+            if (listVector == east) { dungeonEast = true; }
+            if (listVector == south) { dungeonSouth = true; }
+            if (listVector == west) { dungeonWest = true; }
+        }
+    }
+
+    public static void CheckForLocalVillages()
+    {
+        villageNorth = false;
+        villageEast = false;
+        villageSouth = false;
+        villageWest = false;
+        Vector3 north = new Vector3(currentUnitPosition[0], currentUnitPosition[1] + 1);
+        Vector3 east = new Vector3(currentUnitPosition[0] + 1, currentUnitPosition[1]);
+        Vector3 south = new Vector3(currentUnitPosition[0], currentUnitPosition[1] - 1);
+        Vector3 west = new Vector3(currentUnitPosition[0] - 1, currentUnitPosition[1]);
+        foreach (Vector3 listVector in villagePositions)
+        {
+            if (listVector == north) { villageNorth = true; }
+            if (listVector == east) { villageEast = true; }
+            if (listVector == south) { villageSouth = true; }
+            if (listVector == west) { villageWest = true; }
+        }
+    }
+
+    public static void CheckForLocalMerchants()
+    {
+        merchantNorth = false;
+        merchantEast = false;
+        merchantSouth = false;
+        merchantWest = false;
+        Vector3 north = new Vector3(currentUnitPosition[0], currentUnitPosition[1] + 1);
+        Vector3 east = new Vector3(currentUnitPosition[0] + 1, currentUnitPosition[1]);
+        Vector3 south = new Vector3(currentUnitPosition[0], currentUnitPosition[1] - 1);
+        Vector3 west = new Vector3(currentUnitPosition[0] - 1, currentUnitPosition[1]);
+        foreach (Vector3 listVector in merchantPositions)
+        {
+            if (listVector == north) { merchantNorth = true; }
+            if (listVector == east) { merchantEast = true; }
+            if (listVector == south) { merchantSouth = true; }
+            if (listVector == west) { merchantWest = true; }
+        }
+    }
+
+    public static void CheckForLocalEmptySlots()
+    {
+        northEmpty = false;
+        eastEmpty = false;
+        southEmpty = false;
+        westEmpty = false;
+        Vector3 north = new Vector3(currentUnitPosition[0], currentUnitPosition[1] + 1);
+        Vector3 east = new Vector3(currentUnitPosition[0] + 1, currentUnitPosition[1]);
+        Vector3 south = new Vector3(currentUnitPosition[0], currentUnitPosition[1] - 1);
+        Vector3 west = new Vector3(currentUnitPosition[0] - 1, currentUnitPosition[1]);
+        foreach (Vector3 listVector in emptyBoardSlots)
+        {
+            if (listVector == north)
+            {
+                northSlotPosition = north;
+                northEmpty = true;
+            }
+            if (listVector == east)
+            {
+                eastSlotPosition = east;
+                eastEmpty = true;
+            }
+            if (listVector == south)
+            {
+                southSlotPosition = south;
+                southEmpty = true;
+            }
+            if (listVector == west)
+            {
+                westSlotPosition = west;
+                westEmpty = true;
+            }
+        }
+    }
+
+    public static void CheckForBoardCrossroads(GUIManager gui)
     {
         /*crossroadsPosition = false;
         boardPosition = currentUnitPosition;

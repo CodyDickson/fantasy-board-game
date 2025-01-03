@@ -526,7 +526,7 @@ public class Combat : MonoBehaviour
         GameMain.combatScreenEnabled = false;
         GameMain.combatEncounterHappening = false;
         GameMain.GUIEnabled = true;
-        GUI.endTurnButtonEnabled = true;
+        GUIManager.endTurnButtonEnabled = true;
         avatar_one_set = false;
         avatar_two_set = false;
         namesAreUpdated = false;

@@ -70,7 +70,7 @@ public class World : MonoBehaviour
     // Other //
     public static string currentPlayerColor = "red";
 
-    public GUI gui;
+    public GUIManager gui;
     [SerializeField] public Tile fogTile;
     [SerializeField] public Tilemap fog;
 

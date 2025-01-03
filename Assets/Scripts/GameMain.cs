@@ -141,7 +141,7 @@ public class GameMain : MonoBehaviour
     private float tempCounter2 = 0f;
     // Other //
     public World world;
-    public GUI gui;
+    public GUIManager gui;
 
     void Start()
     {

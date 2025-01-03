@@ -69,17 +69,17 @@ public class PlayerMovement : MonoBehaviour
                 }
                 if (movesRemaining == 0)
                 {
-                    GUI.enableArrowButtons = false;
-                    GUI.ToggleEndTurnButton(true);
+                    GUIManager.enableArrowButtons = false;
+                    GUIManager.ToggleEndTurnButton(true);
                     playerIsMoving = false;
                     BoardManager.CheckForLocalEmptySlots();
                     InfoGUI.ToggleInfoGUI(true);
                     if (BoardManager.northEmpty || BoardManager.eastEmpty || BoardManager.southEmpty || BoardManager.westEmpty)
                     {
-                        if (GUI.primaryButtonAssignedTo == "")
+                        if (GUIManager.primaryButtonAssignedTo == "")
                         {
-                            GUI.TogglePrimaryButton(true, "build");
-                            GUI.ToggleEndTurnButton(true);
+                            GUIManager.TogglePrimaryButton(true, "build");
+                            GUIManager.ToggleEndTurnButton(true);
                         }
                     }
                     else
@@ -87,28 +87,28 @@ public class PlayerMovement : MonoBehaviour
                         BoardManager.CheckForLocalVillages();
                         if (BoardManager.villageNearby && GameMain.currentPlayer != Villages.villageOwner)
                         {
-                            if (GUI.primaryButtonAssignedTo == "")
+                            if (GUIManager.primaryButtonAssignedTo == "")
                             {
-                                GUI.TogglePrimaryButton(true, "payToll");
-                                GUI.ToggleEndTurnButton(false);
+                                GUIManager.TogglePrimaryButton(true, "payToll");
+                                GUIManager.ToggleEndTurnButton(false);
                             }
                             else
                             {
-                                GUI.ToggleSecondaryButton(true, "payToll");
-                                GUI.ToggleEndTurnButton(false);
+                                GUIManager.ToggleSecondaryButton(true, "payToll");
+                                GUIManager.ToggleEndTurnButton(false);
                             }
                         }
                         else if (BoardManager.villageNearby && GameMain.currentPlayer == Villages.villageOwner)
                         {
-                            if (GUI.primaryButtonAssignedTo == "")
+                            if (GUIManager.primaryButtonAssignedTo == "")
                             {
-                                GUI.TogglePrimaryButton(true, "upgrade");
-                                GUI.ToggleEndTurnButton(true);
+                                GUIManager.TogglePrimaryButton(true, "upgrade");
+                                GUIManager.ToggleEndTurnButton(true);
                             }
                             else
                             {
-                                GUI.ToggleSecondaryButton(true, "upgrade");
-                                GUI.ToggleEndTurnButton(true);
+                                GUIManager.ToggleSecondaryButton(true, "upgrade");
+                                GUIManager.ToggleEndTurnButton(true);
                             }
                         }
                         //BoardManager.CheckForLocalDungeons();
@@ -134,7 +134,7 @@ public class PlayerMovement : MonoBehaviour
     public static void MoveUnit()
     {
         GameMain.RollDice();
-        GUI.ToggleMoveButton(false);
+        GUIManager.ToggleMoveButton(false);
         movesRemaining = GameMain.diceOneResult + GameMain.diceTwoResult + GameMain.diceThreeResult;
         BoardManager.CheckForLocalBoardPositions();
     }
@@ -177,6 +177,6 @@ public class PlayerMovement : MonoBehaviour
         Fog.RemoveLocalFog(clockwork);
         Dungeons.SpawnDungeons(clockwork);
         Merchants.SpawnMerchants(clockwork);
-        GUI.ToggleMoveButton(true);
+        GUIManager.ToggleMoveButton(true);
     }
 }

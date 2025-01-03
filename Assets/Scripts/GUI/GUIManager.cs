@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Tilemaps;
 using TMPro;
 
-public class GUI : MonoBehaviour
+public class GUIManager : MonoBehaviour
 {
     public GameObject playerGUI;
     public Image playerGUI_Avatar;
@@ -295,7 +295,7 @@ public class GUI : MonoBehaviour
         {
             switch (primaryButtonAssignedTo)
             {
-                case "build": Villages.BuildVillage(tilemap, villageRed, villageBlue, villageGreen, villagePurple, villageWhite); GUI.enableSecondaryButton = false; break;
+                case "build": Villages.BuildVillage(tilemap, villageRed, villageBlue, villageGreen, villagePurple, villageWhite); GUIManager.enableSecondaryButton = false; break;
             }  
         }
         else
@@ -309,7 +309,8 @@ public class GUI : MonoBehaviour
         if (endTurnButtonEnabled)
         {
             TurnManager.TurnProgressionHandler(tilemapStructures);
-            GUI.enableEndTurnButton = false;
+            InfoGUI.ToggleInfoGUI(false);
+            GUIManager.enableEndTurnButton = false;
         }
         else
         {

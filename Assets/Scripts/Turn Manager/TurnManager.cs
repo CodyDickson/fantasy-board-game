@@ -10,7 +10,7 @@ public class TurnManager : MonoBehaviour
 {
     public static List<string> turnOrder = new List<string>();
     public static List<string> turnPool = new List<string>();
-    public static GUI gui;
+    public static GUIManager gui;
     public static bool continueTurnProgression = false;
     private float counter = 0.5f;
     private float tempCounter = 0f;
@@ -79,7 +79,7 @@ public class TurnManager : MonoBehaviour
         }
     }
 
-    public static void EndPlayerTurn(GUI gui)
+    public static void EndPlayerTurn(GUIManager gui)
     {
         InfoGUI.ToggleInfoGUI(true);
         if (GameMain.currentPlayer == 1)
@@ -118,7 +118,7 @@ public class TurnManager : MonoBehaviour
         BoardManager.merchantNearby = false;
         UpdatePlayerGUIAvatar.playerGUIAvatarHasBeenUpdated = false;
         UpdateGUIColor.ChangeGUIColor();
-        GUI.ToggleMoveButton(true);
+        GUIManager.ToggleMoveButton(true);
         BoardManager.CheckForLocalBoardPositions();
     }
 
@@ -151,9 +151,9 @@ public class TurnManager : MonoBehaviour
             GameMain.playerIsActive[GameMain.currentPlayer] = true;
             // GUI.playerGUIHasBeenUpdated = false;
         }
-        else
+        else if (GameMain.playerInCamp[GameMain.currentPlayer] == false)
         {
-            GUI.ToggleMoveButton(true);
+            GUIManager.ToggleMoveButton(true);
         }
         GameMain.UpdateCurrentPlayerInfo();
         BoardManager.currentUnitPosition = BoardManager.playerPositions[GameMain.currentPlayer];
