@@ -4,75 +4,64 @@
 [ ] Dungeons can be raided.
 
 GAME SET UP
-[ ] Game Mode: Standard, Odd Mode
+[ ] Game Mode: Standard, Odd, Inverted, Alone
 [ ] Game Board: Grasslands, Graveyard, Volcano, Machine
 [ ] Players: Number of players, Human or Computer, Colors, Classes
 [ ] Ruleset: Turn Limit, Starting Gold / Combat / Lives / Health, Quick Movement for Computer / Human / Monster, Randomize Turn Order
 
 COLLECTION
-[ ] Classes
-[ ] Weapons
-[ ] Oddities
-[ ] Rarities
-[ ] Game Boards
+[ ] Classes (15)
+[ ] Oddities (15)
+[ ] Rarities (15)
+[ ] Game Boards (5)
 
 Classes:
-All classes begin with a unique weapon and have special modifiers. Classes are unlocked by completing Achievements (typically defeating Elite Monsters).
-[ ] Nomad: Starts with a Walking Stick. (Unlocked from start)
-[ ] Fighter: Starts with a Sword.
-[ ] Mage: Starts with a Fire Staff.
-[ ] Archer: Starts with a Bow.
-[ ] Berserker: Starts with an Axe. Has 2 Weapon Slots and 2 Oddity Slots.
-[ ] Gambler: Cannot equip a weapon. Has an additional Oddity slot. Starts with the "Bag of Dice", which determines all combat by rolling dice.
-[ ] Cat: Starts with Claws and the Cat Charm.
-[ ] Huntsman: Every five turns, an enemy is marked. Killing it earns a bonus reward. Starts with a bow.
-[ ] Thief
-[ ] Bard
-[ ] Peddler
-[ ] Paladin
-[ ] Mimic
-[ ] Lich
+All classes begin with a unique weapon and have special modifiers. Classes are unlocked by completing Achievements.
+[ ] Nomad: Unlocked from the start. Weapon is a walking stick (1-3 damage). Landing on an unowned tile permanently claims it.
+[ ] Fighter: Starts with a Sword (3-5 damage). Chance to claim a tile after winning combat.
+[ ] Wizard: Starts with a Magic Staff (3 damage, long ranged). Spend available action points to claim nearby tiles.
+[ ] Gambler: Starts with a Bag of Dice (roll 1-6 when attacked, even numbers survive). Every five turns, can bet on which player will have the highest score in five turns.
+[ ] Barbarian: Has two equipment slots. Starts with two Axes (2-3 Damage).
+[ ] Cultist: Starts with a Dagger (1-3 Damage). On game start, choose one enemy type - each time they are beaten in combat, claim tiles.
+[ ] Hunter: Starts with a Bow (2-3 damage, long ranged). Enemies will become randomly marked. Killing them claims local tiles.
+[ ] Lich: Starts with a Tentacle (1-7 damage, long ranged). Defeated enemies have a chance to rise again as servants of the Lich.
+[ ] Cat: Starts with Claws (1-3 damage, chance to hit twice). Begins with nine lives.
+[ ] Cleric: Starts with a Mace (2-4 damage). Can fully heal each turn for 1 AP.
+[ ] Peddler: Starts without a weapon. Can build villages for half the cost. Earns extra gold in all scenarios.
+[ ] Diviner: Starts with a Candle (1-3 damage, inflicts burn). Able to travel randomly across the board.
+[ ] Architect: Has two equipment slots. Starts with a Greathammer (4-8 damage, two-handed). Builds dungeons instead of villages.
+[ ] Void: Must first claim Camp then spreads one tile at a time. Only has one life.
 
 Weapons:
-[ ] Walking Stick: +3-5 Combat Damage.
-[ ] Claws: +3 Combat Damage. 50% chance to hit twice.
-[ ] Sword: +5 Combat Damage.
-[ ] Fire Staff: +3-5 Combat Damage. 50% chance to inflict Burn.
-[ ] Poison Staff: +2-4 Combat Damage. 50% chance to inflict Poison.
-[ ] Axe: +2-7 Combat Damage.
-[ ] Great Axe: +5-15 Combat Damage. Requires two weapon slots to wield.
-[ ] Bow: 4 Damage. Deals additional damage further away.
-[ ] Dagger
+Can be upgraded 3 times. The final time adds a modifier.
+Can be purchased from merchants.
+Can be found after raiding a dungeon.
+Can be dropped by elites.
 
 Oddities:
-[ ] Bag Of Dice: Deal 1-6 additional damage when attacking.
-[ ] Bloody Thorn: Engage in combat with any passing player or monster.
-[ ] + Armor
-[ ] + Health
-[ ] + Combat
-[ ] 25% chance for movement to double.
+Can be purchased from merchants.
+Can be found after raiding a dungeon.
+Can be dropped by elites.
+[ ] Chance to deal damage when passing another player or monster.
+[ ] +Armor
+[ ] +Health
+[ ] +Combat
+[ ] Chance for movement to double.
 [ ] Increased weapon range.
-[ ] Recover 1 Health at the end of each turn.
+[ ] Recover Health at the end of each turn.
 [ ] Earn additional gold for each monster slain.
-[ ] 50% chance to avoid statuses.
+[ ] Chance to avoid all statuses.
 [ ] Immune to Burn.
 [ ] Immune to Curse.
 [ ] Immune to Poison.
-[ ] If you land on an unowned tile, you can claim it with 1 Action.
-[ ] Inflict 1 Poison when attacking.
-[ ] 50% chance to inflict 1 additional damage.
-[ ] 25% chance to inflict 3 additional damage.
-[ ] Upgrade your villages for free by landing on them.
-[ ] 50% chance to double poison when fighting inflicted enemies.
-[ ] All village tolls are doubled.
-[ ] Whistle: Return to camp at the cost of 1 action.
+[ ] Inflict Poison when attacking.
+[ ] Chance to inflict additional damage.
+[ ] Upgrade villages for free by landing on them.
+[ ] Chance to double Poison when fighting inflicted enemies.
+[ ] Village tolls are doubled.
+[ ] Return to camp at will.
 [ ] One additional action point per turn.
-[ ] At the end of each turn, 25% chance to claim an unowned tile in the world.
-[ ] Conquering a dungeon claims all adjacent tiles.
-
-Oddities (Charms):
-[ ] Cat Charm: Start the game with 9 lives. Cannot be obtained through normal gameplay.
-[ ] Warrior Charm: Start the game with two weapon slots. Cannot be obtained through normal gameplay.
+[ ] 
 
 Rarities:
 [ ] Magenta (Color)
@@ -82,10 +71,11 @@ Rarities:
 [ ] Neon (Color, Special)
 [ ] Glitter (Color, Special)
 
+Bottom Left Corner:
+Button (Build, Raid, Upgrade) // Avatar // Info Button
+
 BRAINSTORMING
 Players have 3 Actions. Travel costs 1. Resting (recover health) costs 1. Raiding costs 1. Fighting another player costs 1. Building a village costs 1.
-
-Prisms located around the map. Each time one spawns, the first player to reach it chooses a category - Gold, Combat. Whichever one gives that player a bonus in that type. Towards the end of the game when a certain percentage of the map has been opened up, multiple Prisms spawn. Whichever one got more 'votes' (Gold, Combat), that becomes the winning factor for the game board. Combat means all other players must be eliminated. Gold gives a gold number that must be hit to trigger victory (or countdown of 10 turns).
 
 Player turn begins: MAGENTA FIGHTER, WHITE WIZARD, etc.
 3 Actions.
@@ -104,13 +94,3 @@ When landing, a "landing encounter" can occur:
 -raid dungeon
 -merchant
 Player turn ends. Player values are updated to match current player values.
-
-ACHIEVEMENTS
-Grasslands
-[ ]
-Graveyard
-[ ] 
-Volcano
-[ ] 
-Machine
-[ ]
