@@ -12,20 +12,23 @@ public class InfoGUI : MonoBehaviour
     public static bool disableInfoGUI = false;
     //
     public static List<string> infoGUIPool = new List<string>();
+    public static List<string> infoGUIPool_directions = new List<string>();
     // 
     public TMP_Text main_top, buttonText_top, buttonText_bottom, main_bottom;
     public Image avatar_top, avatar_bottom, buttonAvatar_top, buttonAvatar_bottom;
     public Button button_top, button_bottom;
-    public GameObject infoGUI_top, infoGUI_bottom;
+    public GameObject infoGUI_top, infoGUI_bottom, button_top_object, button_bottom_object;
 
     void Start()
     {
+        button_top.onClick.AddListener(OnClickTopButton);
+        button_bottom.onClick.AddListener(OnClickBottomButton);
         infoGUI_top.gameObject.SetActive(false);
         infoGUI_bottom.gameObject.SetActive(false);
-        Image avatar_top = GameObject.Find("AvatarTop").GetComponent<Image>();
-        avatar_bottom = GameObject.Find("AvatarBottom").GetComponent<Image>();
-        buttonAvatar_top = GameObject.Find("buttonAvatar_top").GetComponent<Image>();
-        buttonAvatar_bottom = GameObject.Find("buttonAvatar_bottom").GetComponent<Image>();
+        avatar_top = avatar_top.gameObject.GetComponent<Image>();
+        avatar_bottom = avatar_bottom.gameObject.GetComponent<Image>();
+        buttonAvatar_top = button_top_object.gameObject.GetComponent<Image>();
+        buttonAvatar_bottom = button_bottom_object.GetComponent<Image>();
     }
 
     void Update()
@@ -50,13 +53,50 @@ public class InfoGUI : MonoBehaviour
         }
     }
 
+    public static void OnClickTopButton()
+    {
+        PullFromInfoGUIPool(0);
+    }
+
+    public static void OnClickBottomButton()
+    {
+        PullFromInfoGUIPool(1);
+    }
+
+    public static void PullFromInfoGUIPool(int buttonClicked)
+    {
+        if (buttonClicked == 0)
+        {
+            Debug.Log(infoGUIPool[0]);
+            switch (infoGUIPool[0])
+            {
+                case "empty": Villages.BuildVillage(infoGUIPool_directions[0]); infoGUIPool[0] = "village"; break;
+                case "dungeon": Dungeons.RaidDungeon(); break;
+                case "village": Villages.UpgradeVillage(); break;
+                case "merchant": Merchants.OpenShop(); break;
+            }
+            updateInfoGUI = true;
+        }
+        if (buttonClicked == 1)
+        {
+            switch (infoGUIPool[1])
+            {
+                case "empty": Villages.BuildVillage(infoGUIPool_directions[1]); break;
+                case "dungeon": Dungeons.RaidDungeon(); break;
+                case "village": Villages.UpgradeVillage(); break;
+                case "merchant": Merchants.OpenShop(); break;
+            }
+            updateInfoGUI = true;
+        }
+    }
+
     public static void DeterminePoolContents()
     {
         BoardManager.CheckForLocalStructures();
-        if (BoardManager.northEmpty) { infoGUIPool.Add("empty"); }
-        if (BoardManager.eastEmpty) { infoGUIPool.Add("empty"); }
-        if (BoardManager.southEmpty) { infoGUIPool.Add("empty"); }
-        if (BoardManager.westEmpty) { infoGUIPool.Add("empty"); }
+        if (BoardManager.northEmpty) { infoGUIPool.Add("empty"); infoGUIPool_directions.Add("north"); }
+        if (BoardManager.eastEmpty) { infoGUIPool.Add("empty"); infoGUIPool_directions.Add("east"); }
+        if (BoardManager.southEmpty) { infoGUIPool.Add("empty"); infoGUIPool_directions.Add("south"); }
+        if (BoardManager.westEmpty) { infoGUIPool.Add("empty"); infoGUIPool_directions.Add("west"); }
         if (BoardManager.dungeonNorth) { infoGUIPool.Add("dungeon"); }
         if (BoardManager.dungeonEast) { infoGUIPool.Add("dungeon"); }
         if (BoardManager.dungeonSouth) { infoGUIPool.Add("dungeon"); }
@@ -84,6 +124,7 @@ public class InfoGUI : MonoBehaviour
             }
             else
             {
+                buttonText.text = "";
                 buttonAvatar.sprite = Store.GUIElements[0];
             }
         }

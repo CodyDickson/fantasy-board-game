@@ -12,6 +12,11 @@ public class Merchants : MonoBehaviour
         
     }
 
+    public static void OpenShop()
+    {
+
+    }
+
     public static void SpawnMerchants(int location)
     {
         Tilemap structures = Store.tilemaps[3];

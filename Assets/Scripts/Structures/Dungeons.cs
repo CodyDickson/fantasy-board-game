@@ -10,11 +10,19 @@ public class Dungeons : MonoBehaviour
 {
     public static string dungeonType = "";
     public static int dungeonCount;
+    public static Dictionary<Vector3, int> dungeonPositions = new Dictionary<Vector3, int>();
+
+    public static void RaidDungeon()
+    {
+        //
+    }
 
     public static void SpawnDungeons(int location)
     {
         Tilemap structures = Store.tilemaps[3];
+        Tile dungeon = Store.dungeonTiles[0];
         Vector3 center = new Vector3(0, 0);
+        Vector3 position = new Vector3(0, 0);
         center = BoardManager.CheckClockworkPosition(location);
         int random;
         dungeonCount = 0;
@@ -36,28 +44,74 @@ public class Dungeons : MonoBehaviour
                         {
                             if (slot == positionCheckOne && dungeonCount < 5)
                             {
+                                position = positionCheckOne;
                                 random = Random.Range(1, 101);
-                                if (random <= 10) { structures.SetTile(new Vector3Int((int)positionCheckOne[0], (int)positionCheckOne[1]), Store.dungeonTiles[0]); dungeonCount++; BoardManager.dungeonPositions.Add(positionCheckOne); }
+                                if (random <= 10) {
+                                    bool dungeonPresent = CheckForDungeons(position);
+                                    if (!dungeonPresent)
+                                    {
+                                        structures.SetTile(new Vector3Int((int)position[0], (int)position[1]), dungeon);
+                                        dungeonCount++;
+                                        dungeonPositions.Add(position, 0);
+                                    }
+                                }
                             }
                             if (slot == positionCheckTwo && dungeonCount < 5)
                             {
+                                position = positionCheckTwo;
                                 random = Random.Range(1, 101);
-                                if (random <= 10) { structures.SetTile(new Vector3Int((int)positionCheckTwo[0], (int)positionCheckTwo[1]), Store.dungeonTiles[0]); dungeonCount++; BoardManager.dungeonPositions.Add(positionCheckTwo); }
+                                if (random <= 10)
+                                {
+                                    bool dungeonPresent = CheckForDungeons(position);
+                                    if (!dungeonPresent)
+                                    {
+                                        structures.SetTile(new Vector3Int((int)position[0], (int)position[1]), dungeon);
+                                        dungeonCount++;
+                                        dungeonPositions.Add(position, 0);
+                                    }
+                                }
                             }
                             if (slot == positionCheckThree && dungeonCount < 5)
                             {
+                                position = positionCheckThree;
                                 random = Random.Range(1, 101);
-                                if (random <= 10) { structures.SetTile(new Vector3Int((int)positionCheckThree[0], (int)positionCheckThree[1]), Store.dungeonTiles[0]); dungeonCount++; BoardManager.dungeonPositions.Add(positionCheckThree); }
+                                if (random <= 10)
+                                {
+                                    bool dungeonPresent = CheckForDungeons(position);
+                                    if (!dungeonPresent)
+                                    {
+                                        structures.SetTile(new Vector3Int((int)position[0], (int)position[1]), dungeon);
+                                        dungeonCount++;
+                                        dungeonPositions.Add(position, 0);
+                                    }
+                                }
                             }
                             if (slot == positionCheckFour && dungeonCount < 5)
                             {
+                                position = positionCheckFour;
                                 random = Random.Range(1, 101);
-                                if (random <= 10) { structures.SetTile(new Vector3Int((int)positionCheckFour[0], (int)positionCheckFour[1]), Store.dungeonTiles[0]); dungeonCount++; BoardManager.dungeonPositions.Add(positionCheckFour); }
+                                if (random <= 10)
+                                {
+                                    bool dungeonPresent = CheckForDungeons(position);
+                                    if (!dungeonPresent)
+                                    {
+                                        structures.SetTile(new Vector3Int((int)position[0], (int)position[1]), dungeon);
+                                        dungeonCount++;
+                                        dungeonPositions.Add(position, 0);
+                                    }
+                                }
                             }
                         }
                     }
                 }
             }
         }
+    }
+
+    public static bool CheckForDungeons(Vector3 position)
+    {
+        bool dungeonPresent = false;
+        foreach (Vector3 dungeonPosition in dungeonPositions.Keys) { if (dungeonPosition == position) { dungeonPresent = true; } }
+        return dungeonPresent;
     }
 }

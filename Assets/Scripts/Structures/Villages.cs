@@ -9,17 +9,7 @@ public class Villages : MonoBehaviour
     //
     public int villageCost = 100;
     public static int villageBuildCost = 100;
-    // Tiles and Tilemaps //
-    [SerializeField] public Tile villageRed;
-    [SerializeField] public Tile villageBlue;
-    [SerializeField] public Tile villageGreen;
-    [SerializeField] public Tile villagePurple;
-    [SerializeField] public Tile villageWhite;
-    [SerializeField] public Tilemap tilemapStructures;
     public static int villageOwner;
-    public Button upgradeVillage;
-    public Button closeVillageWindow;
-    private bool villagesGUIEnabled = false;
     public static int currentVillage;
     // Settings //
     public static int villageGrowth = 3;
@@ -29,7 +19,9 @@ public class Villages : MonoBehaviour
     public static int villageTollLevelOne = 25;
     public static int villageTollLevelTwo = 50;
     public static int villageTollLevelThree = 100;
-    // Village Tracking //
+    // Tracking //
+    public static Dictionary<Vector3, int> villagePositions = new Dictionary<Vector3, int>();
+    //
     public static int playerOneTotalVillages = 0;
     public static Dictionary<int, int> playerOneVillageGrowth = new Dictionary<int, int>();
     public static Dictionary<int, int> playerOneVillageGoldPerTurn = new Dictionary<int, int>();
@@ -47,89 +39,30 @@ public class Villages : MonoBehaviour
     public static Dictionary<int, int> playerFourVillageGoldPerTurn = new Dictionary<int, int>();
     public static Dictionary<int, int> playerFourVillageTolls = new Dictionary<int, int>();
 
-    void Start()
-    {
-        upgradeVillage.onClick.AddListener(OnClickUpgradeVillage);
-        closeVillageWindow.onClick.AddListener(OnClickCloseVillageWindow);
-        upgradeVillage.gameObject.SetActive(false);
-        closeVillageWindow.gameObject.SetActive(false);
-    }
-
-    void Update()
-    {
-
-        // button to cycle through all villages of the active player
-        if (villagesGUIEnabled)
-        {
-            closeVillageWindow.gameObject.SetActive(true);
-        }
-        // On Mouse Click of a Village
-        if (GameMain.GUIEnabled)
-        {
-            // UpdateVillageInfo();
-        }
-    }
-    
-    void UpdateVillageInfo()
-    {
-        // When landing on a village OR clicking on a village
-        // Updates the LowerGUI, image of the color village on the left and "x turns to growth", "x gold per turn", "x gold per toll"
-        // Lower button is "Upgrade" (if available), for a reduced fee if the player has landed on it
-        // Lower button is "Pay Toll" if the player landed on an opposing village
-    }
-
     void OnClickUpgradeVillage()
     {
         UpgradeVillageWhenNearIt();
     }
 
-    void OnClickCloseVillageWindow()
+    public static void BuildVillage(string direction)
     {
-        villagesGUIEnabled = false;
-        GameMain.GUIEnabled = true;
+        int player = GameMain.currentPlayer;
+        Vector3 position = BoardManager.currentUnitPosition;
+        Tilemap structures = Store.tilemaps[3];
+        Tile village = Store.villageTiles[player];
+        BoardManager.GetLocalSlotPositions();
+        if (direction == "north") { position = BoardManager.northPosition; }
+        if (direction == "east") { position = BoardManager.eastPosition; }
+        if (direction == "south") { position = BoardManager.southPosition; }
+        if (direction == "west") { position = BoardManager.westPosition; }
+        structures.SetTile(new Vector3Int((int)position[0], (int)position[1]), village);
+        villagePositions.Add(position, player);
+        GameMain.playerGold[player] -= villageBuildCost;
     }
 
-    public static void BuildVillage(Tilemap tilemap, Tile villageRed, Tile villageBlue, Tile villageGreen, Tile villagePurple, Tile villageWhite)
+    public static void UpgradeVillage()
     {
-        /*World.CheckForLocalEmptySlots();
-        if (World.northEmpty)
-        {
-            World.boardPosition = World.northSlotPosition;
-        }
-        else if (World.eastEmpty)
-        {
-            World.boardPosition = World.eastSlotPosition;
-        }
-        else if (World.southEmpty)
-        {
-            World.boardPosition = World.southSlotPosition;
-        }
-        else if (World.westEmpty)
-        {
-            World.boardPosition = World.westSlotPosition;
-        }
-        switch (World.currentPlayerColor)
-        {
-            case "red": tilemap.SetTile(new Vector3Int((int)World.boardPosition[0], (int)World.boardPosition[1]), villageRed); break;
-            case "blue": tilemap.SetTile(new Vector3Int((int)World.boardPosition[0], (int)World.boardPosition[1]), villageBlue); break;
-            case "green": tilemap.SetTile(new Vector3Int((int)World.boardPosition[0], (int)World.boardPosition[1]), villageGreen); break;
-            case "purple": tilemap.SetTile(new Vector3Int((int)World.boardPosition[0], (int)World.boardPosition[1]), villagePurple); break;
-            case "white": tilemap.SetTile(new Vector3Int((int)World.boardPosition[0], (int)World.boardPosition[1]), villageWhite); break;
-        }
-        for (int i = 0; i < World.boardEmptySlotPositions.Count; i++)
-        {
-            if (World.boardPosition == World.boardEmptySlotPositions[i])
-            {
-                World.boardEmptySlotPositions.RemoveAt(i);
-            }
-        }
-        switch (GameMain.currentPlayer)
-        {
-            case 1: playerOneTotalVillages += 1; playerOneVillageGrowth.Add(playerOneTotalVillages, villageGrowth); playerOneVillageGoldPerTurn.Add(playerOneTotalVillages, villageGoldPerTurnLevelOne); playerOneVillageTolls.Add(playerOneTotalVillages, villageTollLevelOne); World.boardPlayerOneVillagePositions.Add(World.boardPosition, playerOneTotalVillages); break;
-            case 2: playerTwoTotalVillages += 1; playerTwoVillageGrowth.Add(playerTwoTotalVillages, villageGrowth); playerTwoVillageGoldPerTurn.Add(playerTwoTotalVillages, villageGoldPerTurnLevelOne); playerTwoVillageTolls.Add(playerTwoTotalVillages, villageTollLevelOne); World.boardPlayerTwoVillagePositions.Add(World.boardPosition, playerTwoTotalVillages); break;
-            case 3: playerThreeTotalVillages += 1; playerThreeVillageGrowth.Add(playerThreeTotalVillages, villageGrowth); playerThreeVillageGoldPerTurn.Add(playerThreeTotalVillages, villageGoldPerTurnLevelOne); playerThreeVillageTolls.Add(playerThreeTotalVillages, villageTollLevelOne); World.boardPlayerThreeVillagePositions.Add(World.boardPosition, playerThreeTotalVillages); break;
-            case 4: playerFourTotalVillages += 1; playerFourVillageGrowth.Add(playerFourTotalVillages, villageGrowth); playerFourVillageGoldPerTurn.Add(playerFourTotalVillages, villageGoldPerTurnLevelOne); playerFourVillageTolls.Add(playerFourTotalVillages, villageTollLevelOne); World.boardPlayerFourVillagePositions.Add(World.boardPosition, playerFourTotalVillages); break;
-        }*/
+        //
     }
 
     public static void PlayerLandedOnOpposingVillage()
@@ -225,10 +158,5 @@ public class Villages : MonoBehaviour
                 World.boardPlayerFourVillagePositions[listVector] += 1;
             }
         }
-    }
-
-    public static void UpgradeVillage()
-    {
-        //
     }
 }

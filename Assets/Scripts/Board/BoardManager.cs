@@ -13,8 +13,6 @@ public class BoardManager : MonoBehaviour
     public static List<Vector3> crossroads = new List<Vector3>();
     public static List<Vector3> campExitPositions = new List<Vector3>();
     public static List<Vector3> playerPositions = new List<Vector3>();
-    public static List<Vector3> dungeonPositions = new List<Vector3>();
-    public static List<Vector3> villagePositions = new List<Vector3>();
     public static List<Vector3> merchantPositions = new List<Vector3>();
     public static List<Vector3> emptyBoardSlots = new List<Vector3>();
     // Directions
@@ -252,12 +250,12 @@ public class BoardManager : MonoBehaviour
         Vector3 east = new Vector3(currentUnitPosition[0] + 1, currentUnitPosition[1]);
         Vector3 south = new Vector3(currentUnitPosition[0], currentUnitPosition[1] - 1);
         Vector3 west = new Vector3(currentUnitPosition[0] - 1, currentUnitPosition[1]);
-        foreach (Vector3 listVector in dungeonPositions)
+        foreach (Vector3 listVector in Dungeons.dungeonPositions.Keys)
         {
-            if (listVector == north) { dungeonNorth = true; }
-            if (listVector == east) { dungeonEast = true; }
-            if (listVector == south) { dungeonSouth = true; }
-            if (listVector == west) { dungeonWest = true; }
+            if (listVector == north) { dungeonNorth = true; Debug.Log("pass"); }
+            if (listVector == east) { dungeonEast = true; Debug.Log("pass"); }
+            if (listVector == south) { dungeonSouth = true; Debug.Log("pass"); }
+            if (listVector == west) { dungeonWest = true; Debug.Log("pass"); }
         }
     }
 
@@ -271,7 +269,7 @@ public class BoardManager : MonoBehaviour
         Vector3 east = new Vector3(currentUnitPosition[0] + 1, currentUnitPosition[1]);
         Vector3 south = new Vector3(currentUnitPosition[0], currentUnitPosition[1] - 1);
         Vector3 west = new Vector3(currentUnitPosition[0] - 1, currentUnitPosition[1]);
-        foreach (Vector3 listVector in villagePositions)
+        foreach (Vector3 listVector in Villages.villagePositions.Keys)
         {
             if (listVector == north) { villageNorth = true; }
             if (listVector == east) { villageEast = true; }
@@ -332,6 +330,14 @@ public class BoardManager : MonoBehaviour
                 westEmpty = true;
             }
         }
+    }
+
+    public static void GetLocalSlotPositions()
+    {
+        northSlotPosition = new Vector3(currentUnitPosition[0], currentUnitPosition[1] + 1);
+        eastSlotPosition = new Vector3(currentUnitPosition[0] + 1, currentUnitPosition[1]);
+        southSlotPosition = new Vector3(currentUnitPosition[0], currentUnitPosition[1] - 1);
+        westSlotPosition = new Vector3(currentUnitPosition[0] - 1, currentUnitPosition[1]);
     }
 
     public static void CheckForBoardCrossroads(GUIManager gui)

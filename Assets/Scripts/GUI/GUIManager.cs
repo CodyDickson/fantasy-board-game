@@ -68,8 +68,6 @@ public class GUIManager : MonoBehaviour
 
     void Start()
     {
-        primaryButton.onClick.AddListener(OnClickPrimaryButton);
-        secondaryButton.onClick.AddListener(OnClickSecondaryButton);
         endTurnButton.onClick.AddListener(OnClickEndTurn);
         arrowUpButton.onClick.AddListener(OnClickUpArrow);
         arrowRightButton.onClick.AddListener(OnClickRightArrow);
@@ -102,16 +100,6 @@ public class GUIManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.X) && primaryButtonEnabled)
-        {
-        }
-        if (Input.GetKeyDown(KeyCode.Z) && secondaryButtonEnabled)
-        {
-            if (secondaryButtonAssignedTo == "build")
-            {
-                Villages.BuildVillage(tilemapStructures, villageRed, villageBlue, villageGreen, villagePurple, villageWhite);
-            }
-        }
         if (Input.GetKeyDown(KeyCode.M) && endTurnButtonEnabled)
         {
             TurnManager.TurnProgressionHandler(tilemapStructures);
@@ -271,37 +259,6 @@ public class GUIManager : MonoBehaviour
     public static void ToggleMoveButton(bool enable)
     {
         enableMoveButton = enable;
-    }
-
-    void OnClickPrimaryButton()
-    {
-        if (primaryButtonEnabled)
-        {
-            switch (primaryButtonAssignedTo)
-            {
-                case "move": PlayerMovement.MoveUnit(); enableArrowButtons = true; enablePrimaryButton = false; break;
-                case "build": Villages.BuildVillage(tilemap, villageRed, villageBlue, villageGreen, villagePurple, villageWhite); enablePrimaryButton = false; break;
-            }
-        }
-        else
-        {
-            Debug.Log("Primary is currently disabled");
-        }
-    }
-
-    void OnClickSecondaryButton()
-    {
-        if (secondaryButtonEnabled)
-        {
-            switch (primaryButtonAssignedTo)
-            {
-                case "build": Villages.BuildVillage(tilemap, villageRed, villageBlue, villageGreen, villagePurple, villageWhite); GUIManager.enableSecondaryButton = false; break;
-            }  
-        }
-        else
-        {
-            Debug.Log("Secondary is currently disabled");
-        }
     }
 
     void OnClickEndTurn()

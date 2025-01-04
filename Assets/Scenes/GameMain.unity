@@ -15978,6 +15978,8 @@ MonoBehaviour:
   button_bottom: {fileID: 847579208}
   infoGUI_top: {fileID: 422406544}
   infoGUI_bottom: {fileID: 1871648170}
+  button_top_object: {fileID: 1633722661}
+  button_bottom_object: {fileID: 651916041}
 --- !u!1 &1089704670
 GameObject:
   m_ObjectHideFlags: 0
@@ -17287,7 +17289,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 626, y: 308}
+  m_AnchoredPosition: {x: 592, y: 308}
   m_SizeDelta: {x: 1184, y: 616}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1281680181
@@ -19061,7 +19063,7 @@ GameObject:
   - component: {fileID: 1633722664}
   - component: {fileID: 1633722663}
   m_Layer: 5
-  m_Name: buttonAvatar_bottom
+  m_Name: buttonAvatar_top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20808,6 +20810,9 @@ MonoBehaviour:
   - {fileID: -968549342, guid: ad8888aa4b5973e49a90bf15365dcf0b, type: 3}
   villageSpritesListInEditor:
   - {fileID: -1876576991, guid: ad8888aa4b5973e49a90bf15365dcf0b, type: 3}
+  - {fileID: -1876576991, guid: ad8888aa4b5973e49a90bf15365dcf0b, type: 3}
+  - {fileID: -1876576991, guid: ad8888aa4b5973e49a90bf15365dcf0b, type: 3}
+  - {fileID: -1876576991, guid: ad8888aa4b5973e49a90bf15365dcf0b, type: 3}
   monsterSpritesListInEditor:
   - {fileID: -1146568332, guid: ad8888aa4b5973e49a90bf15365dcf0b, type: 3}
   - {fileID: 1142479097, guid: ad8888aa4b5973e49a90bf15365dcf0b, type: 3}
@@ -20826,6 +20831,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e9269b222411d3041b780dcf01b00567, type: 2}
   - {fileID: 11400000, guid: dab10ab520475fd4dbe5f57e1877063b, type: 2}
   villageTilesListInEditor:
+  - {fileID: 11400000, guid: 9a4ba94a9a333404b97f65d062e0cf43, type: 2}
+  - {fileID: 11400000, guid: 9a4ba94a9a333404b97f65d062e0cf43, type: 2}
+  - {fileID: 11400000, guid: 9a4ba94a9a333404b97f65d062e0cf43, type: 2}
   - {fileID: 11400000, guid: 9a4ba94a9a333404b97f65d062e0cf43, type: 2}
   monsterTilesListInEditor:
   - {fileID: 11400000, guid: c706f75e7277fe74ca76657676aec595, type: 2}
