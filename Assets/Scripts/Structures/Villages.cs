@@ -51,10 +51,10 @@ public class Villages : MonoBehaviour
         Tilemap structures = Store.tilemaps[3];
         Tile village = Store.villageTiles[player];
         BoardManager.GetLocalSlotPositions();
-        if (direction == "north") { position = BoardManager.northPosition; }
-        if (direction == "east") { position = BoardManager.eastPosition; }
-        if (direction == "south") { position = BoardManager.southPosition; }
-        if (direction == "west") { position = BoardManager.westPosition; }
+        if (direction == "north") { position = BoardManager.northSlotPosition; }
+        if (direction == "east") { position = BoardManager.eastSlotPosition; }
+        if (direction == "south") { position = BoardManager.southSlotPosition; }
+        if (direction == "west") { position = BoardManager.westSlotPosition; }
         structures.SetTile(new Vector3Int((int)position[0], (int)position[1]), village);
         villagePositions.Add(position, player);
         GameMain.playerGold[player] -= villageBuildCost;
@@ -63,51 +63,6 @@ public class Villages : MonoBehaviour
     public static void UpgradeVillage()
     {
         //
-    }
-
-    public static void PlayerLandedOnOpposingVillage()
-    {
-        Vector3 north = new Vector3(World.currentUnitPosition[0], World.currentUnitPosition[1] + 1);
-        Vector3 east = new Vector3(World.currentUnitPosition[0] + 1, World.currentUnitPosition[1]);
-        Vector3 south = new Vector3(World.currentUnitPosition[0], World.currentUnitPosition[1] - 1);
-        Vector3 west = new Vector3(World.currentUnitPosition[0] - 1, World.currentUnitPosition[1]);
-        int villageNumber = 1;
-        int villageCost = 50;
-        foreach (Vector3 listVector in World.boardPlayerOneVillagePositions.Keys)
-        {
-            if (listVector == north || listVector == east || listVector == south || listVector == west)
-            {
-                villageNumber = World.boardPlayerOneVillagePositions[listVector];
-                villageCost = playerOneVillageTolls[villageNumber];
-            }
-        }
-        foreach (Vector3 listVector in World.boardPlayerTwoVillagePositions.Keys)
-        {
-            if (listVector == north || listVector == east || listVector == south || listVector == west)
-            {
-                villageNumber = World.boardPlayerTwoVillagePositions[listVector];
-                villageCost = playerTwoVillageTolls[villageNumber];
-            }
-        }
-        foreach (Vector3 listVector in World.boardPlayerThreeVillagePositions.Keys)
-        {
-            if (listVector == north || listVector == east || listVector == south || listVector == west)
-            {
-                villageNumber = World.boardPlayerThreeVillagePositions[listVector];
-                villageCost = playerThreeVillageTolls[villageNumber];
-            }
-        }
-        foreach (Vector3 listVector in World.boardPlayerFourVillagePositions.Keys)
-        {
-            if (listVector == north || listVector == east || listVector == south || listVector == west)
-            {
-                villageNumber = World.boardPlayerFourVillagePositions[listVector];
-                villageCost = playerFourVillageTolls[villageNumber];
-            }
-        }
-        GameMain.playerGold[GameMain.currentPlayer] -= villageCost;
-        GameMain.playerGold[villageOwner] += villageCost;
-        GameMain.UpdateCurrentPlayerInfo();
     }
 
     public static void GrowVillage(int currentVillage)

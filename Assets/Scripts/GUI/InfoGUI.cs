@@ -37,9 +37,11 @@ public class InfoGUI : MonoBehaviour
         {
             DeterminePoolContents();
             infoGUI_bottom.SetActive(true);
+            Debug.Log(infoGUIPool[0]);
             UpdateBottomInfoGUI(infoGUIPool[0], main_bottom, buttonText_bottom, avatar_bottom, buttonAvatar_bottom);
             if (infoGUIPool.Count > 1)
             {
+                Debug.Log(infoGUIPool[1]);
                 infoGUI_top.SetActive(true);
                 UpdateTopInfoGUI(infoGUIPool[1], main_top, buttonText_top, avatar_top, buttonAvatar_top);
             }
@@ -55,12 +57,12 @@ public class InfoGUI : MonoBehaviour
 
     public static void OnClickTopButton()
     {
-        PullFromInfoGUIPool(0);
+        PullFromInfoGUIPool(1);
     }
 
     public static void OnClickBottomButton()
     {
-        PullFromInfoGUIPool(1);
+        PullFromInfoGUIPool(0);
     }
 
     public static void PullFromInfoGUIPool(int buttonClicked)
@@ -81,12 +83,12 @@ public class InfoGUI : MonoBehaviour
         {
             switch (infoGUIPool[1])
             {
-                case "empty": Villages.BuildVillage(infoGUIPool_directions[1]); break;
+                case "empty": Villages.BuildVillage(infoGUIPool_directions[1]); infoGUIPool[1] = "village"; break;
                 case "dungeon": Dungeons.RaidDungeon(); break;
                 case "village": Villages.UpgradeVillage(); break;
                 case "merchant": Merchants.OpenShop(); break;
             }
-            updateInfoGUI = true;
+            updateInfoGUI = true; 
         }
     }
 
@@ -97,18 +99,18 @@ public class InfoGUI : MonoBehaviour
         if (BoardManager.eastEmpty) { infoGUIPool.Add("empty"); infoGUIPool_directions.Add("east"); }
         if (BoardManager.southEmpty) { infoGUIPool.Add("empty"); infoGUIPool_directions.Add("south"); }
         if (BoardManager.westEmpty) { infoGUIPool.Add("empty"); infoGUIPool_directions.Add("west"); }
-        if (BoardManager.dungeonNorth) { infoGUIPool.Add("dungeon"); }
-        if (BoardManager.dungeonEast) { infoGUIPool.Add("dungeon"); }
-        if (BoardManager.dungeonSouth) { infoGUIPool.Add("dungeon"); }
-        if (BoardManager.dungeonWest) { infoGUIPool.Add("dungeon"); }
-        if (BoardManager.villageNorth) { infoGUIPool.Add("village"); }
-        if (BoardManager.villageEast) { infoGUIPool.Add("village"); }
-        if (BoardManager.villageSouth) { infoGUIPool.Add("village"); }
-        if (BoardManager.villageWest) { infoGUIPool.Add("village"); }
-        if (BoardManager.merchantNorth) { infoGUIPool.Add("merchant"); }
-        if (BoardManager.merchantEast) { infoGUIPool.Add("merchant"); }
-        if (BoardManager.merchantSouth) { infoGUIPool.Add("merchant"); }
-        if (BoardManager.merchantWest) { infoGUIPool.Add("merchant"); }
+        if (BoardManager.dungeonNorth) { infoGUIPool.Add("dungeon"); infoGUIPool_directions.Add("north"); }
+        if (BoardManager.dungeonEast) { infoGUIPool.Add("dungeon"); infoGUIPool_directions.Add("east"); }
+        if (BoardManager.dungeonSouth) { infoGUIPool.Add("dungeon"); infoGUIPool_directions.Add("south"); }
+        if (BoardManager.dungeonWest) { infoGUIPool.Add("dungeon"); infoGUIPool_directions.Add("west"); }
+        if (BoardManager.villageNorth) { infoGUIPool.Add("village"); infoGUIPool_directions.Add("north"); }
+        if (BoardManager.villageEast) { infoGUIPool.Add("village"); infoGUIPool_directions.Add("east"); }
+        if (BoardManager.villageSouth) { infoGUIPool.Add("village"); infoGUIPool_directions.Add("south"); }
+        if (BoardManager.villageWest) { infoGUIPool.Add("village"); infoGUIPool_directions.Add("west"); }
+        if (BoardManager.merchantNorth) { infoGUIPool.Add("merchant"); infoGUIPool_directions.Add("north"); }
+        if (BoardManager.merchantEast) { infoGUIPool.Add("merchant"); infoGUIPool_directions.Add("east"); }
+        if (BoardManager.merchantSouth) { infoGUIPool.Add("merchant"); infoGUIPool_directions.Add("south"); }
+        if (BoardManager.merchantWest) { infoGUIPool.Add("merchant"); infoGUIPool_directions.Add("west"); }
     }
 
     public static void UpdateTopInfoGUI(string content, TMP_Text main, TMP_Text buttonText, Image avatar, Image buttonAvatar)
@@ -135,11 +137,18 @@ public class InfoGUI : MonoBehaviour
             buttonText.text = "Raid";
             buttonAvatar.sprite = Store.GUIElements[1];
         }
-        if (content == "village")
+        if (content == "village" && Villages.villageOwner != GameMain.currentPlayer)
         {
             main.text = "Village";
             avatar.sprite = Store.villageSprites[0];
             buttonText.text = "Pay Toll";
+            buttonAvatar.sprite = Store.GUIElements[1];
+        }
+        if (content == "village" && Villages.villageOwner == GameMain.currentPlayer)
+        {
+            main.text = "Village";
+            avatar.sprite = Store.villageSprites[0];
+            buttonText.text = "Upgrade";
             buttonAvatar.sprite = Store.GUIElements[1];
         }
         if (content == "merchant")

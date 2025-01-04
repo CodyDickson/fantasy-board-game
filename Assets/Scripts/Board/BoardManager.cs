@@ -311,6 +311,8 @@ public class BoardManager : MonoBehaviour
         {
             if (listVector == north)
             {
+                Debug.Log("North: " + north);
+                Debug.Log("Current Unit Position: " + currentUnitPosition);
                 northSlotPosition = north;
                 northEmpty = true;
             }
