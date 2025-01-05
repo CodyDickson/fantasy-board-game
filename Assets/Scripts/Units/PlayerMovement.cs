@@ -82,45 +82,6 @@ public class PlayerMovement : MonoBehaviour
                             GUIManager.ToggleEndTurnButton(true);
                         }
                     }
-                    else
-                    {
-                        BoardManager.CheckForLocalVillages();
-                        if (BoardManager.villageNearby && GameMain.currentPlayer != Villages.villageOwner)
-                        {
-                            if (GUIManager.primaryButtonAssignedTo == "")
-                            {
-                                GUIManager.TogglePrimaryButton(true, "payToll");
-                                GUIManager.ToggleEndTurnButton(false);
-                            }
-                            else
-                            {
-                                GUIManager.ToggleSecondaryButton(true, "payToll");
-                                GUIManager.ToggleEndTurnButton(false);
-                            }
-                        }
-                        else if (BoardManager.villageNearby && GameMain.currentPlayer == Villages.villageOwner)
-                        {
-                            if (GUIManager.primaryButtonAssignedTo == "")
-                            {
-                                GUIManager.TogglePrimaryButton(true, "upgrade");
-                                GUIManager.ToggleEndTurnButton(true);
-                            }
-                            else
-                            {
-                                GUIManager.ToggleSecondaryButton(true, "upgrade");
-                                GUIManager.ToggleEndTurnButton(true);
-                            }
-                        }
-                        //BoardManager.CheckForLocalDungeons();
-                        if (Dungeons.dungeonType != "")
-                        {
-                            switch (Dungeons.dungeonType)
-                            {
-                                case "imp": break;
-                                case "basilisk": break;
-                            }
-                        }
-                    }
                 }
                 movement_tempCounter = movement_counter;
             }

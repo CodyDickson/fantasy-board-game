@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class Villages : MonoBehaviour
 {
     //
     public int villageCost = 100;
     public static int villageBuildCost = 100;
-    public static int villageOwner;
     public static int currentVillage;
     // Settings //
     public static int villageGrowth = 3;
@@ -63,6 +63,30 @@ public class Villages : MonoBehaviour
     public static void UpgradeVillage()
     {
         //
+    }
+
+    public static void PayToll()
+    {
+        //
+    }
+
+    public static int FindVillageOwner(string direction)
+    {
+        int villageOwner = 1;
+        Vector3 position = BoardManager.currentUnitPosition;
+        BoardManager.GetLocalSlotPositions();
+        if (direction == "north") { position = BoardManager.northSlotPosition; }
+        if (direction == "east") { position = BoardManager.eastSlotPosition; }
+        if (direction == "south") { position = BoardManager.southSlotPosition; }
+        if (direction == "west") { position = BoardManager.westSlotPosition; }
+        foreach (Vector3 village in villagePositions.Keys)
+        {
+            if (village == position)
+            {
+                villageOwner = villagePositions[village];
+            }
+        }
+        return villageOwner;
     }
 
     public static void GrowVillage(int currentVillage)

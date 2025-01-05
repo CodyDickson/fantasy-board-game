@@ -37,11 +37,9 @@ public class InfoGUI : MonoBehaviour
         {
             DeterminePoolContents();
             infoGUI_bottom.SetActive(true);
-            Debug.Log(infoGUIPool[0]);
             UpdateBottomInfoGUI(infoGUIPool[0], main_bottom, buttonText_bottom, avatar_bottom, buttonAvatar_bottom);
             if (infoGUIPool.Count > 1)
             {
-                Debug.Log(infoGUIPool[1]);
                 infoGUI_top.SetActive(true);
                 UpdateTopInfoGUI(infoGUIPool[1], main_top, buttonText_top, avatar_top, buttonAvatar_top);
             }
@@ -74,7 +72,7 @@ public class InfoGUI : MonoBehaviour
             {
                 case "empty": Villages.BuildVillage(infoGUIPool_directions[0]); infoGUIPool[0] = "village"; break;
                 case "dungeon": Dungeons.RaidDungeon(); break;
-                case "village": Villages.UpgradeVillage(); break;
+                case "village": CheckVillage(0); break;
                 case "merchant": Merchants.OpenShop(); break;
             }
             updateInfoGUI = true;
@@ -85,7 +83,7 @@ public class InfoGUI : MonoBehaviour
             {
                 case "empty": Villages.BuildVillage(infoGUIPool_directions[1]); infoGUIPool[1] = "village"; break;
                 case "dungeon": Dungeons.RaidDungeon(); break;
-                case "village": Villages.UpgradeVillage(); break;
+                case "village": CheckVillage(1); break;
                 case "merchant": Merchants.OpenShop(); break;
             }
             updateInfoGUI = true; 
@@ -113,6 +111,15 @@ public class InfoGUI : MonoBehaviour
         if (BoardManager.merchantWest) { infoGUIPool.Add("merchant"); infoGUIPool_directions.Add("west"); }
     }
 
+    public static void CheckVillage(int num)
+    {
+        int owner = Villages.FindVillageOwner(infoGUIPool_directions[num]);
+        if (owner != GameMain.currentPlayer)
+        {
+            Villages.PayToll();
+        }
+    }
+
     public static void UpdateTopInfoGUI(string content, TMP_Text main, TMP_Text buttonText, Image avatar, Image buttonAvatar)
     {
         if (content == "empty")
@@ -137,19 +144,21 @@ public class InfoGUI : MonoBehaviour
             buttonText.text = "Raid";
             buttonAvatar.sprite = Store.GUIElements[1];
         }
-        if (content == "village" && Villages.villageOwner != GameMain.currentPlayer)
+        if (content == "village")
         {
-            main.text = "Village";
-            avatar.sprite = Store.villageSprites[0];
-            buttonText.text = "Pay Toll";
-            buttonAvatar.sprite = Store.GUIElements[1];
-        }
-        if (content == "village" && Villages.villageOwner == GameMain.currentPlayer)
-        {
-            main.text = "Village";
-            avatar.sprite = Store.villageSprites[0];
-            buttonText.text = "Upgrade";
-            buttonAvatar.sprite = Store.GUIElements[1];
+            int owner = Villages.FindVillageOwner(infoGUIPool_directions[1]);
+            main.text = GameMain.playerTitle[owner] + "'s\nVillage";
+            avatar.sprite = Store.villageSprites[owner];
+            if (owner != GameMain.currentPlayer)
+            {
+                buttonText.text = "Pay Toll";
+                buttonAvatar.sprite = Store.GUIElements[1];
+            }
+            else
+            {
+                buttonText.text = "";
+                buttonAvatar.sprite = Store.GUIElements[0];
+            }
         }
         if (content == "merchant")
         {
@@ -185,10 +194,19 @@ public class InfoGUI : MonoBehaviour
         }
         if (content == "village")
         {
-            main.text = "Village";
-            avatar.sprite = Store.villageSprites[0];
-            buttonText.text = "Pay Toll";
-            buttonAvatar.sprite = Store.GUIElements[1];
+            int owner = Villages.FindVillageOwner(infoGUIPool_directions[0]);
+            main.text = GameMain.playerTitle[owner] + "'s\nVillage";
+            avatar.sprite = Store.villageSprites[owner];
+            if (owner != GameMain.currentPlayer)
+            {
+                buttonText.text = "Pay Toll";
+                buttonAvatar.sprite = Store.GUIElements[1];
+            }
+            else
+            {
+                buttonText.text = "";
+                buttonAvatar.sprite = Store.GUIElements[0];
+            }
         }
         if (content == "merchant")
         {

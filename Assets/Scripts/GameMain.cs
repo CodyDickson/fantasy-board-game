@@ -34,6 +34,8 @@ public class GameMain : MonoBehaviour
     public static bool currentPlayerIsHuman = true;
     public static bool currentPlayerInCamp = true;
     // All Player Info //
+    // Player title //
+    public static List<string> playerTitle = new List<string>();
     // Active Players are alive but may not be present on the board // 
     public static List<bool> playerIsActive = new List<bool>();
     // In Camp // 
@@ -154,6 +156,8 @@ public class GameMain : MonoBehaviour
         GUI.SetActive(true);
         BoardManager.SpawnPlayersInCamp();
         TurnManager.SetInitialTurnOrder();
+        playerTitle.Add("");
+        playerTitle.Add("Red Wizard");
     }
 
     void Update()
