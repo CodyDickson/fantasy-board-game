@@ -29,7 +29,8 @@ public class GameMain : MonoBehaviour
     public static bool currentPlayerIsHuman = true;
     public static bool currentPlayerInCamp = true;
     // Player Info //
-    public static List<string> playerTitle = new List<string>(); 
+    public static List<string> playerTitle = new List<string>();
+    public static List<string> playerClass = new List<string>();
     public static List<bool> playerIsActive = new List<bool>();
     public static List<bool> playerInCamp = new List<bool>();
     public static List<bool> playerIsHuman = new List<bool>();
@@ -41,6 +42,8 @@ public class GameMain : MonoBehaviour
     public static List<int> playerGold = new List<int>();
     public static List<int> playerCombat = new List<int>();
     public static List<int> playerMovementDice = new List<int>();
+    public static Dictionary<int, string> player_class = new Dictionary<int, string>();
+    public static Dictionary<int, int[]> player_equipment = new Dictionary<int, int[]>();
     // Statuses //
     public static List<bool> playerHasBurn = new List<bool>();
     public static List<int> playerHasFrozen = new List<int>();
@@ -74,6 +77,8 @@ public class GameMain : MonoBehaviour
         TurnManager.SetInitialTurnOrder();
         playerTitle.Add("");
         playerTitle.Add("Red Wizard");
+        player_class.Add(1, "nomad");
+        player_class.Add(2, "fighter");
     }
 
     void Update()
