@@ -42,8 +42,15 @@ public class GameMain : MonoBehaviour
     public static List<int> playerGold = new List<int>();
     public static List<int> playerCombat = new List<int>();
     public static List<int> playerMovementDice = new List<int>();
+    //
     public static Dictionary<int, string> player_class = new Dictionary<int, string>();
-    public static Dictionary<int, int[]> player_equipment = new Dictionary<int, int[]>();
+    public static Dictionary<int, List<int>> player_weapons = new Dictionary<int, List<int>>();
+    public static Dictionary<int, List<int>> player_items = new Dictionary<int, List<int>>();
+    public static Dictionary<int, int> player_avatar = new Dictionary<int, int>();
+    public static Dictionary<int, int> player_health = new Dictionary<int, int>();
+    public static Dictionary<int, int> player_lives = new Dictionary<int, int>();
+    public static Dictionary<int, int> player_armor = new Dictionary<int, int>();
+    public static Dictionary<int, int> player_movementDice = new Dictionary<int, int>();
     // Statuses //
     public static List<bool> playerHasBurn = new List<bool>();
     public static List<int> playerHasFrozen = new List<int>();
@@ -65,8 +72,9 @@ public class GameMain : MonoBehaviour
 
     void Start()
     {
-        totalPlayers = 2;
+        totalPlayers = 1;
         currentBoard = 1;
+        player_class.Add(1, "nomad");
         BoardManager.GenerateGameBoard();
         Fog.GenerateFog();
         Fog.RemoveLocalFog(0);
@@ -76,9 +84,7 @@ public class GameMain : MonoBehaviour
         BoardManager.SpawnPlayersInCamp();
         TurnManager.SetInitialTurnOrder();
         playerTitle.Add("");
-        playerTitle.Add("Red Wizard");
-        player_class.Add(1, "nomad");
-        player_class.Add(2, "fighter");
+        playerTitle.Add("Blue Nomad");
     }
 
     void Update()
@@ -98,6 +104,18 @@ public class GameMain : MonoBehaviour
 
     public static void GameSetup()
     {
+        for (int i = 1; i <= totalPlayers; i++)
+        {
+            int[] values = Classes.ClassStartingStats(player_class[i]);
+            player_avatar.Add(i, values[0]);
+            player_health.Add(i, values[1]);
+            player_lives.Add(i, values[2]);
+            player_armor.Add(i, values[3]);
+            player_movementDice.Add(i, values[4]);
+            var list = new List<int>();
+            list.Add(values[4]);
+            player_weapons.Add(i, list);
+        }        
         playerLives.Add(1);
         playerHealth.Add(5);
         playerGold.Add(100);

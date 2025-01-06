@@ -103,11 +103,11 @@ public class GUIManager : MonoBehaviour
         if (GameMain.GUIEnabled && !playerGUIHasBeenUpdated)
         {
             playerGUI.SetActive(true);
-            playerGUI_health.text = "Health: " + GameMain.playerHealth[GameMain.currentHumanPlayer];
+            playerGUI_health.text = "Health: " + GameMain.player_health[GameMain.currentHumanPlayer];
             playerGUI_gold.text = "Gold: " + GameMain.playerGold[GameMain.currentHumanPlayer];
             playerGUI_combat.text = "Combat: " + GameMain.playerCombat[GameMain.currentHumanPlayer];
-            playerGUI_lives.text = "Lives: " + GameMain.playerLives[GameMain.currentHumanPlayer];
-            playerGUI_armor.text = "Armor: " + GameMain.playerArmor[GameMain.currentHumanPlayer];
+            playerGUI_lives.text = "Lives: " + GameMain.player_lives[GameMain.currentHumanPlayer];
+            playerGUI_armor.text = "Armor: " + GameMain.player_armor[GameMain.currentHumanPlayer];
             if (UpdatePlayerGUIAvatar.playerGUIAvatarHasBeenUpdated == false) { UpdatePlayerGUIAvatar.updatePlayerGUIAvatar = true; };
             playerGUIHasBeenUpdated = true;
         }
@@ -154,6 +154,7 @@ public class GUIManager : MonoBehaviour
     void OnClickMove()
     {
         PlayerMovement.movesRemaining = Dice.RollDice();
+        Dice.EnableDice();
         bool onePath = BoardManager.OnlyOnePathPossible();
         if (!onePath)
         {

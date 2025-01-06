@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
+using UnityEngine.UI;
 
 public class Dice : MonoBehaviour
 {
@@ -9,59 +10,42 @@ public class Dice : MonoBehaviour
     public static bool diceShouldFadeAway = false;
     public static bool diceShouldFadeAwayImmediately = false;
     public static bool diceShouldShow = false;
+    public static int diceOneResult;
+    public static int diceTwoResult;
+    public static int diceThreeResult;
     public static bool diceOneShow = false;
     public static bool diceTwoShow = false;
     public static bool diceThreeShow = false;
     public static bool diceFourShow = false;
     public static bool diceFiveShow = false;
     public static bool diceSixShow = false;
-    public GameObject diceOne;
-    public GameObject diceTwo;
-    public GameObject diceThree;
-    public GameObject diceFour;
-    public GameObject diceFive;
-    public GameObject diceSix;
+    public GameObject diceOneObject, diceTwoObject, diceThreeObject;
+    public Image diceOne, diceTwo, diceThree;
     private float tempCounter = 0f;
     private float counter = 0.5f;
 
     void Start()
     {
-        
+        diceOne = diceOne.gameObject.GetComponent<Image>();
+        diceTwo = diceTwo.gameObject.GetComponent<Image>();
+        diceThree = diceThree.gameObject.GetComponent<Image>();
     }
 
     void Update()
     {
         if (diceShouldShow)
         {
-            if (diceOneShow)
+            diceOneObject.SetActive(true);
+            diceOne.sprite = Store.diceSprites[diceOneResult];
+            if (GameMain.playerMovementDice[GameMain.currentPlayer] > 1)
             {
-                diceOne.SetActive(true);
-                diceOneShow = false;
+                diceTwoObject.SetActive(true);
+                diceTwo.sprite = Store.diceSprites[diceTwoResult];
             }
-            else if (diceTwoShow)
+            if (GameMain.playerMovementDice[GameMain.currentPlayer] > 2)
             {
-                diceTwo.SetActive(true);
-                diceTwoShow = false;
-            }
-            else if (diceThreeShow)
-            {
-                diceThree.SetActive(true);
-                diceThreeShow = false;
-            }
-            else if (diceFourShow)
-            {
-                diceFour.SetActive(true);
-                diceFourShow = false;
-            }
-            else if (diceFiveShow)
-            {
-                diceFive.SetActive(true);
-                diceFiveShow = false;
-            }
-            else if (diceSixShow)
-            {
-                diceSix.SetActive(true);
-                diceSixShow = false;
+                diceThreeObject.SetActive(true);
+                diceThree.sprite = Store.diceSprites[diceThreeResult];
             }
             diceShouldShow = false;
             diceShouldFadeAway = true;
@@ -70,13 +54,9 @@ public class Dice : MonoBehaviour
         {
             if (tempCounter >= counter)
             {
-                diceOne.SetActive(false);
-                diceTwo.SetActive(false);
-                diceThree.SetActive(false);
-                diceFour.SetActive(false);
-                diceFive.SetActive(false);
-                diceSix.SetActive(false);
-                diceShouldFadeAway = false;
+                diceOneObject.SetActive(false);
+                diceTwoObject.SetActive(false);
+                diceThreeObject.SetActive(false);
                 tempCounter = 0;
             }
             else
@@ -86,12 +66,9 @@ public class Dice : MonoBehaviour
         }
         if (diceShouldFadeAwayImmediately)
         {
-            diceOne.SetActive(false);
-            diceTwo.SetActive(false);
-            diceThree.SetActive(false);
-            diceFour.SetActive(false);
-            diceFive.SetActive(false);
-            diceSix.SetActive(false);
+            diceOneObject.SetActive(false);
+            diceTwoObject.SetActive(false);
+            diceThreeObject.SetActive(false);
             diceShouldFadeAwayImmediately = false;
             diceShouldFadeAway = false;
             diceShouldShow = false;
@@ -101,10 +78,10 @@ public class Dice : MonoBehaviour
     public static int RollDice()
     {
         int total = 0;
-        int diceOneResult = Random.Range(1, 7);
+        diceOneResult = Random.Range(1, 7);
         total += diceOneResult;
-        if (GameMain.playerMovementDice[GameMain.currentPlayer] > 1) { int diceTwoResult = Random.Range(1, 7); total += diceTwoResult; }
-        if (GameMain.playerMovementDice[GameMain.currentPlayer] > 2) { int diceThreeResult = Random.Range(1, 7); total += diceThreeResult; }
+        if (GameMain.playerMovementDice[GameMain.currentPlayer] > 1) { diceTwoResult = Random.Range(1, 7); total += diceTwoResult; }
+        if (GameMain.playerMovementDice[GameMain.currentPlayer] > 2) { diceThreeResult = Random.Range(1, 7); total += diceThreeResult; }
         return total;
     }
 
