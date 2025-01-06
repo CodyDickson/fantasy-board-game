@@ -232,6 +232,22 @@ public class BoardManager : MonoBehaviour
         playerPositions[GameMain.currentPlayer] = currentUnitPosition;
     }
 
+    public static bool OnlyOnePathPossible()
+    {
+        CheckForLocalBoardPositions();
+        bool onePath = false;
+        for (int i = 1; i <= 4; i++)
+        {
+            int count = 0;
+            if (northPositionAvailable == true) { currentUnitDirection = "north"; count++; }
+            if (eastPositionAvailable == true) { currentUnitDirection = "east"; count++; }
+            if (southPositionAvailable == true) { currentUnitDirection = "south"; count++; }
+            if (westPositionAvailable == true) { currentUnitDirection = "west"; count++; }
+            if (count < 2) { onePath = true; }
+        }
+        return onePath;
+    }
+
     public static void CheckForLocalStructures()
     {
         CheckForLocalDungeons();

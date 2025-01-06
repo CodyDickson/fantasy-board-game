@@ -148,10 +148,10 @@ public class TurnManager : MonoBehaviour
         }
         if (GameMain.playerInCamp[GameMain.currentPlayer])
         {
-            GUIManager.enableArrowButtons = true;
+            Arrows.EnableArrowButtons();
             // GUI.playerGUIHasBeenUpdated = false;
         }
-        else if (GameMain.playerInCamp[GameMain.currentPlayer] == false)
+        else
         {
             GUIManager.ToggleMoveButton(true);
         }

@@ -37,7 +37,7 @@ public class InfoGUI : MonoBehaviour
         {
             DeterminePoolContents();
             infoGUI_bottom.SetActive(true);
-            UpdateBottomInfoGUI(infoGUIPool[0], main_bottom, buttonText_bottom, avatar_bottom, buttonAvatar_bottom);
+            // UpdateBottomInfoGUI(infoGUIPool[0], main_bottom, buttonText_bottom, avatar_bottom, buttonAvatar_bottom);
             if (infoGUIPool.Count > 1)
             {
                 infoGUI_top.SetActive(true);

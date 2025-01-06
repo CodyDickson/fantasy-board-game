@@ -16084,12 +16084,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerGUI: {fileID: 1302356046}
   playerGUI_Avatar: {fileID: 33086090}
-  primaryButtonText: {fileID: 0}
-  primaryButton: {fileID: 0}
-  primaryButtonPanel: {fileID: 0}
-  secondaryButton: {fileID: 0}
-  secondaryButtonText: {fileID: 0}
-  secondaryButtonPanel: {fileID: 0}
   endTurnButton: {fileID: 1253343310}
   endTurnButtonPanel: {fileID: 1966377835}
   moveButton: {fileID: 26038026}
@@ -17113,19 +17107,6 @@ MonoBehaviour:
   centerDisplayText: {fileID: 0}
   currentTurnText: {fileID: 0}
   GUI: {fileID: 1077264789}
-  combatScreen: {fileID: 1779954034}
-  chestScreen: {fileID: 0}
-  villageScreen: {fileID: 0}
-  dungeonScreen: {fileID: 0}
-  settingsScreen: {fileID: 1823774554}
-  diceOne: {fileID: 460774330}
-  diceTwo: {fileID: 1996444739}
-  diceThree: {fileID: 167516072}
-  diceFour: {fileID: 250293832}
-  diceFive: {fileID: 1359081645}
-  diceSix: {fileID: 329940678}
-  world: {fileID: 2054497522}
-  gui: {fileID: 1077264794}
 --- !u!4 &1253125876
 Transform:
   m_ObjectHideFlags: 0
@@ -21368,7 +21349,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -335}
   m_SizeDelta: {x: 500, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1943687175

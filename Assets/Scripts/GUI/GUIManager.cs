@@ -9,12 +9,6 @@ public class GUIManager : MonoBehaviour
 {
     public GameObject playerGUI;
     public Image playerGUI_Avatar;
-    public TMP_Text primaryButtonText;
-    public Button primaryButton;
-    public GameObject primaryButtonPanel;
-    public Button secondaryButton;
-    public TMP_Text secondaryButtonText;
-    public GameObject secondaryButtonPanel;
     public Button endTurnButton;
     public GameObject endTurnButtonPanel;
     public Button moveButton;
@@ -22,22 +16,10 @@ public class GUIManager : MonoBehaviour
     public World world;
     public Sprite playerRed, playerBlue;
     public TMP_Text centerText;
-    public static bool enablePrimaryButton = false;
-    public static bool primaryButtonEnabled = false;
-    public static string primaryButtonAssignedTo = "";
-    public static bool enableSecondaryButton = false;
-    public static bool secondaryButtonEnabled = false;
-    public static string secondaryButtonAssignedTo = "";
     public static bool enableEndTurnButton = false;
     public static bool endTurnButtonEnabled = false;
     public static bool enableMoveButton = false;
     public static bool moveButtonEnabled = false;
-    public static bool enableArrowButtons = false;
-    public static bool arrowButtonsEnabled = false;
-    public static bool rightArrowButtonEnabled = false;
-    public static bool leftArrowButtonEnabled = false;
-    public static bool upArrowButtonEnabled = false;
-    public static bool downArrowButtonEnabled = false;
     public bool GUIColorHasBeenUpdated = false;
     public bool playerGUIHasBeenUpdated = false;
     public static bool clearCenterText = false;
@@ -65,12 +47,9 @@ public class GUIManager : MonoBehaviour
     void Start()
     {
         endTurnButton.onClick.AddListener(OnClickEndTurn);
+        moveButton.onClick.AddListener(OnClickMove);
         endTurnButton.gameObject.SetActive(false);
         endTurnButtonPanel.gameObject.SetActive(false);
-        secondaryButton.gameObject.SetActive(false);
-        secondaryButtonPanel.gameObject.SetActive(false);
-        primaryButton.gameObject.SetActive(false);
-        primaryButtonPanel.gameObject.SetActive(false);
         moveButton.gameObject.SetActive(false);
         moveButtonPanel.gameObject.SetActive(false);
         playerGUI_Avatar = GetComponent<Image>();
@@ -86,8 +65,16 @@ public class GUIManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.N) && moveButtonEnabled)
         {
-            PlayerMovement.MoveUnit();
-            enableArrowButtons = true;
+            bool onePath = BoardManager.OnlyOnePathPossible();
+            if (!onePath)
+            {
+                BoardManager.CheckForLocalBoardPositions();
+                Arrows.EnableArrowButtons();
+            }
+            else
+            {
+                PlayerMovement.playerIsMoving = true;
+            }
         }
         if (enableMoveButton && !moveButtonEnabled)
         {
@@ -140,18 +127,6 @@ public class GUIManager : MonoBehaviour
         clearCenterText = true;
     }
 
-    public static void TogglePrimaryButton(bool enable, string buttonText)
-    {
-        primaryButtonAssignedTo = buttonText;
-        enablePrimaryButton = enable;
-    }
-
-    public static void ToggleSecondaryButton(bool enable, string buttonText)
-    {
-        secondaryButtonAssignedTo = buttonText;
-        enableSecondaryButton = enable;
-    }
-
     public static void ToggleEndTurnButton(bool enable)
     {
         enableEndTurnButton = enable;
@@ -168,11 +143,26 @@ public class GUIManager : MonoBehaviour
         {
             TurnManager.TurnProgressionHandler(tilemapStructures);
             InfoGUI.ToggleInfoGUI(false);
-            GUIManager.enableEndTurnButton = false;
+            enableEndTurnButton = false;
         }
         else
         {
             Debug.Log("End turn is currently disabled");
+        }
+    }
+
+    void OnClickMove()
+    {
+        PlayerMovement.movesRemaining = Dice.RollDice();
+        bool onePath = BoardManager.OnlyOnePathPossible();
+        if (!onePath)
+        {
+            BoardManager.CheckForLocalBoardPositions();
+            Arrows.EnableArrowButtons();
+        }
+        else
+        {
+            PlayerMovement.playerIsMoving = true;
         }
     }
 }

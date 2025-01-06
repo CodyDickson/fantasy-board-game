@@ -24,10 +24,6 @@ public class Arrows : MonoBehaviour
         arrowRightButton.gameObject.SetActive(false);
         arrowDownButton.gameObject.SetActive(false);
         arrowLeftButton.gameObject.SetActive(false);
-        if (GameMain.playerInCamp[GameMain.currentPlayer])
-        {
-            EnableArrowButtons();
-        }
     }
     void Update()
     {
@@ -82,6 +78,7 @@ public class Arrows : MonoBehaviour
 
     public static void EnableArrowButtons()
     {
+        BoardManager.CheckForLocalBoardPositions();
         enableArrowButtons = true;
     }
 

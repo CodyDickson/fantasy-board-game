@@ -69,7 +69,6 @@ public class PlayerMovement : MonoBehaviour
                 }
                 if (movesRemaining == 0)
                 {
-                    GUIManager.enableArrowButtons = false;
                     GUIManager.ToggleEndTurnButton(true);
                     playerIsMoving = false;
                     BoardManager.CheckForLocalEmptySlots();
@@ -82,14 +81,6 @@ public class PlayerMovement : MonoBehaviour
                 movement_tempCounter -= Time.deltaTime;
             }
         }
-    }
-
-    public static void MoveUnit()
-    {
-        GameMain.RollDice();
-        GUIManager.ToggleMoveButton(false);
-        movesRemaining = GameMain.diceOneResult + GameMain.diceTwoResult + GameMain.diceThreeResult;
-        BoardManager.CheckForLocalBoardPositions();
     }
 
     public static void PlayerExitingCamp()
