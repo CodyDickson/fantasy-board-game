@@ -42,7 +42,7 @@ public class Dungeons : MonoBehaviour
                         Vector3 positionCheckFour = new Vector3Int((int)center[0] - x, (int)center[1] - y);
                         foreach (Vector3 slot in BoardManager.emptyBoardSlots)
                         {
-                            if (slot == positionCheckOne && dungeonCount < 5)
+                            if (slot == positionCheckOne && dungeonCount < 20)
                             {
                                 position = positionCheckOne;
                                 random = Random.Range(1, 101);
@@ -56,7 +56,7 @@ public class Dungeons : MonoBehaviour
                                     }
                                 }
                             }
-                            if (slot == positionCheckTwo && dungeonCount < 5)
+                            if (slot == positionCheckTwo && dungeonCount < 20)
                             {
                                 position = positionCheckTwo;
                                 random = Random.Range(1, 101);
@@ -71,7 +71,7 @@ public class Dungeons : MonoBehaviour
                                     }
                                 }
                             }
-                            if (slot == positionCheckThree && dungeonCount < 5)
+                            if (slot == positionCheckThree && dungeonCount < 20)
                             {
                                 position = positionCheckThree;
                                 random = Random.Range(1, 101);
@@ -86,7 +86,7 @@ public class Dungeons : MonoBehaviour
                                     }
                                 }
                             }
-                            if (slot == positionCheckFour && dungeonCount < 5)
+                            if (slot == positionCheckFour && dungeonCount < 20)
                             {
                                 position = positionCheckFour;
                                 random = Random.Range(1, 101);

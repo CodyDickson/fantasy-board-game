@@ -74,14 +74,6 @@ public class PlayerMovement : MonoBehaviour
                     playerIsMoving = false;
                     BoardManager.CheckForLocalEmptySlots();
                     InfoGUI.ToggleInfoGUI(true);
-                    if (BoardManager.northEmpty || BoardManager.eastEmpty || BoardManager.southEmpty || BoardManager.westEmpty)
-                    {
-                        if (GUIManager.primaryButtonAssignedTo == "")
-                        {
-                            GUIManager.TogglePrimaryButton(true, "build");
-                            GUIManager.ToggleEndTurnButton(true);
-                        }
-                    }
                 }
                 movement_tempCounter = movement_counter;
             }

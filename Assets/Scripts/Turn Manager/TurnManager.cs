@@ -146,9 +146,9 @@ public class TurnManager : MonoBehaviour
                 GameMain.currentPlayer = 4;
             }
         }
-        if (GameMain.playerIsActive[GameMain.currentPlayer] == false && GameMain.playerLives[GameMain.currentPlayer] > 0)
+        if (GameMain.playerInCamp[GameMain.currentPlayer])
         {
-            GameMain.playerIsActive[GameMain.currentPlayer] = true;
+            GUIManager.enableArrowButtons = true;
             // GUI.playerGUIHasBeenUpdated = false;
         }
         else if (GameMain.playerInCamp[GameMain.currentPlayer] == false)

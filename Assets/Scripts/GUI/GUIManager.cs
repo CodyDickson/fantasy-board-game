@@ -19,10 +19,6 @@ public class GUIManager : MonoBehaviour
     public GameObject endTurnButtonPanel;
     public Button moveButton;
     public GameObject moveButtonPanel;
-    public Button arrowUpButton;
-    public Button arrowRightButton;
-    public Button arrowDownButton;
-    public Button arrowLeftButton;
     public World world;
     public Sprite playerRed, playerBlue;
     public TMP_Text centerText;
@@ -69,10 +65,6 @@ public class GUIManager : MonoBehaviour
     void Start()
     {
         endTurnButton.onClick.AddListener(OnClickEndTurn);
-        arrowUpButton.onClick.AddListener(OnClickUpArrow);
-        arrowRightButton.onClick.AddListener(OnClickRightArrow);
-        arrowDownButton.onClick.AddListener(OnClickDownArrow);
-        arrowLeftButton.onClick.AddListener(OnClickLeftArrow);
         endTurnButton.gameObject.SetActive(false);
         endTurnButtonPanel.gameObject.SetActive(false);
         secondaryButton.gameObject.SetActive(false);
@@ -81,20 +73,8 @@ public class GUIManager : MonoBehaviour
         primaryButtonPanel.gameObject.SetActive(false);
         moveButton.gameObject.SetActive(false);
         moveButtonPanel.gameObject.SetActive(false);
-        arrowUpButton.gameObject.SetActive(false);
-        arrowRightButton.gameObject.SetActive(false);
-        arrowDownButton.gameObject.SetActive(false);
-        arrowLeftButton.gameObject.SetActive(false);
         playerGUI_Avatar = GetComponent<Image>();
         centerText.SetText("Choose your path...");
-        if (GameMain.currentPlayerInCamp)
-        {
-            enableArrowButtons = true;
-            arrowUpButton.gameObject.SetActive(true);
-            arrowRightButton.gameObject.SetActive(true);
-            arrowDownButton.gameObject.SetActive(true);
-            arrowLeftButton.gameObject.SetActive(true);
-        }
         Invoke("ClearCenterText", 1.5f);
     }
 
@@ -108,85 +88,6 @@ public class GUIManager : MonoBehaviour
         {
             PlayerMovement.MoveUnit();
             enableArrowButtons = true;
-        }
-        if (arrowButtonsEnabled)
-        {
-            if (Input.GetKeyDown(KeyCode.RightArrow) && rightArrowButtonEnabled)
-            {
-                OnClickRightArrow();
-            }
-            if (Input.GetKeyDown(KeyCode.UpArrow) && upArrowButtonEnabled)
-            {
-                OnClickUpArrow();
-            }
-            if (Input.GetKeyDown(KeyCode.DownArrow) && rightArrowButtonEnabled)
-            {
-                OnClickDownArrow();
-            }
-            if (Input.GetKeyDown(KeyCode.LeftArrow) && upArrowButtonEnabled)
-            {
-                OnClickLeftArrow();
-            }
-        }
-        if (enableArrowButtons && !arrowButtonsEnabled)
-        {
-            if (BoardManager.northPositionAvailable == true)
-            {
-                arrowUpButton.gameObject.SetActive(true);
-                upArrowButtonEnabled = true;
-            }
-            if (BoardManager.eastPositionAvailable == true)
-            {
-                arrowRightButton.gameObject.SetActive(true);
-                rightArrowButtonEnabled = true;
-            }
-            if (BoardManager.southPositionAvailable == true)
-            {
-                arrowDownButton.gameObject.SetActive(true);
-                downArrowButtonEnabled = true;
-            }
-            if (BoardManager.westPositionAvailable == true)
-            {
-                arrowLeftButton.gameObject.SetActive(true);
-                leftArrowButtonEnabled = true;
-            }
-            arrowButtonsEnabled = true;
-        }
-        else if (!enableArrowButtons && arrowButtonsEnabled)
-        {
-            arrowUpButton.gameObject.SetActive(false);
-            arrowRightButton.gameObject.SetActive(false);
-            arrowDownButton.gameObject.SetActive(false);
-            arrowLeftButton.gameObject.SetActive(false);
-            arrowButtonsEnabled = false;
-        }
-        if (enablePrimaryButton && !primaryButtonEnabled)
-        {
-            primaryButtonPanel.gameObject.SetActive(true);
-            primaryButton.gameObject.SetActive(true);
-            primaryButtonText.text = primaryButtonAssignedTo;
-            primaryButtonEnabled = true;
-        }
-        else if (!enablePrimaryButton && primaryButtonEnabled)
-        {
-            primaryButtonPanel.gameObject.SetActive(false);
-            primaryButton.gameObject.SetActive(false);
-            primaryButtonText.text = "";
-            primaryButtonEnabled = false;
-        }
-        if (enableSecondaryButton && !secondaryButtonEnabled)
-        {
-            secondaryButtonPanel.gameObject.SetActive(true);
-            secondaryButton.gameObject.SetActive(true);
-            secondaryButtonText.text = secondaryButtonAssignedTo;
-            secondaryButtonEnabled = true;
-        }
-        else if (!enableSecondaryButton && secondaryButtonEnabled)
-        {
-            secondaryButtonPanel.gameObject.SetActive(false);
-            secondaryButton.gameObject.SetActive(false);
-            secondaryButtonText.text = "";
-            secondaryButtonEnabled = false;
         }
         if (enableMoveButton && !moveButtonEnabled)
         {
@@ -273,49 +174,5 @@ public class GUIManager : MonoBehaviour
         {
             Debug.Log("End turn is currently disabled");
         }
-    }
-
-    void OnClickUpArrow()
-    {
-        upArrowButtonEnabled = false;
-        rightArrowButtonEnabled = false;
-        downArrowButtonEnabled = false;
-        leftArrowButtonEnabled = false;
-        enableArrowButtons = false;
-        BoardManager.currentUnitDirection = "north";
-        PlayerMovement.playerIsMoving = true;
-    }
-
-    void OnClickRightArrow()
-    {
-        upArrowButtonEnabled = false;
-        rightArrowButtonEnabled = false;
-        downArrowButtonEnabled = false;
-        leftArrowButtonEnabled = false;
-        BoardManager.currentUnitDirection = "east";
-        PlayerMovement.playerIsMoving = true;
-        enableArrowButtons = false;
-    }
-
-    void OnClickDownArrow()
-    {
-        upArrowButtonEnabled = false;
-        rightArrowButtonEnabled = false;
-        downArrowButtonEnabled = false;
-        leftArrowButtonEnabled = false;
-        BoardManager.currentUnitDirection = "south";
-        PlayerMovement.playerIsMoving = true;
-        enableArrowButtons = false;
-    }
-
-    void OnClickLeftArrow()
-    {
-        upArrowButtonEnabled = false;
-        rightArrowButtonEnabled = false;
-        downArrowButtonEnabled = false;
-        leftArrowButtonEnabled = false;
-        BoardManager.currentUnitDirection = "west";
-        PlayerMovement.playerIsMoving = true;
-        enableArrowButtons = false;
     }
 }

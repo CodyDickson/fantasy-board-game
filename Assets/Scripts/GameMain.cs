@@ -154,6 +154,7 @@ public class GameMain : MonoBehaviour
         Fog.RemoveLocalFog(0);
         GameSetup();
         GUI.SetActive(true);
+        Arrows.EnableArrowButtons();
         BoardManager.SpawnPlayersInCamp();
         TurnManager.SetInitialTurnOrder();
         playerTitle.Add("");
