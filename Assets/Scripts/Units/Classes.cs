@@ -6,12 +6,7 @@ public class Classes : MonoBehaviour
 {
     public static List<string> classes = new List<string>();
 
-    public static void UpdateClassList()
-    {
-        classes.Add("nomad");
-    }
-
-    public static void CheckClass()
+    public static void UpdateCurrentClass()
     {
 
     }
@@ -48,6 +43,21 @@ public class Classes : MonoBehaviour
             values[4] = 1;
             // Starting Weapon
             values[5] = 2;
+        }
+        else if (className == "wizard")
+        {
+            // Avatar
+            values[0] = 2;
+            // Health
+            values[1] = 3;
+            // Lives
+            values[2] = 1;
+            // Armor
+            values[3] = 0;
+            // Movement Dice
+            values[4] = 1;
+            // Starting Weapon
+            values[5] = 3;
         }
         return values;
     }

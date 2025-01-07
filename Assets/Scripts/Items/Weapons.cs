@@ -4,13 +4,31 @@ using UnityEngine;
 
 public class Weapons : MonoBehaviour
 {
-    public static Dictionary<int, int[]> player_equipment = new Dictionary<int, int[]>();
-
-    public static void EquipmentList(int equipment)
+    public static int[] WeaponsTable(int weapon)
     {
-        if (equipment == 1)
+        int[] values = new int[2];
+        // Avatar, Combat Score
+        if (weapon == 1)
         {
-            // name, damage amount
+            // Avatar
+            values[0] = 0;
+            // Combat Score
+            values[1] = 2;
         }
+        else if (weapon == 2)
+        {
+            // Avatar
+            values[0] = 1;
+            // Combat Score
+            values[1] = 4;
+        }
+        else if (weapon == 3)
+        {
+            // Avatar
+            values[0] = 2;
+            // Combat Score
+            values[1] = 3;
+        }
+        return values;
     }
 }

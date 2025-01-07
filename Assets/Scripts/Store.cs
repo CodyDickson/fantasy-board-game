@@ -6,11 +6,11 @@ using UnityEngine.Tilemaps;
 public class Store : MonoBehaviour
 {
     [SerializeField] public Color[] playerColorsListInEditor;
-    [SerializeField] public Sprite[] GUIElementsInEditor, dungeonSpritesListInEditor, villageSpritesListInEditor, monsterSpritesListInEditor, playerSpritesListInEditor, merchantSpritesListInEditor, objectSpritesListInEditor, diceSpritesInEditor;
+    [SerializeField] public Sprite[] GUIElementsInEditor, dungeonSpritesListInEditor, villageSpritesListInEditor, monsterSpritesListInEditor, playerSpritesListInEditor, merchantSpritesListInEditor, objectSpritesListInEditor, diceSpritesInEditor, weaponSpritesListInEditor;
     [SerializeField] public Tile[] dungeonTilesListInEditor, villageTilesListInEditor, monsterTilesListInEditor, playerTilesListInEditor, merchantTilesListInEditor, objectTilesListInEditor, boardConnectorTilesInEditor, fogTilesInEditor, terrainTilesInEditor;
     [SerializeField] public Tilemap[] tilemapsListInEditor;
     public static Color[] playerColors;
-    public static Sprite[] GUIElements, dungeonSprites, villageSprites, monsterSprites, playerSprites, merchantSprites, objectSprites, diceSprites;
+    public static Sprite[] GUIElements, dungeonSprites, villageSprites, monsterSprites, playerSprites, merchantSprites, objectSprites, diceSprites, weaponSprites;
     public static Tile[] dungeonTiles, villageTiles, monsterTiles, playerTiles, merchantTiles, objectTiles, boardConnectorTiles, fogTiles, terrainTiles;
     public static Tilemap[] tilemaps;
 
@@ -35,5 +35,6 @@ public class Store : MonoBehaviour
         tilemaps = tilemapsListInEditor;
         GUIElements = GUIElementsInEditor;
         diceSprites = diceSpritesInEditor;
+        weaponSprites = weaponSpritesListInEditor;
     }
 }

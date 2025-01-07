@@ -24,6 +24,7 @@ public class GameMain : MonoBehaviour
     public static int currentPlayerCombat;
     public static int currentPlayerGold;
     public static int currentPlayerColor;
+    public static int current_weapon;
     public static int currentPlayerMovementDice = 1;
     public static int currentHumanPlayer = 1;
     public static bool currentPlayerIsHuman = true;
@@ -100,6 +101,7 @@ public class GameMain : MonoBehaviour
         currentPlayerGold = playerGold[currentPlayer];
         currentPlayerAvatar = playerAvatar[currentPlayer];
         currentPlayerColor = playerColor[currentPlayer];
+        current_weapon = player_weapons[currentPlayer][0];
     }
 
     public static void GameSetup()

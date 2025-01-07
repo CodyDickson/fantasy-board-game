@@ -125,6 +125,7 @@ public class TurnManager : MonoBehaviour
     public static void StartPlayerTurn()
     {
         UpdatePlayerGUIAvatar.updatePlayerGUIAvatar = true;
+        ItemGUI.ClearWeaponAvatar();
         GameMain.currentPlayer += 1;
         Debug.Log("Player Turn, Current Player is " + GameMain.currentPlayer);
         if (GameMain.currentPlayer > GameMain.totalPlayers)
