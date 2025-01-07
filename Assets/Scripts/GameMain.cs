@@ -84,7 +84,7 @@ public class GameMain : MonoBehaviour
         Arrows.EnableArrowButtons();
         BoardManager.SpawnPlayersInCamp();
         TurnManager.SetInitialTurnOrder();
-        TurnManager.PopulateTurnPool();
+        TurnManager.PopulateTurnOrder();
         TurnOrderGUI.ToggleTurnOrderGUI();
         playerTitle.Add("");
         playerTitle.Add("Blue Nomad");

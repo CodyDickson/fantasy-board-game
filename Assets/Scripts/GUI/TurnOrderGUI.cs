@@ -32,35 +32,16 @@ public class TurnOrderGUI : MonoBehaviour
 
     public static void RefreshTurnOrderGUI(Image slotOne, Image slotTwo, Image slotThree)
     {
-        int turnOrderItems = TurnManager.turnOrder.Count;
         string itemOne = "";
         string itemTwo = "";
         string itemThree = "";
         for (int items = 1; items <= 3; items += 1)
         {
-            if (items <=  turnOrderItems && items == 1)
+            switch (items)
             {
-                itemOne = TurnManager.turnOrder[0];
-            }
-            if (items <= turnOrderItems && items == 2)
-            {
-                itemTwo = TurnManager.turnOrder[1];
-            }
-            if (items <= turnOrderItems && items == 3)
-            {
-                itemThree = TurnManager.turnOrder[2];
-            }
-            if (items > turnOrderItems && items == 1)
-            {
-                itemOne = TurnManager.turnPool[0];
-            }
-            if (items > turnOrderItems && items == 2)
-            {
-                itemTwo = TurnManager.turnPool[1];
-            }
-            if (items > turnOrderItems && items == 3)
-            {
-                itemThree = TurnManager.turnPool[2];
+                case 1: itemOne = TurnManager.turnOrder[0]; break;
+                case 2: itemTwo = TurnManager.turnOrder[1]; break;
+                case 3: itemThree = TurnManager.turnOrder[2]; break;
             }
         }
         if (itemOne == "player")

@@ -22,7 +22,7 @@ public class TurnManager : MonoBehaviour
         {
             if (tempCounter <= 0f)
             {
-                TurnProgressionHandler(tilemapStructures);
+                TurnProgressionHandler();
                 tempCounter = counter;
             }
             else
@@ -39,29 +39,25 @@ public class TurnManager : MonoBehaviour
             turnOrder.Add("player");
         }
         turnOrder.Add("spawnMonsters");
-        int random = 0;
-        for (int i = 1; i <= GameMain.totalPlayers; i++) { turnPool.Add("player"); }
-        turnPool.Add("moveMonsters");
-        random = Random.Range(1, 3);
-        if (random == 2) { turnPool.Add("spawnMonsters"); }
-        // if (random == 1) { turnPool.Add("spawnDungeons"); }
-        // turnPool.Add("spawnEliteMonsters");
-        // if (random == 5) { random = Random.Range(1, 3); if (random == 1) { turnPool.Add("spawnOddity"); } }
-        // if (random == 2) { turnPool.Add("spawnMerchants"); }
-    }
-
-    public static void PopulateTurnPool()
-    {
-        if (turnPool.Count == 0)
+        for (int i = 1; i <= GameMain.totalPlayers; i++)
         {
-            for (int i = 1; i <= GameMain.totalPlayers; i++) { turnPool.Add("player"); }
-            turnPool.Add("moveMonsters");
-            turnPool.Add("spawnMonsters");
+            turnOrder.Add("player");
         }
-        Debug.Log("Count: " + turnPool.Count);
+        turnOrder.Add("moveMonsters");
+        turnOrder.Add("spawnMonsters");
     }
 
-    public static void TurnProgressionHandler(Tilemap tilemapStructures)
+    public static void PopulateTurnOrder()
+    {
+        for (int i = 1; i <= GameMain.totalPlayers; i++)
+        {
+            turnOrder.Add("player");
+        }
+        turnOrder.Add("moveMonsters");
+        turnOrder.Add("spawnMonsters");
+    }
+
+    public static void TurnProgressionHandler()
     {
         continueTurnProgression = false;
         Debug.Log("Current Turn Item: " + turnOrder[0]);
@@ -70,18 +66,12 @@ public class TurnManager : MonoBehaviour
             case "player": StartPlayerTurn(); break;
             case "moveMonsters": break;
             case "spawnMonsters": break;
-            case "spawnEliteMonster": break;
-            case "spawnOddity": break;
             default: Debug.Log("This Should Never Show"); break;
         }
         turnOrder.Remove(turnOrder.First());
-        turnOrder.Add(turnPool.First());
-        turnPool.RemoveAt(0);
-        if (turnPool.Count == 0)
+        if (turnOrder.Count < 4)
         {
-            for (int i = 1; i <= GameMain.totalPlayers; i++) { turnPool.Add("player"); }
-            turnPool.Add("moveMonsters");
-            turnPool.Add("spawnMonsters");
+            PopulateTurnOrder();
         }
     }
 

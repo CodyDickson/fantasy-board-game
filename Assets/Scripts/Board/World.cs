@@ -44,42 +44,4 @@ public class World : MonoBehaviour
     public static Dictionary<int, string> boardStructures = new Dictionary<int, string>();
     public static Dictionary<int, string> boardUnits = new Dictionary<int, string>();
     public static int boardLength;
-    // Tiles and Tilemaps //
-    [SerializeField] public Tile playerRed;
-    [SerializeField] public Tile playerBlue;
-    [SerializeField] public Tile playerGreen;
-    [SerializeField] public Tile playerPurple;
-    [SerializeField] public Tile playerWhite;
-    [SerializeField] public Tile monsterImp;
-    [SerializeField] public Tile monsterBasilisk;
-    [SerializeField] public Tile monsterEliteRampagingElephant;
-    [SerializeField] public Tile monsterMimic;
-    [SerializeField] public Tile monsterSkeleton;
-    [SerializeField] public Tile monsterGhost;
-    [SerializeField] public Tile monsterEliteSkeletonAmalgamation;
-    [SerializeField] public Tile chest;
-    [SerializeField] public Tile oddity;
-    [SerializeField] public Tile dungeon;
-    [SerializeField] public Tile ground, tree;
-    [SerializeField] public Tile camp, bcHorizontal, bcThreeDown, bcVertical, bcThreeUp, bcThreeLeft, bcThreeRight, bcTopRightCorner, bcBottomLeftCorner, bcBottomRightCorner, bcTopLeftCorner, emptySlot;
-    [SerializeField] public Tilemap tilemapTerrain, tilemapTerrainObjects, tilemapStructures, tilemapUnits, tilemapBoardConnectors;
-    [SerializeField] public Tilemap terrain, terrainObjects;
-    // Time //
-    private float tempCounter2 = 0f;
-    private float counter2 = 0.5f;
-    // Other //
-    public static string currentPlayerColor = "red";
-
-    public GUIManager gui;
-    [SerializeField] public Tile fogTile;
-    [SerializeField] public Tilemap fog;
-
-    void Start()
-    {
-        TurnManager.TurnProgressionHandler(tilemapStructures);
-    }
-
-    void Update()
-    {
-    }
 }

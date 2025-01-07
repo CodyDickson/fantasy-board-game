@@ -61,7 +61,7 @@ public class GUIManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.M) && endTurnButtonEnabled)
         {
-            TurnManager.TurnProgressionHandler(tilemapStructures);
+            TurnManager.TurnProgressionHandler();
         }
         if (Input.GetKeyDown(KeyCode.N) && moveButtonEnabled)
         {
@@ -141,7 +141,7 @@ public class GUIManager : MonoBehaviour
     {
         if (endTurnButtonEnabled)
         {
-            TurnManager.TurnProgressionHandler(tilemapStructures);
+            TurnManager.TurnProgressionHandler();
             InfoGUI.ToggleInfoGUI(false);
             enableEndTurnButton = false;
         }
