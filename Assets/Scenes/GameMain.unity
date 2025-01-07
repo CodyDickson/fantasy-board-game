@@ -15821,6 +15821,7 @@ GameObject:
   - component: {fileID: 1077264796}
   - component: {fileID: 1077264797}
   - component: {fileID: 1077264798}
+  - component: {fileID: 1077264799}
   m_Layer: 5
   m_Name: GUI
   m_TagString: Untagged
@@ -16043,6 +16044,21 @@ MonoBehaviour:
   diceOne: {fileID: 460774332}
   diceTwo: {fileID: 1996444741}
   diceThree: {fileID: 167516074}
+--- !u!114 &1077264799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1077264789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68667a1db6898884497a6099d1d058c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slotOne: {fileID: 2098147066}
+  slotTwo: {fileID: 1504026699}
+  slotThree: {fileID: 564607600}
 --- !u!1 &1089704670
 GameObject:
   m_ObjectHideFlags: 0
@@ -19830,74 +19846,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72942ae7f5c8eb9478ed4f1acb58bfac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  continueButton: {fileID: 656656699}
-  fightButton: {fileID: 582514238}
-  suddenDeathButton: {fileID: 1613886642}
-  combatUnitOneWins: {fileID: 1797463306}
-  combatUnitTwoWins: {fileID: 1463446448}
-  combatUnitOne_Text: {fileID: 266109651}
-  combatUnitTwo_Text: {fileID: 1119352015}
-  diceOne: {fileID: 305939677}
-  diceTwo: {fileID: 394555459}
-  diceThree: {fileID: 860737962}
-  diceFour: {fileID: 1179886847}
-  diceFive: {fileID: 337785845}
-  diceSix: {fileID: 2025556698}
-  avatar_one_diceOne_one: {fileID: 305939677}
-  avatar_one_diceTwo_one: {fileID: 394555459}
-  avatar_one_diceThree_one: {fileID: 860737962}
-  avatar_one_diceFour_one: {fileID: 1179886847}
-  avatar_one_diceFive_one: {fileID: 337785845}
-  avatar_one_diceSix_one: {fileID: 2025556698}
-  avatar_one_diceOne_two: {fileID: 1394978725}
-  avatar_one_diceTwo_two: {fileID: 1874853413}
-  avatar_one_diceThree_two: {fileID: 46261275}
-  avatar_one_diceFour_two: {fileID: 768661790}
-  avatar_one_diceFive_two: {fileID: 213258765}
-  avatar_one_diceSix_two: {fileID: 245129727}
-  avatar_one_diceOne_three: {fileID: 133988639}
-  avatar_one_diceTwo_three: {fileID: 1677640765}
-  avatar_one_diceThree_three: {fileID: 1661884352}
-  avatar_one_diceFour_three: {fileID: 241587649}
-  avatar_one_diceFive_three: {fileID: 697937890}
-  avatar_one_diceSix_three: {fileID: 2077190115}
-  avatar_two_diceOne_one: {fileID: 1863812269}
-  avatar_two_diceTwo_one: {fileID: 934893390}
-  avatar_two_diceThree_one: {fileID: 1486693733}
-  avatar_two_diceFour_one: {fileID: 1963334703}
-  avatar_two_diceFive_one: {fileID: 548342567}
-  avatar_two_diceSix_one: {fileID: 283107978}
-  avatar_two_diceOne_two: {fileID: 723623735}
-  avatar_two_diceTwo_two: {fileID: 450436027}
-  avatar_two_diceThree_two: {fileID: 1355746277}
-  avatar_two_diceFour_two: {fileID: 402520690}
-  avatar_two_diceFive_two: {fileID: 2113508873}
-  avatar_two_diceSix_two: {fileID: 212389505}
-  avatar_two_diceOne_three: {fileID: 1287963977}
-  avatar_two_diceTwo_three: {fileID: 200231412}
-  avatar_two_diceThree_three: {fileID: 1576287427}
-  avatar_two_diceFour_three: {fileID: 1725652139}
-  avatar_two_diceFive_three: {fileID: 1822783793}
-  avatar_two_diceSix_three: {fileID: 1439724458}
-  avatar_one: {fileID: 694888235}
-  avatar_two: {fileID: 1745156234}
-  player_red_sprite: {fileID: 21300000, guid: 9ede97ed0b5a4e649a6f687589af6536, type: 3}
-  player_blue_sprite: {fileID: 21300000, guid: 0408cc6b9cbf9b0458492cb17390ce17, type: 3}
-  player_green_sprite: {fileID: 21300000, guid: 5f939ebe777445c4691aea59a165c3c9, type: 3}
-  player_purple_sprite: {fileID: 21300000, guid: 218d56775ebf35e4ea5786a05dad3828, type: 3}
-  player_white_sprite: {fileID: 21300000, guid: 1aa5ae4c71d1c0b47b2bf0ce1eea8c69, type: 3}
-  monster_imp_sprite: {fileID: 21300000, guid: 6cab0ac2f475682479ca66a4277d6af2, type: 3}
-  monster_basilisk_sprite: {fileID: 21300000, guid: 3da714a3b63a78a49a32284b750aa422, type: 3}
-  monster_rampagingElephant_sprite: {fileID: 0}
-  player_red: {fileID: 11400000, guid: 23a7ff90342d3f0409162948518c1b1a, type: 2}
-  player_blue: {fileID: 11400000, guid: fa2a786baf5643c498a6df52d1fb6c0a, type: 2}
-  player_green: {fileID: 11400000, guid: f3aee2334d4530f4c9b190c4cfdd9d8b, type: 2}
-  player_purple: {fileID: 11400000, guid: 9ebb4ab6d8476184b957a416058017d6, type: 2}
-  player_white: {fileID: 11400000, guid: 166aa36542e22034ab20443c06635987, type: 2}
-  monster_imp: {fileID: 11400000, guid: a07744c50b2782448b6e9acddd18d7b3, type: 2}
-  monster_basilisk: {fileID: 11400000, guid: 6abf17d41a559684b8eaf9005884b30c, type: 2}
-  monster_rampagingElephant: {fileID: 0}
-  tilemapStructures: {fileID: 737563382}
 --- !u!1 &1787902841
 GameObject:
   m_ObjectHideFlags: 0
@@ -20688,6 +20636,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 71a782bc34582844a87ca0e529d998b5, type: 3}
   - {fileID: 21300000, guid: 61914b7f1b8f4dd4f999aa496ddb85e4, type: 3}
   - {fileID: -708353238, guid: ad8888aa4b5973e49a90bf15365dcf0b, type: 3}
+  - {fileID: 625254367, guid: ad8888aa4b5973e49a90bf15365dcf0b, type: 3}
+  - {fileID: -1439523524, guid: ad8888aa4b5973e49a90bf15365dcf0b, type: 3}
   dungeonSpritesListInEditor:
   - {fileID: -436443989, guid: ad8888aa4b5973e49a90bf15365dcf0b, type: 3}
   - {fileID: -968549342, guid: ad8888aa4b5973e49a90bf15365dcf0b, type: 3}

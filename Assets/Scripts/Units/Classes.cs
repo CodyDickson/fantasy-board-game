@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Classes : MonoBehaviour
 {
-    public static List<string> classes = new List<string>();
+    public static bool nomad = false;
 
     public static void UpdateCurrentClass()
     {

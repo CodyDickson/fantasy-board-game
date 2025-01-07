@@ -84,6 +84,8 @@ public class GameMain : MonoBehaviour
         Arrows.EnableArrowButtons();
         BoardManager.SpawnPlayersInCamp();
         TurnManager.SetInitialTurnOrder();
+        TurnManager.PopulateTurnPool();
+        TurnOrderGUI.ToggleTurnOrderGUI();
         playerTitle.Add("");
         playerTitle.Add("Blue Nomad");
     }
@@ -101,6 +103,7 @@ public class GameMain : MonoBehaviour
         currentPlayerGold = playerGold[currentPlayer];
         currentPlayerAvatar = playerAvatar[currentPlayer];
         currentPlayerColor = playerColor[currentPlayer];
+        BoardManager.currentUnitPosition = BoardManager.playerPositions[currentPlayer];
         current_weapon = player_weapons[currentPlayer][0];
     }
 

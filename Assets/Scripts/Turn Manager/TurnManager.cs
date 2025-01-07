@@ -39,15 +39,26 @@ public class TurnManager : MonoBehaviour
             turnOrder.Add("player");
         }
         turnOrder.Add("spawnMonsters");
-        turnOrder.Add("endTurn");
-        int random = Random.Range(1, 5);
+        int random = 0;
         for (int i = 1; i <= GameMain.totalPlayers; i++) { turnPool.Add("player"); }
         turnPool.Add("moveMonsters");
-        if (random == 1) { turnPool.Add("spawnDungeons"); }
-        if (random == 3) { turnPool.Add("spawnMonsters"); }
-        turnPool.Add("spawnEliteMonsters");
-        if (random == 5) { random = Random.Range(1, 3); if (random == 1) { turnPool.Add("spawnOddity"); } }
-        if (random == 2) { turnPool.Add("spawnMerchants"); }
+        random = Random.Range(1, 3);
+        if (random == 2) { turnPool.Add("spawnMonsters"); }
+        // if (random == 1) { turnPool.Add("spawnDungeons"); }
+        // turnPool.Add("spawnEliteMonsters");
+        // if (random == 5) { random = Random.Range(1, 3); if (random == 1) { turnPool.Add("spawnOddity"); } }
+        // if (random == 2) { turnPool.Add("spawnMerchants"); }
+    }
+
+    public static void PopulateTurnPool()
+    {
+        if (turnPool.Count == 0)
+        {
+            for (int i = 1; i <= GameMain.totalPlayers; i++) { turnPool.Add("player"); }
+            turnPool.Add("moveMonsters");
+            turnPool.Add("spawnMonsters");
+        }
+        Debug.Log("Count: " + turnPool.Count);
     }
 
     public static void TurnProgressionHandler(Tilemap tilemapStructures)
@@ -68,14 +79,9 @@ public class TurnManager : MonoBehaviour
         turnPool.RemoveAt(0);
         if (turnPool.Count == 0)
         {
-            int random = Random.Range(1,5);
             for (int i = 1; i <= GameMain.totalPlayers; i++) { turnPool.Add("player"); }
             turnPool.Add("moveMonsters");
-            if (random == 1) { turnPool.Add("spawnDungeons"); }
-            if (random == 3) { turnPool.Add("spawnMonsters"); }
-            turnPool.Add("spawnEliteMonsters");
-            if (random == 5) { random = Random.Range(1, 3); if (random == 1) { turnPool.Add("spawnOddity"); } }
-            if (random == 2) { turnPool.Add("spawnMerchants"); }
+            turnPool.Add("spawnMonsters");
         }
     }
 
@@ -125,7 +131,7 @@ public class TurnManager : MonoBehaviour
     public static void StartPlayerTurn()
     {
         UpdatePlayerGUIAvatar.updatePlayerGUIAvatar = true;
-        ItemGUI.ClearWeaponAvatar();
+        ItemGUI.UpdateWeaponAvatar();
         GameMain.currentPlayer += 1;
         Debug.Log("Player Turn, Current Player is " + GameMain.currentPlayer);
         if (GameMain.currentPlayer > GameMain.totalPlayers)

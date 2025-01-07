@@ -55,23 +55,21 @@ public class PlayerMovement : MonoBehaviour
                     BoardManager.CheckForLocalBoardPositions();
                     BoardManager.DetermineNextBoardPosition();
                     units.SetTile(new Vector3Int((int)BoardManager.currentUnitPosition[0], (int)BoardManager.currentUnitPosition[1]), Store.playerTiles[GameMain.currentPlayer]);
-                    // BoardManager.CheckForBoardCrossroads(gui);
                     Debug.Log("Current Unit Position: " + BoardManager.currentUnitPosition);
-                    // BoardManager.playerPositions[GameMain.currentPlayer] = BoardManager.currentUnitPosition;
-                    movesRemaining -= 1;
-                    /*if (crossroadsPosition == true)
+                    BoardManager.CheckForCrossroads();
+                    if (BoardManager.crossroadsPosition == true)
                     {
                         BoardManager.CheckForLocalBoardPositions();
-                        GUI.enableArrowButtons = true;
-
+                        Arrows.EnableArrowButtons();
                         playerIsMoving = false;
-                    }*/
+                    }
+                    movesRemaining -= 1;
                 }
                 if (movesRemaining == 0)
                 {
                     GUIManager.ToggleEndTurnButton(true);
                     playerIsMoving = false;
-                    BoardManager.CheckForLocalEmptySlots();
+                    BoardManager.CheckForLocalStructures();
                     InfoGUI.ToggleInfoGUI(true);
                 }
                 movement_tempCounter = movement_counter;
@@ -90,23 +88,23 @@ public class PlayerMovement : MonoBehaviour
         units.SetTile(new Vector3Int((int)BoardManager.currentUnitPosition[0], (int)BoardManager.currentUnitPosition[1]), null);
         if (BoardManager.currentUnitDirection == "north")
         {
-            BoardManager.currentUnitPosition = BoardManager.campExitPositions[0];
             BoardManager.playerPositions[GameMain.currentPlayer] = BoardManager.campExitPositions[0];
+            GameMain.UpdateCurrentPlayerInfo();
         }
         if (BoardManager.currentUnitDirection == "east")
         {
-            BoardManager.currentUnitPosition = BoardManager.campExitPositions[1];
             BoardManager.playerPositions[GameMain.currentPlayer] = BoardManager.campExitPositions[1];
+            GameMain.UpdateCurrentPlayerInfo();
         }
         if (BoardManager.currentUnitDirection == "south")
         {
-            BoardManager.currentUnitPosition = BoardManager.campExitPositions[2];
             BoardManager.playerPositions[GameMain.currentPlayer] = BoardManager.campExitPositions[2];
+            GameMain.UpdateCurrentPlayerInfo();
         }
         if (BoardManager.currentUnitDirection == "west")
         {
-            BoardManager.currentUnitPosition = BoardManager.campExitPositions[3];
             BoardManager.playerPositions[GameMain.currentPlayer] = BoardManager.campExitPositions[3];
+            GameMain.UpdateCurrentPlayerInfo();
         }
         playerIsMoving = false;
         GameMain.playerInCamp[GameMain.currentPlayer] = false;
