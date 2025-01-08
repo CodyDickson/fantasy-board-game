@@ -28,6 +28,7 @@ public class Dungeons : MonoBehaviour
         dungeonCount = 0;
         if (GameMain.currentBoard == 1)
         {
+            int monsterType = 0;
             int xSize = 6;
             int ySize = 6;
             while (dungeonCount < 5)
@@ -52,7 +53,10 @@ public class Dungeons : MonoBehaviour
                                     {
                                         structures.SetTile(new Vector3Int((int)position[0], (int)position[1]), dungeon);
                                         dungeonCount++;
-                                        dungeonPositions.Add(position, 0);
+                                        random = Random.Range(1,3);
+                                        if (random == 1) { monsterType = 0; }
+                                        if (random == 2) { monsterType = 1; }
+                                        dungeonPositions.Add(position, monsterType);
                                     }
                                 }
                             }
@@ -67,7 +71,10 @@ public class Dungeons : MonoBehaviour
                                     {
                                         structures.SetTile(new Vector3Int((int)position[0], (int)position[1]), dungeon);
                                         dungeonCount++;
-                                        dungeonPositions.Add(position, 0);
+                                        random = Random.Range(1, 3);
+                                        if (random == 1) { monsterType = 0; }
+                                        if (random == 2) { monsterType = 1; }
+                                        dungeonPositions.Add(position, monsterType);
                                     }
                                 }
                             }
@@ -82,7 +89,10 @@ public class Dungeons : MonoBehaviour
                                     {
                                         structures.SetTile(new Vector3Int((int)position[0], (int)position[1]), dungeon);
                                         dungeonCount++;
-                                        dungeonPositions.Add(position, 0);
+                                        random = Random.Range(1, 3);
+                                        if (random == 1) { monsterType = 0; }
+                                        if (random == 2) { monsterType = 1; }
+                                        dungeonPositions.Add(position, monsterType);
                                     }
                                 }
                             }
@@ -97,7 +107,10 @@ public class Dungeons : MonoBehaviour
                                     {
                                         structures.SetTile(new Vector3Int((int)position[0], (int)position[1]), dungeon);
                                         dungeonCount++;
-                                        dungeonPositions.Add(position, 0);
+                                        random = Random.Range(1, 3);
+                                        if (random == 1) { monsterType = 0; }
+                                        if (random == 2) { monsterType = 1; }
+                                        dungeonPositions.Add(position, monsterType);
                                     }
                                 }
                             }

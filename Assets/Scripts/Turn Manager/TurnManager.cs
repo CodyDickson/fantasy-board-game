@@ -65,7 +65,7 @@ public class TurnManager : MonoBehaviour
         {
             case "player": StartPlayerTurn(); break;
             case "moveMonsters": break;
-            case "spawnMonsters": break;
+            case "spawnMonsters": Monsters.SpawnMonster(); break;
             default: Debug.Log("This Should Never Show"); break;
         }
         turnOrder.Remove(turnOrder.First());

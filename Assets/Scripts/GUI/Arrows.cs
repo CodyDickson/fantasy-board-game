@@ -48,10 +48,6 @@ public class Arrows : MonoBehaviour
         }
         if (enableArrowButtons)
         {
-            Debug.Log(BoardManager.northPositionAvailable);
-            Debug.Log(BoardManager.eastPositionAvailable);
-            Debug.Log(BoardManager.southPositionAvailable);
-            Debug.Log(BoardManager.westPositionAvailable);
             if (BoardManager.northPositionAvailable == true)
             {
                 arrowUpButton.gameObject.SetActive(true);

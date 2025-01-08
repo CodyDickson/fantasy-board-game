@@ -84,6 +84,7 @@ public class GameMain : MonoBehaviour
         Arrows.EnableArrowButtons();
         BoardManager.SpawnPlayersInCamp();
         TurnManager.SetInitialTurnOrder();
+        TurnManager.TurnProgressionHandler();
         TurnManager.PopulateTurnOrder();
         TurnOrderGUI.ToggleTurnOrderGUI();
         playerTitle.Add("");
@@ -104,7 +105,7 @@ public class GameMain : MonoBehaviour
         currentPlayerAvatar = playerAvatar[currentPlayer];
         currentPlayerColor = playerColor[currentPlayer];
         BoardManager.currentUnitPosition = BoardManager.playerPositions[currentPlayer];
-        current_weapon = player_weapons[currentPlayer][0];
+        // current_weapon = player_weapons[currentPlayer][0];
     }
 
     public static void GameSetup()
@@ -130,7 +131,7 @@ public class GameMain : MonoBehaviour
         playerColor.Add(0);
         playerIsHuman.Add(false);
         playerIsActive.Add(false);
-        playerInCamp.Add(false);
+        playerInCamp.Add(true);
         playerMovementDice.Add(1);
         for (int i = 1; i <= totalPlayers; i++) {
             playerHealth.Add(playerHealth[0]); 
