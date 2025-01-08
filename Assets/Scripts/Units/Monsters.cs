@@ -30,6 +30,7 @@ public class Monsters : MonoBehaviour
         List<Vector3> possibleSpawns = new List<Vector3>();
         foreach (KeyValuePair<Vector3, int> dungeon in Dungeons.dungeonPositions)
         {
+            BoardManager.currentUnitPosition = dungeon.Key;
             random = Random.Range(1,4);
             if (random == 1)
             {

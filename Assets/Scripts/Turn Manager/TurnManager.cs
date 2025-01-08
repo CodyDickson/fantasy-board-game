@@ -20,6 +20,7 @@ public class TurnManager : MonoBehaviour
     {
         if (continueTurnProgression)
         {
+            Debug.Log("pass");
             if (tempCounter <= 0f)
             {
                 TurnProgressionHandler();
