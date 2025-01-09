@@ -81,7 +81,7 @@ public class BoardManager : MonoBehaviour
                     // case 4: Machine.CampSpawn(); break;
             }
             GameMain.playerIsActive[i] = true;
-            GameMain.playerInCamp[i] = true;
+            GameMain.playerInCamp = true;
         }
     }
 

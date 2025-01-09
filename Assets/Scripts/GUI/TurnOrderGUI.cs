@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,19 +9,21 @@ public class TurnOrderGUI : MonoBehaviour
 {
     public static bool updateTurnOrderGUI = false;
     public Image slotOne, slotTwo, slotThree;
+    public TMP_Text mainText;
 
     void Start()
     {
         slotOne = slotOne.gameObject.GetComponent<Image>();
         slotTwo = slotTwo.gameObject.GetComponent<Image>();
         slotThree = slotThree.gameObject.GetComponent<Image>();
+        mainText.text = "";
     }
 
     void Update()
     {
         if (updateTurnOrderGUI)
         {
-            RefreshTurnOrderGUI(slotOne, slotTwo, slotThree);
+            RefreshTurnOrderGUI(slotOne, slotTwo, slotThree, mainText);
             updateTurnOrderGUI = false;
         }
     }
@@ -30,7 +33,7 @@ public class TurnOrderGUI : MonoBehaviour
         updateTurnOrderGUI = true;
     }
 
-    public static void RefreshTurnOrderGUI(Image slotOne, Image slotTwo, Image slotThree)
+    public static void RefreshTurnOrderGUI(Image slotOne, Image slotTwo, Image slotThree, TMP_Text text)
     {
         string itemOne = "";
         string itemTwo = "";
@@ -48,6 +51,7 @@ public class TurnOrderGUI : MonoBehaviour
         if (itemOne == "player")
         {
             slotOne.sprite = Store.playerSprites[GameMain.currentPlayerAvatar];
+            text.text = GameMain.playerClass + "'s Turn";
         }
         if (itemOne == "spawnMonsters")
         {

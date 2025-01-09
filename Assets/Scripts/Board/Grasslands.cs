@@ -16,15 +16,9 @@ public class Grasslands : MonoBehaviour
         PullBoardConnectorsFromStore();
         CampDesign();
         GenerateTerrain();
-        int random;
         for (int i = 1; i <= 24; i++)
         {
-            string section = "empty";
-            random = Random.Range(1, 10);
-            random = 6;
-            if (random <= 7) { section = "loop"; LoopGenerator(i); }
-            // else if (random > 7) { section = "branch"; BranchGenerator(i); }
-            World.boardClockPosition.Add(i, section);
+            LoopGenerator(i);
         }
         BoardManager.UpdateEmptySlotPositions();
         BoardManager.FillEmptySlots();

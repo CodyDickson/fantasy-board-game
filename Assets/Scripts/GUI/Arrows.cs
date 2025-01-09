@@ -79,10 +79,7 @@ public class Arrows : MonoBehaviour
     public static void EnableArrowButtons()
     {
         BoardManager.CheckForLocalBoardPositions();
-        if (GameMain.playerInCamp[GameMain.currentPlayer])
-        {
-            BoardManager.CheckForCampExits();
-        }
+        if (GameMain.playerInCamp) { BoardManager.CheckForCampExits(); }
         enableArrowButtons = true;
     }
 

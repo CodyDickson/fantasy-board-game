@@ -41,12 +41,12 @@ public class PlayerMovement : MonoBehaviour
             avatar_tempCounter -= Time.deltaTime;
         }
         // Player Exiting Camp
-        if (playerIsMoving && GameMain.playerInCamp[GameMain.currentPlayer])
+        if (playerIsMoving && GameMain.playerInCamp)
         {
             PlayerExitingCamp();
         }
         // Player moving on the board
-        if (playerIsMoving && !GameMain.playerInCamp[GameMain.currentPlayer])
+        if (playerIsMoving && !GameMain.playerInCamp)
         {
             if (movement_tempCounter <= 0f)
             {
@@ -86,28 +86,12 @@ public class PlayerMovement : MonoBehaviour
         Tilemap units = Store.tilemaps[4];
         BoardManager.currentUnitPosition = BoardManager.playerPositions[GameMain.currentPlayer];
         units.SetTile(new Vector3Int((int)BoardManager.currentUnitPosition[0], (int)BoardManager.currentUnitPosition[1]), null);
-        if (BoardManager.currentUnitDirection == "north")
-        {
-            BoardManager.playerPositions[GameMain.currentPlayer] = BoardManager.campExitPositions[0];
-            GameMain.UpdateCurrentPlayerInfo();
-        }
-        if (BoardManager.currentUnitDirection == "east")
-        {
-            BoardManager.playerPositions[GameMain.currentPlayer] = BoardManager.campExitPositions[1];
-            GameMain.UpdateCurrentPlayerInfo();
-        }
-        if (BoardManager.currentUnitDirection == "south")
-        {
-            BoardManager.playerPositions[GameMain.currentPlayer] = BoardManager.campExitPositions[2];
-            GameMain.UpdateCurrentPlayerInfo();
-        }
-        if (BoardManager.currentUnitDirection == "west")
-        {
-            BoardManager.playerPositions[GameMain.currentPlayer] = BoardManager.campExitPositions[3];
-            GameMain.UpdateCurrentPlayerInfo();
-        }
+        if (BoardManager.currentUnitDirection == "north") { BoardManager.currentUnitPosition = BoardManager.campExitPositions[0]; }
+        if (BoardManager.currentUnitDirection == "east") { BoardManager.currentUnitPosition = BoardManager.campExitPositions[1]; }
+        if (BoardManager.currentUnitDirection == "south") { BoardManager.currentUnitPosition = BoardManager.campExitPositions[2]; }
+        if (BoardManager.currentUnitDirection == "west") { BoardManager.currentUnitPosition = BoardManager.campExitPositions[3]; }
         playerIsMoving = false;
-        GameMain.playerInCamp[GameMain.currentPlayer] = false;
+        GameMain.playerInCamp = false;
         int clockwork = 0;
         switch (BoardManager.currentUnitDirection)
         {
@@ -120,5 +104,6 @@ public class PlayerMovement : MonoBehaviour
         Dungeons.SpawnDungeons(clockwork);
         Merchants.SpawnMerchants(clockwork);
         GUIManager.ToggleMoveButton(true);
+
     }
 }

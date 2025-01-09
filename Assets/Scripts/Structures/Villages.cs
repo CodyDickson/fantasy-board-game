@@ -7,6 +7,8 @@ using UnityEngine.UIElements;
 
 public class Villages : MonoBehaviour
 {
+    public static int totalVillageGoldPerTurn = 0;
+
     //
     public int villageCost = 100;
     public static int villageBuildCost = 100;
@@ -38,11 +40,6 @@ public class Villages : MonoBehaviour
     public static Dictionary<int, int> playerFourVillageGrowth = new Dictionary<int, int>();
     public static Dictionary<int, int> playerFourVillageGoldPerTurn = new Dictionary<int, int>();
     public static Dictionary<int, int> playerFourVillageTolls = new Dictionary<int, int>();
-
-    void OnClickUpgradeVillage()
-    {
-        UpgradeVillageWhenNearIt();
-    }
 
     public static void BuildVillage(string direction)
     {
@@ -87,55 +84,5 @@ public class Villages : MonoBehaviour
             }
         }
         return villageOwner;
-    }
-
-    public static void GrowVillage(int currentVillage)
-    {
-        if (GameMain.currentPlayer == 1)
-        {
-            foreach (int villageToGrow in World.boardPlayerOneVillagePositions.Values)
-            {
-                if (villageToGrow == currentVillage)
-                {
-                    // Vector3 villageLocation = World.boardPlayerOneVillagePositions[villageToGrow];
-                }
-            }
-        }
-    }
-
-    public static void UpgradeVillageWhenNearIt()
-    {
-        Vector3 north = new Vector3(World.currentUnitPosition[0], World.currentUnitPosition[1] + 1);
-        Vector3 east = new Vector3(World.currentUnitPosition[0] + 1, World.currentUnitPosition[1]);
-        Vector3 south = new Vector3(World.currentUnitPosition[0], World.currentUnitPosition[1] - 1);
-        Vector3 west = new Vector3(World.currentUnitPosition[0] - 1, World.currentUnitPosition[1]);
-        foreach (Vector3 listVector in World.boardPlayerOneVillagePositions.Keys)
-        {
-            if (listVector == north || listVector == east || listVector == south || listVector == west)
-            {
-                World.boardPlayerOneVillagePositions[listVector] += 1;
-            }
-        }
-        foreach (Vector3 listVector in World.boardPlayerTwoVillagePositions.Keys)
-        {
-            if (listVector == north || listVector == east || listVector == south || listVector == west)
-            {
-                World.boardPlayerTwoVillagePositions[listVector] += 1;
-            }
-        }
-        foreach (Vector3 listVector in World.boardPlayerThreeVillagePositions.Keys)
-        {
-            if (listVector == north || listVector == east || listVector == south || listVector == west)
-            {
-                World.boardPlayerThreeVillagePositions[listVector] += 1;
-            }
-        }
-        foreach (Vector3 listVector in World.boardPlayerFourVillagePositions.Keys)
-        {
-            if (listVector == north || listVector == east || listVector == south || listVector == west)
-            {
-                World.boardPlayerFourVillagePositions[listVector] += 1;
-            }
-        }
     }
 }

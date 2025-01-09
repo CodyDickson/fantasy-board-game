@@ -13,7 +13,6 @@ public class GUIManager : MonoBehaviour
     public GameObject endTurnButtonPanel;
     public Button moveButton;
     public GameObject moveButtonPanel;
-    public World world;
     public Sprite playerRed, playerBlue;
     public TMP_Text centerText;
     public static bool enableEndTurnButton = false;

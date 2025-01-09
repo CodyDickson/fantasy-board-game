@@ -10,10 +10,13 @@ public class GameMain : MonoBehaviour
     // Game Settings //
     [SerializeField] public bool devMode = false;
     public static int currentBoard = 1;
-    public static int totalPlayers = 2;
+    public static int totalPlayers = 1;
     public static bool standardMode = true;
     public static bool oddMode = false;
-    public static bool randomizeTurnOrder = false;
+    // Player Info //
+    // public static string playerClass;
+    // public static int playerInitiative;
+    public static bool playerInCamp;
     // Current Player Info //
     public static int currentTurn;
     public static int currentPlayer;
@@ -28,12 +31,10 @@ public class GameMain : MonoBehaviour
     public static int currentPlayerMovementDice = 1;
     public static int currentHumanPlayer = 1;
     public static bool currentPlayerIsHuman = true;
-    public static bool currentPlayerInCamp = true;
     // Player Info //
     public static List<string> playerTitle = new List<string>();
     public static List<string> playerClass = new List<string>();
     public static List<bool> playerIsActive = new List<bool>();
-    public static List<bool> playerInCamp = new List<bool>();
     public static List<bool> playerIsHuman = new List<bool>();
     public static List<int> playerAvatar = new List<int>();
     public static List<int> playerColor = new List<int>();
@@ -73,7 +74,6 @@ public class GameMain : MonoBehaviour
 
     private void Awake()
     {
-        TurnManager.SetInitialTurnOrder();
         TurnManager.PopulateTurnOrder();
         TurnOrderGUI.ToggleTurnOrderGUI();
     }
@@ -135,7 +135,7 @@ public class GameMain : MonoBehaviour
         playerColor.Add(0);
         playerIsHuman.Add(false);
         playerIsActive.Add(false);
-        playerInCamp.Add(true);
+        playerInCamp = true;
         playerMovementDice.Add(1);
         for (int i = 1; i <= totalPlayers; i++) {
             playerHealth.Add(playerHealth[0]); 
@@ -147,7 +147,6 @@ public class GameMain : MonoBehaviour
             playerColor.Add(1);
             playerIsHuman.Add(true);
             playerIsActive.Add(playerIsActive[0]);
-            playerInCamp.Add(playerInCamp[0]);
             playerMovementDice.Add(1);
         }
     }
