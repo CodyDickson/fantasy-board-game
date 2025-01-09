@@ -20,7 +20,6 @@ public class TurnManager : MonoBehaviour
     {
         if (continueTurnProgression)
         {
-            Debug.Log("pass");
             if (tempCounter <= 0f)
             {
                 TurnProgressionHandler();
@@ -35,18 +34,23 @@ public class TurnManager : MonoBehaviour
 
     public static void PopulateTurnOrder()
     {
-        for (int i = 1; i <= 5; i++)
+        for (int i = 1; i <= 2; i++)
         {
             turnOrder.Add("player");
-            turnOrder.Add("moveMonsters");
             turnOrder.Add("spawnMonsters");
+            turnOrder.Add("player");
+            turnOrder.Add("moveMonsters");
         }
     }
 
     public static void TurnProgressionHandler()
     {
         continueTurnProgression = false;
-        Debug.Log("Current Turn Item: " + turnOrder[0]);
+        turnOrder.Remove(turnOrder.First());
+        if (turnOrder.Count < 5)
+        {
+            PopulateTurnOrder();
+        }
         switch (turnOrder[0])
         {
             case "player": StartPlayerTurn(); break;
@@ -54,11 +58,8 @@ public class TurnManager : MonoBehaviour
             case "spawnMonsters": Monsters.SpawnMonster(); break;
             default: Debug.Log("This Should Never Show"); break;
         }
-        turnOrder.Remove(turnOrder.First());
-        if (turnOrder.Count < 5)
-        {
-            PopulateTurnOrder();
-        }
+        TurnOrderGUI.UpdateTurnOrderGUI();
+        Debug.Log("Current Turn Item: " + turnOrder[0]);
     }
 
     public static void EndPlayerTurn()

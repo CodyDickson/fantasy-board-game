@@ -70,19 +70,14 @@ public class BoardManager : MonoBehaviour
 
     public static void SpawnPlayersInCamp()
     {
-        if (playerPositions.Count == 0) { playerPositions.Add(new Vector3Int(0, 0)); }
-        for (int i = 1; i <= GameMain.totalPlayers; i++)
+        switch (GameMain.currentBoard)
         {
-            switch (GameMain.currentBoard)
-            {
-                case 1: Grasslands.CampSpawn(); break;
-                    // case 2: Graveyard.CampSpawn(); break;
-                    // case 3: Volcano.CampSpawn(); break;
-                    // case 4: Machine.CampSpawn(); break;
-            }
-            GameMain.playerIsActive[i] = true;
-            GameMain.playerInCamp = true;
+            case 1: Grasslands.CampSpawn(); break;
+                // case 2: Graveyard.CampSpawn(); break;
+                // case 3: Volcano.CampSpawn(); break;
+                // case 4: Machine.CampSpawn(); break;
         }
+        GameMain.playerInCamp = true;
     }
 
     public static void FillEmptySlots()
@@ -168,10 +163,9 @@ public class BoardManager : MonoBehaviour
 
     public static void DetermineNextBoardPosition()
     {
-        Tilemap tilemapUnits = Store.tilemaps[4];
+        Tilemap units = Store.tilemaps[4];
         boardPosition = currentUnitPosition;
-        Debug.Log("Check Board Position: " + boardPosition);
-        tilemapUnits.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), null);
+        units.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), null);
         if (currentUnitDirection == "north" && northPositionAvailable)
         {
             boardPosition[1] += 1;
@@ -233,7 +227,6 @@ public class BoardManager : MonoBehaviour
             }
         }
         currentUnitPosition = boardPosition;
-        playerPositions[GameMain.currentPlayer] = currentUnitPosition;
     }
 
     public static void CheckForCampExits()

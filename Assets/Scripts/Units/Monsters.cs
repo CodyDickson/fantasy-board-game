@@ -7,16 +7,7 @@ public class Monsters : MonoBehaviour
 {
     // Tracking //
     public static Dictionary<Vector3, int> monsterPositions = new Dictionary<Vector3, int>();
-
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
+    public static Dictionary<int, int> monsterStats = new Dictionary<int, int>();
 
     public static void SpawnMonster()
     {
@@ -66,7 +57,7 @@ public class Monsters : MonoBehaviour
                     bool choiceMade = false;
                     while (!choiceMade)
                     {
-                        for (int i = 0; i <= possibleSpawns.Count; i++)
+                        for (int i = 0; i < possibleSpawns.Count; i++)
                         {
                             random = Random.Range(1, 3);
                             if (random == 1 && !choiceMade)

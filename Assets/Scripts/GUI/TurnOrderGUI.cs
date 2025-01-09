@@ -28,7 +28,7 @@ public class TurnOrderGUI : MonoBehaviour
         }
     }
 
-    public static void ToggleTurnOrderGUI()
+    public static void UpdateTurnOrderGUI()
     {
         updateTurnOrderGUI = true;
     }
@@ -50,20 +50,22 @@ public class TurnOrderGUI : MonoBehaviour
         Debug.Log(itemOne + " pass");
         if (itemOne == "player")
         {
-            slotOne.sprite = Store.playerSprites[GameMain.currentPlayerAvatar];
+            slotOne.sprite = Store.playerSprites[GameMain.playerAvatar];
             text.text = GameMain.playerClass + "'s Turn";
         }
         if (itemOne == "spawnMonsters")
         {
             slotOne.sprite = Store.GUIElements[3];
+            text.text = "Spawning Monsters";
         }
         if (itemOne == "moveMonsters")
         {
             slotOne.sprite = Store.GUIElements[4];
+            text.text = "Moving Monsters";
         }
         if (itemTwo == "player")
         {
-            slotTwo.sprite = Store.playerSprites[GameMain.currentPlayerAvatar];
+            slotTwo.sprite = Store.playerSprites[GameMain.playerAvatar];
         }
         if (itemTwo == "spawnMonsters")
         {
@@ -75,7 +77,7 @@ public class TurnOrderGUI : MonoBehaviour
         }
         if (itemThree == "player")
         {
-            slotThree.sprite = Store.playerSprites[GameMain.currentPlayerAvatar];
+            slotThree.sprite = Store.playerSprites[GameMain.playerAvatar];
         }
         if (itemThree == "spawnMonsters")
         {

@@ -126,7 +126,7 @@ public class InfoGUI : MonoBehaviour
         {
             main.text = "Empty\nTile";
             avatar.sprite = Store.GUIElements[2];
-            if (GameMain.playerGold[GameMain.currentPlayer] >= Villages.villageBuildCost)
+            if (GameMain.playerGold >= Villages.villageBuildCost)
             {
                 buttonText.text = "Build";
                 buttonAvatar.sprite = Store.GUIElements[1];
@@ -175,7 +175,7 @@ public class InfoGUI : MonoBehaviour
         {
             main.text = "Empty\nTile";
             avatar.sprite = Store.GUIElements[2];
-            if (GameMain.playerGold[GameMain.currentPlayer] >= Villages.villageBuildCost)
+            if (GameMain.playerGold >= Villages.villageBuildCost)
             {
                 buttonText.text = "Build";
                 buttonAvatar.sprite = Store.GUIElements[1];

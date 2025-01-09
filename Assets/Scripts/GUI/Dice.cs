@@ -37,12 +37,12 @@ public class Dice : MonoBehaviour
         {
             diceOneObject.SetActive(true);
             diceOne.sprite = Store.diceSprites[diceOneResult];
-            if (GameMain.playerMovementDice[GameMain.currentPlayer] > 1)
+            if (GameMain.playerMovementDice > 1)
             {
                 diceTwoObject.SetActive(true);
                 diceTwo.sprite = Store.diceSprites[diceTwoResult];
             }
-            if (GameMain.playerMovementDice[GameMain.currentPlayer] > 2)
+            if (GameMain.playerMovementDice > 2)
             {
                 diceThreeObject.SetActive(true);
                 diceThree.sprite = Store.diceSprites[diceThreeResult];
@@ -79,8 +79,8 @@ public class Dice : MonoBehaviour
         int total = 0;
         diceOneResult = Random.Range(1, 7);
         total += diceOneResult;
-        if (GameMain.playerMovementDice[GameMain.currentPlayer] > 1) { diceTwoResult = Random.Range(1, 7); total += diceTwoResult; }
-        if (GameMain.playerMovementDice[GameMain.currentPlayer] > 2) { diceThreeResult = Random.Range(1, 7); total += diceThreeResult; }
+        if (GameMain.playerMovementDice > 1) { diceTwoResult = Random.Range(1, 7); total += diceTwoResult; }
+        if (GameMain.playerMovementDice > 2) { diceThreeResult = Random.Range(1, 7); total += diceThreeResult; }
         return total;
     }
 

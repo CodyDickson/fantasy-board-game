@@ -14,9 +14,17 @@ public class GameMain : MonoBehaviour
     public static bool standardMode = true;
     public static bool oddMode = false;
     // Player Info //
-    // public static string playerClass;
     // public static int playerInitiative;
     public static bool playerInCamp;
+    public static string playerClass;
+    public static int playerAvatar;
+    public static int playerHealth;
+    public static int playerArmor;
+    public static int playerMovementDice;
+    public static int playerCombat;
+    public static int playerLives;
+    public static int playerGold;
+    public static List<int> playerWeapons = new List<int>();
     // Current Player Info //
     public static int currentTurn;
     public static int currentPlayer;
@@ -33,17 +41,9 @@ public class GameMain : MonoBehaviour
     public static bool currentPlayerIsHuman = true;
     // Player Info //
     public static List<string> playerTitle = new List<string>();
-    public static List<string> playerClass = new List<string>();
     public static List<bool> playerIsActive = new List<bool>();
     public static List<bool> playerIsHuman = new List<bool>();
-    public static List<int> playerAvatar = new List<int>();
     public static List<int> playerColor = new List<int>();
-    public static List<int> playerHealth = new List<int>();
-    public static List<int> playerArmor = new List<int>();
-    public static List<int> playerLives = new List<int>();
-    public static List<int> playerGold = new List<int>();
-    public static List<int> playerCombat = new List<int>();
-    public static List<int> playerMovementDice = new List<int>();
     //
     public static Dictionary<int, string> player_class = new Dictionary<int, string>();
     public static Dictionary<int, List<int>> player_weapons = new Dictionary<int, List<int>>();
@@ -75,14 +75,14 @@ public class GameMain : MonoBehaviour
     private void Awake()
     {
         TurnManager.PopulateTurnOrder();
-        TurnOrderGUI.ToggleTurnOrderGUI();
+        TurnOrderGUI.UpdateTurnOrderGUI();
     }
 
     void Start()
     {
         totalPlayers = 1;
         currentBoard = 1;
-        player_class.Add(1, "nomad");
+        playerClass = "nomad";
         BoardManager.GenerateGameBoard();
         Fog.GenerateFog();
         Fog.RemoveLocalFog(0);
@@ -90,64 +90,16 @@ public class GameMain : MonoBehaviour
         GUI.SetActive(true);
         Arrows.EnableArrowButtons();
         BoardManager.SpawnPlayersInCamp();
-        TurnManager.TurnProgressionHandler();
-        playerTitle.Add("");
-        playerTitle.Add("Blue Nomad");
-    }
-
-    void Update()
-    {
-    }
-
-    public static void UpdateCurrentPlayerInfo()
-    {
-        currentPlayerLives = playerLives[currentPlayer];
-        currentPlayerHealth = playerHealth[currentPlayer];
-        currentPlayerArmor = playerArmor[currentPlayer];
-        currentPlayerCombat = playerCombat[currentPlayer];
-        currentPlayerGold = playerGold[currentPlayer];
-        currentPlayerAvatar = playerAvatar[currentPlayer];
-        currentPlayerColor = playerColor[currentPlayer];
-        BoardManager.currentUnitPosition = BoardManager.playerPositions[currentPlayer];
-        // current_weapon = player_weapons[currentPlayer][0];
+        TurnManager.StartPlayerTurn();
     }
 
     public static void GameSetup()
     {
-        for (int i = 1; i <= totalPlayers; i++)
-        {
-            int[] values = Classes.ClassStartingStats(player_class[i]);
-            player_avatar.Add(i, values[0]);
-            player_health.Add(i, values[1]);
-            player_lives.Add(i, values[2]);
-            player_armor.Add(i, values[3]);
-            player_movementDice.Add(i, values[4]);
-            var list = new List<int>();
-            list.Add(values[4]);
-            player_weapons.Add(i, list);
-        }        
-        playerLives.Add(1);
-        playerHealth.Add(5);
-        playerGold.Add(100);
-        playerCombat.Add(2);
-        playerArmor.Add(0);
-        playerAvatar.Add(0);
-        playerColor.Add(0);
-        playerIsHuman.Add(false);
-        playerIsActive.Add(false);
-        playerInCamp = true;
-        playerMovementDice.Add(1);
-        for (int i = 1; i <= totalPlayers; i++) {
-            playerHealth.Add(playerHealth[0]); 
-            playerLives.Add(playerLives[0]);
-            playerGold.Add(playerGold[0]);
-            playerCombat.Add(playerCombat[0]);
-            playerArmor.Add(playerArmor[0]);
-            playerAvatar.Add(1);
-            playerColor.Add(1);
-            playerIsHuman.Add(true);
-            playerIsActive.Add(playerIsActive[0]);
-            playerMovementDice.Add(1);
-        }
+        int[] values = Classes.ClassStartingStats(playerClass);
+        playerAvatar = values[0];
+        playerHealth = values[1];
+        playerLives = values[2];
+        playerArmor = values[3];
+        playerMovementDice = values[4];
     }
 }

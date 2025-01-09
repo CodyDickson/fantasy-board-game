@@ -26,33 +26,14 @@ public class Grasslands : MonoBehaviour
 
     public static void CampSpawn()
     {
-        int random;
-        bool spawnDetermined = false;
-        while (!spawnDetermined)
+        int random = Random.Range(1, 5);
+        switch (random)
         {
-            random = Random.Range(1, 5);
-            switch (random)
-            {
-                case 1: BoardManager.boardPosition[0] = 1; BoardManager.boardPosition[1] = 2; break;
-                case 2: BoardManager.boardPosition[0] = -2; BoardManager.boardPosition[1] = -2; break;
-                case 3: BoardManager.boardPosition[0] = -1; BoardManager.boardPosition[1] = -2; break;
-                case 4: BoardManager.boardPosition[0] = -2; BoardManager.boardPosition[1] = 2; break;
-            }
-            int i = BoardManager.playerPositions.Count;
-            bool match = false;
-            foreach (Vector3 spawnPositions in BoardManager.playerPositions)
-            {
-                if (BoardManager.boardPosition == spawnPositions)
-                {
-                    match = true;
-                }
-            }
-            if (match == false)
-            {
-                spawnDetermined = true;
-            }
+            case 1: BoardManager.currentUnitPosition[0] = 1; BoardManager.currentUnitPosition[1] = 2; break;
+            case 2: BoardManager.currentUnitPosition[0] = -2; BoardManager.currentUnitPosition[1] = -2; break;
+            case 3: BoardManager.currentUnitPosition[0] = -1; BoardManager.currentUnitPosition[1] = -2; break;
+            case 4: BoardManager.currentUnitPosition[0] = -2; BoardManager.currentUnitPosition[1] = 2; break;
         }
-        BoardManager.playerPositions.Add(BoardManager.boardPosition);
     }
 
     public static void CampDesign()

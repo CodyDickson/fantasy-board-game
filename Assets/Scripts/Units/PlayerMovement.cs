@@ -23,16 +23,12 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        // Player avatars on the board
+        // Player avatar on the board
         if (avatar_tempCounter <= 0f)
         {
-            for (int i = 1; i <= GameMain.totalPlayers; i++)
+            if (GameMain.playerLives > 0)
             {
-                if (GameMain.playerLives[i] > 0 && GameMain.playerIsActive[i])
-                {
-                    BoardManager.boardPosition = BoardManager.playerPositions[i];
-                    Store.tilemaps[4].SetTile(new Vector3Int((int)BoardManager.boardPosition[0], (int)BoardManager.boardPosition[1]), Store.playerTiles[GameMain.playerAvatar[i]]);
-                }
+                Store.tilemaps[4].SetTile(new Vector3Int((int)BoardManager.currentUnitPosition[0], (int)BoardManager.currentUnitPosition[1]), Store.playerTiles[GameMain.playerAvatar]);
             }
             avatar_tempCounter = avatar_counter;
         }
@@ -54,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
                 {
                     BoardManager.CheckForLocalBoardPositions();
                     BoardManager.DetermineNextBoardPosition();
-                    units.SetTile(new Vector3Int((int)BoardManager.currentUnitPosition[0], (int)BoardManager.currentUnitPosition[1]), Store.playerTiles[GameMain.currentPlayer]);
+                    units.SetTile(new Vector3Int((int)BoardManager.currentUnitPosition[0], (int)BoardManager.currentUnitPosition[1]), Store.playerTiles[GameMain.playerAvatar]);
                     Debug.Log("Current Unit Position: " + BoardManager.currentUnitPosition);
                     BoardManager.CheckForCrossroads();
                     if (BoardManager.crossroadsPosition == true)
@@ -71,6 +67,7 @@ public class PlayerMovement : MonoBehaviour
                     playerIsMoving = false;
                     BoardManager.CheckForLocalStructures();
                     InfoGUI.ToggleInfoGUI(true);
+                    Dice.DisableDice();
                 }
                 movement_tempCounter = movement_counter;
             }
@@ -84,7 +81,6 @@ public class PlayerMovement : MonoBehaviour
     public static void PlayerExitingCamp()
     {
         Tilemap units = Store.tilemaps[4];
-        BoardManager.currentUnitPosition = BoardManager.playerPositions[GameMain.currentPlayer];
         units.SetTile(new Vector3Int((int)BoardManager.currentUnitPosition[0], (int)BoardManager.currentUnitPosition[1]), null);
         if (BoardManager.currentUnitDirection == "north") { BoardManager.currentUnitPosition = BoardManager.campExitPositions[0]; }
         if (BoardManager.currentUnitDirection == "east") { BoardManager.currentUnitPosition = BoardManager.campExitPositions[1]; }

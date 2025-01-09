@@ -102,11 +102,11 @@ public class GUIManager : MonoBehaviour
         if (GameMain.GUIEnabled && !playerGUIHasBeenUpdated)
         {
             playerGUI.SetActive(true);
-            playerGUI_health.text = "Health: " + GameMain.player_health[GameMain.currentHumanPlayer];
-            playerGUI_gold.text = "Gold: " + GameMain.playerGold[GameMain.currentHumanPlayer];
-            playerGUI_combat.text = "Combat: " + GameMain.playerCombat[GameMain.currentHumanPlayer];
-            playerGUI_lives.text = "Lives: " + GameMain.player_lives[GameMain.currentHumanPlayer];
-            playerGUI_armor.text = "Armor: " + GameMain.player_armor[GameMain.currentHumanPlayer];
+            playerGUI_health.text = "Health: " + GameMain.playerHealth;
+            playerGUI_gold.text = "Gold: " + GameMain.playerGold;
+            playerGUI_combat.text = "Combat: " + GameMain.playerCombat;
+            playerGUI_lives.text = "Lives: " + GameMain.playerLives;
+            playerGUI_armor.text = "Armor: " + GameMain.playerArmor;
             if (UpdatePlayerGUIAvatar.playerGUIAvatarHasBeenUpdated == false) { UpdatePlayerGUIAvatar.updatePlayerGUIAvatar = true; };
             playerGUIHasBeenUpdated = true;
         }
@@ -139,7 +139,7 @@ public class GUIManager : MonoBehaviour
     void OnClickEndTurn()
     {
         TurnManager.TurnProgressionHandler();
-        TurnOrderGUI.ToggleTurnOrderGUI();
+        TurnOrderGUI.UpdateTurnOrderGUI();
         InfoGUI.ToggleInfoGUI(false);
         ToggleEndTurnButton(false);
     }

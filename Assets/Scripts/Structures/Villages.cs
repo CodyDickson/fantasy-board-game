@@ -54,7 +54,7 @@ public class Villages : MonoBehaviour
         if (direction == "west") { position = BoardManager.westSlotPosition; }
         structures.SetTile(new Vector3Int((int)position[0], (int)position[1]), village);
         villagePositions.Add(position, player);
-        GameMain.playerGold[player] -= villageBuildCost;
+        GameMain.playerGold -= villageBuildCost;
     }
 
     public static void UpgradeVillage()
