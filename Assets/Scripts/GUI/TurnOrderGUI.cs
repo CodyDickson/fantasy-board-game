@@ -44,6 +44,7 @@ public class TurnOrderGUI : MonoBehaviour
                 case 3: itemThree = TurnManager.turnOrder[2]; break;
             }
         }
+        Debug.Log(itemOne + " pass");
         if (itemOne == "player")
         {
             slotOne.sprite = Store.playerSprites[GameMain.currentPlayerAvatar];

@@ -1253,9 +1253,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1281680180}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 281, y: 152}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 15, y: 0}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &167516074
@@ -2972,7 +2972,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 190, y: 125}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &460774332
@@ -2995,7 +2995,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 7720977962502331684, guid: 5eb17e61d14b8b047bce891df80c7691, type: 3}
+  m_Sprite: {fileID: -1562796515590479517, guid: 11078c845ac3c0c40adce5d599202065, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -17291,10 +17291,10 @@ RectTransform:
   - {fileID: 167516073}
   m_Father: {fileID: 1077264790}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 592, y: 308}
-  m_SizeDelta: {x: 1184, y: 616}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 869.75, y: -208}
+  m_SizeDelta: {x: 200, y: 117.3587}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1281680181
 MonoBehaviour:
@@ -21611,9 +21611,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1281680180}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 94, y: 148}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: -15, y: 0}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1996444741
@@ -21868,45 +21868,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62eb0f14bfabe0d488af1fef984dcb01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerRed: {fileID: 11400000, guid: 7fcd23b836bec5d4b9b8aecd48d53d68, type: 2}
-  playerBlue: {fileID: 11400000, guid: fa2a786baf5643c498a6df52d1fb6c0a, type: 2}
-  playerGreen: {fileID: 11400000, guid: f3aee2334d4530f4c9b190c4cfdd9d8b, type: 2}
-  playerPurple: {fileID: 11400000, guid: 9ebb4ab6d8476184b957a416058017d6, type: 2}
-  playerWhite: {fileID: 11400000, guid: 166aa36542e22034ab20443c06635987, type: 2}
-  monsterImp: {fileID: 11400000, guid: a07744c50b2782448b6e9acddd18d7b3, type: 2}
-  monsterBasilisk: {fileID: 11400000, guid: 6abf17d41a559684b8eaf9005884b30c, type: 2}
-  monsterEliteRampagingElephant: {fileID: 0}
-  monsterMimic: {fileID: 0}
-  monsterSkeleton: {fileID: 0}
-  monsterGhost: {fileID: 0}
-  monsterEliteSkeletonAmalgamation: {fileID: 0}
-  chest: {fileID: 11400000, guid: e18b07106ae7e0b41af37e48138dfdcd, type: 2}
-  oddity: {fileID: 11400000, guid: 79eecc25e8dbd4b49acc60bb94f6668b, type: 2}
-  dungeon: {fileID: 11400000, guid: 1a571ebd6d3749344914a28e9a39d038, type: 2}
-  ground: {fileID: 11400000, guid: 09e90b36de37383488f73b571c2583e7, type: 2}
-  tree: {fileID: 11400000, guid: a8c6bbc608b63cf4ba59bec71a5bf122, type: 2}
-  camp: {fileID: 11400000, guid: e9d1119bcafe74546b2040eda45f18a2, type: 2}
-  bcHorizontal: {fileID: 11400000, guid: 42fe42d0cfbd94f489b318e0fed0e9d9, type: 2}
-  bcThreeDown: {fileID: 11400000, guid: 4eb636e2c3ecafa48b5fcc0ee1c1108a, type: 2}
-  bcVertical: {fileID: 11400000, guid: 6270631973c18e9409055c604091d7fc, type: 2}
-  bcThreeUp: {fileID: 11400000, guid: 468c1776d2343a041b0d097a63f43cc4, type: 2}
-  bcThreeLeft: {fileID: 11400000, guid: b211e8de053ecb34f8291c5fa45c2b19, type: 2}
-  bcThreeRight: {fileID: 11400000, guid: 99e2e826bcc0eb44b99d6e799f66750d, type: 2}
-  bcTopRightCorner: {fileID: 11400000, guid: b081844a4b526cf439d60f05f1bb1dc6, type: 2}
-  bcBottomLeftCorner: {fileID: 11400000, guid: 2a56345c697dcb94f8bec325aae0785a, type: 2}
-  bcBottomRightCorner: {fileID: 11400000, guid: 693b55232d927204b87bb679b67b95b9, type: 2}
-  bcTopLeftCorner: {fileID: 11400000, guid: 1a6c985cbf2430241bb24cc6e0f5347a, type: 2}
-  emptySlot: {fileID: 11400000, guid: 841e5481995a4e84ca5a889467661f98, type: 2}
-  tilemapTerrain: {fileID: 1089704673}
-  tilemapTerrainObjects: {fileID: 559942291}
-  tilemapStructures: {fileID: 737563382}
-  tilemapUnits: {fileID: 533341040}
-  tilemapBoardConnectors: {fileID: 842877893}
-  terrain: {fileID: 1089704673}
-  terrainObjects: {fileID: 559942291}
-  gui: {fileID: 1077264794}
-  fogTile: {fileID: 11400000, guid: 2a37141a79d1eeb4d8d09ccc85c6d6be, type: 2}
-  fog: {fileID: 906894072}
 --- !u!4 &2054497523
 Transform:
   m_ObjectHideFlags: 0

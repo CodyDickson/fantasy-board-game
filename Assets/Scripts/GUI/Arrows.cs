@@ -94,6 +94,7 @@ public class Arrows : MonoBehaviour
     public static void OnClickUpArrow()
     {
         DisableArrowButtons();
+        Dice.DisableDice();
         BoardManager.currentUnitDirection = "north";
         PlayerMovement.playerIsMoving = true;
     }
@@ -101,6 +102,7 @@ public class Arrows : MonoBehaviour
     void OnClickRightArrow()
     {
         DisableArrowButtons();
+        Dice.DisableDice();
         BoardManager.currentUnitDirection = "east";
         PlayerMovement.playerIsMoving = true;
     }
@@ -108,6 +110,7 @@ public class Arrows : MonoBehaviour
     void OnClickDownArrow()
     {
         DisableArrowButtons();
+        Dice.DisableDice();
         BoardManager.currentUnitDirection = "south";
         PlayerMovement.playerIsMoving = true;
     }
@@ -115,6 +118,7 @@ public class Arrows : MonoBehaviour
     void OnClickLeftArrow()
     {
         DisableArrowButtons();
+        Dice.DisableDice();
         BoardManager.currentUnitDirection = "west";
         PlayerMovement.playerIsMoving = true;
     }

@@ -22,7 +22,7 @@ public class Dice : MonoBehaviour
     public GameObject diceOneObject, diceTwoObject, diceThreeObject;
     public Image diceOne, diceTwo, diceThree;
     private float tempCounter = 0f;
-    private float counter = 0.5f;
+    private float counter = 1f;
 
     void Start()
     {
@@ -48,7 +48,6 @@ public class Dice : MonoBehaviour
                 diceThree.sprite = Store.diceSprites[diceThreeResult];
             }
             diceShouldShow = false;
-            diceShouldFadeAway = true;
         }
         if (diceShouldFadeAway)
         {
@@ -89,4 +88,8 @@ public class Dice : MonoBehaviour
     {
         diceShouldShow = true;
     }
+
+    public static void DisableDice() { diceShouldFadeAway = true; }
+    
+    public static void DisableDiceImmediately() { diceShouldFadeAwayImmediately = true; }
 }

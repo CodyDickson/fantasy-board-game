@@ -124,7 +124,6 @@ public class TurnManager : MonoBehaviour
         UpdatePlayerGUIAvatar.updatePlayerGUIAvatar = true;
         ItemGUI.UpdateWeaponAvatar();
         GameMain.currentPlayer += 1;
-        Debug.Log("Player Turn, Current Player is " + GameMain.currentPlayer);
         if (GameMain.currentPlayer > GameMain.totalPlayers)
         {
             if (GameMain.playerLives[1] > 0)
@@ -144,7 +143,9 @@ public class TurnManager : MonoBehaviour
                 GameMain.currentPlayer = 4;
             }
         }
-        if (GameMain.playerInCamp[GameMain.currentPlayer])
+        GameMain.currentPlayer += 1; if (GameMain.currentPlayer > GameMain.totalPlayers)
+
+            if (GameMain.playerInCamp[GameMain.currentPlayer])
         {
             Arrows.EnableArrowButtons();
             // GUI.playerGUIHasBeenUpdated = false;

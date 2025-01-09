@@ -139,31 +139,17 @@ public class GUIManager : MonoBehaviour
 
     void OnClickEndTurn()
     {
-        if (endTurnButtonEnabled)
-        {
-            TurnManager.TurnProgressionHandler();
-            InfoGUI.ToggleInfoGUI(false);
-            enableEndTurnButton = false;
-        }
-        else
-        {
-            Debug.Log("End turn is currently disabled");
-        }
+        TurnManager.TurnProgressionHandler();
+        TurnOrderGUI.ToggleTurnOrderGUI();
+        InfoGUI.ToggleInfoGUI(false);
+        ToggleEndTurnButton(false);
     }
 
     void OnClickMove()
     {
+        ToggleMoveButton(false);
         PlayerMovement.movesRemaining = Dice.RollDice();
         Dice.EnableDice();
-        bool onePath = BoardManager.OnlyOnePathPossible();
-        if (!onePath)
-        {
-            BoardManager.CheckForLocalBoardPositions();
-            Arrows.EnableArrowButtons();
-        }
-        else
-        {
-            PlayerMovement.playerIsMoving = true;
-        }
+        Arrows.EnableArrowButtons();
     }
 }

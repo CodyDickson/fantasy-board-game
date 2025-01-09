@@ -71,6 +71,13 @@ public class GameMain : MonoBehaviour
     [SerializeField] public TMP_Text currentTurnText;
     public GameObject GUI;
 
+    private void Awake()
+    {
+        TurnManager.SetInitialTurnOrder();
+        TurnManager.PopulateTurnOrder();
+        TurnOrderGUI.ToggleTurnOrderGUI();
+    }
+
     void Start()
     {
         totalPlayers = 1;
@@ -83,10 +90,7 @@ public class GameMain : MonoBehaviour
         GUI.SetActive(true);
         Arrows.EnableArrowButtons();
         BoardManager.SpawnPlayersInCamp();
-        TurnManager.SetInitialTurnOrder();
         TurnManager.TurnProgressionHandler();
-        TurnManager.PopulateTurnOrder();
-        TurnOrderGUI.ToggleTurnOrderGUI();
         playerTitle.Add("");
         playerTitle.Add("Blue Nomad");
     }
