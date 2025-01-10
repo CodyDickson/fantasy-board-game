@@ -4,15 +4,12 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 public class TurnManager : MonoBehaviour
 {
     public static List<string> turnOrder = new List<string>();
-    public static List<string> turnPool = new List<string>();
-    public static GUIManager gui;
     public static bool continueTurnProgression = false;
-    private float counter = 0.5f;
+    private float counter = 2f;
     private float tempCounter = 0f;
     public Tilemap tilemapStructures;
 
@@ -39,7 +36,9 @@ public class TurnManager : MonoBehaviour
             turnOrder.Add("player");
             turnOrder.Add("spawnMonsters");
             turnOrder.Add("player");
-            turnOrder.Add("moveMonsters");
+            turnOrder.Add("spawnMonsters");
+            // Move Monsters
+            // Spawn Merchants
         }
     }
 

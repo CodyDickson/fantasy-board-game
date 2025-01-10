@@ -22,7 +22,7 @@ public class Merchants : MonoBehaviour
 
     public static void SpawnMerchants(int location)
     {
-        Tilemap structures = Store.tilemaps[3];
+        /*Tilemap structures = Store.tilemaps[3];
         Vector3 center = new Vector3(0, 0);
         center = BoardManager.CheckClockworkPosition(location);
         int random;
@@ -46,27 +46,27 @@ public class Merchants : MonoBehaviour
                             if (slot == positionCheckOne && merchantCount < 3)
                             {
                                 random = Random.Range(1, 101);
-                                if (random <= 10) { structures.SetTile(new Vector3Int((int)positionCheckOne[0], (int)positionCheckOne[1]), Store.merchantTiles[0]); merchantCount++; merchantPositions.Add(positionCheckOne, merchantType); BoardManager.RemoveEmptySlot(positionCheckOne); }
+                                if (random <= 10) { structures.SetTile(new Vector3Int((int)positionCheckOne[0], (int)positionCheckOne[1]), Store.merchantTiles[0]); merchantCount++; merchantPositions.Add(positionCheckOne, merchantType); }
                             }
                             if (slot == positionCheckTwo && merchantCount < 3)
                             {
                                 random = Random.Range(1, 101);
-                                if (random <= 10) { structures.SetTile(new Vector3Int((int)positionCheckTwo[0], (int)positionCheckTwo[1]), Store.merchantTiles[0]); merchantCount++; merchantPositions.Add(positionCheckTwo, merchantType); BoardManager.RemoveEmptySlot(positionCheckTwo); }
+                                if (random <= 10) { structures.SetTile(new Vector3Int((int)positionCheckTwo[0], (int)positionCheckTwo[1]), Store.merchantTiles[0]); merchantCount++; merchantPositions.Add(positionCheckTwo, merchantType); }
                             }
                             if (slot == positionCheckThree && merchantCount < 3)
                             {
                                 random = Random.Range(1, 101);
-                                if (random <= 10) { structures.SetTile(new Vector3Int((int)positionCheckThree[0], (int)positionCheckThree[1]), Store.merchantTiles[0]); merchantCount++; merchantPositions.Add(positionCheckThree, merchantType); BoardManager.RemoveEmptySlot(positionCheckThree); }
+                                if (random <= 10) { structures.SetTile(new Vector3Int((int)positionCheckThree[0], (int)positionCheckThree[1]), Store.merchantTiles[0]); merchantCount++; merchantPositions.Add(positionCheckThree, merchantType); }
                             }
                             if (slot == positionCheckFour && merchantCount < 3)
                             {
                                 random = Random.Range(1, 101);
-                                if (random <= 10) { structures.SetTile(new Vector3Int((int)positionCheckFour[0], (int)positionCheckFour[1]), Store.merchantTiles[0]); merchantCount++; merchantPositions.Add(positionCheckFour, merchantType); BoardManager.RemoveEmptySlot(positionCheckFour); }
+                                if (random <= 10) { structures.SetTile(new Vector3Int((int)positionCheckFour[0], (int)positionCheckFour[1]), Store.merchantTiles[0]); merchantCount++; merchantPositions.Add(positionCheckFour, merchantType); }
                             }
                         }
                     }
                 }
             }
-        }
+        }*/
     }
 }

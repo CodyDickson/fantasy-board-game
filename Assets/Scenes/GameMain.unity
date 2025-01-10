@@ -16154,7 +16154,6 @@ MonoBehaviour:
   playerBlue: {fileID: 21300000, guid: 0408cc6b9cbf9b0458492cb17390ce17, type: 3}
   centerText: {fileID: 1943687175}
   GUIColorHasBeenUpdated: 0
-  playerGUIHasBeenUpdated: 0
   player: {fileID: 11400000, guid: 8fc5050742410c24aa4811c173f98222, type: 2}
   player_red: {fileID: 0}
   player_blue: {fileID: 0}
@@ -21313,7 +21312,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -335}
+  m_AnchoredPosition: {x: 0, y: -250}
   m_SizeDelta: {x: 500, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1943687175
