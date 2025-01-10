@@ -13,7 +13,6 @@ public class BoardManager : MonoBehaviour
     public static List<Vector3> crossroadPositions = new List<Vector3>();
     public static List<Vector3> campExitPositions = new List<Vector3>();
     public static List<Vector3> playerPositions = new List<Vector3>();
-    public static List<Vector3> merchantPositions = new List<Vector3>();
     public static List<Vector3> emptyBoardSlots = new List<Vector3>();
     // Directions
     public static string currentUnitDirection;
@@ -309,7 +308,7 @@ public class BoardManager : MonoBehaviour
         Vector3 east = new Vector3(currentUnitPosition[0] + 1, currentUnitPosition[1]);
         Vector3 south = new Vector3(currentUnitPosition[0], currentUnitPosition[1] - 1);
         Vector3 west = new Vector3(currentUnitPosition[0] - 1, currentUnitPosition[1]);
-        foreach (Vector3 listVector in merchantPositions)
+        foreach (Vector3 listVector in Merchants.merchantPositions.Keys)
         {
             if (listVector == north) { merchantNorth = true; }
             if (listVector == east) { merchantEast = true; }
@@ -418,5 +417,10 @@ public class BoardManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public static void RemoveEmptySlot(Vector3 position)
+    {
+        emptyBoardSlots.Remove(position);
     }
 }

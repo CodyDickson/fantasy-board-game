@@ -41,6 +41,7 @@ public class Dungeons : MonoBehaviour
                         Vector3 positionCheckTwo = new Vector3Int((int)center[0] - x, (int)center[1] + y);
                         Vector3 positionCheckThree = new Vector3Int((int)center[0] + x, (int)center[1] - y);
                         Vector3 positionCheckFour = new Vector3Int((int)center[0] - x, (int)center[1] - y);
+                        // Vector3[] positionsToRemove = new Vector3[];
                         foreach (Vector3 slot in BoardManager.emptyBoardSlots)
                         {
                             if (slot == positionCheckOne && dungeonCount < 20)
@@ -75,6 +76,7 @@ public class Dungeons : MonoBehaviour
                                         if (random == 1) { monsterType = 0; }
                                         if (random == 2) { monsterType = 1; }
                                         dungeonPositions.Add(position, monsterType);
+                                        BoardManager.RemoveEmptySlot(position);
                                     }
                                 }
                             }
@@ -93,6 +95,7 @@ public class Dungeons : MonoBehaviour
                                         if (random == 1) { monsterType = 0; }
                                         if (random == 2) { monsterType = 1; }
                                         dungeonPositions.Add(position, monsterType);
+                                        BoardManager.RemoveEmptySlot(position);
                                     }
                                 }
                             }
@@ -111,6 +114,7 @@ public class Dungeons : MonoBehaviour
                                         if (random == 1) { monsterType = 0; }
                                         if (random == 2) { monsterType = 1; }
                                         dungeonPositions.Add(position, monsterType);
+                                        BoardManager.RemoveEmptySlot(position);
                                     }
                                 }
                             }

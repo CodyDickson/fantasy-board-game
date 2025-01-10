@@ -65,6 +65,7 @@ public class TurnManager : MonoBehaviour
     public static void EndPlayerTurn()
     {
         GameMain.playerGold += Villages.totalVillageGoldPerTurn;
+        GUIManager.UpdatePlayerGUI();
     }
 
     public static void StartPlayerTurn()

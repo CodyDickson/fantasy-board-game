@@ -20,7 +20,7 @@ public class GUIManager : MonoBehaviour
     public static bool enableMoveButton = false;
     public static bool moveButtonEnabled = false;
     public bool GUIColorHasBeenUpdated = false;
-    public bool playerGUIHasBeenUpdated = false;
+    public static bool playerGUIHasBeenUpdated = false;
     public static bool clearCenterText = false;
     [SerializeField] public Tile player;
     [SerializeField] public Tile player_red;
@@ -119,6 +119,11 @@ public class GUIManager : MonoBehaviour
             centerText.SetText("");
             clearCenterText = false;
         }
+    }
+
+    public static void UpdatePlayerGUI()
+    {
+        playerGUIHasBeenUpdated = false;
     }
 
     public void ClearCenterText()

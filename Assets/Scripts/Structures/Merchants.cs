@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UIElements;
 
 public class Merchants : MonoBehaviour
 {
     public static int merchantCount;
+    public static int merchantType = 1;
+    public static Dictionary<Vector3, int> merchantPositions = new Dictionary<Vector3, int>();
 
     private void Update()
     {
@@ -43,22 +46,22 @@ public class Merchants : MonoBehaviour
                             if (slot == positionCheckOne && merchantCount < 3)
                             {
                                 random = Random.Range(1, 101);
-                                if (random <= 10) { structures.SetTile(new Vector3Int((int)positionCheckOne[0], (int)positionCheckOne[1]), Store.merchantTiles[0]); merchantCount++; }
+                                if (random <= 10) { structures.SetTile(new Vector3Int((int)positionCheckOne[0], (int)positionCheckOne[1]), Store.merchantTiles[0]); merchantCount++; merchantPositions.Add(positionCheckOne, merchantType); BoardManager.RemoveEmptySlot(positionCheckOne); }
                             }
                             if (slot == positionCheckTwo && merchantCount < 3)
                             {
                                 random = Random.Range(1, 101);
-                                if (random <= 10) { structures.SetTile(new Vector3Int((int)positionCheckTwo[0], (int)positionCheckTwo[1]), Store.merchantTiles[0]); merchantCount++; }
+                                if (random <= 10) { structures.SetTile(new Vector3Int((int)positionCheckTwo[0], (int)positionCheckTwo[1]), Store.merchantTiles[0]); merchantCount++; merchantPositions.Add(positionCheckTwo, merchantType); BoardManager.RemoveEmptySlot(positionCheckTwo); }
                             }
                             if (slot == positionCheckThree && merchantCount < 3)
                             {
                                 random = Random.Range(1, 101);
-                                if (random <= 10) { structures.SetTile(new Vector3Int((int)positionCheckThree[0], (int)positionCheckThree[1]), Store.merchantTiles[0]); merchantCount++; }
+                                if (random <= 10) { structures.SetTile(new Vector3Int((int)positionCheckThree[0], (int)positionCheckThree[1]), Store.merchantTiles[0]); merchantCount++; merchantPositions.Add(positionCheckThree, merchantType); BoardManager.RemoveEmptySlot(positionCheckThree); }
                             }
                             if (slot == positionCheckFour && merchantCount < 3)
                             {
                                 random = Random.Range(1, 101);
-                                if (random <= 10) { structures.SetTile(new Vector3Int((int)positionCheckFour[0], (int)positionCheckFour[1]), Store.merchantTiles[0]); merchantCount++; }
+                                if (random <= 10) { structures.SetTile(new Vector3Int((int)positionCheckFour[0], (int)positionCheckFour[1]), Store.merchantTiles[0]); merchantCount++; merchantPositions.Add(positionCheckFour, merchantType); BoardManager.RemoveEmptySlot(positionCheckFour); }
                             }
                         }
                     }

@@ -36,6 +36,7 @@ public class InfoGUI : MonoBehaviour
         if (updateInfoGUI)
         {
             DeterminePoolContents();
+            Debug.Log("Info GUI Pool: " + infoGUIPool[0] + " " + infoGUIPool[1]);
             infoGUI_bottom.SetActive(true);
             UpdateInfoGUI(infoGUIPool[0], infoGUIPool_directions[0], main_bottom, buttonText_bottom, avatar_bottom, buttonAvatar_bottom);
             if (infoGUIPool.Count > 1)
@@ -96,10 +97,10 @@ public class InfoGUI : MonoBehaviour
         if (BoardManager.eastEmpty) { infoGUIPool.Add("empty"); infoGUIPool_directions.Add("east"); }
         if (BoardManager.southEmpty) { infoGUIPool.Add("empty"); infoGUIPool_directions.Add("south"); }
         if (BoardManager.westEmpty) { infoGUIPool.Add("empty"); infoGUIPool_directions.Add("west"); }
-        if (BoardManager.dungeonNorth) { infoGUIPool.Add("dungeon"); infoGUIPool_directions.Add("north"); }
-        if (BoardManager.dungeonEast) { infoGUIPool.Add("dungeon"); infoGUIPool_directions.Add("east"); }
-        if (BoardManager.dungeonSouth) { infoGUIPool.Add("dungeon"); infoGUIPool_directions.Add("south"); }
-        if (BoardManager.dungeonWest) { infoGUIPool.Add("dungeon"); infoGUIPool_directions.Add("west"); }
+        if (BoardManager.dungeonNorth) { infoGUIPool.Add("dungeon"); infoGUIPool_directions.Add("north"); Debug.Log("pass"); }
+        if (BoardManager.dungeonEast) { infoGUIPool.Add("dungeon"); infoGUIPool_directions.Add("east"); Debug.Log("pass"); }
+        if (BoardManager.dungeonSouth) { infoGUIPool.Add("dungeon"); infoGUIPool_directions.Add("south"); Debug.Log("pass"); }
+        if (BoardManager.dungeonWest) { infoGUIPool.Add("dungeon"); infoGUIPool_directions.Add("west"); Debug.Log("pass"); }
         if (BoardManager.villageNorth) { infoGUIPool.Add("village"); infoGUIPool_directions.Add("north"); }
         if (BoardManager.villageEast) { infoGUIPool.Add("village"); infoGUIPool_directions.Add("east"); }
         if (BoardManager.villageSouth) { infoGUIPool.Add("village"); infoGUIPool_directions.Add("south"); }
@@ -112,6 +113,7 @@ public class InfoGUI : MonoBehaviour
 
     public static void UpdateInfoGUI(string content, string direction, TMP_Text main, TMP_Text buttonText, Image avatar, Image buttonAvatar)
     {
+        Debug.Log(content);
         if (content == "empty")
         {
             main.text = direction + "\nempty";
