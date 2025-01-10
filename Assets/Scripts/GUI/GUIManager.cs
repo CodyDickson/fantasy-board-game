@@ -83,8 +83,8 @@ public class GUIManager : MonoBehaviour
         }
         else if (!enableMoveButton && moveButtonEnabled)
         {
-            moveButtonPanel.gameObject.SetActive(false);
-            moveButton.gameObject.SetActive(false);
+            //moveButtonPanel.gameObject.SetActive(false);
+            //moveButton.gameObject.SetActive(false);
             moveButtonEnabled = false;
         }
         if (enableEndTurnButton && !endTurnButtonEnabled)
@@ -95,8 +95,8 @@ public class GUIManager : MonoBehaviour
         }
         else if (!enableEndTurnButton && endTurnButtonEnabled)
         {
-            endTurnButtonPanel.gameObject.SetActive(false);
-            endTurnButton.gameObject.SetActive(false);
+            //endTurnButtonPanel.gameObject.SetActive(false);
+            //endTurnButton.gameObject.SetActive(false);
             endTurnButtonEnabled = false;
         }
         if (GameMain.GUIEnabled && !playerGUIHasBeenUpdated)
@@ -139,9 +139,9 @@ public class GUIManager : MonoBehaviour
     void OnClickEndTurn()
     {
         TurnManager.TurnProgressionHandler();
-        TurnOrderGUI.UpdateTurnOrderGUI();
         InfoGUI.ToggleInfoGUI(false);
         ToggleEndTurnButton(false);
+        TurnManager.EndPlayerTurn();
     }
 
     void OnClickMove()

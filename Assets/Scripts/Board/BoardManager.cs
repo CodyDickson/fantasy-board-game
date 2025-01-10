@@ -290,7 +290,7 @@ public class BoardManager : MonoBehaviour
         Vector3 east = new Vector3(currentUnitPosition[0] + 1, currentUnitPosition[1]);
         Vector3 south = new Vector3(currentUnitPosition[0], currentUnitPosition[1] - 1);
         Vector3 west = new Vector3(currentUnitPosition[0] - 1, currentUnitPosition[1]);
-        foreach (Vector3 listVector in Villages.villagePositions.Keys)
+        foreach (Vector3 listVector in Villages.villagePositions)
         {
             if (listVector == north) { villageNorth = true; }
             if (listVector == east) { villageEast = true; }

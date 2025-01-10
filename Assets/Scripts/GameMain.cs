@@ -24,6 +24,7 @@ public class GameMain : MonoBehaviour
     public static int playerCombat;
     public static int playerLives;
     public static int playerGold;
+    public static int playerVillage;
     public static List<int> playerWeapons = new List<int>();
     // Current Player Info //
     public static int currentTurn;
@@ -101,5 +102,7 @@ public class GameMain : MonoBehaviour
         playerLives = values[2];
         playerArmor = values[3];
         playerMovementDice = values[4];
+        playerVillage = 1;
+        playerGold = 150;
     }
 }

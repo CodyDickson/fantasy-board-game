@@ -64,12 +64,7 @@ public class TurnManager : MonoBehaviour
 
     public static void EndPlayerTurn()
     {
-        // GameMain.playerGold += Villages.totalVillageGoldPerTurn;
-        InfoGUI.ToggleInfoGUI(true);
-        BoardManager.villageNearby = false;
-        BoardManager.dungeonNearby = false;
-        BoardManager.merchantNearby = false;
-        GUIManager.ToggleMoveButton(true);
+        GameMain.playerGold += Villages.totalVillageGoldPerTurn;
     }
 
     public static void StartPlayerTurn()
