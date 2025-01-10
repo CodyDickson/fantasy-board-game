@@ -22,24 +22,6 @@ public class GUIManager : MonoBehaviour
     public bool GUIColorHasBeenUpdated = false;
     public static bool playerGUIHasBeenUpdated = false;
     public static bool clearCenterText = false;
-    [SerializeField] public Tile player;
-    [SerializeField] public Tile player_red;
-    [SerializeField] public Tile player_blue;
-    [SerializeField] public Tile player_green;
-    [SerializeField] public Tile player_purple;
-    [SerializeField] public Tile player_white;
-    [SerializeField] public Tile villageRed;
-    [SerializeField] public Tile villageBlue;
-    [SerializeField] public Tile villageGreen;
-    [SerializeField] public Tile villagePurple;
-    [SerializeField] public Tile villageWhite;
-    [SerializeField] public Tile monster;
-    [SerializeField] public Tile monsterImp;
-    [SerializeField] public Tile monsterBasilisk;
-    [SerializeField] public Tile dungeon;
-    [SerializeField] public Tilemap tilemap;
-    [SerializeField] public Tilemap tilemapStructures;
-    [SerializeField] public Tilemap tilemapUnits;
     [SerializeField] public TMP_Text playerGUI_health, playerGUI_combat, playerGUI_gold, playerGUI_lives, playerGUI_armor;
     [SerializeField] public TMP_Text infoGUI_topText, infoGUI_middleText,infoGUI_bottomText;
 

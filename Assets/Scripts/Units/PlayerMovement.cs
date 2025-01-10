@@ -97,8 +97,8 @@ public class PlayerMovement : MonoBehaviour
             case "west": clockwork = 7; break;
         }
         Fog.RemoveLocalFog(clockwork);
-        Dungeons.SpawnDungeons(clockwork);
-        Merchants.SpawnMerchants(clockwork);
+        // Dungeons.SpawnDungeons(clockwork);
+        // Merchants.SpawnMerchants(clockwork);
         GUIManager.ToggleMoveButton(true);
 
     }

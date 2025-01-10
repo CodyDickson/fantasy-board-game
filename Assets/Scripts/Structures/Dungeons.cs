@@ -31,6 +31,7 @@ public class Dungeons : MonoBehaviour
             int monsterType = 0;
             int xSize = 6;
             int ySize = 6;
+            List<Vector3> positionsToRemove = new List<Vector3>();
             while (dungeonCount < 5)
             {
                 for (int z = 0, y = 0; y <= ySize; y++)
@@ -41,7 +42,6 @@ public class Dungeons : MonoBehaviour
                         Vector3 positionCheckTwo = new Vector3Int((int)center[0] - x, (int)center[1] + y);
                         Vector3 positionCheckThree = new Vector3Int((int)center[0] + x, (int)center[1] - y);
                         Vector3 positionCheckFour = new Vector3Int((int)center[0] - x, (int)center[1] - y);
-                        List<Vector3> positionsToRemove = new List<Vector3>();
                         foreach (Vector3 slot in BoardManager.emptyBoardSlots)
                         {
                             if (slot == positionCheckOne && dungeonCount < 20)

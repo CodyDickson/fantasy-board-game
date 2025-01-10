@@ -31,9 +31,11 @@ public class Villages : MonoBehaviour
         if (direction == "west") { position = BoardManager.westSlotPosition; }
         structures.SetTile(new Vector3Int((int)position[0], (int)position[1]), village);
         villagePositions.Add(position);
+        BoardManager.RemoveEmptySlot(position);
         GameMain.playerGold -= villageBuildCost;
         GUIManager.UpdatePlayerGUI();
         totalVillageGoldPerTurn += 25;
+        InfoGUI.updateInfoGUI = true;
     }
 
     public static void UpgradeVillage()

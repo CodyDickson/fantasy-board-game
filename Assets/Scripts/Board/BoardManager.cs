@@ -350,6 +350,7 @@ public class BoardManager : MonoBehaviour
                 westEmpty = true;
             }
         }
+        Debug.Log("Check: " + northEmpty + eastEmpty + southEmpty + westEmpty);
     }
 
     public static void GetLocalSlotPositions()

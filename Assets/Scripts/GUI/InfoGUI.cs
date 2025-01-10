@@ -40,8 +40,8 @@ public class InfoGUI : MonoBehaviour
             DeterminePoolContents();
             if (finishUpdatingInfoGUI)
             {
-                Debug.Log("Info GUI Pool: " + infoGUIPool[0] + " " + infoGUIPool[1]);
                 infoGUI_bottom.SetActive(true);
+                Debug.Log(infoGUIPool.Count);
                 UpdateInfoGUI(infoGUIPool[0], infoGUIPool_directions[0], main_bottom, buttonText_bottom, avatar_bottom, buttonAvatar_bottom);
                 if (infoGUIPool.Count > 1)
                 {
@@ -76,23 +76,21 @@ public class InfoGUI : MonoBehaviour
         {
             switch (infoGUIPool[0])
             {
-                case "empty": Villages.BuildVillage(infoGUIPool_directions[0]); infoGUIPool[0] = "village"; break;
+                case "empty": Villages.BuildVillage(infoGUIPool_directions[0]); break;
                 case "dungeon": Dungeons.RaidDungeon(); break;
                 case "village": Villages.UpgradeVillage(); break;
                 case "merchant": Merchants.OpenShop(); break;
             }
-            updateInfoGUI = true;
         }
         if (buttonClicked == 1)
         {
             switch (infoGUIPool[1])
             {
-                case "empty": Villages.BuildVillage(infoGUIPool_directions[1]); infoGUIPool[1] = "village"; break;
+                case "empty": Villages.BuildVillage(infoGUIPool_directions[1]); break;
                 case "dungeon": Dungeons.RaidDungeon(); break;
                 case "village": Villages.UpgradeVillage(); break;
                 case "merchant": Merchants.OpenShop(); break;
             }
-            updateInfoGUI = true; 
         }
     }
 
@@ -104,7 +102,7 @@ public class InfoGUI : MonoBehaviour
         if (BoardManager.eastEmpty) { infoGUIPool.Add("empty"); infoGUIPool_directions.Add("east"); }
         if (BoardManager.southEmpty) { infoGUIPool.Add("empty"); infoGUIPool_directions.Add("south"); }
         if (BoardManager.westEmpty) { infoGUIPool.Add("empty"); infoGUIPool_directions.Add("west"); }
-        if (BoardManager.dungeonNorth) { infoGUIPool.Add("dungeon"); infoGUIPool_directions.Add("north"); }
+        /* if (BoardManager.dungeonNorth) { infoGUIPool.Add("dungeon"); infoGUIPool_directions.Add("north"); }
         if (BoardManager.dungeonEast) { infoGUIPool.Add("dungeon"); infoGUIPool_directions.Add("east"); }
         if (BoardManager.dungeonSouth) { infoGUIPool.Add("dungeon"); infoGUIPool_directions.Add("south"); }
         if (BoardManager.dungeonWest) { infoGUIPool.Add("dungeon"); infoGUIPool_directions.Add("west"); }
@@ -115,13 +113,12 @@ public class InfoGUI : MonoBehaviour
         if (BoardManager.merchantNorth) { infoGUIPool.Add("merchant"); infoGUIPool_directions.Add("north"); }
         if (BoardManager.merchantEast) { infoGUIPool.Add("merchant"); infoGUIPool_directions.Add("east"); }
         if (BoardManager.merchantSouth) { infoGUIPool.Add("merchant"); infoGUIPool_directions.Add("south"); }
-        if (BoardManager.merchantWest) { infoGUIPool.Add("merchant"); infoGUIPool_directions.Add("west"); }
+        if (BoardManager.merchantWest) { infoGUIPool.Add("merchant"); infoGUIPool_directions.Add("west"); } */
         finishUpdatingInfoGUI = true;
     }
 
     public static void UpdateInfoGUI(string content, string direction, TMP_Text main, TMP_Text buttonText, Image avatar, Image buttonAvatar)
     {
-        Debug.Log(content);
         if (content == "empty")
         {
             main.text = direction + "\nempty";
