@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -329,28 +330,11 @@ public class BoardManager : MonoBehaviour
         Vector3 west = new Vector3(currentUnitPosition[0] - 1, currentUnitPosition[1]);
         foreach (Vector3 listVector in emptyBoardSlots)
         {
-            if (listVector == north)
-            {
-                northSlotPosition = north;
-                northEmpty = true;
-            }
-            if (listVector == east)
-            {
-                eastSlotPosition = east;
-                eastEmpty = true;
-            }
-            if (listVector == south)
-            {
-                southSlotPosition = south;
-                southEmpty = true;
-            }
-            if (listVector == west)
-            {
-                westSlotPosition = west;
-                westEmpty = true;
-            }
+            if (listVector == north) { northEmpty = true; Debug.Log("Empty Position: " + listVector); }
+            if (listVector == east) { eastEmpty = true; Debug.Log("Empty Position: " + listVector); }
+            if (listVector == south) { southEmpty = true; Debug.Log("Empty Position: " + listVector); }
+            if (listVector == west) { westEmpty = true; Debug.Log("Empty Position: " + listVector); }
         }
-        Debug.Log("Check: " + northEmpty + eastEmpty + southEmpty + westEmpty);
     }
 
     public static void GetLocalSlotPositions()
@@ -418,6 +402,7 @@ public class BoardManager : MonoBehaviour
                 }
             }
         }
+        emptyBoardSlots = emptyBoardSlots.Distinct().ToList();
     }
 
     public static void RemoveEmptySlot(Vector3 position)

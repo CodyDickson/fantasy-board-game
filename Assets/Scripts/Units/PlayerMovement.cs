@@ -65,7 +65,6 @@ public class PlayerMovement : MonoBehaviour
                 {
                     GUIManager.ToggleEndTurnButton(true);
                     playerIsMoving = false;
-                    BoardManager.CheckForLocalStructures();
                     InfoGUI.ToggleInfoGUI(true);
                     Dice.DisableDice();
                 }

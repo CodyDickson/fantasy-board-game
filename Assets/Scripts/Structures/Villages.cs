@@ -35,6 +35,7 @@ public class Villages : MonoBehaviour
         GameMain.playerGold -= villageBuildCost;
         GUIManager.UpdatePlayerGUI();
         totalVillageGoldPerTurn += 25;
+        Debug.Log("Updating GUI Now");
         InfoGUI.updateInfoGUI = true;
     }
 

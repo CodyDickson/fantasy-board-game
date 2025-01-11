@@ -97,19 +97,29 @@ public class InfoGUI : MonoBehaviour
     public static void DeterminePoolContents()
     {
         BoardManager.CheckForLocalStructures();
+        Debug.Log("North Empty: " + BoardManager.northEmpty);
+        Debug.Log("East Empty: " + BoardManager.eastEmpty);
+        Debug.Log("South Empty: " + BoardManager.southEmpty);
+        Debug.Log("West Empty: " + BoardManager.westEmpty);
+        Debug.Log("North Village: " + BoardManager.villageNorth);
+        Debug.Log("East Village: " + BoardManager.villageEast);
+        Debug.Log("South Village: " + BoardManager.villageSouth);
+        Debug.Log("West Village: " + BoardManager.villageWest);
         infoGUIPool.Clear();
+        infoGUIPool_directions.Clear();
         if (BoardManager.northEmpty) { infoGUIPool.Add("empty"); infoGUIPool_directions.Add("north"); }
         if (BoardManager.eastEmpty) { infoGUIPool.Add("empty"); infoGUIPool_directions.Add("east"); }
         if (BoardManager.southEmpty) { infoGUIPool.Add("empty"); infoGUIPool_directions.Add("south"); }
         if (BoardManager.westEmpty) { infoGUIPool.Add("empty"); infoGUIPool_directions.Add("west"); }
-        /* if (BoardManager.dungeonNorth) { infoGUIPool.Add("dungeon"); infoGUIPool_directions.Add("north"); }
-        if (BoardManager.dungeonEast) { infoGUIPool.Add("dungeon"); infoGUIPool_directions.Add("east"); }
-        if (BoardManager.dungeonSouth) { infoGUIPool.Add("dungeon"); infoGUIPool_directions.Add("south"); }
-        if (BoardManager.dungeonWest) { infoGUIPool.Add("dungeon"); infoGUIPool_directions.Add("west"); }
         if (BoardManager.villageNorth) { infoGUIPool.Add("village"); infoGUIPool_directions.Add("north"); }
         if (BoardManager.villageEast) { infoGUIPool.Add("village"); infoGUIPool_directions.Add("east"); }
         if (BoardManager.villageSouth) { infoGUIPool.Add("village"); infoGUIPool_directions.Add("south"); }
         if (BoardManager.villageWest) { infoGUIPool.Add("village"); infoGUIPool_directions.Add("west"); }
+        /*
+        if (BoardManager.dungeonNorth) { infoGUIPool.Add("dungeon"); infoGUIPool_directions.Add("north"); }
+        if (BoardManager.dungeonEast) { infoGUIPool.Add("dungeon"); infoGUIPool_directions.Add("east"); }
+        if (BoardManager.dungeonSouth) { infoGUIPool.Add("dungeon"); infoGUIPool_directions.Add("south"); }
+        if (BoardManager.dungeonWest) { infoGUIPool.Add("dungeon"); infoGUIPool_directions.Add("west"); }
         if (BoardManager.merchantNorth) { infoGUIPool.Add("merchant"); infoGUIPool_directions.Add("north"); }
         if (BoardManager.merchantEast) { infoGUIPool.Add("merchant"); infoGUIPool_directions.Add("east"); }
         if (BoardManager.merchantSouth) { infoGUIPool.Add("merchant"); infoGUIPool_directions.Add("south"); }
