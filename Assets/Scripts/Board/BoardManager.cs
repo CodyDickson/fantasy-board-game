@@ -271,7 +271,7 @@ public class BoardManager : MonoBehaviour
         Vector3 east = new Vector3(currentUnitPosition[0] + 1, currentUnitPosition[1]);
         Vector3 south = new Vector3(currentUnitPosition[0], currentUnitPosition[1] - 1);
         Vector3 west = new Vector3(currentUnitPosition[0] - 1, currentUnitPosition[1]);
-        foreach (Vector3 listVector in Dungeons.dungeonPositions.Keys)
+        foreach (Vector3 listVector in Dungeons.dungeonPositions)
         {
             if (listVector == north) { dungeonNorth = true; }
             if (listVector == east) { dungeonEast = true; }
@@ -330,10 +330,10 @@ public class BoardManager : MonoBehaviour
         Vector3 west = new Vector3(currentUnitPosition[0] - 1, currentUnitPosition[1]);
         foreach (Vector3 listVector in emptyBoardSlots)
         {
-            if (listVector == north) { northEmpty = true; Debug.Log("Empty Position: " + listVector); }
-            if (listVector == east) { eastEmpty = true; Debug.Log("Empty Position: " + listVector); }
-            if (listVector == south) { southEmpty = true; Debug.Log("Empty Position: " + listVector); }
-            if (listVector == west) { westEmpty = true; Debug.Log("Empty Position: " + listVector); }
+            if (listVector == north) { northEmpty = true; }
+            if (listVector == east) { eastEmpty = true; }
+            if (listVector == south) { southEmpty = true; }
+            if (listVector == west) { westEmpty = true; }
         }
     }
 

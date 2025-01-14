@@ -34,9 +34,12 @@ public class TurnManager : MonoBehaviour
         for (int i = 1; i <= 2; i++)
         {
             turnOrder.Add("player");
-            turnOrder.Add("spawnMonsters");
             turnOrder.Add("player");
-            turnOrder.Add("spawnMonsters");
+            turnOrder.Add("player");
+            turnOrder.Add("player");
+            turnOrder.Add("player");
+            turnOrder.Add("player");
+            // Spawn Monsters
             // Move Monsters
             // Spawn Merchants
         }

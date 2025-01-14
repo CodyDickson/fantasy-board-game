@@ -10,12 +10,10 @@ public class Dungeons : MonoBehaviour
 {
     public static string dungeonType = "";
     public static int dungeonCount;
-    public static Dictionary<Vector3, int> dungeonPositions = new Dictionary<Vector3, int>();
-
-    public static void RaidDungeon()
-    {
-        //
-    }
+    public static int localDungeons;
+    public static List<Vector3> dungeonPositions = new List<Vector3>();
+    // Dungeon ID, Monster Type, Health
+    public static int[] dungeonStats = new int[3];
 
     public static void SpawnDungeons(int location)
     {
@@ -54,10 +52,7 @@ public class Dungeons : MonoBehaviour
                                     {
                                         structures.SetTile(new Vector3Int((int)position[0], (int)position[1]), dungeon);
                                         dungeonCount++;
-                                        random = Random.Range(1,3);
-                                        if (random == 1) { monsterType = 0; }
-                                        if (random == 2) { monsterType = 1; }
-                                        dungeonPositions.Add(position, monsterType);
+                                        dungeonPositions.Add(position);
                                         positionsToRemove.Add(position);
                                     }
                                 }
@@ -73,10 +68,7 @@ public class Dungeons : MonoBehaviour
                                     {
                                         structures.SetTile(new Vector3Int((int)position[0], (int)position[1]), dungeon);
                                         dungeonCount++;
-                                        random = Random.Range(1, 3);
-                                        if (random == 1) { monsterType = 0; }
-                                        if (random == 2) { monsterType = 1; }
-                                        dungeonPositions.Add(position, monsterType);
+                                        dungeonPositions.Add(position);
                                         positionsToRemove.Add(position);
                                     }
                                 }
@@ -92,10 +84,7 @@ public class Dungeons : MonoBehaviour
                                     {
                                         structures.SetTile(new Vector3Int((int)position[0], (int)position[1]), dungeon);
                                         dungeonCount++;
-                                        random = Random.Range(1, 3);
-                                        if (random == 1) { monsterType = 0; }
-                                        if (random == 2) { monsterType = 1; }
-                                        dungeonPositions.Add(position, monsterType);
+                                        dungeonPositions.Add(position);
                                         positionsToRemove.Add(position);
                                     }
                                 }
@@ -111,10 +100,7 @@ public class Dungeons : MonoBehaviour
                                     {
                                         structures.SetTile(new Vector3Int((int)position[0], (int)position[1]), dungeon);
                                         dungeonCount++;
-                                        random = Random.Range(1, 3);
-                                        if (random == 1) { monsterType = 0; }
-                                        if (random == 2) { monsterType = 1; }
-                                        dungeonPositions.Add(position, monsterType);
+                                        dungeonPositions.Add(position);
                                         positionsToRemove.Add(position);
                                     }
                                 }
@@ -133,7 +119,12 @@ public class Dungeons : MonoBehaviour
     public static bool CheckForDungeons(Vector3 position)
     {
         bool dungeonPresent = false;
-        foreach (Vector3 dungeonPosition in dungeonPositions.Keys) { if (dungeonPosition == position) { dungeonPresent = true; } }
+        foreach (Vector3 dungeonPosition in dungeonPositions) { if (dungeonPosition == position) { dungeonPresent = true; } }
         return dungeonPresent;
+    }
+
+    public static void RaidDungeon()
+    {
+        //
     }
 }

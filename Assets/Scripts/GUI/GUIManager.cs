@@ -29,10 +29,10 @@ public class GUIManager : MonoBehaviour
     {
         endTurnButton.onClick.AddListener(OnClickEndTurn);
         moveButton.onClick.AddListener(OnClickMove);
-        endTurnButton.gameObject.SetActive(false);
-        endTurnButtonPanel.gameObject.SetActive(false);
-        moveButton.gameObject.SetActive(false);
-        moveButtonPanel.gameObject.SetActive(false);
+        endTurnButton.gameObject.SetActive(true);
+        endTurnButtonPanel.gameObject.SetActive(true);
+        moveButton.gameObject.SetActive(true);
+        moveButtonPanel.gameObject.SetActive(true);
         playerGUI_Avatar = GetComponent<Image>();
         centerText.SetText("Choose your path...");
         Invoke("ClearCenterText", 1.5f);
@@ -125,17 +125,23 @@ public class GUIManager : MonoBehaviour
 
     void OnClickEndTurn()
     {
-        TurnManager.TurnProgressionHandler();
-        InfoGUI.ToggleInfoGUI(false);
-        ToggleEndTurnButton(false);
-        TurnManager.EndPlayerTurn();
+        if (endTurnButtonEnabled)
+        {
+            TurnManager.TurnProgressionHandler();
+            InfoGUI.ToggleInfoGUI(false);
+            ToggleEndTurnButton(false);
+            TurnManager.EndPlayerTurn();
+        }
     }
 
     void OnClickMove()
     {
-        ToggleMoveButton(false);
-        PlayerMovement.movesRemaining = Dice.RollDice();
-        Dice.EnableDice();
-        Arrows.EnableArrowButtons();
+        if (moveButtonEnabled)
+        {
+            ToggleMoveButton(false);
+            PlayerMovement.movesRemaining = Dice.RollDice();
+            Dice.EnableDice();
+            Arrows.EnableArrowButtons();
+        }
     }
 }

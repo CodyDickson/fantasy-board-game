@@ -14,18 +14,22 @@ public class GameMain : MonoBehaviour
     public static bool standardMode = true;
     public static bool oddMode = false;
     // Player Info //
-    // public static int playerInitiative;
-    public static bool playerInCamp;
-    public static string playerClass;
-    public static int playerAvatar;
+    public static string playerClass = "nomad";
+    public static bool playerInCamp = true;
+    public static bool playerEnteredSecondLoop = false;
+    public static bool playerEnteredThirdLoop = false;
     public static int playerHealth;
     public static int playerArmor;
     public static int playerMovementDice;
+    public static int playerCombatDice;
     public static int playerCombat;
     public static int playerLives;
     public static int playerGold;
-    public static int playerVillage;
     public static List<int> playerWeapons = new List<int>();
+    public static List<int> playerItems = new List<int>();
+    // Tile References
+    public static int playerAvatar;
+    public static int playerVillage;
     // Current Player Info //
     public static int currentTurn;
     public static int currentPlayer;
