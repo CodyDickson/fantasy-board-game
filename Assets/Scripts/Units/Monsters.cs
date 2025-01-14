@@ -6,16 +6,16 @@ using UnityEngine.Tilemaps;
 
 public class Monsters : MonoBehaviour
 {
-    // Tracking //
-    public static Dictionary<Vector3, int> monsterPositions = new Dictionary<Vector3, int>();
-    public static Dictionary<int, int> monsterStats = new Dictionary<int, int>();
-    //
-    public static bool monsterIsMoving = false;
-    public static int movesRemaining;
-    public static Tilemap units;
-    public static List<Vector3> allMonsterPositions;
+    public static List<Vector3> monsterPositions;
     public static Vector3 monsterPosition;
+    public static List<int[]> monsterStats;
     public static int totalMonsterIDs;
+    public static int monsterID;
+    public static bool monsterIsMoving = false;
+    public static bool monsterAvatarsUpdated = false;
+    public static int movesRemaining;
+    public static int currentDungeon;
+    public static Tilemap units;
     // Time //
     private float avatar_counter = 0.01f;
     private float avatar_tempCounter = 0f;
@@ -29,20 +29,13 @@ public class Monsters : MonoBehaviour
 
     void Update()
     {
-        // Player avatar on the board
-        if (avatar_tempCounter <= 0f)
+        // Set monster avatars on the board
+        if (!monsterAvatarsUpdated)
         {
-            if (GameMain.playerLives > 0)
-            {
-                Store.tilemaps[4].SetTile(new Vector3Int((int)BoardManager.currentUnitPosition[0], (int)BoardManager.currentUnitPosition[1]), Store.playerTiles[GameMain.playerAvatar]);
-            }
-            avatar_tempCounter = avatar_counter;
+            SetAvatarOnBoard();
+            monsterAvatarsUpdated = false;
         }
-        else
-        {
-            avatar_tempCounter -= Time.deltaTime;
-        }
-        // Player moving on the board
+        // Monster moving on the board
         if (monsterIsMoving)
         {
             if (movement_tempCounter <= 0f)
@@ -80,9 +73,11 @@ public class Monsters : MonoBehaviour
 
     public static void SetAvatarOnBoard()
     {
-        BoardManager.CheckForLocalBoardPositions();
-        BoardManager.DetermineNextBoardPosition();
-        units.SetTile(new Vector3Int((int)monsterPosition[0], (int)monsterPosition[1]), Store.playerTiles[GameMain.playerAvatar]);
+        foreach (Vector3 monsterPosition in monsterPositions)
+        {
+
+            units.SetTile(new Vector3Int((int)monsterPosition[0], (int)monsterPosition[1]), Store.monsterTiles[0]);
+        }
     }
 
     public static void SpawnMonster()
@@ -91,17 +86,28 @@ public class Monsters : MonoBehaviour
         int player = GameMain.currentPlayer;
         int random = 0;
         Vector3 position = BoardManager.currentUnitPosition;
-        Tilemap units = Store.tilemaps[4];
         int monsterChoice = 0;
         Tile monster;
         List<Vector3> possibleSpawns = new List<Vector3>();
         foreach (Vector3 dungeon in Dungeons.dungeonPositions)
         {
-            // BoardManager.currentUnitPosition = dungeon;
             random = Random.Range(1,4);
             if (random == 1)
             {
-                monsterChoice = 1;
+                UpdateCurrentDungeon(dungeon);
+                monsterChoice = Dungeons.dungeonStats[1];
+                if (monsterChoice == 1)
+                {
+                    int randomTwo = Random.Range(1,3);
+                    if (randomTwo == 1)
+                    {
+                        monsterChoice = 1;
+                    }
+                    else
+                    {
+                        monsterChoice = 2;
+                    }
+                }
                 monster = Store.monsterTiles[monsterChoice];
                 BoardManager.CheckForLocalBoardPositions();
                 if (BoardManager.northPositionAvailable)
@@ -145,31 +151,35 @@ public class Monsters : MonoBehaviour
                     }
                 }
                 units.SetTile(new Vector3Int((int)position[0], (int)position[1]), monster);
-                if (monsterPositions.ContainsKey(position)) { continue; }
-                else { monsterPositions.Add(position, monsterChoice); }
+                if (monsterPositions.Contains(position)) { continue; }
+                else { monsterPositions.Add(position); MonsterStartingStats(0); }
             }    
         }
+        monsterAvatarsUpdated = true;
         TurnManager.continueTurnProgression = true;
     }
 
-    public static int[] MonsterStartingStats(int monster)
+    public static void MonsterStartingStats(int monster)
     {
-        int[] values = new int[6];
-        values[0] = totalMonsterIDs;
+        int[] values = new int[4];
         totalMonsterIDs++;
-        // ID, Health, Combat Dice, Armor, Lives, Status Effect Infliction, Status Effect Immunity
+        // ID, Health, Lives, Combat Dice, Status Effect
         switch (monster)
         {
-            case 0: values[1] = 3; values[2] = 3; values[3] = 0; values[4] = 1; values[5] = 0; values[6] = 0; break;
-            case 1: values[1] = 3; values[2] = 3; values[3] = 0; values[4] = 1; values[5] = 1; values[6] = 1; break;
+            case 0:
+                // Imp
+                values[0] = 1; values[1] = 1; values[2] = 1; values[3] = 0; break;
+            case 1:
+                // Basilisk
+                values[0] = 2; values[1] = 1; values[2] = 1; values[3] = 1; break;
         }
-        return values;
+        monsterStats.Add(values);
     }
 
     public static bool CheckMonsterPositions(Vector3 positionToCheck)
     {
         bool positionClear = true;
-        foreach (Vector3 monsterPositions in monsterPositions.Keys)
+        foreach (Vector3 monsterPositions in monsterPositions)
         {
             if (monsterPositions == positionToCheck)
             {
@@ -177,5 +187,16 @@ public class Monsters : MonoBehaviour
             }
         }
         return positionClear;
+    }
+
+    public static void UpdateCurrentDungeon(Vector3 position)
+    {
+        foreach (Vector3 dungeon in Dungeons.dungeonPositions)
+        {
+            if (dungeon == position)
+            {
+                currentDungeon = Dungeons.dungeonPositions.IndexOf(dungeon);
+            }
+        }
     }
 }

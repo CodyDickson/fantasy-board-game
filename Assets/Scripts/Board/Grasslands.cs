@@ -145,11 +145,13 @@ public class Grasslands : MonoBehaviour
                 tilemapBoardConnectors.SetTile(new Vector3Int((int)bottomLeftCorner[0], (int)bottomLeftCorner[1] + random), bcThreeLeft);
                 connectorPosition = bottomLeftCorner;
                 connectorPosition[1] += random;
+                BoardManager.crossroadPositions.Add(connectorPosition);
                 HorizontalConnector(false, 6, connectorPosition); break;
             case 3:
                 tilemapBoardConnectors.SetTile(new Vector3Int((int)topLeftCorner[0] + random, (int)topLeftCorner[1]), bcThreeUp);
                 connectorPosition = topLeftCorner;
                 connectorPosition[0] += random;
+                BoardManager.crossroadPositions.Add(connectorPosition);
                 VerticalConnector(true, 6, connectorPosition);
                 random = Random.Range(2,5);
                 tilemapBoardConnectors.SetTile(new Vector3Int((int)bottomLeftCorner[0], (int)bottomLeftCorner[1] + random), bcThreeLeft);
@@ -163,6 +165,7 @@ public class Grasslands : MonoBehaviour
                 tilemapBoardConnectors.SetTile(new Vector3Int((int)topLeftCorner[0] + random, (int)topLeftCorner[1]), bcThreeUp);
                 connectorPosition = topLeftCorner;
                 connectorPosition[0] += random;
+                BoardManager.crossroadPositions.Add(connectorPosition);
                 VerticalConnector(true, 6, connectorPosition); break;
             case 5:
                 tilemapBoardConnectors.SetTile(new Vector3Int((int)topLeftCorner[0] + random, (int)topLeftCorner[1]), bcThreeUp);
@@ -176,11 +179,13 @@ public class Grasslands : MonoBehaviour
                 tilemapBoardConnectors.SetTile(new Vector3Int((int)bottomRightCorner[0], (int)bottomRightCorner[1] + random), bcThreeRight);
                 connectorPosition = bottomRightCorner;
                 connectorPosition[1] += random;
+                BoardManager.crossroadPositions.Add(connectorPosition);
                 HorizontalConnector(true, 6, connectorPosition); break;
             case 6:
                 tilemapBoardConnectors.SetTile(new Vector3Int((int)bottomRightCorner[0], (int)bottomRightCorner[1] + random), bcThreeRight);
                 connectorPosition = bottomRightCorner;
                 connectorPosition[1] += random;
+                BoardManager.crossroadPositions.Add(connectorPosition);
                 HorizontalConnector(true, 6, connectorPosition); break;
             case 7:
                 tilemapBoardConnectors.SetTile(new Vector3Int((int)bottomRightCorner[0], (int)bottomRightCorner[1] + random), bcThreeRight);
@@ -193,72 +198,175 @@ public class Grasslands : MonoBehaviour
                 tilemapBoardConnectors.SetTile(new Vector3Int((int)bottomLeftCorner[0] + random, (int)bottomLeftCorner[1]), bcThreeUp);
                 connectorPosition = bottomLeftCorner;
                 connectorPosition[0] += random;
+                BoardManager.crossroadPositions.Add(connectorPosition);
                 VerticalConnector(false, 6, connectorPosition); break;
             case 8:
                 tilemapBoardConnectors.SetTile(new Vector3Int((int)bottomRightCorner[0], (int)bottomRightCorner[1] + random), bcThreeRight);
                 connectorPosition = bottomRightCorner;
                 connectorPosition[1] += random;
+                BoardManager.crossroadPositions.Add(connectorPosition);
                 HorizontalConnector(true, 6, connectorPosition);
                 tilemapBoardConnectors.SetTile(new Vector3Int((int)bottomLeftCorner[0] + random, (int)bottomLeftCorner[1]), bcThreeUp);
                 connectorPosition = bottomLeftCorner;
                 connectorPosition[0] += random;
+                BoardManager.crossroadPositions.Add(connectorPosition);
                 VerticalConnector(false, 6, connectorPosition); break;
             case 9:
                 tilemapBoardConnectors.SetTile(new Vector3Int((int)bottomLeftCorner[0] + random, (int)bottomLeftCorner[1]), bcThreeUp);
                 connectorPosition = bottomLeftCorner;
                 connectorPosition[0] += random;
+                BoardManager.crossroadPositions.Add(connectorPosition);
                 VerticalConnector(false, 6, connectorPosition); break;
             case 10:
                 tilemapBoardConnectors.SetTile(new Vector3Int((int)bottomRightCorner[0], (int)bottomRightCorner[1] + random), bcThreeLeft);
                 connectorPosition = bottomRightCorner;
                 connectorPosition[1] += random;
+                BoardManager.crossroadPositions.Add(connectorPosition);
                 HorizontalConnector(false, 6, connectorPosition);
                 tilemapBoardConnectors.SetTile(new Vector3Int((int)bottomLeftCorner[0] + random, (int)bottomLeftCorner[1]), bcThreeUp);
                 connectorPosition = bottomLeftCorner;
                 connectorPosition[0] += random;
+                BoardManager.crossroadPositions.Add(connectorPosition);
                 VerticalConnector(false, 6, connectorPosition); break;
             case 11:
                 tilemapBoardConnectors.SetTile(new Vector3Int((int)bottomRightCorner[0], (int)bottomRightCorner[1] + random), bcThreeLeft);
                 connectorPosition = bottomRightCorner;
                 connectorPosition[1] += random;
+                BoardManager.crossroadPositions.Add(connectorPosition);
                 HorizontalConnector(false, 6, connectorPosition);
                 tilemapBoardConnectors.SetTile(new Vector3Int((int)bottomLeftCorner[0] + random, (int)bottomLeftCorner[1]), bcThreeUp);
                 connectorPosition = bottomLeftCorner;
                 connectorPosition[0] += random;
+                BoardManager.crossroadPositions.Add(connectorPosition);
                 VerticalConnector(false, 6, connectorPosition); break;
             case 12:
                 tilemapBoardConnectors.SetTile(new Vector3Int((int)bottomRightCorner[0], (int)bottomRightCorner[1] + random), bcThreeLeft);
                 connectorPosition = bottomRightCorner;
                 connectorPosition[1] += random;
+                BoardManager.crossroadPositions.Add(connectorPosition);
                 HorizontalConnector(false, 6, connectorPosition); break;
             case 13:
                 tilemapBoardConnectors.SetTile(new Vector3Int((int)bottomRightCorner[0], (int)bottomRightCorner[1] + random), bcThreeLeft);
                 connectorPosition = bottomRightCorner;
                 connectorPosition[1] += random;
+                BoardManager.crossroadPositions.Add(connectorPosition);
                 HorizontalConnector(false, 6, connectorPosition);
-                tilemapBoardConnectors.SetTile(new Vector3Int((int)bottomLeftCorner[0] + random, (int)bottomLeftCorner[1]), bcThreeDown);
-                connectorPosition = bottomLeftCorner;
+                tilemapBoardConnectors.SetTile(new Vector3Int((int)topLeftCorner[0] + random, (int)topLeftCorner[1]), bcThreeUp);
+                connectorPosition = topLeftCorner;
                 connectorPosition[0] += random;
+                BoardManager.crossroadPositions.Add(connectorPosition);
                 VerticalConnector(true, 6, connectorPosition); break;
             case 14:
                 tilemapBoardConnectors.SetTile(new Vector3Int((int)bottomRightCorner[0], (int)bottomRightCorner[1] + random), bcThreeLeft);
                 connectorPosition = bottomRightCorner;
                 connectorPosition[1] += random;
+                BoardManager.crossroadPositions.Add(connectorPosition);
                 HorizontalConnector(false, 6, connectorPosition);
-                tilemapBoardConnectors.SetTile(new Vector3Int((int)bottomLeftCorner[0] + random, (int)bottomLeftCorner[1]), bcThreeDown);
-                connectorPosition = bottomLeftCorner;
+                tilemapBoardConnectors.SetTile(new Vector3Int((int)topLeftCorner[0] + random, (int)topLeftCorner[1]), bcThreeUp);
+                connectorPosition = topLeftCorner;
                 connectorPosition[0] += random;
+                BoardManager.crossroadPositions.Add(connectorPosition);
                 VerticalConnector(true, 6, connectorPosition); break;
             case 15:
                 tilemapBoardConnectors.SetTile(new Vector3Int((int)bottomRightCorner[0], (int)bottomRightCorner[1] + random), bcThreeLeft);
                 connectorPosition = bottomRightCorner;
                 connectorPosition[1] += random;
+                BoardManager.crossroadPositions.Add(connectorPosition);
                 HorizontalConnector(false, 6, connectorPosition);
-                tilemapBoardConnectors.SetTile(new Vector3Int((int)bottomLeftCorner[0] + random, (int)bottomLeftCorner[1]), bcThreeDown);
+                tilemapBoardConnectors.SetTile(new Vector3Int((int)topLeftCorner[0] + random, (int)topLeftCorner[1]), bcThreeUp);
+                connectorPosition = topLeftCorner;
+                connectorPosition[0] += random;
+                BoardManager.crossroadPositions.Add(connectorPosition);
+                VerticalConnector(true, 6, connectorPosition); break;
+            case 16:
+                tilemapBoardConnectors.SetTile(new Vector3Int((int)topLeftCorner[0] + random, (int)topLeftCorner[1]), bcThreeUp);
+                connectorPosition = topLeftCorner;
+                connectorPosition[0] += random;
+                BoardManager.crossroadPositions.Add(connectorPosition);
+                VerticalConnector(true, 6, connectorPosition); break;
+            case 17:
+                tilemapBoardConnectors.SetTile(new Vector3Int((int)topLeftCorner[0] + random, (int)topLeftCorner[1]), bcThreeUp);
+                connectorPosition = topLeftCorner;
+                connectorPosition[0] += random;
+                BoardManager.crossroadPositions.Add(connectorPosition);
+                VerticalConnector(true, 6, connectorPosition);
+                tilemapBoardConnectors.SetTile(new Vector3Int((int)bottomRightCorner[0], (int)bottomRightCorner[1] + random), bcThreeRight);
+                connectorPosition = bottomRightCorner;
+                connectorPosition[1] += random;
+                BoardManager.crossroadPositions.Add(connectorPosition);
+                HorizontalConnector(true, 6, connectorPosition); break;
+            case 18:
+                tilemapBoardConnectors.SetTile(new Vector3Int((int)topLeftCorner[0] + random, (int)topLeftCorner[1]), bcThreeUp);
+                connectorPosition = topLeftCorner;
+                connectorPosition[0] += random;
+                BoardManager.crossroadPositions.Add(connectorPosition);
+                VerticalConnector(true, 6, connectorPosition);
+                tilemapBoardConnectors.SetTile(new Vector3Int((int)bottomRightCorner[0], (int)bottomRightCorner[1] + random), bcThreeRight);
+                connectorPosition = bottomRightCorner;
+                connectorPosition[1] += random;
+                BoardManager.crossroadPositions.Add(connectorPosition);
+                HorizontalConnector(true, 6, connectorPosition); break;
+            case 19:
+                tilemapBoardConnectors.SetTile(new Vector3Int((int)topLeftCorner[0] + random, (int)topLeftCorner[1]), bcThreeUp);
+                connectorPosition = topLeftCorner;
+                connectorPosition[0] += random;
+                BoardManager.crossroadPositions.Add(connectorPosition);
+                VerticalConnector(true, 6, connectorPosition);
+                tilemapBoardConnectors.SetTile(new Vector3Int((int)bottomRightCorner[0], (int)bottomRightCorner[1] + random), bcThreeRight);
+                connectorPosition = bottomRightCorner;
+                connectorPosition[1] += random;
+                BoardManager.crossroadPositions.Add(connectorPosition);
+                HorizontalConnector(true, 6, connectorPosition); break;
+            case 20:
+                tilemapBoardConnectors.SetTile(new Vector3Int((int)bottomRightCorner[0], (int)bottomRightCorner[1] + random), bcThreeRight);
+                connectorPosition = bottomRightCorner;
+                connectorPosition[1] += random;
+                BoardManager.crossroadPositions.Add(connectorPosition);
+                HorizontalConnector(true, 6, connectorPosition); break;
+            case 21:
+                tilemapBoardConnectors.SetTile(new Vector3Int((int)bottomLeftCorner[0] + random, (int)bottomLeftCorner[1]), bcThreeUp);
                 connectorPosition = bottomLeftCorner;
                 connectorPosition[0] += random;
-                VerticalConnector(true, 6, connectorPosition); break;
-
+                BoardManager.crossroadPositions.Add(connectorPosition);
+                VerticalConnector(false, 6, connectorPosition);
+                tilemapBoardConnectors.SetTile(new Vector3Int((int)bottomRightCorner[0], (int)bottomRightCorner[1] + random), bcThreeRight);
+                connectorPosition = bottomRightCorner;
+                connectorPosition[1] += random;
+                BoardManager.crossroadPositions.Add(connectorPosition);
+                HorizontalConnector(true, 6, connectorPosition); break;
+            case 22:
+                tilemapBoardConnectors.SetTile(new Vector3Int((int)bottomLeftCorner[0] + random, (int)bottomLeftCorner[1]), bcThreeUp);
+                connectorPosition = bottomLeftCorner;
+                connectorPosition[0] += random;
+                BoardManager.crossroadPositions.Add(connectorPosition);
+                VerticalConnector(false, 6, connectorPosition);
+                tilemapBoardConnectors.SetTile(new Vector3Int((int)bottomRightCorner[0], (int)bottomRightCorner[1] + random), bcThreeRight);
+                connectorPosition = bottomRightCorner;
+                connectorPosition[1] += random;
+                BoardManager.crossroadPositions.Add(connectorPosition);
+                HorizontalConnector(true, 6, connectorPosition); break;
+            case 23:
+                tilemapBoardConnectors.SetTile(new Vector3Int((int)bottomLeftCorner[0] + random, (int)bottomLeftCorner[1]), bcThreeUp);
+                connectorPosition = bottomLeftCorner;
+                connectorPosition[0] += random;
+                BoardManager.crossroadPositions.Add(connectorPosition);
+                VerticalConnector(false, 6, connectorPosition);
+                tilemapBoardConnectors.SetTile(new Vector3Int((int)bottomRightCorner[0], (int)bottomRightCorner[1] + random), bcThreeRight);
+                connectorPosition = bottomRightCorner;
+                connectorPosition[1] += random;
+                BoardManager.crossroadPositions.Add(connectorPosition);
+                HorizontalConnector(true, 6, connectorPosition); break;
+            case 24:
+                tilemapBoardConnectors.SetTile(new Vector3Int((int)bottomLeftCorner[0] + random, (int)bottomLeftCorner[1]), bcThreeUp);
+                connectorPosition = bottomLeftCorner;
+                connectorPosition[0] += random;
+                BoardManager.crossroadPositions.Add(connectorPosition);
+                VerticalConnector(false, 6, connectorPosition);
+                tilemapBoardConnectors.SetTile(new Vector3Int((int)bottomRightCorner[0], (int)bottomRightCorner[1] + random), bcThreeRight);
+                connectorPosition = bottomRightCorner;
+                connectorPosition[1] += random;
+                BoardManager.crossroadPositions.Add(connectorPosition);
+                HorizontalConnector(true, 6, connectorPosition); break;
         }
     }
 

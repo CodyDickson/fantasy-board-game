@@ -12,7 +12,6 @@ public class Dungeons : MonoBehaviour
     public static int dungeonCount;
     public static int localDungeons;
     public static List<Vector3> dungeonPositions = new List<Vector3>();
-    // Dungeon ID, Monster Type, Health
     public static int[] dungeonStats = new int[3];
 
     public static void SpawnDungeons(int location)
@@ -26,7 +25,6 @@ public class Dungeons : MonoBehaviour
         dungeonCount = 0;
         if (GameMain.currentBoard == 1)
         {
-            int monsterType = 0;
             int xSize = 6;
             int ySize = 6;
             List<Vector3> positionsToRemove = new List<Vector3>();
@@ -53,6 +51,7 @@ public class Dungeons : MonoBehaviour
                                         structures.SetTile(new Vector3Int((int)position[0], (int)position[1]), dungeon);
                                         dungeonCount++;
                                         dungeonPositions.Add(position);
+                                        AddNewDungeon(dungeonCount, 1);
                                         positionsToRemove.Add(position);
                                     }
                                 }
@@ -69,6 +68,7 @@ public class Dungeons : MonoBehaviour
                                         structures.SetTile(new Vector3Int((int)position[0], (int)position[1]), dungeon);
                                         dungeonCount++;
                                         dungeonPositions.Add(position);
+                                        AddNewDungeon(dungeonCount, 1);
                                         positionsToRemove.Add(position);
                                     }
                                 }
@@ -85,6 +85,7 @@ public class Dungeons : MonoBehaviour
                                         structures.SetTile(new Vector3Int((int)position[0], (int)position[1]), dungeon);
                                         dungeonCount++;
                                         dungeonPositions.Add(position);
+                                        AddNewDungeon(dungeonCount, 1);
                                         positionsToRemove.Add(position);
                                     }
                                 }
@@ -101,6 +102,7 @@ public class Dungeons : MonoBehaviour
                                         structures.SetTile(new Vector3Int((int)position[0], (int)position[1]), dungeon);
                                         dungeonCount++;
                                         dungeonPositions.Add(position);
+                                        AddNewDungeon(dungeonCount, 1);
                                         positionsToRemove.Add(position);
                                     }
                                 }
@@ -114,6 +116,16 @@ public class Dungeons : MonoBehaviour
                 }
             }
         }
+    }
+
+    public static void AddNewDungeon(int value, int monsters)
+    {
+        // ID correlates to the dungeon vector position in dungeonPositions
+        dungeonStats[0] = value;
+        // 1 = Imp, Basilisk
+        dungeonStats[1] = monsters;
+        // 0 = Ready, 1 = Ruined
+        dungeonStats[2] = 0;
     }
 
     public static bool CheckForDungeons(Vector3 position)
