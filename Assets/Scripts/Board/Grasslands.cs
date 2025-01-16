@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
@@ -16,7 +15,7 @@ public class Grasslands : MonoBehaviour
         PullBoardConnectorsFromStore();
         CampDesign();
         GenerateTerrain();
-        for (int i = 1; i <= 24; i++)
+        for (int i = 1; i <= 8; i++)
         {
             LoopGenerator(i);
         }
@@ -374,12 +373,17 @@ public class Grasslands : MonoBehaviour
     {
         tilemapBoardConnectors = Store.tilemaps[0];
         bool straightConnection = true;
+        int midway = 3;
         if (positiveDirection && straightConnection)
         {
             for (int i = 1; i <= length; i++)
             {
                 tilemapBoardConnectors.SetTile(new Vector3Int((int)connectorPosition[0], (int)connectorPosition[1] + i), bcVertical);
                 BoardManager.boardPositions.Add(new Vector3((int)connectorPosition[0], (int)connectorPosition[1] + i));
+                if (i == midway)
+                {
+                    BoardManager.midwayPositions.Add(new Vector3((int)connectorPosition[0], (int)connectorPosition[1] + i));
+                }
             }
             tilemapBoardConnectors.SetTile(new Vector3Int((int)connectorPosition[0], (int)connectorPosition[1] + length + 1), bcThreeDown);
             BoardManager.crossroadPositions.Add(new Vector3((int)connectorPosition[0], (int)connectorPosition[1] + length + 1));
@@ -390,6 +394,10 @@ public class Grasslands : MonoBehaviour
             {
                 tilemapBoardConnectors.SetTile(new Vector3Int((int)connectorPosition[0], (int)connectorPosition[1] - i), bcVertical);
                 BoardManager.boardPositions.Add(new Vector3((int)connectorPosition[0], (int)connectorPosition[1] - i));
+                if (i == midway)
+                {
+                    BoardManager.midwayPositions.Add(new Vector3((int)connectorPosition[0], (int)connectorPosition[1] - i));
+                }
             }
             tilemapBoardConnectors.SetTile(new Vector3Int((int)connectorPosition[0], (int)connectorPosition[1] - length - 1), bcThreeUp);
             BoardManager.crossroadPositions.Add(new Vector3((int)connectorPosition[0], (int)connectorPosition[1] - length - 1));
@@ -400,12 +408,17 @@ public class Grasslands : MonoBehaviour
     {
         tilemapBoardConnectors = Store.tilemaps[0];
         bool straightConnection = true;
+        int midway = 3;
         if (positiveDirection && straightConnection)
         {
             for (int i = 1; i <= length; i++)
             {
                 tilemapBoardConnectors.SetTile(new Vector3Int((int)connectorPosition[0] + i, (int)connectorPosition[1]), bcHorizontal);
                 BoardManager.boardPositions.Add(new Vector3((int)connectorPosition[0] + i, (int)connectorPosition[1]));
+                if (i == midway)
+                {
+                    BoardManager.midwayPositions.Add(new Vector3((int)connectorPosition[0] + i, (int)connectorPosition[1]));
+                }
             }
             tilemapBoardConnectors.SetTile(new Vector3Int((int)connectorPosition[0] + length + 1, (int)connectorPosition[1]), bcThreeLeft);
             BoardManager.crossroadPositions.Add(new Vector3((int)connectorPosition[0] + length + 1, (int)connectorPosition[1]));
@@ -416,6 +429,10 @@ public class Grasslands : MonoBehaviour
             {
                 tilemapBoardConnectors.SetTile(new Vector3Int((int)connectorPosition[0] - i, (int)connectorPosition[1]), bcHorizontal);
                 BoardManager.boardPositions.Add(new Vector3((int)connectorPosition[0] - i, (int)connectorPosition[1]));
+                if (i == midway)
+                {
+                    BoardManager.midwayPositions.Add(new Vector3((int)connectorPosition[0] - i, (int)connectorPosition[1]));
+                }
             }
             tilemapBoardConnectors.SetTile(new Vector3Int((int)connectorPosition[0] - length - 1, (int)connectorPosition[1]), bcThreeRight);
             BoardManager.crossroadPositions.Add(new Vector3((int)connectorPosition[0] - length - 1, (int)connectorPosition[1]));

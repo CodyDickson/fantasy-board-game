@@ -34,14 +34,13 @@ public class TurnManager : MonoBehaviour
         for (int i = 1; i <= 2; i++)
         {
             turnOrder.Add("player");
+            turnOrder.Add("spawnMonsters");
             turnOrder.Add("player");
+            turnOrder.Add("moveMonsters");
             turnOrder.Add("player");
+            turnOrder.Add("spawnMonsters");
             turnOrder.Add("player");
-            turnOrder.Add("player");
-            turnOrder.Add("player");
-            // Spawn Monsters
-            // Move Monsters
-            // Spawn Merchants
+            turnOrder.Add("moveMonsters");
         }
     }
 
@@ -56,8 +55,8 @@ public class TurnManager : MonoBehaviour
         switch (turnOrder[0])
         {
             case "player": StartPlayerTurn(); break;
-            case "moveMonsters": break;
-            case "spawnMonsters": Monsters.SpawnMonster(); break;
+            case "moveMonsters": MonsterMovement.EnableMonsterMovement(); break;
+            case "spawnMonsters": Monsters.SpawnMonsters(); break;
             default: Debug.Log("This Should Never Show"); break;
         }
         TurnOrderGUI.UpdateTurnOrderGUI();

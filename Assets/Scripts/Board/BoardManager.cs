@@ -13,6 +13,7 @@ public class BoardManager : MonoBehaviour
     public static List<Vector3> localBoardPositions = new List<Vector3>();
     public static List<Vector3> crossroadPositions = new List<Vector3>();
     public static List<Vector3> campExitPositions = new List<Vector3>();
+    public static List<Vector3> midwayPositions = new List<Vector3>();
     public static List<Vector3> playerPositions = new List<Vector3>();
     public static List<Vector3> emptyBoardSlots = new List<Vector3>();
     // Directions
@@ -56,6 +57,7 @@ public class BoardManager : MonoBehaviour
     //
     public static Tilemap structures;
     public static bool crossroadsPosition = false;
+    public static bool midwayPosition = false;
 
     public static void GenerateGameBoard()
     {
@@ -354,6 +356,18 @@ public class BoardManager : MonoBehaviour
             if (listVector == boardPosition)
             {
                 crossroadsPosition = true;
+            }
+        }
+    }
+
+    public static void CheckForMidway()
+    {
+        midwayPosition = false;
+        foreach (Vector3 listVector in midwayPositions)
+        {
+            if (listVector == currentUnitPosition)
+            {
+                midwayPosition = true;
             }
         }
     }

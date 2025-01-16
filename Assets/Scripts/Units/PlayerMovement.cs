@@ -51,9 +51,15 @@ public class PlayerMovement : MonoBehaviour
                     BoardManager.CheckForLocalBoardPositions();
                     BoardManager.DetermineNextBoardPosition();
                     units.SetTile(new Vector3Int((int)BoardManager.currentUnitPosition[0], (int)BoardManager.currentUnitPosition[1]), Store.playerTiles[GameMain.playerAvatar]);
-                    Debug.Log("Current Unit Position: " + BoardManager.currentUnitPosition);
                     BoardManager.CheckForCrossroads();
                     if (BoardManager.crossroadsPosition == true)
+                    {
+                        BoardManager.CheckForLocalBoardPositions();
+                        Arrows.EnableArrowButtons();
+                        playerIsMoving = false;
+                    }
+                    BoardManager.CheckForMidway();
+                    if (BoardManager.midwayPosition == true)
                     {
                         BoardManager.CheckForLocalBoardPositions();
                         Arrows.EnableArrowButtons();
