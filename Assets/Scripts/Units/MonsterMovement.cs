@@ -41,7 +41,7 @@ public class MonsterMovement : MonoBehaviour
                 }
                 if (movesRemaining == 0)
                 {
-                    GUIManager.ToggleEndTurnButton(true);
+                    GUIManager.EnableEndTurnButton();
                     monsterIsMoving = false;
                     InfoGUI.ToggleInfoGUI(true);
                     Dice.DisableDice();

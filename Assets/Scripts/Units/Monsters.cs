@@ -7,8 +7,8 @@ using UnityEngine.Tilemaps;
 public class Monsters : MonoBehaviour
 {
     // monsterID is saved in activeMonsters[0] and correlates to which index in monsterPositions is that specific monster //
-    public static List<int[]> activeMonsters;
-    public static List<Vector3> monsterPositions;
+    public static List<int[]> activeMonsters = new List<int[]>();
+    public static List<Vector3> monsterPositions = new List<Vector3>();
     public static Vector3 monsterPosition;
     public static Tilemap units;
     public static int monsterID;
@@ -22,60 +22,26 @@ public class Monsters : MonoBehaviour
     public static void SpawnMonsters()
     {
         Debug.Log("Spawn Monsters");
-        int player = GameMain.currentPlayer;
         int random = 0;
         Vector3 position = BoardManager.currentUnitPosition;
-        Tile monster;
         List<Vector3> possibleSpawns = new List<Vector3>();
         foreach (Vector3 dungeon in Dungeons.dungeonPositions)
         {
-            random = Random.Range(1, 101);
-            if (random <= 25)
+            BoardManager.CheckForBoardPositionsNearLocation(dungeon);
+            if (BoardManager.northPositionAvailable) { possibleSpawns.Add(BoardManager.northPosition); }
+            if (BoardManager.eastPositionAvailable) { possibleSpawns.Add(BoardManager.eastPosition); }
+            if (BoardManager.southPositionAvailable) { possibleSpawns.Add(BoardManager.southPosition); }
+            if (BoardManager.westPositionAvailable) { possibleSpawns.Add(BoardManager.westPosition); }
+            foreach (Vector3 spawn in possibleSpawns)
             {
-                BoardManager.CheckForLocalBoardPositions();
-                if (BoardManager.northPositionAvailable)
+                random = Random.Range(1, 101);
+                if (random <= 25)
                 {
-                    bool positionClear = CheckMonsterPositions(BoardManager.northPosition);
-                    if (positionClear) { possibleSpawns.Add(BoardManager.northPosition); }
+                    if (monsterPositions.Contains(spawn) || spawn == BoardManager.currentUnitPosition) { continue; }
+                    else { monsterPositions.Add(spawn); CreateMonster(); }
                 }
-                if (BoardManager.eastPositionAvailable)
-                {
-                    bool positionClear = CheckMonsterPositions(BoardManager.eastPosition);
-                    if (positionClear) { possibleSpawns.Add(BoardManager.eastPosition); }
-                }
-                if (BoardManager.southPositionAvailable)
-                {
-                    bool positionClear = CheckMonsterPositions(BoardManager.southPosition);
-                    if (positionClear) { possibleSpawns.Add(BoardManager.southPosition); }
-                }
-                if (BoardManager.westPositionAvailable)
-                {
-                    bool positionClear = CheckMonsterPositions(BoardManager.westPosition);
-                    if (positionClear) { possibleSpawns.Add(BoardManager.westPosition); }
-                }
-                if (possibleSpawns.Count == 1)
-                {
-                    position = possibleSpawns[0];
-                }
-                else
-                {
-                    bool choiceMade = false;
-                    while (!choiceMade)
-                    {
-                        for (int i = 0; i < possibleSpawns.Count; i++)
-                        {
-                            random = Random.Range(1, 3);
-                            if (random == 1 && !choiceMade)
-                            {
-                                position = possibleSpawns[i];
-                                choiceMade = true;
-                            }
-                        }
-                    }
-                }
-                if (monsterPositions.Contains(position)) { continue; }
-                else { monsterPositions.Add(position); CreateMonster(); }
-            }    
+            }
+            possibleSpawns.Clear();
         }
         MonsterMovement.UpdateAvatars();
         TurnManager.continueTurnProgression = true;
@@ -85,6 +51,10 @@ public class Monsters : MonoBehaviour
     {
         int[] values = new int[4];
         int monster = 0;
+        if (GameMain.currentBoard == 1)
+        {
+            monster = Random.Range(0, 2);
+        }
         // Type, Health, Lives, Combat Dice //
         switch (monster)
         {

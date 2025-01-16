@@ -163,27 +163,48 @@ public class BoardManager : MonoBehaviour
         }
     }
 
+    public static void CheckForBoardPositionsNearLocation(Vector3 position)
+    {
+        northPositionAvailable = false;
+        eastPositionAvailable = false;
+        southPositionAvailable = false;
+        westPositionAvailable = false;
+        Vector3 north = new Vector3(position[0], position[1] + 1);
+        Vector3 east = new Vector3(position[0] + 1, position[1]);
+        Vector3 south = new Vector3(position[0], position[1] - 1);
+        Vector3 west = new Vector3(position[0] - 1, position[1]);
+        foreach (Vector3 listVector in boardPositions)
+        {
+            if (listVector == north)
+            {
+                northPosition = north;
+                northPositionAvailable = true;
+            }
+            if (listVector == east)
+            {
+                eastPosition = east;
+                eastPositionAvailable = true;
+            }
+            if (listVector == south)
+            {
+                southPosition = south;
+                southPositionAvailable = true;
+            }
+            if (listVector == west)
+            {
+                westPosition = west;
+                westPositionAvailable = true;
+            }
+        }
+    }
+
     public static void DetermineNextBoardPosition()
     {
-        Tilemap units = Store.tilemaps[4];
         boardPosition = currentUnitPosition;
-        units.SetTile(new Vector3Int((int)boardPosition[0], (int)boardPosition[1]), null);
-        if (currentUnitDirection == "north" && northPositionAvailable)
-        {
-            boardPosition[1] += 1;
-        }
-        else if (currentUnitDirection == "east" && eastPositionAvailable)
-        {
-            boardPosition[0] += 1;
-        }
-        else if (currentUnitDirection == "south" && southPositionAvailable)
-        {
-            boardPosition[1] -= 1;
-        }
-        else if (currentUnitDirection == "west" && westPositionAvailable)
-        {
-            boardPosition[0] -= 1;
-        }
+        if (currentUnitDirection == "north" && northPositionAvailable) { boardPosition[1] += 1; }
+        else if (currentUnitDirection == "east" && eastPositionAvailable) { boardPosition[0] += 1; }
+        else if (currentUnitDirection == "south" && southPositionAvailable) { boardPosition[1] -= 1; }
+        else if (currentUnitDirection == "west" && westPositionAvailable) { boardPosition[0] -= 1; }
         if (currentUnitDirection == "north" && !northPositionAvailable)
         {
             if (eastPositionAvailable)

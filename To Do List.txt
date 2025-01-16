@@ -42,7 +42,7 @@ Oddities:
 Can be purchased from merchants.
 Can be found after raiding a dungeon.
 Can be dropped by elites.
-[ ] Chance to deal damage when passing another player or monster.
+[ ] Deal damage when passing another monster.
 [ ] +Armor
 [ ] +Health
 [ ] +Combat
@@ -61,7 +61,6 @@ Can be dropped by elites.
 [ ] Village tolls are doubled.
 [ ] Return to camp at will.
 [ ] One additional action point per turn.
-[ ] 
 
 Rarities:
 [ ] Magenta (Color)
@@ -73,6 +72,9 @@ Rarities:
 
 Bottom Left Corner:
 Button (Build, Raid, Upgrade) // Avatar // Info Button
+
+Bottom Right: Travel / Attack / End Turn / Heal
+Bottom Left: North / East / South / West
 
 BRAINSTORMING
 Players have 3 Actions. Travel costs 1. Resting (recover health) costs 1. Raiding costs 1. Fighting another player costs 1. Building a village costs 1.

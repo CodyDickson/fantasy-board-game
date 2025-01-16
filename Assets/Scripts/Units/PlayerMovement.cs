@@ -48,6 +48,9 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (movesRemaining > 0)
                 {
+                    units.SetTile(new Vector3Int((int)BoardManager.currentUnitPosition[0], (int)BoardManager.currentUnitPosition[1]), null);
+                    bool positionClear = Monsters.CheckMonsterPositions(BoardManager.currentUnitPosition);
+                    if (positionClear) { MonsterMovement.UpdateAvatars(); }
                     BoardManager.CheckForLocalBoardPositions();
                     BoardManager.DetermineNextBoardPosition();
                     units.SetTile(new Vector3Int((int)BoardManager.currentUnitPosition[0], (int)BoardManager.currentUnitPosition[1]), Store.playerTiles[GameMain.playerAvatar]);
@@ -69,7 +72,8 @@ public class PlayerMovement : MonoBehaviour
                 }
                 if (movesRemaining == 0)
                 {
-                    GUIManager.ToggleEndTurnButton(true);
+                    Arrows.DisableArrowButtons();
+                    GUIManager.EnableEndTurnButton();
                     playerIsMoving = false;
                     InfoGUI.ToggleInfoGUI(true);
                     Dice.DisableDice();
@@ -103,7 +107,6 @@ public class PlayerMovement : MonoBehaviour
         }
         Fog.RemoveLocalFog(clockwork);
         Dungeons.SpawnDungeons(clockwork);
-        // Merchants.SpawnMerchants(clockwork);
-        GUIManager.ToggleMoveButton(true);
+        GUIManager.EnableMoveButton();
     }
 }

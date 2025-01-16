@@ -13,12 +13,17 @@ public class GUIManager : MonoBehaviour
     public GameObject endTurnButtonPanel;
     public Button moveButton;
     public GameObject moveButtonPanel;
-    public Sprite playerRed, playerBlue;
+    public Button attackButton, healButton;
+    public GameObject attackButtonPanel, healButtonPanel;
     public TMP_Text centerText;
     public static bool enableEndTurnButton = false;
-    public static bool endTurnButtonEnabled = false;
+    public static bool disableEndTurnButton = false;
+    public static bool enableAttackButton = false;
+    public static bool disableAttackButton = false;
+    public static bool enableHealButton = false;
+    public static bool disableHealButton = false;
     public static bool enableMoveButton = false;
-    public static bool moveButtonEnabled = false;
+    public static bool disableMoveButton = false;
     public bool GUIColorHasBeenUpdated = false;
     public static bool playerGUIHasBeenUpdated = false;
     public static bool clearCenterText = false;
@@ -29,6 +34,8 @@ public class GUIManager : MonoBehaviour
     {
         endTurnButton.onClick.AddListener(OnClickEndTurn);
         moveButton.onClick.AddListener(OnClickMove);
+        attackButton.onClick.AddListener(OnClickAttack);
+        healButton.onClick.AddListener(OnClickHeal);
         endTurnButton.gameObject.SetActive(true);
         endTurnButtonPanel.gameObject.SetActive(true);
         moveButton.gameObject.SetActive(true);
@@ -40,7 +47,7 @@ public class GUIManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.M) && endTurnButtonEnabled)
+        /*if (Input.GetKeyDown(KeyCode.M) && endTurnButtonEnabled)
         {
             TurnManager.TurnProgressionHandler();
         }
@@ -56,30 +63,54 @@ public class GUIManager : MonoBehaviour
             {
                 PlayerMovement.playerIsMoving = true;
             }
-        }
-        if (enableMoveButton && !moveButtonEnabled)
+        }*/
+        if (enableAttackButton)
         {
-            moveButtonPanel.gameObject.SetActive(true);
-            moveButton.gameObject.SetActive(true);
-            moveButtonEnabled = true;
+            attackButtonPanel.gameObject.SetActive(true);
+            attackButton.gameObject.SetActive(true);
+            enableAttackButton = false;
         }
-        else if (!enableMoveButton && moveButtonEnabled)
+        if (disableAttackButton)
         {
-            //moveButtonPanel.gameObject.SetActive(false);
-            //moveButton.gameObject.SetActive(false);
-            moveButtonEnabled = false;
+            attackButtonPanel.gameObject.SetActive(false);
+            attackButton.gameObject.SetActive(false);
+            disableAttackButton = false;
         }
-        if (enableEndTurnButton && !endTurnButtonEnabled)
+        if (enableHealButton)
+        {
+            healButtonPanel.gameObject.SetActive(true);
+            healButton.gameObject.SetActive(true);
+            enableHealButton = false;
+        }
+        if (disableHealButton)
+        {
+            healButtonPanel.gameObject.SetActive(false);
+            healButton.gameObject.SetActive(false);
+            disableHealButton = false;
+        }
+        if (enableEndTurnButton)
         {
             endTurnButtonPanel.gameObject.SetActive(true);
             endTurnButton.gameObject.SetActive(true);
-            endTurnButtonEnabled = true;
+            enableEndTurnButton = false;
         }
-        else if (!enableEndTurnButton && endTurnButtonEnabled)
+        if (disableEndTurnButton)
         {
-            //endTurnButtonPanel.gameObject.SetActive(false);
-            //endTurnButton.gameObject.SetActive(false);
-            endTurnButtonEnabled = false;
+            endTurnButtonPanel.gameObject.SetActive(false);
+            endTurnButton.gameObject.SetActive(false);
+            disableEndTurnButton = false;
+        }
+        if (enableMoveButton)
+        {
+            moveButtonPanel.gameObject.SetActive(true);
+            moveButton.gameObject.SetActive(true);
+            enableMoveButton = false;
+        }
+        if (disableMoveButton)
+        {
+            moveButtonPanel.gameObject.SetActive(false);
+            moveButton.gameObject.SetActive(false);
+            disableMoveButton = false;
         }
         if (GameMain.GUIEnabled && !playerGUIHasBeenUpdated)
         {
@@ -113,35 +144,48 @@ public class GUIManager : MonoBehaviour
         clearCenterText = true;
     }
 
-    public static void ToggleEndTurnButton(bool enable)
-    {
-        enableEndTurnButton = enable;
-    }
+    public static void EnableMoveButton() { enableMoveButton = true; }
 
-    public static void ToggleMoveButton(bool enable)
-    {
-        enableMoveButton = enable;
-    }
+    public static void DisableMoveButton() { disableMoveButton = true; }
+
+    public static void EnableEndTurnButton() { enableEndTurnButton = true; }
+
+    public static void DisableEndTurnButton() { disableEndTurnButton = true; }
+
+    public static void EnableAttackButton() { enableAttackButton = true; }
+
+    public static void DisableAttackButton() { disableAttackButton = true; }
+
+    public static void EnableHealButton() { enableHealButton = true; }
+
+    public static void DisableHealButton() { disableHealButton = true; }
 
     void OnClickEndTurn()
     {
-        if (endTurnButtonEnabled)
-        {
-            TurnManager.TurnProgressionHandler();
-            InfoGUI.ToggleInfoGUI(false);
-            ToggleEndTurnButton(false);
-            TurnManager.EndPlayerTurn();
-        }
+        DisableEndTurnButton();
+        TurnManager.TurnProgressionHandler();
+        InfoGUI.ToggleInfoGUI(false);
+        TurnManager.EndPlayerTurn();
     }
 
     void OnClickMove()
     {
-        if (moveButtonEnabled)
-        {
-            ToggleMoveButton(false);
-            PlayerMovement.movesRemaining = Dice.RollDice();
-            Dice.EnableDice();
-            Arrows.EnableArrowButtons();
-        }
+        DisableMoveButton();
+        PlayerMovement.movesRemaining = Dice.RollDice();
+        Dice.EnableDice();
+        Arrows.EnableArrowButtons();
+    }
+
+    void OnClickAttack()
+    {
+        DisableAttackButton();
+        DisableHealButton();
+        DisableEndTurnButton();
+        CombatManager.StartCombat();
+    }
+
+    void OnClickHeal()
+    {
+
     }
 }
