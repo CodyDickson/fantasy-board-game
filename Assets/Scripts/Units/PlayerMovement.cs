@@ -108,5 +108,8 @@ public class PlayerMovement : MonoBehaviour
         Fog.RemoveLocalFog(clockwork);
         Dungeons.SpawnDungeons(clockwork);
         GUIManager.EnableMoveButton();
+        GUIManager.EnableEndTurnButton();
+        GUIManager.EnableAttackButton();
+        GUIManager.EnableHealButton();
     }
 }

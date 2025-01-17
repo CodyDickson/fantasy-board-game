@@ -89,6 +89,7 @@ public class GameMain : MonoBehaviour
     {
         totalPlayers = 1;
         currentBoard = 1;
+        weaponRange = 2;
         playerClass = "nomad";
         BoardManager.GenerateGameBoard();
         Fog.GenerateFog();

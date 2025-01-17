@@ -16949,6 +16949,10 @@ MonoBehaviour:
   attackButtonPanel: {fileID: 704473754}
   healButtonPanel: {fileID: 977752469}
   centerText: {fileID: 1943687175}
+  image_endTurn: {fileID: 1966377837}
+  image_move: {fileID: 1961087363}
+  image_attack: {fileID: 704473756}
+  image_heal: {fileID: 977752471}
   GUIColorHasBeenUpdated: 0
   playerGUI_health: {fileID: 2121888961}
   playerGUI_combat: {fileID: 6925710}
@@ -22635,7 +22639,7 @@ MonoBehaviour:
   - {r: 0.6226415, g: 0.21733706, b: 0.21733706, a: 1}
   - {r: 0.19164579, g: 0.24550691, b: 0.7169812, a: 1}
   GUIElementsInEditor:
-  - {fileID: 21300000, guid: 71a782bc34582844a87ca0e529d998b5, type: 3}
+  - {fileID: 21300000, guid: 3005482c1fbdbee4aab9df2ce7972549, type: 3}
   - {fileID: 21300000, guid: 61914b7f1b8f4dd4f999aa496ddb85e4, type: 3}
   - {fileID: -708353238, guid: ad8888aa4b5973e49a90bf15365dcf0b, type: 3}
   - {fileID: 625254367, guid: ad8888aa4b5973e49a90bf15365dcf0b, type: 3}

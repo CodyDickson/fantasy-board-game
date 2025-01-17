@@ -16,6 +16,7 @@ public class GUIManager : MonoBehaviour
     public Button attackButton, healButton;
     public GameObject attackButtonPanel, healButtonPanel;
     public TMP_Text centerText;
+    public Image image_endTurn, image_move, image_attack, image_heal;
     public static bool enableEndTurnButton = false;
     public static bool disableEndTurnButton = false;
     public static bool enableAttackButton = false;
@@ -36,13 +37,18 @@ public class GUIManager : MonoBehaviour
         moveButton.onClick.AddListener(OnClickMove);
         attackButton.onClick.AddListener(OnClickAttack);
         healButton.onClick.AddListener(OnClickHeal);
-        endTurnButton.gameObject.SetActive(true);
-        endTurnButtonPanel.gameObject.SetActive(true);
-        moveButton.gameObject.SetActive(true);
+        image_endTurn = image_endTurn.gameObject.GetComponent<Image>();
+        image_move = image_move.gameObject.GetComponent<Image>();
+        image_attack = image_attack.gameObject.GetComponent<Image>();
+        image_heal = image_heal.gameObject.GetComponent<Image>();
         moveButtonPanel.gameObject.SetActive(true);
         playerGUI_Avatar = GetComponent<Image>();
         centerText.SetText("Choose your path...");
         Invoke("ClearCenterText", 1.5f);
+        DisableEndTurnButton();
+        DisableAttackButton();
+        DisableHealButton();
+        DisableMoveButton();
     }
 
     void Update()
@@ -66,49 +72,57 @@ public class GUIManager : MonoBehaviour
         }*/
         if (enableAttackButton)
         {
-            attackButtonPanel.gameObject.SetActive(true);
+            image_attack.sprite = Store.GUIElements[1];
+            // attackButtonPanel.gameObject.SetActive(true);
             attackButton.gameObject.SetActive(true);
             enableAttackButton = false;
         }
         if (disableAttackButton)
         {
-            attackButtonPanel.gameObject.SetActive(false);
+            image_attack.sprite = Store.GUIElements[0];
+            // attackButtonPanel.gameObject.SetActive(false);
             attackButton.gameObject.SetActive(false);
             disableAttackButton = false;
         }
         if (enableHealButton)
         {
-            healButtonPanel.gameObject.SetActive(true);
+            image_heal.sprite = Store.GUIElements[1];
+            // healButtonPanel.gameObject.SetActive(true);
             healButton.gameObject.SetActive(true);
             enableHealButton = false;
         }
         if (disableHealButton)
         {
-            healButtonPanel.gameObject.SetActive(false);
+            image_heal.sprite = Store.GUIElements[0];
+            // healButtonPanel.gameObject.SetActive(false);
             healButton.gameObject.SetActive(false);
             disableHealButton = false;
         }
         if (enableEndTurnButton)
         {
-            endTurnButtonPanel.gameObject.SetActive(true);
+            image_endTurn.sprite = Store.GUIElements[1];
+            // endTurnButtonPanel.gameObject.SetActive(true);
             endTurnButton.gameObject.SetActive(true);
             enableEndTurnButton = false;
         }
         if (disableEndTurnButton)
         {
-            endTurnButtonPanel.gameObject.SetActive(false);
+            image_endTurn.sprite = Store.GUIElements[0];
+            // endTurnButtonPanel.gameObject.SetActive(false);
             endTurnButton.gameObject.SetActive(false);
             disableEndTurnButton = false;
         }
         if (enableMoveButton)
         {
-            moveButtonPanel.gameObject.SetActive(true);
+            image_move.sprite = Store.GUIElements[1];
+            //moveButtonPanel.gameObject.SetActive(true);
             moveButton.gameObject.SetActive(true);
             enableMoveButton = false;
         }
         if (disableMoveButton)
         {
-            moveButtonPanel.gameObject.SetActive(false);
+            image_move.sprite = Store.GUIElements[0];
+            //moveButtonPanel.gameObject.SetActive(false);
             moveButton.gameObject.SetActive(false);
             disableMoveButton = false;
         }
@@ -178,10 +192,18 @@ public class GUIManager : MonoBehaviour
 
     void OnClickAttack()
     {
-        DisableAttackButton();
-        DisableHealButton();
-        DisableEndTurnButton();
-        CombatManager.StartCombat();
+        if (!CombatManager.combatEnabled)
+        {
+            DisableHealButton();
+            DisableEndTurnButton();
+            CombatManager.StartCombat();
+        }
+        else if (CombatManager.combatEnabled)
+        {
+            EnableHealButton();
+            EnableEndTurnButton();
+            CombatManager.StopCombat();
+        }
     }
 
     void OnClickHeal()
