@@ -51,7 +51,6 @@ public class TurnOrderGUI : MonoBehaviour
         if (itemOne == "player")
         {
             slotOne.sprite = Store.playerSprites[GameMain.playerAvatar];
-            text.text = GameMain.playerClass + "'s Turn";
         }
         if (itemOne == "spawnMonsters")
         {

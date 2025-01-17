@@ -4114,7 +4114,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Nomad's Turn
+  m_text: Player
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 29734e132ae9fa548a514a8d13dd1466, type: 2}
   m_sharedMaterial: {fileID: -1461502681460121471, guid: 29734e132ae9fa548a514a8d13dd1466, type: 2}
@@ -16944,8 +16944,10 @@ MonoBehaviour:
   endTurnButtonPanel: {fileID: 1966377835}
   moveButton: {fileID: 26038026}
   moveButtonPanel: {fileID: 1961087361}
-  playerRed: {fileID: 21300000, guid: 0408cc6b9cbf9b0458492cb17390ce17, type: 3}
-  playerBlue: {fileID: 21300000, guid: 0408cc6b9cbf9b0458492cb17390ce17, type: 3}
+  attackButton: {fileID: 853808204}
+  healButton: {fileID: 672355995}
+  attackButtonPanel: {fileID: 704473754}
+  healButtonPanel: {fileID: 977752469}
   centerText: {fileID: 1943687175}
   GUIColorHasBeenUpdated: 0
   playerGUI_health: {fileID: 2121888961}

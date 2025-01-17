@@ -25,6 +25,8 @@ public class GameMain : MonoBehaviour
     public static int playerCombat;
     public static int playerLives;
     public static int playerGold;
+    public static int playerPotions;
+    public static int weaponRange;
     public static List<int> playerWeapons = new List<int>();
     public static List<int> playerItems = new List<int>();
     // Tile References

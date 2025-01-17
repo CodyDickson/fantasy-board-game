@@ -20,7 +20,6 @@ public class Grasslands : MonoBehaviour
             LoopGenerator(i);
         }
         BoardManager.UpdateEmptySlotPositions();
-        BoardManager.FillEmptySlots();
     }
 
     public static void CampSpawn()
