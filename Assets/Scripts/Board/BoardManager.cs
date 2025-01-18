@@ -64,7 +64,7 @@ public class BoardManager : MonoBehaviour
         switch (GameMain.currentBoard)
         {
             case 1: Grasslands.GenerateBoard(); break;
-                // case 2: Graveyard.GenerateBoard(); break;
+            case 2: Graveyard.GenerateBoard(); break;
                 // case 3: Volcano.GenerateBoard(); break;
                 // case 4: Machine.GenerateBoard(); break;
         }
@@ -75,7 +75,7 @@ public class BoardManager : MonoBehaviour
         switch (GameMain.currentBoard)
         {
             case 1: Grasslands.CampSpawn(); break;
-                // case 2: Graveyard.CampSpawn(); break;
+            case 2: Graveyard.CampSpawn(); break;
                 // case 3: Volcano.CampSpawn(); break;
                 // case 4: Machine.CampSpawn(); break;
         }

@@ -18,7 +18,7 @@ public class GameMain : MonoBehaviour
     public static bool playerInCamp = true;
     public static bool playerEnteredSecondLoop = false;
     public static bool playerEnteredThirdLoop = false;
-    public static int playerHealth;
+    public static int maxHealth;
     public static int playerArmor;
     public static int playerMovementDice;
     public static int playerCombatDice;
@@ -35,7 +35,6 @@ public class GameMain : MonoBehaviour
     // Current Player Info //
     public static int currentTurn;
     public static int currentPlayer;
-    public static int currentPlayerHealth;
     public static int currentPlayerArmor;
     public static int currentPlayerAvatar;
     public static int currentPlayerLives;
@@ -88,8 +87,9 @@ public class GameMain : MonoBehaviour
     void Start()
     {
         totalPlayers = 1;
-        currentBoard = 1;
+        currentBoard = 2;
         weaponRange = 2;
+        playerPotions = 3;
         playerClass = "nomad";
         BoardManager.GenerateGameBoard();
         Fog.GenerateFog();
@@ -105,7 +105,8 @@ public class GameMain : MonoBehaviour
     {
         int[] values = Classes.ClassStartingStats(playerClass);
         playerAvatar = values[0];
-        playerHealth = values[1];
+        Player.health = values[1];
+        Player.health = values[1];
         playerLives = values[2];
         playerArmor = values[3];
         playerMovementDice = values[4];

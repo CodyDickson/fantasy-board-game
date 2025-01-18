@@ -84,7 +84,7 @@ public class GUIManager : MonoBehaviour
             attackButton.gameObject.SetActive(false);
             disableAttackButton = false;
         }
-        if (enableHealButton)
+        if (enableHealButton && GameMain.playerPotions > 0)
         {
             image_heal.sprite = Store.GUIElements[1];
             // healButtonPanel.gameObject.SetActive(true);
@@ -129,7 +129,7 @@ public class GUIManager : MonoBehaviour
         if (GameMain.GUIEnabled && !playerGUIHasBeenUpdated)
         {
             playerGUI.SetActive(true);
-            playerGUI_health.text = "Health: " + GameMain.playerHealth;
+            playerGUI_health.text = "Health: " + Player.health;
             playerGUI_gold.text = "Gold: " + GameMain.playerGold;
             playerGUI_combat.text = "Combat: " + GameMain.playerCombat;
             playerGUI_lives.text = "Lives: " + GameMain.playerLives;
@@ -208,6 +208,11 @@ public class GUIManager : MonoBehaviour
 
     void OnClickHeal()
     {
-
+        Player.totalPotions -= 1;
+        Player.health += 3;
+        if (Player.totalPotions == 0)
+        {
+            DisableHealButton();
+        }
     }
 }
