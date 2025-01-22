@@ -8,7 +8,7 @@ public class Merchants : MonoBehaviour
 {
     public static int merchantCount;
     public static int merchantType = 1;
-    public static Dictionary<Vector3, int> merchantPositions = new Dictionary<Vector3, int>();
+    public static List<Vector3> merchantPositions = new List<Vector3>();
 
     private void Update()
     {
