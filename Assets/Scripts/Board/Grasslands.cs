@@ -12,6 +12,8 @@ public class Grasslands : MonoBehaviour
 
     public static void GenerateBoard()
     {
+        Fog.GenerateFog();
+        Fog.RemoveLocalFog(0);
         PullBoardConnectorsFromStore();
         CampDesign();
         GenerateTerrain();

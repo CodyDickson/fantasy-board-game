@@ -63,12 +63,6 @@ public class TurnManager : MonoBehaviour
         Debug.Log("Current Turn Item: " + turnOrder[0]);
     }
 
-    public static void EndPlayerTurn()
-    {
-        GameMain.playerGold += Villages.totalVillageGoldPerTurn;
-        GUIManager.UpdatePlayerGUI();
-    }
-
     public static void StartPlayerTurn()
     {
         if (GameMain.playerInCamp) { Arrows.EnableArrowButtons(); }

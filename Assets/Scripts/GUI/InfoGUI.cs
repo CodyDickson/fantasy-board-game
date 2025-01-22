@@ -9,33 +9,37 @@ using UnityEngine.UI;
 public class InfoGUI : MonoBehaviour
 {
     //
-    public static bool updateInfoGUI = false;
-    public static bool finishUpdatingInfoGUI = false;
+    public static bool enableInfoGUI = false;
     public static bool disableInfoGUI = false;
-    //
     public static List<string> infoGUIPool = new List<string>();
     public static List<string> infoGUIPool_directions = new List<string>();
-    // 
-    public TMP_Text main_top, buttonText_top, buttonText_bottom, main_bottom;
-    public Image avatar_top, avatar_bottom, buttonAvatar_top, buttonAvatar_bottom;
-    public Button button_top, button_bottom;
-    public GameObject infoGUI_top, infoGUI_bottom, button_top_object, button_bottom_object;
+    public TMP_Text mainText, buttonText;
+    public Image avatarImage, buttonImage;
+    public Button mainButton;
+    public GameObject infoGUIGameObject;
+    //
+    public static bool updateInfoGUI = false;
+    public static bool finishUpdatingInfoGUI = false;
+    //
 
     void Start()
     {
-        button_top.onClick.AddListener(OnClickTopButton);
-        button_bottom.onClick.AddListener(OnClickBottomButton);
-        infoGUI_top.gameObject.SetActive(false);
-        infoGUI_bottom.gameObject.SetActive(false);
-        avatar_top = avatar_top.gameObject.GetComponent<Image>();
-        avatar_bottom = avatar_bottom.gameObject.GetComponent<Image>();
-        buttonAvatar_top = button_top_object.gameObject.GetComponent<Image>();
-        buttonAvatar_bottom = button_bottom_object.GetComponent<Image>();
+        mainButton.onClick.AddListener(OnClickButton);
+        infoGUIGameObject.gameObject.SetActive(false);
+        avatarImage = avatarImage.gameObject.GetComponent<Image>();
+        buttonImage = buttonImage.gameObject.GetComponent<Image>();
     }
 
     void Update()
     {
-        if (updateInfoGUI)
+        if (enableInfoGUI)
+        {
+            // DeterminePoolContents();
+            infoGUIGameObject.SetActive(true);
+            UpdateInfoGUI(infoGUIPool[0], infoGUIPool_directions[0], mainText, buttonText, avatarImage, buttonImage);
+            enableInfoGUI = false;
+        }
+        /*if (updateInfoGUI)
         {
             DeterminePoolContents();
             if (finishUpdatingInfoGUI)
@@ -51,46 +55,25 @@ public class InfoGUI : MonoBehaviour
                 updateInfoGUI = false;
                 finishUpdatingInfoGUI = false;
             }
-        }
+        }*/
         if (disableInfoGUI)
         {
-            infoGUI_top.gameObject.SetActive(false);
-            infoGUI_bottom.gameObject.SetActive(false);
+            infoGUIGameObject.gameObject.SetActive(false);
             disableInfoGUI = false;
         }
     }
+    public static void EnableInfoGUI() { enableInfoGUI = true; }
 
-    public static void OnClickBottomButton()
-    {
-        PullFromInfoGUIPool(0);
-    }
+    public static void DisableInfoGUI() { disableInfoGUI = true; }
 
-    public static void OnClickTopButton()
+    public static void OnClickButton()
     {
-        PullFromInfoGUIPool(1);
-    }
-
-    public static void PullFromInfoGUIPool(int buttonClicked)
-    {
-        if (buttonClicked == 0)
+        switch (infoGUIPool[0])
         {
-            switch (infoGUIPool[0])
-            {
-                case "empty": Villages.BuildVillage(infoGUIPool_directions[0]); break;
-                case "dungeon": Dungeons.RaidDungeon(); break;
-                case "village": Villages.UpgradeVillage(); break;
-                case "merchant": Merchants.OpenShop(); break;
-            }
-        }
-        if (buttonClicked == 1)
-        {
-            switch (infoGUIPool[1])
-            {
-                case "empty": Villages.BuildVillage(infoGUIPool_directions[1]); break;
-                case "dungeon": Dungeons.RaidDungeon(); break;
-                case "village": Villages.UpgradeVillage(); break;
-                case "merchant": Merchants.OpenShop(); break;
-            }
+            case "empty": Villages.BuildVillage(infoGUIPool_directions[0]); break;
+            case "dungeon": Dungeons.RaidDungeon(); break;
+            case "village": Villages.UpgradeVillage(); break;
+            case "merchant": Merchants.OpenShop(); break;
         }
     }
 
@@ -163,18 +146,6 @@ public class InfoGUI : MonoBehaviour
             avatar.sprite = Store.merchantSprites[0];
             buttonText.text = "Shop";
             buttonAvatar.sprite = Store.GUIElements[1];
-        }
-    }
-
-    public static void ToggleInfoGUI(bool status)
-    {
-        if (status == true)
-        {
-            updateInfoGUI = true;
-        }
-        else
-        {
-            disableInfoGUI = true;
         }
     }
 }

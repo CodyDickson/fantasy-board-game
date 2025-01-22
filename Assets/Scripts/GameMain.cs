@@ -87,13 +87,11 @@ public class GameMain : MonoBehaviour
     void Start()
     {
         totalPlayers = 1;
-        currentBoard = 2;
+        currentBoard = 1;
         weaponRange = 2;
         playerPotions = 3;
         playerClass = "nomad";
         BoardManager.GenerateGameBoard();
-        Fog.GenerateFog();
-        Fog.RemoveLocalFog(0);
         GameSetup();
         GUI.SetActive(true);
         Arrows.EnableArrowButtons();

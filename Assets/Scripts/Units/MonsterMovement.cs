@@ -43,7 +43,7 @@ public class MonsterMovement : MonoBehaviour
                 {
                     GUIManager.EnableEndTurnButton();
                     monsterIsMoving = false;
-                    InfoGUI.ToggleInfoGUI(true);
+                    InfoGUI.EnableInfoGUI();
                     Dice.DisableDice();
                 }
                 movement_tempCounter = movement_counter;

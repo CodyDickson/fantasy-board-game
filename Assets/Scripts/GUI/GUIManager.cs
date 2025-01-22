@@ -177,9 +177,11 @@ public class GUIManager : MonoBehaviour
     void OnClickEndTurn()
     {
         DisableEndTurnButton();
+        UpdatePlayerGUI();
+        InfoGUI.DisableInfoGUI();
+        CombatManager.ClearPotentialAttacks();
+        GameMain.playerGold += Villages.totalVillageGoldPerTurn;
         TurnManager.TurnProgressionHandler();
-        InfoGUI.ToggleInfoGUI(false);
-        TurnManager.EndPlayerTurn();
     }
 
     void OnClickMove()
