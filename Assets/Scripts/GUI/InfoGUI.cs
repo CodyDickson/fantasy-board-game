@@ -52,9 +52,10 @@ public class InfoGUI : MonoBehaviour
 
     public static void OnClickButton()
     {
+        Debug.Log("pass");
         switch (structureType)
         {
-            case "empty": Villages.BuildVillage(structurePosition); break;
+            case "empty": Debug.Log("Building Village"); Villages.BuildVillage(structurePosition); break;
             case "dungeon": Dungeons.RaidDungeon(); break;
             case "village": Villages.UpgradeVillage(); break;
             case "merchant": Merchants.OpenShop(); break;

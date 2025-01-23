@@ -21,6 +21,7 @@ public class Villages : MonoBehaviour
 
     public static void BuildVillage(Vector3 position)
     {
+        Debug.Log("Build Village at " + position);
         Tilemap structures = Store.tilemaps[3];
         Tile village = Store.villageTiles[GameMain.playerVillage];
         structures.SetTile(new Vector3Int((int)position[0], (int)position[1]), village);

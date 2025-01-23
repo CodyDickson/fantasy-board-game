@@ -11,6 +11,7 @@ public class BoardManager : MonoBehaviour
     public static Vector3 boardPosition;
     public static List<Vector3> boardPositions = new List<Vector3>();
     public static List<Vector3> localBoardPositions = new List<Vector3>();
+    public static List<Vector3> potentialEmptySlots = new List<Vector3>();
     public static List<Vector3> crossroadPositions = new List<Vector3>();
     public static List<Vector3> campExitPositions = new List<Vector3>();
     public static List<Vector3> midwayPositions = new List<Vector3>();
@@ -357,6 +358,41 @@ public class BoardManager : MonoBehaviour
             if (listVector == east) { eastEmpty = true; }
             if (listVector == south) { southEmpty = true; }
             if (listVector == west) { westEmpty = true; }
+        }
+    }
+
+    public static void ShowLocalEmptySlots()
+    {
+        Tilemap tilemap = Store.tilemaps[3];
+        Vector3 position = BoardManager.currentUnitPosition;
+        for (int z = 0, y = 0; y <= Player.interactionRange; y++)
+        {
+            for (int x = 0; x <= Player.interactionRange; x++, z++)
+            {
+                potentialEmptySlots.Add(new Vector3Int((int)position[0] + x, (int)position[1] + y));
+                potentialEmptySlots.Add(new Vector3Int((int)position[0] - x, (int)position[1] + y));
+                potentialEmptySlots.Add(new Vector3Int((int)position[0] + x, (int)position[1] - y));
+                potentialEmptySlots.Add(new Vector3Int((int)position[0] - x, (int)position[1] - y));
+            }
+        }
+        foreach (Vector3 potential in potentialEmptySlots)
+        {
+            foreach (Vector3 emptySlot in emptyBoardSlots)
+            {
+                if (potential == emptySlot)
+                {
+                    tilemap.SetTile(new Vector3Int((int)emptySlot[0], (int)emptySlot[1]), Store.objectTiles[2]);
+                }
+            }
+        }
+    }
+
+    public static void ClearEmptySlots()
+    {
+        Tilemap tilemap = Store.tilemaps[3];
+        foreach (Vector3 emptySlot in emptyBoardSlots)
+        {
+            tilemap.SetTile(new Vector3Int((int)emptySlot[0], (int)emptySlot[1]), null);
         }
     }
 

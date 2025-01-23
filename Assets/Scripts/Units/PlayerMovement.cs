@@ -74,9 +74,10 @@ public class PlayerMovement : MonoBehaviour
                 {
                     Arrows.DisableArrowButtons();
                     GUIManager.EnableEndTurnButton();
-                    playerIsMoving = false;
                     InfoGUI.DisableInfoGUI();
                     Dice.DisableDice();
+                    BoardManager.ShowLocalEmptySlots();
+                    playerIsMoving = false;
                 }
                 movement_tempCounter = movement_counter;
             }
