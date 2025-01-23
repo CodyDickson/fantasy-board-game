@@ -52,9 +52,9 @@ public class InfoGUI : MonoBehaviour
 
     public static void OnClickButton()
     {
-        switch (infoGUIPool[0])
+        switch (structureType)
         {
-            case "empty": Villages.BuildVillage(infoGUIPool_directions[0]); break;
+            case "empty": Villages.BuildVillage(structurePosition); break;
             case "dungeon": Dungeons.RaidDungeon(); break;
             case "village": Villages.UpgradeVillage(); break;
             case "merchant": Merchants.OpenShop(); break;
@@ -105,15 +105,16 @@ public class InfoGUI : MonoBehaviour
         }
         if (type == "monster")
         {
-            avatar.sprite = Store.merchantSprites[0];
+            avatar.sprite = Store.monsterSprites[0];
             buttonText.text = "Shop";
             buttonAvatar.sprite = Store.GUIElements[1];
         }
         if (type == "player")
         {
-            avatar.sprite = Store.merchantSprites[0];
-            buttonText.text = "Shop";
-            buttonAvatar.sprite = Store.GUIElements[1];
+            avatar.sprite = Store.playerSprites[Player.avatar];
+            main.text = "";
+            buttonText.text = "";
+            buttonAvatar.sprite = Store.GUIElements[0];
         }
     }
 }

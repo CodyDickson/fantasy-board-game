@@ -30,13 +30,11 @@ public class GameMain : MonoBehaviour
     public static List<int> playerWeapons = new List<int>();
     public static List<int> playerItems = new List<int>();
     // Tile References
-    public static int playerAvatar;
     public static int playerVillage;
     // Current Player Info //
     public static int currentTurn;
     public static int currentPlayer;
     public static int currentPlayerArmor;
-    public static int currentPlayerAvatar;
     public static int currentPlayerLives;
     public static int currentPlayerCombat;
     public static int currentPlayerGold;
@@ -102,7 +100,7 @@ public class GameMain : MonoBehaviour
     public static void GameSetup()
     {
         int[] values = Classes.ClassStartingStats(playerClass);
-        playerAvatar = values[0];
+        Player.avatar = values[0];
         Player.health = values[1];
         Player.health = values[1];
         playerLives = values[2];

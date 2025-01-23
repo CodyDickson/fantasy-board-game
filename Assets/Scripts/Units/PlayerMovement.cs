@@ -28,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (GameMain.playerLives > 0)
             {
-                Store.tilemaps[4].SetTile(new Vector3Int((int)BoardManager.currentUnitPosition[0], (int)BoardManager.currentUnitPosition[1]), Store.playerTiles[GameMain.playerAvatar]);
+                Store.tilemaps[4].SetTile(new Vector3Int((int)BoardManager.currentUnitPosition[0], (int)BoardManager.currentUnitPosition[1]), Store.playerTiles[Player.avatar]);
             }
             avatar_tempCounter = avatar_counter;
         }
@@ -53,7 +53,7 @@ public class PlayerMovement : MonoBehaviour
                     if (positionClear) { MonsterMovement.UpdateAvatars(); }
                     BoardManager.CheckForLocalBoardPositions();
                     BoardManager.DetermineNextBoardPosition();
-                    units.SetTile(new Vector3Int((int)BoardManager.currentUnitPosition[0], (int)BoardManager.currentUnitPosition[1]), Store.playerTiles[GameMain.playerAvatar]);
+                    units.SetTile(new Vector3Int((int)BoardManager.currentUnitPosition[0], (int)BoardManager.currentUnitPosition[1]), Store.playerTiles[Player.avatar]);
                     BoardManager.CheckForCrossroads();
                     if (BoardManager.crossroadsPosition == true)
                     {

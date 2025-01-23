@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     public static int health;
     public static int maxHealth;
     public static int totalPotions;
+    public static int avatar;
 
     private void Start()
     {

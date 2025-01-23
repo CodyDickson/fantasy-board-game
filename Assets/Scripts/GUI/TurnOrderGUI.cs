@@ -50,7 +50,7 @@ public class TurnOrderGUI : MonoBehaviour
         Debug.Log(itemOne + " pass");
         if (itemOne == "player")
         {
-            slotOne.sprite = Store.playerSprites[GameMain.playerAvatar];
+            slotOne.sprite = Store.playerSprites[Player.avatar];
         }
         if (itemOne == "spawnMonsters")
         {
@@ -64,7 +64,7 @@ public class TurnOrderGUI : MonoBehaviour
         }
         if (itemTwo == "player")
         {
-            slotTwo.sprite = Store.playerSprites[GameMain.playerAvatar];
+            slotTwo.sprite = Store.playerSprites[Player.avatar];
         }
         if (itemTwo == "spawnMonsters")
         {
@@ -76,7 +76,7 @@ public class TurnOrderGUI : MonoBehaviour
         }
         if (itemThree == "player")
         {
-            slotThree.sprite = Store.playerSprites[GameMain.playerAvatar];
+            slotThree.sprite = Store.playerSprites[Player.avatar];
         }
         if (itemThree == "spawnMonsters")
         {

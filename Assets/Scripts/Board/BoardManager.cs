@@ -332,7 +332,7 @@ public class BoardManager : MonoBehaviour
         Vector3 east = new Vector3(currentUnitPosition[0] + 1, currentUnitPosition[1]);
         Vector3 south = new Vector3(currentUnitPosition[0], currentUnitPosition[1] - 1);
         Vector3 west = new Vector3(currentUnitPosition[0] - 1, currentUnitPosition[1]);
-        foreach (Vector3 listVector in Merchants.merchantPositions.Keys)
+        foreach (Vector3 listVector in Merchants.merchantPositions)
         {
             if (listVector == north) { merchantNorth = true; }
             if (listVector == east) { merchantEast = true; }
