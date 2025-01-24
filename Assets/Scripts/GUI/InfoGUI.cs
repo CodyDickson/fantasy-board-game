@@ -86,7 +86,7 @@ public class InfoGUI : MonoBehaviour
         }
         if (type == "village")
         {
-            avatar.sprite = Store.villageSprites[GameMain.playerVillage];
+            avatar.sprite = Store.villageSprites[Player.village];
             if (GameMain.playerGold >= Villages.villageUpgradeCost)
             {
                 buttonText.text = "Upgrade";

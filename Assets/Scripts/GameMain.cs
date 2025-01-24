@@ -29,8 +29,6 @@ public class GameMain : MonoBehaviour
     public static int weaponRange;
     public static List<int> playerWeapons = new List<int>();
     public static List<int> playerItems = new List<int>();
-    // Tile References
-    public static int playerVillage;
     // Current Player Info //
     public static int currentTurn;
     public static int currentPlayer;
@@ -105,8 +103,7 @@ public class GameMain : MonoBehaviour
         Player.health = values[1];
         playerLives = values[2];
         playerArmor = values[3];
-        playerMovementDice = values[4];
-        playerVillage = 1;
+        Player.village = 1;
         playerGold = 150;
     }
 }

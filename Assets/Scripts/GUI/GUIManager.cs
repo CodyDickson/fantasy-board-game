@@ -15,7 +15,7 @@ public class GUIManager : MonoBehaviour
     public GameObject moveButtonPanel;
     public Button attackButton, healButton;
     public GameObject attackButtonPanel, healButtonPanel;
-    public TMP_Text centerText;
+    public TMP_Text centerText, moveButtonText;
     public Image image_endTurn, image_move, image_attack, image_heal;
     public static bool enableEndTurnButton = false;
     public static bool disableEndTurnButton = false;
@@ -29,7 +29,6 @@ public class GUIManager : MonoBehaviour
     public static bool playerGUIHasBeenUpdated = false;
     public static bool clearCenterText = false;
     [SerializeField] public TMP_Text playerGUI_health, playerGUI_combat, playerGUI_gold, playerGUI_lives, playerGUI_armor;
-    [SerializeField] public TMP_Text infoGUI_topText, infoGUI_middleText,infoGUI_bottomText;
 
     void Start()
     {
@@ -48,7 +47,7 @@ public class GUIManager : MonoBehaviour
         DisableEndTurnButton();
         DisableAttackButton();
         DisableHealButton();
-        DisableMoveButton();
+        EnableMoveButton();
     }
 
     void Update()
@@ -115,6 +114,14 @@ public class GUIManager : MonoBehaviour
         if (enableMoveButton)
         {
             image_move.sprite = Store.GUIElements[1];
+            if (GameMain.playerInCamp)
+            {
+                moveButtonText.text = "Exit Camp";
+            }
+            else
+            {
+                moveButtonText.text = "Travel";
+            }
             //moveButtonPanel.gameObject.SetActive(true);
             moveButton.gameObject.SetActive(true);
             enableMoveButton = false;

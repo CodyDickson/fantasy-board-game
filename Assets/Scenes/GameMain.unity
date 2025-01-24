@@ -16615,6 +16615,7 @@ MonoBehaviour:
   attackButtonPanel: {fileID: 704473754}
   healButtonPanel: {fileID: 977752469}
   centerText: {fileID: 1943687175}
+  moveButtonText: {fileID: 1237179491}
   image_endTurn: {fileID: 1966377837}
   image_move: {fileID: 1961087363}
   image_attack: {fileID: 704473756}
@@ -16625,9 +16626,6 @@ MonoBehaviour:
   playerGUI_gold: {fileID: 1765194097}
   playerGUI_lives: {fileID: 1554122441}
   playerGUI_armor: {fileID: 152922598}
-  infoGUI_topText: {fileID: 0}
-  infoGUI_middleText: {fileID: 0}
-  infoGUI_bottomText: {fileID: 0}
 --- !u!114 &1077264795
 MonoBehaviour:
   m_ObjectHideFlags: 0

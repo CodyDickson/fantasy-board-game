@@ -73,7 +73,7 @@ public class ClickEvents : MonoBehaviour
             }
             if (!dungeonClicked && !playerClicked && !merchantClicked && !monsterClicked && !emptySlotClicked && !villageClicked)
             {
-                InfoGUI.DisableInfoGUI();
+                // InfoGUI.DisableInfoGUI();
             }
             /*if (tile == Store.playerTiles[0])
             {
