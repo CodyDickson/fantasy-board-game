@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
         // Player avatar on the board
         if (avatar_tempCounter <= 0f)
         {
-            if (GameMain.playerLives > 0)
+            if (Player.lives > 0)
             {
                 Store.tilemaps[4].SetTile(new Vector3Int((int)BoardManager.currentUnitPosition[0], (int)BoardManager.currentUnitPosition[1]), Store.playerTiles[Player.avatar]);
             }

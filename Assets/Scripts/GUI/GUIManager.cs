@@ -83,7 +83,7 @@ public class GUIManager : MonoBehaviour
             attackButton.gameObject.SetActive(false);
             disableAttackButton = false;
         }
-        if (enableHealButton && GameMain.playerPotions > 0)
+        if (enableHealButton && Player.totalPotions > 0)
         {
             image_heal.sprite = Store.GUIElements[1];
             // healButtonPanel.gameObject.SetActive(true);
@@ -117,6 +117,7 @@ public class GUIManager : MonoBehaviour
             if (GameMain.playerInCamp)
             {
                 moveButtonText.text = "Exit Camp";
+                Arrows.EnableArrowButtons();
             }
             else
             {
@@ -137,10 +138,10 @@ public class GUIManager : MonoBehaviour
         {
             playerGUI.SetActive(true);
             playerGUI_health.text = "Health: " + Player.health;
-            playerGUI_gold.text = "Gold: " + GameMain.playerGold;
-            playerGUI_combat.text = "Combat: " + GameMain.playerCombat;
-            playerGUI_lives.text = "Lives: " + GameMain.playerLives;
-            playerGUI_armor.text = "Armor: " + GameMain.playerArmor;
+            playerGUI_gold.text = "Gold: " + Player.gold;
+            playerGUI_combat.text = "Combat: " + Player.combat;
+            playerGUI_lives.text = "Lives: " + Player.lives;
+            playerGUI_armor.text = "Armor: " + Player.armor;
             if (UpdatePlayerGUIAvatar.playerGUIAvatarHasBeenUpdated == false) { UpdatePlayerGUIAvatar.updatePlayerGUIAvatar = true; };
             playerGUIHasBeenUpdated = true;
         }

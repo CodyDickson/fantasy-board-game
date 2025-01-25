@@ -6,7 +6,7 @@ public class Weapons : MonoBehaviour
 {
     public static int[] WeaponsTable(int weapon)
     {
-        int[] values = new int[2];
+        int[] values = new int[3];
         // Avatar, Combat Score
         if (weapon == 1)
         {
@@ -14,6 +14,8 @@ public class Weapons : MonoBehaviour
             values[0] = 0;
             // Combat Score
             values[1] = 2;
+            // Weapon range
+            values[2] = 1;
         }
         else if (weapon == 2)
         {
@@ -21,6 +23,8 @@ public class Weapons : MonoBehaviour
             values[0] = 1;
             // Combat Score
             values[1] = 4;
+            // Weapon range
+            values[2] = 1;
         }
         else if (weapon == 3)
         {
@@ -28,6 +32,8 @@ public class Weapons : MonoBehaviour
             values[0] = 2;
             // Combat Score
             values[1] = 3;
+            // Weapon range
+            values[2] = 3;
         }
         return values;
     }

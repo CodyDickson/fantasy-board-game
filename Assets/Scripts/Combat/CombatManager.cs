@@ -24,9 +24,9 @@ public class CombatManager : MonoBehaviour
     {
         Tilemap tilemap = Store.tilemaps[3];
         Vector3 position = BoardManager.currentUnitPosition;
-        for (int z = 0, y = 0; y <= GameMain.weaponRange; y++)
+        for (int z = 0, y = 0; y <= Player.weaponRange; y++)
         {
-            for (int x = 0; x <= GameMain.weaponRange; x++, z++)
+            for (int x = 0; x <= Player.weaponRange; x++, z++)
             {
                 potentials.Add(new Vector3Int((int)position[0] + x, (int)position[1] + y));
                 potentials.Add(new Vector3Int((int)position[0] - x, (int)position[1] + y));

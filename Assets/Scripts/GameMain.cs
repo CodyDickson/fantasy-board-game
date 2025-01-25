@@ -23,11 +23,7 @@ public class GameMain : MonoBehaviour
     public static int playerMovementDice;
     public static int playerCombatDice;
     public static int playerCombat;
-    public static int playerLives;
     public static int playerGold;
-    public static int playerPotions;
-    public static int weaponRange;
-    public static List<int> playerWeapons = new List<int>();
     public static List<int> playerItems = new List<int>();
     // Current Player Info //
     public static int currentTurn;
@@ -41,20 +37,6 @@ public class GameMain : MonoBehaviour
     public static int currentPlayerMovementDice = 1;
     public static int currentHumanPlayer = 1;
     public static bool currentPlayerIsHuman = true;
-    // Player Info //
-    public static List<string> playerTitle = new List<string>();
-    public static List<bool> playerIsActive = new List<bool>();
-    public static List<bool> playerIsHuman = new List<bool>();
-    public static List<int> playerColor = new List<int>();
-    //
-    public static Dictionary<int, string> player_class = new Dictionary<int, string>();
-    public static Dictionary<int, List<int>> player_weapons = new Dictionary<int, List<int>>();
-    public static Dictionary<int, List<int>> player_items = new Dictionary<int, List<int>>();
-    public static Dictionary<int, int> player_avatar = new Dictionary<int, int>();
-    public static Dictionary<int, int> player_health = new Dictionary<int, int>();
-    public static Dictionary<int, int> player_lives = new Dictionary<int, int>();
-    public static Dictionary<int, int> player_armor = new Dictionary<int, int>();
-    public static Dictionary<int, int> player_movementDice = new Dictionary<int, int>();
     // Statuses //
     public static List<bool> playerHasBurn = new List<bool>();
     public static List<int> playerHasFrozen = new List<int>();
@@ -84,26 +66,9 @@ public class GameMain : MonoBehaviour
     {
         totalPlayers = 1;
         currentBoard = 1;
-        weaponRange = 2;
-        playerPotions = 3;
-        playerClass = "nomad";
         BoardManager.GenerateGameBoard();
-        GameSetup();
-        GUI.SetActive(true);
-        Arrows.EnableArrowButtons();
         BoardManager.SpawnPlayersInCamp();
         TurnManager.StartPlayerTurn();
-    }
-
-    public static void GameSetup()
-    {
-        int[] values = Classes.ClassStartingStats(playerClass);
-        Player.avatar = values[0];
-        Player.health = values[1];
-        Player.health = values[1];
-        playerLives = values[2];
-        playerArmor = values[3];
-        Player.village = 1;
-        playerGold = 150;
+        GUI.SetActive(true);
     }
 }
