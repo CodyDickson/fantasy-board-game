@@ -14,7 +14,6 @@ public class GameMain : MonoBehaviour
     public static bool standardMode = true;
     public static bool oddMode = false;
     // Player Info //
-    public static string playerClass = "nomad";
     public static bool playerInCamp = true;
     public static bool playerEnteredSecondLoop = false;
     public static bool playerEnteredThirdLoop = false;

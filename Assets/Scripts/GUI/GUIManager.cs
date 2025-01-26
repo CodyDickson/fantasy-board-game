@@ -117,7 +117,6 @@ public class GUIManager : MonoBehaviour
             if (GameMain.playerInCamp)
             {
                 moveButtonText.text = "Exit Camp";
-                Arrows.EnableArrowButtons();
             }
             else
             {

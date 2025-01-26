@@ -18,10 +18,11 @@ public class Player : MonoBehaviour
     public static int weaponRange;
     public static string playerClass;
     public static List<int> playerWeapons = new List<int>();
-    public static List<int> playerItems = new List<int>();
+    public static List<int> itemsList = new List<int>();
 
     private void Start()
     {
+        playerClass = "nomad";
         PlayerSetup();
     }
 
@@ -32,6 +33,7 @@ public class Player : MonoBehaviour
         health = values[1];
         maxHealth = values[1];
         lives = values[2];
+        Debug.Log(lives);
         armor = values[3];
         movementDice = values[4];
         village = 1;
@@ -42,6 +44,11 @@ public class Player : MonoBehaviour
         playerWeapons.Add(values[5]);
         combat = weaponValues[1];
         weaponRange = weaponValues[2];
+        itemsList.Add(1);
+        itemsList.Add(2);
+        itemsList.Add(4);
         ItemGUI.UpdateWeaponAvatar();
+        ItemGUI.UpdateItemAvatar();
+        ItemGUI.UpdatePotionAvatar();
     }
 }
