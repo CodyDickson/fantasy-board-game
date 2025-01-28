@@ -47,7 +47,14 @@ public class ClickEvents : MonoBehaviour
                 if (monster == position)
                 {
                     monsterClicked = true;
-                    InfoGUI.EnableInfoGUI(monster, "monster");
+                    if (CombatManager.combatEnabled)
+                    {
+                        CombatManager.PlayerAttackedMonster();
+                    }
+                    else
+                    {
+                        InfoGUI.EnableInfoGUI(monster, "monster");
+                    }
                 }
             }
             foreach (Vector3 slot in BoardManager.emptyBoardSlots)

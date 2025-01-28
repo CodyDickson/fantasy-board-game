@@ -27,7 +27,7 @@ public class Villages : MonoBehaviour
         structures.SetTile(new Vector3Int((int)position[0], (int)position[1]), village);
         villagePositions.Add(position);
         BoardManager.RemoveEmptySlot(position);
-        GameMain.playerGold -= villageBuildCost;
+        Player.gold -= villageBuildCost;
         GUIManager.UpdatePlayerGUI();
         totalVillageGoldPerTurn += 25;
         InfoGUI.updateInfoGUI = true;
@@ -35,7 +35,7 @@ public class Villages : MonoBehaviour
 
     public static void UpgradeVillage()
     {
-        GameMain.playerGold -= villageUpgradeCost;
+        Player.gold -= villageUpgradeCost;
         totalVillageGoldPerTurn += 50;
     }
 }

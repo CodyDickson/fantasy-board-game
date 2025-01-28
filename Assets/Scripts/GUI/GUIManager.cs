@@ -188,7 +188,7 @@ public class GUIManager : MonoBehaviour
         InfoGUI.DisableInfoGUI();
         CombatManager.ClearPotentialAttacks();
         BoardManager.ClearEmptySlots();
-        GameMain.playerGold += Villages.totalVillageGoldPerTurn;
+        Player.gold += Villages.totalVillageGoldPerTurn;
         TurnManager.TurnProgressionHandler();
     }
 

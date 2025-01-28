@@ -13,6 +13,7 @@ public class Monsters : MonoBehaviour
     public static Tilemap units;
     public static int monsterID;
 
+    // monsterID = position is [?] in monsterPositions and [?] in activeMonsters
 
     private void Start()
     {
@@ -55,7 +56,7 @@ public class Monsters : MonoBehaviour
         {
             monster = Random.Range(0, 2);
         }
-        // Type, Health, Lives, Combat Dice //
+        // Type, Health, Lives, Combat //
         switch (monster)
         {
             case 0:
@@ -63,9 +64,35 @@ public class Monsters : MonoBehaviour
                 values[0] = 0; values[1] = 10; values[2] = 1; values[3] = 1; break;
             case 1:
                 // Basilisk
-                values[0] = 1; values[1] = 7; values[2] = 1; values[3] = 1; break;
+                values[0] = 1; values[1] = 7; values[2] = 1; values[3] = 3; break;
         }
         activeMonsters.Add(values);
+    }
+
+    public static string MonsterDescriptions(int number)
+    {
+        string monsterDescription = "";
+        switch (number)
+        {
+            case 0: monsterDescription = "Wanders aimlessly."; break;
+            case 1: monsterDescription = "Stays near its dungeon."; break;
+            case 2: monsterDescription = "Travels far and fast. Damages where it lands."; break;
+            case 3: monsterDescription = "Hunts villages."; break;
+        }
+        return monsterDescription;
+    }
+
+    public static string MonsterNames(int number)
+    {
+        string monsterName = "";
+        switch (number)
+        {
+            case 0: monsterName = "Imp"; break;
+            case 1: monsterName = "Basilisk"; break;
+            case 2: monsterName = "Rampaging Elephant"; break;
+            case 3: monsterName = "Golem"; break;
+        }
+        return monsterName;
     }
 
     public static bool CheckMonsterPositions(Vector3 positionToCheck)

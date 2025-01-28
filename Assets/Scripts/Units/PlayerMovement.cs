@@ -96,8 +96,8 @@ public class PlayerMovement : MonoBehaviour
         if (BoardManager.currentUnitDirection == "east") { BoardManager.currentUnitPosition = BoardManager.campExitPositions[1]; }
         if (BoardManager.currentUnitDirection == "south") { BoardManager.currentUnitPosition = BoardManager.campExitPositions[2]; }
         if (BoardManager.currentUnitDirection == "west") { BoardManager.currentUnitPosition = BoardManager.campExitPositions[3]; }
-        playerIsMoving = false;
         GameMain.playerInCamp = false;
+        playerIsMoving = false;
         int clockwork = 0;
         switch (BoardManager.currentUnitDirection)
         {
@@ -108,9 +108,10 @@ public class PlayerMovement : MonoBehaviour
         }
         Fog.RemoveLocalFog(clockwork);
         Dungeons.SpawnDungeons(clockwork);
+        Monsters.SpawnMonsters();
         GUIManager.EnableMoveButton();
         GUIManager.EnableEndTurnButton();
         GUIManager.EnableAttackButton();
-        GUIManager.EnableHealButton();
+        Arrows.EnableArrowButtons();
     }
 }

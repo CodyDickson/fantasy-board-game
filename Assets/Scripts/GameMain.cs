@@ -68,6 +68,7 @@ public class GameMain : MonoBehaviour
         BoardManager.GenerateGameBoard();
         BoardManager.SpawnPlayersInCamp();
         TurnManager.StartPlayerTurn();
+        Arrows.DisableArrowButtons();
         GUI.SetActive(true);
     }
 }

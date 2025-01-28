@@ -52,7 +52,6 @@ public class InfoGUI : MonoBehaviour
 
     public static void OnClickButton()
     {
-        Debug.Log("pass");
         switch (structureType)
         {
             case "empty": Debug.Log("Building Village"); Villages.BuildVillage(structurePosition); break;
@@ -66,9 +65,11 @@ public class InfoGUI : MonoBehaviour
     {
         if (type == "empty")
         {
+            Debug.Log("Empty Slot");
             avatar.sprite = Store.GUIElements[2];
-            if (GameMain.playerGold >= Villages.villageBuildCost)
+            if (Player.gold >= Villages.villageBuildCost)
             {
+                Debug.Log("This should show");
                 buttonText.text = "Build";
                 buttonAvatar.sprite = Store.GUIElements[1];
             }
@@ -87,7 +88,7 @@ public class InfoGUI : MonoBehaviour
         if (type == "village")
         {
             avatar.sprite = Store.villageSprites[Player.village];
-            if (GameMain.playerGold >= Villages.villageUpgradeCost)
+            if (Player.gold >= Villages.villageUpgradeCost)
             {
                 buttonText.text = "Upgrade";
                 buttonAvatar.sprite = Store.GUIElements[1];
@@ -106,9 +107,27 @@ public class InfoGUI : MonoBehaviour
         }
         if (type == "monster")
         {
-            avatar.sprite = Store.monsterSprites[0];
-            buttonText.text = "Shop";
+            int[] ints;
+            int monsterType = 0;
+            string monsterName = "---";
+            string monsterDescription = "---";
+            int monsterHealth = 1;
+            int monsterLives = 1;
+            int monsterCombat = 1;
+            // get monster type
+            foreach (Vector3 monsterPosition in Monsters.monsterPositions)
+            {
+                if (monsterPosition == position) {
+                    int monsterID = Monsters.monsterPositions.IndexOf(monsterPosition);
+                    ints = Monsters.activeMonsters[monsterID];
+                    monsterType = ints[0]; monsterHealth = ints[1]; monsterLives = ints[2]; monsterCombat = ints[3];}
+            }
+            avatar.sprite = Store.monsterSprites[monsterType];
+            buttonText.text = "~";
             buttonAvatar.sprite = Store.GUIElements[1];
+            monsterDescription = Monsters.MonsterDescriptions(monsterType);
+            monsterName = Monsters.MonsterNames(monsterType);
+            main.text = monsterName + "\nHealth: " + monsterHealth + "\nLives: " + monsterLives + "\nCombat: " + monsterCombat + "\n" + monsterDescription;
         }
         if (type == "player")
         {

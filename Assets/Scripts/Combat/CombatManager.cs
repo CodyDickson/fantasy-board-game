@@ -20,6 +20,12 @@ public class CombatManager : MonoBehaviour
         combatEnabled = false;
     }
 
+    public static void PlayerAttackedMonster()
+    {
+        // animation
+        // get monster health, player combat, subtract, detect if monster is dead, if monster is alive retaliate, monster combat, player health, detect if player is dead, if so return to camp unless no lives remaining, then end game
+    }
+
     public static void ShowPotentialAttacks()
     {
         Tilemap tilemap = Store.tilemaps[3];
