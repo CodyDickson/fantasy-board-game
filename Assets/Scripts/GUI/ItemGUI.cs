@@ -139,7 +139,10 @@ public class ItemGUI : MonoBehaviour
     public static void UpdateItemAvatar()
     {
         updateItemAvatar = true;
-        firstItem = Player.itemsList[0];
+        if (Player.itemsList.Count > 0)
+        {
+            firstItem = Player.itemsList[0];
+        }
         if (Player.itemsList.Count > 1)
         {
             secondItem = Player.itemsList[1];

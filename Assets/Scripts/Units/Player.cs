@@ -44,9 +44,6 @@ public class Player : MonoBehaviour
         playerWeapons.Add(values[5]);
         combat = weaponValues[1];
         weaponRange = weaponValues[2];
-        itemsList.Add(1);
-        itemsList.Add(2);
-        itemsList.Add(4);
         ItemGUI.UpdateWeaponAvatar();
         ItemGUI.UpdateItemAvatar();
         ItemGUI.UpdatePotionAvatar();
