@@ -61,13 +61,6 @@ public class PlayerMovement : MonoBehaviour
                         Arrows.EnableArrowButtons();
                         playerIsMoving = false;
                     }
-                    BoardManager.CheckForMidway();
-                    if (BoardManager.midwayPosition == true)
-                    {
-                        BoardManager.CheckForLocalBoardPositions();
-                        Arrows.EnableArrowButtons();
-                        playerIsMoving = false;
-                    }
                     movesRemaining -= 1;
                 }
                 if (movesRemaining == 0)

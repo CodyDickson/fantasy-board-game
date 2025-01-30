@@ -65,7 +65,7 @@ public class GameMain : MonoBehaviour
     {
         totalPlayers = 1;
         currentBoard = 1;
-        BoardManager.GenerateGameBoard();
+        World.GenerateWorld();
         BoardManager.SpawnPlayersInCamp();
         TurnManager.StartPlayerTurn();
         Arrows.DisableArrowButtons();

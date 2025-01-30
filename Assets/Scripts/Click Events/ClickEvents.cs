@@ -30,7 +30,7 @@ public class ClickEvents : MonoBehaviour
             Debug.Log("Position: " + position);
             var tilemap = Store.tilemaps[4].WorldToCell(position);
             var tile = Store.tilemaps[4].GetTile(tilemap);
-            foreach (Vector3 exitPosition in Camp.exitPositions)
+            foreach (Vector3 exitPosition in BoardManager.exitPositions)
             {
                 if (exitPosition == position)
                 {

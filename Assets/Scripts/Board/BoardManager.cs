@@ -6,18 +6,23 @@ using UnityEngine.Tilemaps;
 
 public class BoardManager : MonoBehaviour
 {
-    // Board Positions
     public static Vector3 currentUnitPosition;
     public static Vector3 boardPosition;
+    // Board connector positions, Local is within 1 tile
     public static List<Vector3> boardPositions = new List<Vector3>();
     public static List<Vector3> localBoardPositions = new List<Vector3>();
-    public static List<Vector3> potentialEmptySlots = new List<Vector3>();
-    public static List<Vector3> crossroadPositions = new List<Vector3>();
-    public static List<Vector3> midwayPositions = new List<Vector3>();
-    public static List<Vector3> playerPositions = new List<Vector3>();
+    // All empty slots
     public static List<Vector3> emptyBoardSlots = new List<Vector3>();
-    public static List<Vector3> forestTiles = new List<Vector3>();
-    public static List<Vector3> openTiles = new List<Vector3>();
+    // Empty slots within interaction range
+    public static List<Vector3> potentialEmptySlots = new List<Vector3>();
+    // Board connector positions that have multiple directions
+    public static List<Vector3> crossroadPositions = new List<Vector3>();
+    // Forest are the walls between zones
+    public static List<Vector3> forestPositions = new List<Vector3>();
+    // Everything within the forest (determines the size of the zone)
+    public static List<Vector3> zonePositions = new List<Vector3>();
+    // Exit positions from camp that lead to zones
+    public static List<Vector3> exitPositions = new List<Vector3>();
     // Directions
     public static string currentUnitDirection;
     public static Vector3 northPosition;
@@ -59,28 +64,10 @@ public class BoardManager : MonoBehaviour
     //
     public static Tilemap structures;
     public static bool crossroadsPosition = false;
-    public static bool midwayPosition = false;
-
-    public static void GenerateGameBoard()
-    {
-        switch (GameMain.currentBoard)
-        {
-            case 1: Grasslands.GenerateBoard(); break;
-            case 2: Graveyard.GenerateBoard(); break;
-                // case 3: Volcano.GenerateBoard(); break;
-                // case 4: Machine.GenerateBoard(); break;
-        }
-    }
 
     public static void SpawnPlayersInCamp()
     {
-        switch (GameMain.currentBoard)
-        {
-            case 1: Grasslands.CampSpawn(); break;
-            case 2: Graveyard.CampSpawn(); break;
-                // case 3: Volcano.CampSpawn(); break;
-                // case 4: Machine.CampSpawn(); break;
-        }
+        Camp.CampSpawn();
         GameMain.playerInCamp = true;
     }
 
@@ -262,6 +249,34 @@ public class BoardManager : MonoBehaviour
         westPositionAvailable = campExitPositionWest;
     }
 
+    public static bool CheckForZonePositions(Vector3 position)
+    {
+        bool positionPresent = false;
+        foreach (Vector3 zonePosition in zonePositions)
+        {
+            if (zonePosition == position)
+            {
+                positionPresent = true;
+                continue;
+            }
+        }
+        return positionPresent;
+    }
+
+    public static bool CheckForForestPositions(Vector3 position)
+    {
+        bool positionPresent = false;
+        foreach (Vector3 forestPosition in forestPositions)
+        {
+            if (forestPosition == position)
+            {
+                positionPresent = true;
+                continue;
+            }
+        }
+        return positionPresent;
+    }
+
     public static bool OnlyOnePathPossible()
     {
         CheckForLocalBoardPositions();
@@ -418,18 +433,6 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    public static void CheckForMidway()
-    {
-        midwayPosition = false;
-        foreach (Vector3 listVector in midwayPositions)
-        {
-            if (listVector == currentUnitPosition)
-            {
-                midwayPosition = true;
-            }
-        }
-    }
-
     public static void UpdateEmptySlotPositions()
     {
         foreach (Vector3 listVector in boardPositions)
@@ -438,7 +441,7 @@ public class BoardManager : MonoBehaviour
             currentUnitPosition = listVector;
             CheckForLocalBoardPositions();
             bool ignorePosition = false;
-            foreach (Vector3 exitVector in Camp.exitPositions)
+            foreach (Vector3 exitVector in exitPositions)
             {
                 if (listVector == exitVector)
                 {
