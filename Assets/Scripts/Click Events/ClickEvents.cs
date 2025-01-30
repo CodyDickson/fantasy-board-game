@@ -30,11 +30,19 @@ public class ClickEvents : MonoBehaviour
             Debug.Log("Position: " + position);
             var tilemap = Store.tilemaps[4].WorldToCell(position);
             var tile = Store.tilemaps[4].GetTile(tilemap);
+            foreach (Vector3 exitPosition in Camp.exitPositions)
+            {
+                if (exitPosition == position)
+                {
+                    Debug.Log("Clicked: Camp Exit Position");
+                    PlayerMovement.PlayerExitingCamp(exitPosition);
+                }
+            }
             foreach (Vector3 dungeon in Dungeons.dungeonPositions)
             {
                 if (dungeon == position)
                 {
-                    Debug.Log("Dungeon");
+                    Debug.Log("Clicked: Dungeon");
                     dungeonClicked = true;
                     InfoGUI.EnableInfoGUI(dungeon, "dungeon");
                 }
@@ -43,7 +51,7 @@ public class ClickEvents : MonoBehaviour
             {
                 if (merchant == position)
                 {
-                    Debug.Log("Merchant");
+                    Debug.Log("Clicked: Merchant");
                     merchantClicked = true;
                     InfoGUI.EnableInfoGUI(merchant, "merchant");
                 }

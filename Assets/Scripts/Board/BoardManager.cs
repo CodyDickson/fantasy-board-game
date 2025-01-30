@@ -13,10 +13,11 @@ public class BoardManager : MonoBehaviour
     public static List<Vector3> localBoardPositions = new List<Vector3>();
     public static List<Vector3> potentialEmptySlots = new List<Vector3>();
     public static List<Vector3> crossroadPositions = new List<Vector3>();
-    public static List<Vector3> campExitPositions = new List<Vector3>();
     public static List<Vector3> midwayPositions = new List<Vector3>();
     public static List<Vector3> playerPositions = new List<Vector3>();
     public static List<Vector3> emptyBoardSlots = new List<Vector3>();
+    public static List<Vector3> forestTiles = new List<Vector3>();
+    public static List<Vector3> openTiles = new List<Vector3>();
     // Directions
     public static string currentUnitDirection;
     public static Vector3 northPosition;
@@ -437,7 +438,7 @@ public class BoardManager : MonoBehaviour
             currentUnitPosition = listVector;
             CheckForLocalBoardPositions();
             bool ignorePosition = false;
-            foreach (Vector3 exitVector in campExitPositions)
+            foreach (Vector3 exitVector in Camp.exitPositions)
             {
                 if (listVector == exitVector)
                 {

@@ -39,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
         // Player Exiting Camp
         if (playerIsMoving && GameMain.playerInCamp)
         {
-            PlayerExitingCamp();
+            // PlayerExitingCamp();
         }
         // Player moving on the board
         if (playerIsMoving && !GameMain.playerInCamp)
@@ -88,16 +88,14 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public static void PlayerExitingCamp()
+    public static void PlayerExitingCamp(Vector3 position)
     {
         Tilemap units = Store.tilemaps[4];
         units.SetTile(new Vector3Int((int)BoardManager.currentUnitPosition[0], (int)BoardManager.currentUnitPosition[1]), null);
-        if (BoardManager.currentUnitDirection == "north") { BoardManager.currentUnitPosition = BoardManager.campExitPositions[0]; }
-        if (BoardManager.currentUnitDirection == "east") { BoardManager.currentUnitPosition = BoardManager.campExitPositions[1]; }
-        if (BoardManager.currentUnitDirection == "south") { BoardManager.currentUnitPosition = BoardManager.campExitPositions[2]; }
-        if (BoardManager.currentUnitDirection == "west") { BoardManager.currentUnitPosition = BoardManager.campExitPositions[3]; }
+        units.SetTile(new Vector3Int((int)position[0], (int)position[1]), Store.playerTiles[Player.avatar]);
         GameMain.playerInCamp = false;
         playerIsMoving = false;
+
         int clockwork = 0;
         switch (BoardManager.currentUnitDirection)
         {

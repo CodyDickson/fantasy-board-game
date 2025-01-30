@@ -12,16 +12,59 @@ public class Grasslands : MonoBehaviour
 
     public static void GenerateBoard()
     {
-        Fog.GenerateFog();
-        Fog.RemoveLocalFog(0);
+        // GenerateFog();
+        // Fog.RemoveLocalFog(0);
         PullBoardConnectorsFromStore();
         CampDesign();
         GenerateTerrain();
-        for (int i = 1; i <= 8; i++)
+        GenerateForest();
+        /*for (int i = 1; i <= 8; i++)
         {
             LoopGenerator(i);
-        }
+        }*/
         BoardManager.UpdateEmptySlotPositions();
+    }
+
+    public static void GenerateForest()
+    {
+        // new List<Vector3> forest = BoardManager.forestTiles;
+        Tilemap terrainObjects = Store.tilemaps[2];
+        Tile tree = Store.objectTiles[1];
+        Vector3 position = new Vector3(0, 0);
+        int size = 6;
+        for (int i = 0; i <= size; i++)
+        {
+            /*int rand = Random.Range(1,101);
+            if (rand <= 10)
+            {
+                rand = Random.Range(1, 101);
+                if (rand <= 25)
+                {
+                    position = new Vector3Int(0 + i, size);
+                }
+                else if (rand > 25 && rand <= 50)
+                {
+                    position = new Vector3Int(0 - i, size);
+                }
+                else if (rand > 50 && rand <= 75)
+                {
+                    position = new Vector3Int(size, 0 + i);
+                }
+                else if (rand > 75)
+                {
+                    position = new Vector3Int(size, 0 - i);
+                }
+            }*/
+            // Camp.UpdateExitPositions(position);
+            terrainObjects.SetTile(new Vector3Int(i, size), tree);
+            terrainObjects.SetTile(new Vector3Int(-i, size), tree);
+            terrainObjects.SetTile(new Vector3Int(size, i), tree);
+            terrainObjects.SetTile(new Vector3Int(size, -i), tree);
+            terrainObjects.SetTile(new Vector3Int(i, -size), tree);
+            terrainObjects.SetTile(new Vector3Int(-i, -size), tree);
+            terrainObjects.SetTile(new Vector3Int(-size, i), tree);
+            terrainObjects.SetTile(new Vector3Int(-size, -i), tree);
+        }
     }
 
     public static void CampSpawn()
@@ -139,7 +182,7 @@ public class Grasslands : MonoBehaviour
                 connectorPosition[0] += random;
                 BoardManager.crossroadPositions.Add(connectorPosition);
                 VerticalConnector(false, 3, connectorPosition);
-                BoardManager.campExitPositions.Add(new Vector3((int)connectorPosition[0], (int)connectorPosition[1] - 3));
+                //BoardManager.campExitPositions.Add(new Vector3((int)connectorPosition[0], (int)connectorPosition[1] - 3));
                 BoardManager.campExitPositionNorth = true; break;
             case 2:
                 tilemapBoardConnectors.SetTile(new Vector3Int((int)bottomLeftCorner[0], (int)bottomLeftCorner[1] + random), bcThreeLeft);
@@ -159,7 +202,7 @@ public class Grasslands : MonoBehaviour
                 connectorPosition[1] += random;
                 BoardManager.crossroadPositions.Add(connectorPosition);
                 HorizontalConnector(false, 3, connectorPosition);
-                BoardManager.campExitPositions.Add(new Vector3((int)connectorPosition[0] - 3, (int)connectorPosition[1]));
+                //BoardManager.campExitPositions.Add(new Vector3((int)connectorPosition[0] - 3, (int)connectorPosition[1]));
                 BoardManager.campExitPositionEast = true; break;
             case 4:
                 tilemapBoardConnectors.SetTile(new Vector3Int((int)topLeftCorner[0] + random, (int)topLeftCorner[1]), bcThreeUp);
@@ -173,7 +216,7 @@ public class Grasslands : MonoBehaviour
                 connectorPosition[0] += random;
                 BoardManager.crossroadPositions.Add(connectorPosition);
                 VerticalConnector(true, 3, connectorPosition);
-                BoardManager.campExitPositions.Add(new Vector3((int)connectorPosition[0], (int)connectorPosition[1] + 3));
+                //BoardManager.campExitPositions.Add(new Vector3((int)connectorPosition[0], (int)connectorPosition[1] + 3));
                 BoardManager.campExitPositionSouth = true;
                 random = Random.Range(2, 5);
                 tilemapBoardConnectors.SetTile(new Vector3Int((int)bottomRightCorner[0], (int)bottomRightCorner[1] + random), bcThreeRight);
@@ -193,7 +236,7 @@ public class Grasslands : MonoBehaviour
                 connectorPosition[1] += random;
                 BoardManager.crossroadPositions.Add(connectorPosition);
                 HorizontalConnector(true, 3, connectorPosition);
-                BoardManager.campExitPositions.Add(new Vector3((int)connectorPosition[0] + 3, (int)connectorPosition[1]));
+                //BoardManager.campExitPositions.Add(new Vector3((int)connectorPosition[0] + 3, (int)connectorPosition[1]));
                 BoardManager.campExitPositionWest = true;
                 tilemapBoardConnectors.SetTile(new Vector3Int((int)bottomLeftCorner[0] + random, (int)bottomLeftCorner[1]), bcThreeUp);
                 connectorPosition = bottomLeftCorner;
