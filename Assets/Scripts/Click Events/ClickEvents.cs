@@ -5,9 +5,11 @@ using UnityEngine.Tilemaps;
 
 public class ClickEvents : MonoBehaviour
 {
+    Plane groundPlane;
+
     void Start()
     {
-        
+        groundPlane = new Plane(Vector3.up, Vector3.zero);
     }
 
     void Update()
@@ -22,35 +24,35 @@ public class ClickEvents : MonoBehaviour
             bool villageClicked = false;
             Vector3 clickedPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Debug.Log(clickedPosition);
-            int pOne = (int)clickedPosition.x;
-            int pTwo = (int)clickedPosition.y;
+            int pOne = Mathf.RoundToInt(clickedPosition.x);
+            int pTwo = Mathf.RoundToInt(clickedPosition.y);
             Vector3 position = new Vector3(pOne, pTwo);
             Debug.Log("Position: " + position);
             var tilemap = Store.tilemaps[4].WorldToCell(position);
             var tile = Store.tilemaps[4].GetTile(tilemap);
             foreach (Vector3 dungeon in Dungeons.dungeonPositions)
             {
-                Debug.Log("Dungeon");
                 if (dungeon == position)
                 {
+                    Debug.Log("Dungeon");
                     dungeonClicked = true;
                     InfoGUI.EnableInfoGUI(dungeon, "dungeon");
                 }
             }
             foreach (Vector3 merchant in Merchants.merchantPositions)
             {
-                Debug.Log("Merchant");
                 if (merchant == position)
                 {
+                    Debug.Log("Merchant");
                     merchantClicked = true;
                     InfoGUI.EnableInfoGUI(merchant, "merchant");
                 }
             }
             foreach (Vector3 monster in Monsters.monsterPositions)
             {
-                Debug.Log("Monster");
                 if (monster == position)
                 {
+                    Debug.Log("Monster");
                     monsterClicked = true;
                     if (CombatManager.combatEnabled)
                     {
@@ -62,24 +64,25 @@ public class ClickEvents : MonoBehaviour
                     }
                 }
             }
-            foreach (Vector3 slot in BoardManager.emptyBoardSlots)
+            foreach (Vector3 slot in BoardManager.potentialEmptySlots)
             {
-                Debug.Log("Empty Slot");
                 if (slot == position)
                 {
+                    Debug.Log("Empty Slot");
                     emptySlotClicked = true;
                     InfoGUI.EnableInfoGUI(slot, "empty");
                 }
             }
             foreach (Vector3 village in Villages.villagePositions)
             {
-                Debug.Log("Village");
                 if (village == position)
                 {
+                    Debug.Log("Village");
                     villageClicked = true;
                     InfoGUI.EnableInfoGUI(village, "village");
                 }
             }
+            Debug.Log("Current Unit Position: " + BoardManager.currentUnitPosition);
             if (BoardManager.currentUnitPosition == position)
             {
                 Debug.Log("Self");
@@ -88,6 +91,7 @@ public class ClickEvents : MonoBehaviour
             }
             if (!dungeonClicked && !playerClicked && !merchantClicked && !monsterClicked && !emptySlotClicked && !villageClicked)
             {
+                Debug.Log("Nothing");
                 // InfoGUI.DisableInfoGUI();
             }
             /*if (tile == Store.playerTiles[0])

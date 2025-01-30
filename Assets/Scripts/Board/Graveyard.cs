@@ -12,7 +12,8 @@ public class Graveyard : MonoBehaviour
         PullBoardConnectorsFromStore();
         CampDesign();
         GenerateTerrain();
-        GenerateBoardConnectors();
+        GenerateZone();
+        // GenerateBoardConnectors();
     }
 
     public static void GenerateBoardConnectors()
@@ -42,6 +43,12 @@ public class Graveyard : MonoBehaviour
                 BoardManager.crossroadPositions.Add(position);
             }
         }
+    }
+
+    public static void GenerateZone()
+    {
+        Tilemap tilemap = Store.tilemaps[0];
+        Tile tree = Store.objectTiles[1];
     }
 
     public static void GenerateBranch(Vector3 position, bool positiveDirection)
