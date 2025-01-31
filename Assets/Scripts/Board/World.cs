@@ -107,10 +107,13 @@ public class World : MonoBehaviour
         int sideLength = (size * 2);
         for (int i = 0; i <= sideLength; i++)
         {
-            BoardManager.zonePositions.Add(new Vector3((int)bottomLeftCorner[0] + i, (int)bottomLeftCorner[1]));
-            BoardManager.zonePositions.Add(new Vector3Int((int)bottomLeftCorner[0], (int)bottomLeftCorner[1] + i));
-            BoardManager.zonePositions.Add(new Vector3Int((int)topLeftCorner[0] + i, (int)topLeftCorner[1]));
-            BoardManager.zonePositions.Add(new Vector3Int((int)bottomRightCorner[0], (int)bottomRightCorner[1] + i));
+            for (int j = 0; j < sideLength; j++)
+            {
+                BoardManager.zonePositions.Add(new Vector3((int)bottomLeftCorner[0] + i, (int)bottomLeftCorner[1]));
+                BoardManager.zonePositions.Add(new Vector3Int((int)bottomLeftCorner[0] + j, (int)bottomLeftCorner[1] + i));
+                BoardManager.zonePositions.Add(new Vector3Int((int)topLeftCorner[0] + i, (int)topLeftCorner[1]));
+                BoardManager.zonePositions.Add(new Vector3Int((int)bottomRightCorner[0], (int)bottomRightCorner[1] + i));
+            }
         }
     }
 

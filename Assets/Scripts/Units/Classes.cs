@@ -13,7 +13,7 @@ public class Classes : MonoBehaviour
 
     public static int[] ClassStartingStats(string className)
     {
-        int[] values = new int[7];
+        int[] values = new int[6];
         if (className == "nomad")
         {
             // Avatar
@@ -28,11 +28,10 @@ public class Classes : MonoBehaviour
             values[4] = 1;
             // Starting Weapon, Staff
             values[5] = 1;
-            // Modifier
-            values[6] = 0;
         }
         else if (className == "fighter")
         {
+            // Two equipment slots
             // Avatar
             values[0] = 1;
             // Health
@@ -45,8 +44,6 @@ public class Classes : MonoBehaviour
             values[4] = 1;
             // Starting Weapon, Sword
             values[5] = 2;
-            // Modifier, Two equipment slots
-            values[6] = 1;
         }
         else if (className == "wizard")
         {
@@ -62,8 +59,6 @@ public class Classes : MonoBehaviour
             values[4] = 1;
             // Starting Weapon
             values[5] = 3;
-            // Modifier
-            values[6] = 0;
         }
         return values;
     }
