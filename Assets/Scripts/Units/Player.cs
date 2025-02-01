@@ -16,8 +16,9 @@ public class Player : MonoBehaviour
     public static int movementDice;
     public static int interactionRange;
     public static int weaponRange;
+    public static int actionsRemaining;
     public static string playerClass;
-    public static List<int> playerWeapons = new List<int>();
+    public static List<int> weaponsList = new List<int>();
     public static List<int> itemsList = new List<int>();
 
     private void Start()
@@ -40,8 +41,9 @@ public class Player : MonoBehaviour
         gold = 150;
         totalPotions = 3;
         interactionRange = 1;
+        actionsRemaining = 3;
         int[] weaponValues = Weapons.WeaponsTable(values[5]);
-        playerWeapons.Add(values[5]);
+        weaponsList.Add(values[5]);
         combat = weaponValues[1];
         weaponRange = weaponValues[2];
         ItemGUI.UpdateWeaponAvatar();

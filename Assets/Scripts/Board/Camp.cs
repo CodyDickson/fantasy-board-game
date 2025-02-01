@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class Camp : MonoBehaviour
 {
@@ -25,5 +26,14 @@ public class Camp : MonoBehaviour
     {
         // when generating the board, saves the exit point from camp in a list
         BoardManager.exitPositions.Add(position);
+    }
+
+    public static void ShowCampExitPositions()
+    {
+        Tilemap tilemap = Store.tilemaps[2];
+        Tile arrowUp = Store.objectTiles[2];
+        Tile arrowRight = Store.objectTiles[3];
+        Tile arrowLeft = Store.objectTiles[4];
+        Tile arrowDown = Store.objectTiles[5];
     }
 }

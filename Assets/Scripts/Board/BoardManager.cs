@@ -21,7 +21,7 @@ public class BoardManager : MonoBehaviour
     public static List<Vector3> forestPositions = new List<Vector3>();
     // Everything within the forest (determines the size of the zone)
     public static List<Vector3> zonePositions = new List<Vector3>();
-    // Exit positions from camp that lead to zones
+    // Exit positions between zones
     public static List<Vector3> exitPositions = new List<Vector3>();
     // Directions
     public static string currentUnitDirection;
@@ -65,6 +65,15 @@ public class BoardManager : MonoBehaviour
     public static Tilemap structures;
     public static bool crossroadsPosition = false;
 
+    public static void GenerateGameBoard()
+    {
+        switch (GameMain.currentBoard)
+        {
+            case 1: Grasslands.GenerateBoard(); break;
+            case 2: Graveyard.GenerateBoard(); break;
+            case 3: Forest.GenerateBoard(); break;
+        }
+    }
     public static void SpawnPlayersInCamp()
     {
         Camp.CampSpawn();

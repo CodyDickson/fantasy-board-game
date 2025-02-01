@@ -39,7 +39,7 @@ public class ItemGUI : MonoBehaviour
         {
             weapon.enabled = true;
             weapon.sprite = Store.weaponSprites[firstPlayerWeapon];
-            if (Player.playerWeapons.Count > 1)
+            if (Player.weaponsList.Count > 1)
             {
                 weaponTwo.enabled = true;
                 weaponTwo.sprite = Store.weaponSprites[secondPlayerWeapon];
@@ -124,10 +124,10 @@ public class ItemGUI : MonoBehaviour
     public static void UpdateWeaponAvatar()
     {
         updateWeaponAvatar = true;
-        firstPlayerWeapon = Player.playerWeapons[0];
-        if (Player.playerWeapons.Count > 1)
+        firstPlayerWeapon = Player.weaponsList[0];
+        if (Player.weaponsList.Count > 1)
         {
-            secondPlayerWeapon = Player.playerWeapons[1];
+            secondPlayerWeapon = Player.weaponsList[1];
         }
     }
 

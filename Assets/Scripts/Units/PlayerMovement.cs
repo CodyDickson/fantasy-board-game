@@ -39,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
         // Player Exiting Camp
         if (playerIsMoving && GameMain.playerInCamp)
         {
-            // PlayerExitingCamp();
+            //PlayerExitingCamp();
         }
         // Player moving on the board
         if (playerIsMoving && !GameMain.playerInCamp)
