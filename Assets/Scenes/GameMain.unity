@@ -22992,16 +22992,16 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0944e079755484c4ca1a0d617b4f2367, type: 2}
   - {fileID: 11400000, guid: fc47c1cdc476f5c408bb4900e2e3e612, type: 2}
   boardConnectorTilesInEditor:
-  - {fileID: 11400000, guid: 6270631973c18e9409055c604091d7fc, type: 2}
-  - {fileID: 11400000, guid: 42fe42d0cfbd94f489b318e0fed0e9d9, type: 2}
-  - {fileID: 11400000, guid: 1a6c985cbf2430241bb24cc6e0f5347a, type: 2}
-  - {fileID: 11400000, guid: b081844a4b526cf439d60f05f1bb1dc6, type: 2}
-  - {fileID: 11400000, guid: 2a56345c697dcb94f8bec325aae0785a, type: 2}
-  - {fileID: 11400000, guid: 693b55232d927204b87bb679b67b95b9, type: 2}
-  - {fileID: 11400000, guid: 468c1776d2343a041b0d097a63f43cc4, type: 2}
-  - {fileID: 11400000, guid: 4eb636e2c3ecafa48b5fcc0ee1c1108a, type: 2}
-  - {fileID: 11400000, guid: b211e8de053ecb34f8291c5fa45c2b19, type: 2}
-  - {fileID: 11400000, guid: 99e2e826bcc0eb44b99d6e799f66750d, type: 2}
+  - {fileID: 11400000, guid: 5cd2246806abae84594cf3c3f2893277, type: 2}
+  - {fileID: 11400000, guid: 7fe4c104a5817b74e839fa069b6ad042, type: 2}
+  - {fileID: 11400000, guid: c6ca2134bd9074948b30558ef96b26b8, type: 2}
+  - {fileID: 11400000, guid: f3f5f6e275287124caed55214ce4ada7, type: 2}
+  - {fileID: 11400000, guid: 73b010f975806cf42ad5af651c5d6971, type: 2}
+  - {fileID: 11400000, guid: 0f8183f027ae88c47a106e4bf4ee94be, type: 2}
+  - {fileID: 11400000, guid: 07cebcbdb4519994f8eecdc5fb014155, type: 2}
+  - {fileID: 11400000, guid: 8c117ad574225fd4a8e4ad67715eec64, type: 2}
+  - {fileID: 11400000, guid: 18779fcbe9b7ddb45b57387ef722d365, type: 2}
+  - {fileID: 11400000, guid: 7996efd57e5a9024f9fea5d7cd4cb1d7, type: 2}
   fogTilesInEditor:
   - {fileID: 11400000, guid: 2a37141a79d1eeb4d8d09ccc85c6d6be, type: 2}
   terrainTilesInEditor:
