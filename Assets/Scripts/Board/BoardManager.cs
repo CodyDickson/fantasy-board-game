@@ -15,6 +15,8 @@ public class BoardManager : MonoBehaviour
     public static List<Vector3> emptyBoardSlots = new List<Vector3>();
     // Empty slots within interaction range
     public static List<Vector3> potentialEmptySlots = new List<Vector3>();
+    // Movement possibilities within interaction range
+    public static List<Vector3> possibleMove = new List<Vector3>();
     // Board connector positions that have multiple directions
     public static List<Vector3> crossroadPositions = new List<Vector3>();
     // Forest are the walls between zones
@@ -409,6 +411,46 @@ public class BoardManager : MonoBehaviour
                     tilemap.SetTile(new Vector3Int((int)emptySlot[0], (int)emptySlot[1]), Store.objectTiles[2]);
                 }
             }
+        }
+    }
+
+    public static void ShowMovementPossibilities()
+    {
+        Tilemap tilemap = Store.tilemaps[3];
+        Vector3 position = currentUnitPosition;
+        int totalRange = Dice.RollDice();
+        foreach (Vector3 boardPosition in boardPositions)
+        {
+            for (int z = 0, y = 0; y <= totalRange; y++)
+            {
+                for (int x = 0; x <= totalRange; x++, z++)
+                {
+                    Vector3 checkPosition = new Vector3Int((int)position[0] + x, (int)position[1] + y);
+                    if (checkPosition.Equals(boardPosition))
+                    {
+                        possibleMove.Add(checkPosition);
+                    }
+                    checkPosition = new Vector3Int((int)position[0] - x, (int)position[1] + y);
+                    if (checkPosition.Equals(boardPosition))
+                    {
+                        possibleMove.Add(checkPosition);
+                    }
+                    checkPosition = new Vector3Int((int)position[0] + x, (int)position[1] - y);
+                    if (checkPosition.Equals(boardPosition))
+                    {
+                        possibleMove.Add(checkPosition);
+                    }
+                    checkPosition = new Vector3Int((int)position[0] - x, (int)position[1] - y);
+                    if (checkPosition.Equals(boardPosition))
+                    {
+                        possibleMove.Add(checkPosition);
+                    }
+                }
+            }
+        }
+        foreach (Vector3 move in possibleMove)
+        {
+            tilemap.SetTile(new Vector3Int((int)move[0], (int)move[1]), Store.objectTiles[2]);
         }
     }
 

@@ -84,12 +84,15 @@ public class PlayerMovement : MonoBehaviour
     public static void PlayerExitingCamp(Vector3 position)
     {
         // Need to find the exit position
+        Debug.Log("pass");
         Tilemap units = Store.tilemaps[4];
         units.SetTile(new Vector3Int((int)BoardManager.currentUnitPosition[0], (int)BoardManager.currentUnitPosition[1]), null);
         units.SetTile(new Vector3Int((int)position[0], (int)position[1]), Store.playerTiles[Player.avatar]);
+        BoardManager.currentUnitPosition = position;
         GameMain.playerInCamp = false;
         playerIsMoving = false;
         int clockwork = 0;
+        BoardManager.currentUnitDirection = "north";
         if (GameMain.currentBoard == 1)
         {
             switch (BoardManager.currentUnitDirection)
@@ -98,14 +101,12 @@ public class PlayerMovement : MonoBehaviour
                 case "east": clockwork = 3; break;
                 case "south": clockwork = 5; break;
                 case "west": clockwork = 7; break;
+                default: Debug.Log("should not show"); break;
             }
             Fog.RemoveLocalFog(clockwork);
             Dungeons.SpawnDungeons(clockwork);
         }
         Monsters.SpawnMonsters();
-        GUIManager.EnableMoveButton();
         GUIManager.EnableEndTurnButton();
-        GUIManager.EnableAttackButton();
-        Arrows.EnableArrowButtons();
     }
 }

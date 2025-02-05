@@ -28,6 +28,11 @@ public class Camp : MonoBehaviour
         BoardManager.exitPositions.Add(position);
     }
 
+    public static void FindCampExitPosition()
+    {
+
+    }
+
     public static void ShowCampExitPositions()
     {
         Tilemap tilemap = Store.tilemaps[2];

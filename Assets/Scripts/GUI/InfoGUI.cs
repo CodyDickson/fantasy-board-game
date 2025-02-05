@@ -18,10 +18,11 @@ public class InfoGUI : MonoBehaviour
     public Button mainButton;
     public GameObject infoGUIGameObject;
     public static Vector3 structurePosition = new Vector3();
-    public static string structureType;
+    public static string objectClicked;
     //
     public static bool updateInfoGUI = false;
     public static bool finishUpdatingInfoGUI = false;
+    public static bool movesAreShowing = false;
     //
 
     void Start()
@@ -37,7 +38,7 @@ public class InfoGUI : MonoBehaviour
         if (enableInfoGUI)
         {
             infoGUIGameObject.gameObject.SetActive(true);
-            UpdateInfoGUI(structurePosition, structureType, mainText, buttonText, avatarImage, buttonImage);
+            UpdateInfoGUI(structurePosition, objectClicked, mainText, buttonText, avatarImage, buttonImage);
             enableInfoGUI = false;
         }
         else if (disableInfoGUI)
@@ -46,18 +47,20 @@ public class InfoGUI : MonoBehaviour
             disableInfoGUI = false;
         }
     }
-    public static void EnableInfoGUI(Vector3 position, string type) { structurePosition = position; structureType = type; enableInfoGUI = true; }
+    public static void EnableInfoGUI(Vector3 position, string type) { structurePosition = position; objectClicked = type; enableInfoGUI = true; }
 
     public static void DisableInfoGUI() { disableInfoGUI = true; }
 
     public static void OnClickButton()
     {
-        switch (structureType)
+        switch (objectClicked)
         {
             case "empty": Debug.Log("Building Village"); Villages.BuildVillage(structurePosition); break;
             case "dungeon": Dungeons.RaidDungeon(); break;
             case "village": Villages.UpgradeVillage(); break;
             case "merchant": Merchants.OpenShop(); break;
+            case "player": Arrows.EnableArrowButtons(); PlayerMovement.movesRemaining = Dice.RollDice(); Dice.EnableDice(); break;
+            default: Debug.Log("should never show"); break;
         }
     }
 
@@ -132,9 +135,9 @@ public class InfoGUI : MonoBehaviour
         if (type == "player")
         {
             avatar.sprite = Store.playerSprites[Player.avatar];
-            main.text = "";
+            main.text = "the " + Player.playerClass;
             buttonText.text = "";
-            buttonAvatar.sprite = Store.GUIElements[0];
+            buttonAvatar.sprite = Store.GUIElements[1];
         }
     }
 }

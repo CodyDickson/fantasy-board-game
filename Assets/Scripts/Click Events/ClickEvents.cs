@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -16,12 +17,7 @@ public class ClickEvents : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            bool dungeonClicked = false;
-            bool playerClicked = false;
-            bool merchantClicked = false;
-            bool monsterClicked = false;
-            bool emptySlotClicked = false;
-            bool villageClicked = false;
+            bool somethingClicked = false;
             Vector3 clickedPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Debug.Log(clickedPosition);
             int pOne = Mathf.RoundToInt(clickedPosition.x);
@@ -32,8 +28,9 @@ public class ClickEvents : MonoBehaviour
             var tile = Store.tilemaps[4].GetTile(tilemap);
             foreach (Vector3 exitPosition in BoardManager.exitPositions)
             {
-                if (exitPosition == position)
+                if (exitPosition == position && GameMain.playerInCamp)
                 {
+                    somethingClicked = true;
                     Debug.Log("Clicked: Camp Exit Position");
                     PlayerMovement.PlayerExitingCamp(exitPosition);
                 }
@@ -43,7 +40,7 @@ public class ClickEvents : MonoBehaviour
                 if (dungeon == position)
                 {
                     Debug.Log("Clicked: Dungeon");
-                    dungeonClicked = true;
+                    somethingClicked = true;
                     InfoGUI.EnableInfoGUI(dungeon, "dungeon");
                 }
             }
@@ -52,7 +49,7 @@ public class ClickEvents : MonoBehaviour
                 if (merchant == position)
                 {
                     Debug.Log("Clicked: Merchant");
-                    merchantClicked = true;
+                    somethingClicked = true;
                     InfoGUI.EnableInfoGUI(merchant, "merchant");
                 }
             }
@@ -61,7 +58,7 @@ public class ClickEvents : MonoBehaviour
                 if (monster == position)
                 {
                     Debug.Log("Monster");
-                    monsterClicked = true;
+                    somethingClicked = true;
                     if (CombatManager.combatEnabled)
                     {
                         CombatManager.PlayerAttackedMonster();
@@ -77,7 +74,7 @@ public class ClickEvents : MonoBehaviour
                 if (slot == position)
                 {
                     Debug.Log("Empty Slot");
-                    emptySlotClicked = true;
+                    somethingClicked = true;
                     InfoGUI.EnableInfoGUI(slot, "empty");
                 }
             }
@@ -86,18 +83,32 @@ public class ClickEvents : MonoBehaviour
                 if (village == position)
                 {
                     Debug.Log("Village");
-                    villageClicked = true;
+                    somethingClicked = true;
                     InfoGUI.EnableInfoGUI(village, "village");
                 }
             }
-            Debug.Log("Current Unit Position: " + BoardManager.currentUnitPosition);
+            /*foreach (Vector3 boardPosition in BoardManager.boardPositions)
+            {
+                foreach (Vector3 movingPosition in BoardManager.possibleMove)
+                {
+                    if (boardPosition.Equals(movingPosition))
+                    {
+                        if (boardPosition == position && InfoGUI.movesAreShowing)
+                        {
+                            Debug.Log("Movement");
+                            PlayerMovement.playerIsMoving = true;
+                            // Need to figure out what to do with player direction
+                        }
+                    }
+                }
+            }*/
             if (BoardManager.currentUnitPosition == position)
             {
-                Debug.Log("Self");
-                playerClicked = true;
+                Debug.Log("Player");
+                somethingClicked = true;
                 InfoGUI.EnableInfoGUI(BoardManager.currentUnitPosition, "player");
             }
-            if (!dungeonClicked && !playerClicked && !merchantClicked && !monsterClicked && !emptySlotClicked && !villageClicked)
+            if (!somethingClicked)
             {
                 Debug.Log("Nothing");
                 // InfoGUI.DisableInfoGUI();
