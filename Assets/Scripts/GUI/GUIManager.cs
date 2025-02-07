@@ -42,94 +42,60 @@ public class GUIManager : MonoBehaviour
         image_heal = image_heal.gameObject.GetComponent<Image>();
         moveButtonPanel.gameObject.SetActive(true);
         playerGUI_Avatar = GetComponent<Image>();
-        centerText.SetText("Choose your path...");
-        Invoke("ClearCenterText", 1.5f);
         DisableEndTurnButton();
         DisableAttackButton();
         DisableHealButton();
-        EnableMoveButton();
+        DisableMoveButton();
     }
 
     void Update()
     {
-        /*if (Input.GetKeyDown(KeyCode.M) && endTurnButtonEnabled)
-        {
-            TurnManager.TurnProgressionHandler();
-        }
-        if (Input.GetKeyDown(KeyCode.N) && moveButtonEnabled)
-        {
-            bool onePath = BoardManager.OnlyOnePathPossible();
-            if (!onePath)
-            {
-                BoardManager.CheckForLocalBoardPositions();
-                Arrows.EnableArrowButtons();
-            }
-            else
-            {
-                PlayerMovement.playerIsMoving = true;
-            }
-        }*/
         if (enableAttackButton)
         {
             image_attack.sprite = Store.GUIElements[1];
-            // attackButtonPanel.gameObject.SetActive(true);
             attackButton.gameObject.SetActive(true);
             enableAttackButton = false;
         }
         if (disableAttackButton)
         {
             image_attack.sprite = Store.GUIElements[0];
-            // attackButtonPanel.gameObject.SetActive(false);
             attackButton.gameObject.SetActive(false);
             disableAttackButton = false;
         }
         if (enableHealButton && Player.totalPotions > 0)
         {
             image_heal.sprite = Store.GUIElements[1];
-            // healButtonPanel.gameObject.SetActive(true);
             healButton.gameObject.SetActive(true);
             enableHealButton = false;
         }
         if (disableHealButton)
         {
             image_heal.sprite = Store.GUIElements[0];
-            // healButtonPanel.gameObject.SetActive(false);
             healButton.gameObject.SetActive(false);
             disableHealButton = false;
         }
         if (enableEndTurnButton)
         {
             image_endTurn.sprite = Store.GUIElements[1];
-            // endTurnButtonPanel.gameObject.SetActive(true);
             endTurnButton.gameObject.SetActive(true);
             enableEndTurnButton = false;
         }
         if (disableEndTurnButton)
         {
             image_endTurn.sprite = Store.GUIElements[0];
-            // endTurnButtonPanel.gameObject.SetActive(false);
             endTurnButton.gameObject.SetActive(false);
             disableEndTurnButton = false;
         }
         if (enableMoveButton)
         {
             image_move.sprite = Store.GUIElements[1];
-            if (GameMain.playerInCamp)
-            {
-                moveButtonText.text = "Exit Camp";
-            }
-            else
-            {
-                moveButtonText.text = "Travel";
-            }
-            //moveButtonPanel.gameObject.SetActive(true);
+            moveButtonText.text = "Travel";
             moveButton.gameObject.SetActive(true);
             enableMoveButton = false;
         }
         if (disableMoveButton)
         {
             image_move.sprite = Store.GUIElements[0];
-            //moveButtonPanel.gameObject.SetActive(false);
             moveButton.gameObject.SetActive(false);
             disableMoveButton = false;
         }

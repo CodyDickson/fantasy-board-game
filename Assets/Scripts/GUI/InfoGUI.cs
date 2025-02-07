@@ -8,7 +8,6 @@ using UnityEngine.UI;
 
 public class InfoGUI : MonoBehaviour
 {
-    //
     public static bool enableInfoGUI = false;
     public static bool disableInfoGUI = false;
     public static List<string> infoGUIPool = new List<string>();
@@ -47,6 +46,7 @@ public class InfoGUI : MonoBehaviour
             disableInfoGUI = false;
         }
     }
+
     public static void EnableInfoGUI(Vector3 position, string type) { structurePosition = position; objectClicked = type; enableInfoGUI = true; }
 
     public static void DisableInfoGUI() { disableInfoGUI = true; }
@@ -70,6 +70,7 @@ public class InfoGUI : MonoBehaviour
         {
             Debug.Log("Empty Slot");
             avatar.sprite = Store.GUIElements[2];
+            main.text = "";
             if (Player.gold >= Villages.villageBuildCost)
             {
                 Debug.Log("This should show");
@@ -86,11 +87,13 @@ public class InfoGUI : MonoBehaviour
         {
             avatar.sprite = Store.dungeonSprites[0];
             buttonText.text = "Raid";
+            main.text = "";
             buttonAvatar.sprite = Store.GUIElements[1];
         }
         if (type == "village")
         {
             avatar.sprite = Store.villageSprites[Player.village];
+            main.text = "";
             if (Player.gold >= Villages.villageUpgradeCost)
             {
                 buttonText.text = "Upgrade";
@@ -106,6 +109,7 @@ public class InfoGUI : MonoBehaviour
         {
             avatar.sprite = Store.merchantSprites[0];
             buttonText.text = "Shop";
+            main.text = "";
             buttonAvatar.sprite = Store.GUIElements[1];
         }
         if (type == "monster")

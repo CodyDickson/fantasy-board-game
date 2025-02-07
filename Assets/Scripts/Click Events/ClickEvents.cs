@@ -6,12 +6,7 @@ using UnityEngine.Tilemaps;
 
 public class ClickEvents : MonoBehaviour
 {
-    Plane groundPlane;
-
-    void Start()
-    {
-        groundPlane = new Plane(Vector3.up, Vector3.zero);
-    }
+    public static Vector3 position = Vector3.zero;
 
     void Update()
     {
@@ -22,7 +17,7 @@ public class ClickEvents : MonoBehaviour
             Debug.Log(clickedPosition);
             int pOne = Mathf.RoundToInt(clickedPosition.x);
             int pTwo = Mathf.RoundToInt(clickedPosition.y);
-            Vector3 position = new Vector3(pOne, pTwo);
+            position = new Vector3(pOne, pTwo);
             Debug.Log("Position: " + position);
             var tilemap = Store.tilemaps[4].WorldToCell(position);
             var tile = Store.tilemaps[4].GetTile(tilemap);
@@ -32,7 +27,7 @@ public class ClickEvents : MonoBehaviour
                 {
                     somethingClicked = true;
                     Debug.Log("Clicked: Camp Exit Position");
-                    PlayerMovement.PlayerExitingCamp(exitPosition);
+                    ConfirmationGUI.EnableConfirmationGUI("exitingCamp");
                 }
             }
             foreach (Vector3 dungeon in Dungeons.dungeonPositions)
