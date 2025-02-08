@@ -5,5 +5,6 @@ using UnityEngine;
 public class Oddities : MonoBehaviour
 {
     // ODDITIES
-    // When armor reaches 0, gain 1 action.
+    // Landing on a monster deals double damage.
+    // 
 }

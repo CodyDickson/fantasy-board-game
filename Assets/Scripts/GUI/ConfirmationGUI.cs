@@ -44,7 +44,6 @@ public class ConfirmationGUI : MonoBehaviour
         switch (context)
         {
             case "exitingCamp": mainText.text = "Leave camp?"; confirmImage.sprite = Store.GUIElements[1]; noImage.sprite = Store.GUIElements[1]; break;
-            case "landingCombat": mainText.text = "Enter combat?"; confirmImage.sprite = Store.GUIElements[1]; noImage.sprite = Store.GUIElements[0]; disableNoButton = true; break;
         }
     }
 
@@ -56,7 +55,7 @@ public class ConfirmationGUI : MonoBehaviour
     {
         switch (confirmationContext)
         {
-            case "exitingCamp": PlayerMovement.PlayerExitingCamp(ClickEvents.position); break;
+            case "exitingCamp": PlayerMovement.PlayerExitingCamp(ClickEvents.permanentPosition); DisableConfirmationGUI(); break;
         }
     }
 
@@ -64,7 +63,7 @@ public class ConfirmationGUI : MonoBehaviour
     {
         if (!disableNoButton)
         {
-            //
+            DisableConfirmationGUI();
         }
     }
 }

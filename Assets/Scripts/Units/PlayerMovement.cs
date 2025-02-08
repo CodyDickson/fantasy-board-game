@@ -65,12 +65,21 @@ public class PlayerMovement : MonoBehaviour
                 }
                 if (movesRemaining == 0)
                 {
-                    Arrows.DisableArrowButtons();
-                    GUIManager.EnableEndTurnButton();
-                    InfoGUI.DisableInfoGUI();
-                    Dice.DisableDice();
-                    BoardManager.ShowLocalEmptySlots();
-                    playerIsMoving = false;
+                    bool noMonsterPresent = Monsters.CheckMonsterPositions(BoardManager.currentUnitPosition);
+                    if (!noMonsterPresent)
+                    {
+                        movesRemaining = 1;
+                        CombatManager.PlayerLandsOnMonster(BoardManager.currentUnitPosition);
+                    }
+                    else
+                    {
+                        Arrows.DisableArrowButtons();
+                        GUIManager.EnableEndTurnButton();
+                        InfoGUI.DisableInfoGUI();
+                        Dice.DisableDice();
+                        BoardManager.ShowLocalEmptySlots();
+                        playerIsMoving = false;
+                    }
                 }
                 movement_tempCounter = movement_counter;
             }
@@ -84,7 +93,6 @@ public class PlayerMovement : MonoBehaviour
     public static void PlayerExitingCamp(Vector3 position)
     {
         // Need to find the exit position
-        Debug.Log("pass");
         Tilemap units = Store.tilemaps[4];
         units.SetTile(new Vector3Int((int)BoardManager.currentUnitPosition[0], (int)BoardManager.currentUnitPosition[1]), null);
         units.SetTile(new Vector3Int((int)position[0], (int)position[1]), Store.playerTiles[Player.avatar]);
@@ -106,7 +114,6 @@ public class PlayerMovement : MonoBehaviour
             Fog.RemoveLocalFog(clockwork);
             Dungeons.SpawnDungeons(clockwork);
         }
-        Monsters.SpawnMonsters();
-        GUIManager.EnableEndTurnButton();
+        TurnManager.continueTurnProgression = true;
     }
 }

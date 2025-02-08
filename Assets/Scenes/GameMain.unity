@@ -17459,6 +17459,7 @@ GameObject:
   - component: {fileID: 1077264798}
   - component: {fileID: 1077264799}
   - component: {fileID: 1077264800}
+  - component: {fileID: 1077264801}
   m_Layer: 5
   m_Name: GUI
   m_TagString: Untagged
@@ -17699,6 +17700,26 @@ MonoBehaviour:
   itemFour: {fileID: 1978254125}
   itemFive: {fileID: 411962879}
   potion: {fileID: 423929786}
+--- !u!114 &1077264801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1077264789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4b52be77fcfabc4989d4b84d6d36187, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainText: {fileID: 143075239}
+  buttonConfirmText: {fileID: 1370611470}
+  buttonNoText: {fileID: 1935249727}
+  buttonConfirm: {fileID: 1851686016}
+  buttonNo: {fileID: 2025999239}
+  buttonConfirmImage: {fileID: 69897301}
+  buttonNoImage: {fileID: 985060075}
+  confirmationGUIGameObject: {fileID: 1460785158}
 --- !u!1 &1089704670
 GameObject:
   m_ObjectHideFlags: 0

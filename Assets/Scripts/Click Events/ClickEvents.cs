@@ -7,6 +7,7 @@ using UnityEngine.Tilemaps;
 public class ClickEvents : MonoBehaviour
 {
     public static Vector3 position = Vector3.zero;
+    public static Vector3 permanentPosition = Vector3.zero;
 
     void Update()
     {
@@ -26,6 +27,7 @@ public class ClickEvents : MonoBehaviour
                 if (exitPosition == position && GameMain.playerInCamp)
                 {
                     somethingClicked = true;
+                    permanentPosition = position;
                     Debug.Log("Clicked: Camp Exit Position");
                     ConfirmationGUI.EnableConfirmationGUI("exitingCamp");
                 }

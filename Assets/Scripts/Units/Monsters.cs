@@ -69,6 +69,11 @@ public class Monsters : MonoBehaviour
         activeMonsters.Add(values);
     }
 
+    public static void MonsterHasDied(int monsterID)
+    {
+
+    }
+
     public static string MonsterDescriptions(int number)
     {
         string monsterDescription = "";
@@ -98,13 +103,19 @@ public class Monsters : MonoBehaviour
     public static bool CheckMonsterPositions(Vector3 positionToCheck)
     {
         bool positionClear = true;
-        foreach (Vector3 monsterPositions in monsterPositions)
+        foreach (Vector3 monsterPosition in monsterPositions)
         {
-            if (monsterPositions == positionToCheck)
+            if (monsterPosition == positionToCheck)
             {
                 positionClear = false;
             }
         }
         return positionClear;
+    }
+
+    public static int FindCurrentMonster(Vector3 position)
+    {
+        int monsterNumber = monsterPositions.IndexOf(position);
+        return monsterNumber;
     }
 }

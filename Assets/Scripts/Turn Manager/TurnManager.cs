@@ -66,6 +66,6 @@ public class TurnManager : MonoBehaviour
     public static void StartPlayerTurn()
     {
         if (GameMain.playerInCamp) { Arrows.EnableArrowButtons(); }
-        else { GUIManager.EnableMoveButton(); GUIManager.EnableAttackButton(); GUIManager.EnableHealButton(); }
+        else { GUIManager.EnableMoveButton(); GUIManager.EnableAttackButton(); GUIManager.EnableHealButton(); GUIManager.EnableEndTurnButton(); }
     }
 }

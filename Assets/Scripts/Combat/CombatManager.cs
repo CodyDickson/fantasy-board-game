@@ -20,6 +20,19 @@ public class CombatManager : MonoBehaviour
         combatEnabled = false;
     }
 
+    public static void PlayerLandsOnMonster(Vector3 monsterPosition)
+    {
+        int monsterID = Monsters.FindCurrentMonster(monsterPosition);
+        int playerCombat = Player.combat;
+        int[] currentMonsterStats = Monsters.activeMonsters[monsterID];
+        int currentMonsterHealth = currentMonsterStats[1];
+        currentMonsterHealth -= playerCombat;
+        if (currentMonsterHealth <= 0)
+        {
+            Monsters.MonsterHasDied(monsterID);
+        }
+    }
+
     public static void PlayerAttackedMonster()
     {
         // animation
