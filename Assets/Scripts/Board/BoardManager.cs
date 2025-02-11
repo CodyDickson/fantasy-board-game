@@ -15,6 +15,8 @@ public class BoardManager : MonoBehaviour
     public static List<Vector3> emptyBoardSlots = new List<Vector3>();
     // Empty slots within interaction range
     public static List<Vector3> potentialEmptySlots = new List<Vector3>();
+    // The current player interaction range
+    public static List<Vector3> currentInteractionRange = new List<Vector3>();
     // Movement possibilities within interaction range
     public static List<Vector3> possibleMove = new List<Vector3>();
     // Board connector positions that have multiple directions
@@ -385,6 +387,21 @@ public class BoardManager : MonoBehaviour
             if (listVector == east) { eastEmpty = true; }
             if (listVector == south) { southEmpty = true; }
             if (listVector == west) { westEmpty = true; }
+        }
+    }
+
+    public static void CheckInteractionRange()
+    {
+        Vector3 position = currentUnitPosition;
+        for (int z = 0, y = 0; y <= Player.interactionRange; y++)
+        {
+            for (int x = 0; x <= Player.interactionRange; x++, z++)
+            {
+                currentInteractionRange.Add(new Vector3Int((int)position[0] + x, (int)position[1] + y));
+                currentInteractionRange.Add(new Vector3Int((int)position[0] - x, (int)position[1] + y));
+                currentInteractionRange.Add(new Vector3Int((int)position[0] + x, (int)position[1] - y));
+                currentInteractionRange.Add(new Vector3Int((int)position[0] - x, (int)position[1] - y));
+            }
         }
     }
 

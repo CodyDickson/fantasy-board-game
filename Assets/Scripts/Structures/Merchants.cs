@@ -9,6 +9,7 @@ public class Merchants : MonoBehaviour
     public static int merchantCount;
     public static int merchantType = 1;
     public static List<Vector3> merchantPositions = new List<Vector3>();
+    public static List<int> oddityOptions = new List<int>();
 
     private void Update()
     {
@@ -17,7 +18,7 @@ public class Merchants : MonoBehaviour
 
     public static void OpenShop()
     {
-
+        Oddities.GenerateOddity();
     }
 
     public static void SpawnMerchants(int location)

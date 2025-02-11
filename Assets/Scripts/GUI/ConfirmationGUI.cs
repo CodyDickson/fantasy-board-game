@@ -41,9 +41,17 @@ public class ConfirmationGUI : MonoBehaviour
 
     public static void UpdateConfirmationGUI(string context, TMP_Text mainText, Image confirmImage, Image noImage)
     {
+        confirmImage.sprite = Store.GUIElements[1]; noImage.sprite = Store.GUIElements[1];
         switch (context)
         {
-            case "exitingCamp": mainText.text = "Leave camp?"; confirmImage.sprite = Store.GUIElements[1]; noImage.sprite = Store.GUIElements[1]; break;
+            case "exitingCamp": mainText.text = "Leave Camp?";  break;
+            case "raidDungeon": mainText.text = "Raid Dungeon?"; break;
+            case "payToll": mainText.text = "Pay Toll?"; break;
+            case "attackMonster": mainText.text = "Attack Monster?"; break;
+            case "usePotion": mainText.text = "Use Potion?"; break;
+            case "openShop": mainText.text = "Visit Merchant?"; break;
+            case "movePlayer": mainText.text = "Travel?"; break;
+            default: Debug.Log("misfire UpdateConfirmationGUI"); break;
         }
     }
 
@@ -56,6 +64,13 @@ public class ConfirmationGUI : MonoBehaviour
         switch (confirmationContext)
         {
             case "exitingCamp": PlayerMovement.PlayerExitingCamp(ClickEvents.permanentPosition); DisableConfirmationGUI(); break;
+            case "raidDungeon": Dungeons.RaidDungeon(ClickEvents.permanentPosition); DisableConfirmationGUI(); break;
+            case "payToll": break;
+            case "attackMonster": break;
+            case "usePotion": break;
+            case "openShop": break;
+            case "movePlayer": break;
+            default: Debug.Log("misfire confirmationContext"); break;
         }
     }
 

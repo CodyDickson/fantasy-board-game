@@ -9,9 +9,9 @@ public class Monsters : MonoBehaviour
     // monsterID is saved in activeMonsters[0] and correlates to which index in monsterPositions is that specific monster //
     public static List<int[]> activeMonsters = new List<int[]>();
     public static List<Vector3> monsterPositions = new List<Vector3>();
+    public static int monsterID;
     public static Vector3 monsterPosition;
     public static Tilemap units;
-    public static int monsterID;
 
     // monsterID = position is [?] in monsterPositions and [?] in activeMonsters
 

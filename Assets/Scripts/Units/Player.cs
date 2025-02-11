@@ -15,6 +15,8 @@ public class Player : MonoBehaviour
     public static int combat;
     public static int movementDice;
     public static int interactionRange;
+    public static int minimumCombatStrength;
+    public static int maximumCombatStrength;
     public static int weaponRange;
     public static int actionsRemaining;
     public static string playerClass;

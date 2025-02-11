@@ -8,11 +8,14 @@ using Unity.VisualScripting;
 
 public class Dungeons : MonoBehaviour
 {
+    // monsterID is saved in activeMonsters[0] and correlates to which index in monsterPositions is that specific monster //
     public static string dungeonType = "";
     public static int dungeonCount;
     public static int localDungeons;
+    public static List<int[]> activeDungeons = new List<int[]>();
     public static List<Vector3> dungeonPositions = new List<Vector3>();
     public static int[] dungeonStats = new int[3];
+    public static int dungeonID;
 
     public static void SpawnDungeons(int location)
     {
@@ -118,6 +121,27 @@ public class Dungeons : MonoBehaviour
         }
     }
 
+    public static void CreateDungeon()
+    {
+        int[] values = new int[4];
+        int dungeon = 0;
+        if (GameMain.currentBoard == 1)
+        {
+            dungeon = Random.Range(0, 2);
+        }
+        // Type, Health, Status //
+        switch (dungeon)
+        {
+            case 0:
+                // Imp
+                values[0] = 0; values[1] = 10; values[2] = 1; values[3] = 1; break;
+            case 1:
+                // Basilisk
+                values[0] = 1; values[1] = 7; values[2] = 1; values[3] = 3; break;
+        }
+        activeDungeons.Add(values);
+    }
+
     public static void AddNewDungeon(int value, int monsters)
     {
         // ID correlates to the dungeon vector position in dungeonPositions
@@ -135,7 +159,12 @@ public class Dungeons : MonoBehaviour
         return dungeonPresent;
     }
 
-    public static void RaidDungeon()
+    public static void FindCurrentDungeon(Vector3 position)
+    {
+        //
+    }
+
+    public static void RaidDungeon(Vector3 position)
     {
         //
     }
