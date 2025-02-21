@@ -23584,7 +23584,8 @@ MonoBehaviour:
   - {fileID: 1034164227, guid: ad8888aa4b5973e49a90bf15365dcf0b, type: 3}
   - {fileID: 1421206575, guid: ad8888aa4b5973e49a90bf15365dcf0b, type: 3}
   - {fileID: -1656055275, guid: ad8888aa4b5973e49a90bf15365dcf0b, type: 3}
-  objectSpritesListInEditor: []
+  objectSpritesListInEditor:
+  - {fileID: 1307090614, guid: ad8888aa4b5973e49a90bf15365dcf0b, type: 3}
   diceSpritesInEditor:
   - {fileID: 7720977962502331684, guid: 5eb17e61d14b8b047bce891df80c7691, type: 3}
   - {fileID: 7720977962502331684, guid: 5eb17e61d14b8b047bce891df80c7691, type: 3}

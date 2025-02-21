@@ -13,83 +13,82 @@ public class ClickEvents : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            bool somethingClicked = false;
+            bool withinInteractionRange = false;
             Vector3 clickedPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            int pOne = Mathf.RoundToInt(clickedPosition.x);
-            int pTwo = Mathf.RoundToInt(clickedPosition.y);
+            int pOne = Mathf.FloorToInt(clickedPosition.x);
+            int pTwo = Mathf.FloorToInt(clickedPosition.y);
             position = new Vector3(pOne, pTwo);
             var tilemap = Store.tilemaps[4].WorldToCell(position);
             var tile = Store.tilemaps[4].GetTile(tilemap);
             BoardManager.CheckInteractionRange();
-            if (BoardManager.currentInteractionRange.Contains(position))
+            if (GameMain.playerInCamp)
             {
                 foreach (Vector3 exitPosition in BoardManager.exitPositions)
                 {
-                    if (exitPosition == position && GameMain.playerInCamp)
+                    if (exitPosition == position)
                     {
-                        somethingClicked = true;
                         permanentPosition = position;
                         ConfirmationGUI.EnableConfirmationGUI("exitingCamp");
                     }
                 }
-                foreach (Vector3 dungeon in Dungeons.dungeonPositions)
+            }
+            if (BoardManager.currentInteractionRange.Contains(position))
+            {
+                withinInteractionRange = true;
+            }
+            foreach (Vector3 dungeon in Dungeons.dungeonPositions)
+            {
+                if (dungeon == position)
                 {
-                    if (dungeon == position)
+                    permanentPosition = position;
+                    // ConfirmationGUI.EnableConfirmationGUI("raidDungeon");
+                    InfoGUI.EnableInfoGUI(position, "dungeon", withinInteractionRange);
+                }
+            }
+            foreach (Vector3 merchant in Merchants.merchantPositions)
+            {
+                if (merchant == position)
+                {
+                    permanentPosition = position;
+                    ConfirmationGUI.EnableConfirmationGUI("openShop");
+                }
+            }
+            foreach (Vector3 monster in Monsters.monsterPositions)
+            {
+                if (monster == position)
+                {
+                    Debug.Log("Monster");
+                    /* if (CombatManager.combatEnabled)
                     {
-                        somethingClicked = true;
-                        permanentPosition = position;
-                        ConfirmationGUI.EnableConfirmationGUI("raidDungeon");
+                        CombatManager.PlayerAttackedMonster();
                     }
-                }
-                foreach (Vector3 merchant in Merchants.merchantPositions)
-                {
-                    if (merchant == position)
+                    else
                     {
-                        somethingClicked = true;
-                        permanentPosition = position;
-                        ConfirmationGUI.EnableConfirmationGUI("openShop");
-                    }
+                        InfoGUI.EnableInfoGUI(monster, "monster");
+                    }*/
+                    InfoGUI.EnableInfoGUI(position, "monster", withinInteractionRange);
                 }
-                foreach (Vector3 monster in Monsters.monsterPositions)
+            }
+            foreach (Vector3 slot in BoardManager.potentialEmptySlots)
+            {
+                if (slot == position)
                 {
-                    if (monster == position)
-                    {
-                        Debug.Log("Monster");
-                        somethingClicked = true;
-                        if (CombatManager.combatEnabled)
-                        {
-                            CombatManager.PlayerAttackedMonster();
-                        }
-                        else
-                        {
-                            InfoGUI.EnableInfoGUI(monster, "monster");
-                        }
-                    }
+                    Debug.Log("Empty Slot");
+                    InfoGUI.EnableInfoGUI(slot, "empty", withinInteractionRange);
                 }
-                foreach (Vector3 slot in BoardManager.potentialEmptySlots)
+            }
+            foreach (Vector3 village in Villages.villagePositions)
+            {
+                if (village == position)
                 {
-                    if (slot == position)
-                    {
-                        Debug.Log("Empty Slot");
-                        somethingClicked = true;
-                        InfoGUI.EnableInfoGUI(slot, "empty");
-                    }
+                    Debug.Log("Village");
+                    InfoGUI.EnableInfoGUI(village, "village", withinInteractionRange);
                 }
-                foreach (Vector3 village in Villages.villagePositions)
-                {
-                    if (village == position)
-                    {
-                        Debug.Log("Village");
-                        somethingClicked = true;
-                        InfoGUI.EnableInfoGUI(village, "village");
-                    }
-                }
-                if (BoardManager.currentUnitPosition == position)
-                {
-                    Debug.Log("Player");
-                    somethingClicked = true;
-                    InfoGUI.EnableInfoGUI(BoardManager.currentUnitPosition, "player");
-                }
+            }
+            if (BoardManager.currentUnitPosition == position)
+            {
+                Debug.Log("Player");
+                // InfoGUI.EnableInfoGUI(BoardManager.currentUnitPosition, "player");
             }
         }
     }

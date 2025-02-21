@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Tilemaps;
 using Unity.VisualScripting;
+using UnityEngine.UIElements;
 
 public class Dungeons : MonoBehaviour
 {
@@ -47,14 +48,15 @@ public class Dungeons : MonoBehaviour
                             {
                                 position = positionCheckOne;
                                 random = Random.Range(1, 101);
-                                if (random <= 10) {
+                                if (random <= 10)
+                                {
                                     bool dungeonPresent = CheckForDungeons(position);
                                     if (!dungeonPresent)
                                     {
                                         structures.SetTile(new Vector3Int((int)position[0], (int)position[1]), dungeon);
                                         dungeonCount++;
                                         dungeonPositions.Add(position);
-                                        AddNewDungeon(dungeonCount, 1);
+                                        AddNewDungeon();
                                         positionsToRemove.Add(position);
                                     }
                                 }
@@ -71,7 +73,7 @@ public class Dungeons : MonoBehaviour
                                         structures.SetTile(new Vector3Int((int)position[0], (int)position[1]), dungeon);
                                         dungeonCount++;
                                         dungeonPositions.Add(position);
-                                        AddNewDungeon(dungeonCount, 1);
+                                        AddNewDungeon();
                                         positionsToRemove.Add(position);
                                     }
                                 }
@@ -88,7 +90,7 @@ public class Dungeons : MonoBehaviour
                                         structures.SetTile(new Vector3Int((int)position[0], (int)position[1]), dungeon);
                                         dungeonCount++;
                                         dungeonPositions.Add(position);
-                                        AddNewDungeon(dungeonCount, 1);
+                                        AddNewDungeon();
                                         positionsToRemove.Add(position);
                                     }
                                 }
@@ -105,7 +107,7 @@ public class Dungeons : MonoBehaviour
                                         structures.SetTile(new Vector3Int((int)position[0], (int)position[1]), dungeon);
                                         dungeonCount++;
                                         dungeonPositions.Add(position);
-                                        AddNewDungeon(dungeonCount, 1);
+                                        AddNewDungeon();
                                         positionsToRemove.Add(position);
                                     }
                                 }
@@ -142,14 +144,22 @@ public class Dungeons : MonoBehaviour
         activeDungeons.Add(values);
     }
 
-    public static void AddNewDungeon(int value, int monsters)
+    public static void AddNewDungeon()
     {
-        // ID correlates to the dungeon vector position in dungeonPositions
-        dungeonStats[0] = value;
+        int monsterType = 0;
+        if (GameMain.currentBoard == 1)
+        {
+            monsterType = Random.Range(0, 2);
+        }
+        int[] ints = new int[3];
+        int dungeonHealth = 10;
+        // Monster Type, 1 = Imp, Basilisk
+        ints[0] = monsterType;
         // 1 = Imp, Basilisk
-        dungeonStats[1] = monsters;
+        ints[1] = dungeonHealth;
         // 0 = Ready, 1 = Ruined
-        dungeonStats[2] = 0;
+        ints[2] = 0;
+        activeDungeons.Add(ints);
     }
 
     public static bool CheckForDungeons(Vector3 position)
@@ -159,13 +169,21 @@ public class Dungeons : MonoBehaviour
         return dungeonPresent;
     }
 
-    public static void FindCurrentDungeon(Vector3 position)
+    public static int FindCurrentDungeon(Vector3 position)
     {
-        //
+        int dungeonID = 0;
+        foreach (Vector3 dungeonPosition in dungeonPositions)
+        {
+            if (dungeonPosition == position)
+            {
+                dungeonID = dungeonPositions.IndexOf(dungeonPosition);
+            }
+        }
+        return dungeonID;
     }
 
     public static void RaidDungeon(Vector3 position)
     {
-        //
+        
     }
 }

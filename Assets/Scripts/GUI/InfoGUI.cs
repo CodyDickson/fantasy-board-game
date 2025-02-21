@@ -22,6 +22,8 @@ public class InfoGUI : MonoBehaviour
     public static bool updateInfoGUI = false;
     public static bool finishUpdatingInfoGUI = false;
     public static bool movesAreShowing = false;
+    public static bool withinInteractionRange = false;
+    public static bool buttonEnabled;
     //
 
     void Start()
@@ -37,7 +39,7 @@ public class InfoGUI : MonoBehaviour
         if (enableInfoGUI)
         {
             infoGUIGameObject.gameObject.SetActive(true);
-            UpdateInfoGUI(structurePosition, objectClicked, mainText, buttonText, avatarImage, buttonImage);
+            UpdateInfoGUI(structurePosition, objectClicked, mainText, buttonText, avatarImage, buttonImage, withinInteractionRange);
             enableInfoGUI = false;
         }
         else if (disableInfoGUI)
@@ -47,61 +49,113 @@ public class InfoGUI : MonoBehaviour
         }
     }
 
-    public static void EnableInfoGUI(Vector3 position, string type) { structurePosition = position; objectClicked = type; enableInfoGUI = true; }
+    public static void EnableInfoGUI(Vector3 position, string type, bool interactable) { structurePosition = position; objectClicked = type; withinInteractionRange = interactable; enableInfoGUI = true; }
 
     public static void DisableInfoGUI() { disableInfoGUI = true; }
 
     public static void OnClickButton()
     {
-        switch (objectClicked)
+        if (buttonEnabled)
         {
-            case "empty": Debug.Log("Building Village"); Villages.BuildVillage(structurePosition); break;
-            case "dungeon": Dungeons.RaidDungeon(); break;
-            case "village": Villages.UpgradeVillage(); break;
-            case "merchant": Merchants.OpenShop(); break;
-            case "player": Arrows.EnableArrowButtons(); PlayerMovement.movesRemaining = Dice.RollDice(); Dice.EnableDice(); break;
-            default: Debug.Log("should never show"); break;
+            switch (objectClicked)
+            {
+                case "empty": Debug.Log("Building Village"); Villages.BuildVillage(structurePosition); break;
+                case "dungeon": Dungeons.RaidDungeon(structurePosition); break;
+                case "village": Villages.UpgradeVillage(); break;
+                case "merchant": Merchants.OpenShop(); break;
+                case "player": Arrows.EnableArrowButtons(); PlayerMovement.movesRemaining = Dice.RollDice(); Dice.EnableDice(); break;
+                case "monster": Monsters.PlayerAttackedMonster(structurePosition); break;
+                default: Debug.Log("should never show"); break;
+            }
+            buttonEnabled = false;
+            // EnableInfoGUI();
         }
     }
 
-    public static void UpdateInfoGUI(Vector3 position, string type, TMP_Text main, TMP_Text buttonText, Image avatar, Image buttonAvatar)
+    public static void UpdateInfoGUI(Vector3 position, string type, TMP_Text main, TMP_Text buttonText, Image avatar, Image buttonAvatar, bool withinInteractionRange)
     {
         if (type == "empty")
         {
             Debug.Log("Empty Slot");
             avatar.sprite = Store.GUIElements[2];
             main.text = "";
-            if (Player.gold >= Villages.villageBuildCost)
+            if (Player.gold >= Villages.villageBuildCost && withinInteractionRange)
             {
-                Debug.Log("This should show");
                 buttonText.text = "Build";
                 buttonAvatar.sprite = Store.GUIElements[1];
+                buttonEnabled = true;
+            }
+            else if (Player.gold < Villages.villageBuildCost && withinInteractionRange)
+            {
+                buttonText.text = "Not Enough Gold";
+                buttonAvatar.sprite = Store.GUIElements[0];
             }
             else
             {
-                buttonText.text = "";
+                buttonText.text = "Out of Range";
                 buttonAvatar.sprite = Store.GUIElements[0];
             }
         }
         if (type == "dungeon")
         {
             avatar.sprite = Store.dungeonSprites[0];
-            buttonText.text = "Raid";
-            main.text = "";
-            buttonAvatar.sprite = Store.GUIElements[1];
+            int dungeonID = Dungeons.FindCurrentDungeon(position);
+            int[] ints = Dungeons.activeDungeons[dungeonID];
+            string monsterName = Monsters.MonsterNames(ints[0]);
+            main.text = monsterName + " Dungeon\n Health: " + ints[1] + "\nStatus: " + ints[2];
+            if (withinInteractionRange)
+            {
+                buttonText.text = "Raid";
+                buttonAvatar.sprite = Store.GUIElements[1];
+                buttonEnabled = true;
+            }
+            else
+            {
+                buttonText.text = "Out of Range";
+                buttonAvatar.sprite = Store.GUIElements[0];
+            }
         }
         if (type == "village")
         {
             avatar.sprite = Store.villageSprites[Player.village];
+            // Villages.FindCurrentVillage(position);
+            // Text needs to update to show the Village Level, Gold Per Turn
             main.text = "";
-            if (Player.gold >= Villages.villageUpgradeCost)
+            if (Player.gold >= Villages.villageUpgradeCost && withinInteractionRange)
             {
                 buttonText.text = "Upgrade";
                 buttonAvatar.sprite = Store.GUIElements[1];
+                buttonEnabled = true;
+            }
+            else if (Player.gold < Villages.villageUpgradeCost && withinInteractionRange)
+            {
+                buttonText.text = "Not Enough Gold";
+                buttonAvatar.sprite = Store.GUIElements[0];
             }
             else
             {
-                buttonText.text = "";
+                buttonText.text = "Out of Range";
+                buttonAvatar.sprite = Store.GUIElements[0];
+            }
+        }
+        if (type == "toll")
+        {
+            avatar.sprite = Store.objectSprites[0];
+            main.text = "Tollmaster";
+            if (Player.gold >= Tollmasters.tollCost && withinInteractionRange)
+            {
+                buttonText.text = "Pay Toll";
+                buttonAvatar.sprite = Store.GUIElements[1];
+                buttonEnabled = true;
+            }
+            else if (Player.gold < Tollmasters.tollCost && withinInteractionRange)
+            {
+                buttonText.text = "Not Enough Gold";
+                buttonAvatar.sprite = Store.GUIElements[0];
+            }
+            else
+            {
+                buttonText.text = "Out of Range";
                 buttonAvatar.sprite = Store.GUIElements[0];
             }
         }
@@ -130,8 +184,17 @@ public class InfoGUI : MonoBehaviour
                     monsterType = ints[0]; monsterHealth = ints[1]; monsterLives = ints[2]; monsterCombat = ints[3];}
             }
             avatar.sprite = Store.monsterSprites[monsterType];
-            buttonText.text = "~";
-            buttonAvatar.sprite = Store.GUIElements[1];
+            if (withinInteractionRange)
+            {
+                buttonText.text = "Attack";
+                buttonAvatar.sprite = Store.GUIElements[1];
+                buttonEnabled = true;
+            }
+            else
+            {
+                buttonText.text = "Out of Range";
+                buttonAvatar.sprite = Store.GUIElements[0];
+            }
             monsterDescription = Monsters.MonsterDescriptions(monsterType);
             monsterName = Monsters.MonsterNames(monsterType);
             main.text = monsterName + "\nHealth: " + monsterHealth + "\nLives: " + monsterLives + "\nCombat: " + monsterCombat + "\n" + monsterDescription;
