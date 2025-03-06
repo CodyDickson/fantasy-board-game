@@ -1,0 +1,46 @@
+llc
+website domain
+email
+logo
+bank account
+website design
+social media
+
+Combat Brainstorming
+-
+Board combat:
+-If a monster has the modifier "Hostile", they will deal damage to the player when the player moves past. The player will retaliate automatically and continue moving.
+-When a player lands on a monster, their combat score is removed from the monster's health. The monster retaliates, dealing their combat score damage to the player.
+-The player can select "Attack" and choose a target within range, including the tile they are on. If the monster is within range for their attack they will retaliate.
+-Fighters have two Equipment slots and armor.
+-Wizards have one Equipment slot and their weapons are high range, sometimes affecting multiple tiles.
+
+WEAPONS
+3-6 Damage, 2 Range
+After using a Forge, damage increases to 4-7. Player chooses from a few options, such as increased damage (5-10) or increased range.
+
+Building three villages in a row "locks" them in and prevents them from being raided.
+
+Dungeons spread "ruins" to nearby tiles.
+
+COMMON
++ Armor
++ Armor for Every Other Armor Item
++ Combat
++ Gold Per Turn
++ Health
++ Lives
++ Increased Damage
++ Weapon Range
+
+RARE
+Return to camp at any time.
+Gold per turn is doubled.
+Transport to the nearest monster.
+Deconstruct ruins at the cost of gold.
+Transport to the nearest merchant.
+Higher chance for success when raiding dungeons.
+Deal damage when passing monsters.
+Deal damage when armor reaches 0.
+Armor value is doubled.
+Combat value is doubled.

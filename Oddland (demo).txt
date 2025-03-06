@@ -1,0 +1,16 @@
+Oddland (demo)
+GUIDEBOOK
+-CAMP
+Each game begins in the camp. If the player dies with at least 1 life left, they respawn back at camp.
+
+-VILLAGES
+Build villages on empty spaces on the board. They earn the player gold each turn.
+
+-MONSTERS
+
+-ELITE MONSTERS
+
+-TOLLS
+Tolls are positioned on the edge of the fog-of-war. Each has a cost that unlocks the next section of the map.
+
+-MERCHANTS

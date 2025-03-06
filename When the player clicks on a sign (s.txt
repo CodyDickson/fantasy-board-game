@@ -1,0 +1,11 @@
+When the player clicks on a sign (such as to exit camp), they get the confirmation window.
+
+A player must Travel before they can interact with the world.
+
+Once the player has moved, the interaction range is shown on the board.
+
+Clicking on an empty tile within range opens the Info GUI and gives the player the option to build a village.
+
+Clicking on a village within range opens the Info GUI and provides some general stats about the village.
+
+Clicking on a monster within range opens the Info GUI and provides some information about the monster. The player can select attack and 
