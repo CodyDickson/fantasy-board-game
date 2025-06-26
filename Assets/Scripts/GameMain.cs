@@ -17,13 +17,6 @@ public class GameMain : MonoBehaviour
     public static bool playerInCamp = true;
     public static bool playerEnteredSecondLoop = false;
     public static bool playerEnteredThirdLoop = false;
-    public static int maxHealth;
-    public static int playerArmor;
-    public static int playerMovementDice;
-    public static int playerCombatDice;
-    public static int playerCombat;
-    public static int playerGold;
-    public static List<int> playerItems = new List<int>();
     // Current Player Info //
     public static int currentTurn;
     public static int currentPlayer;
@@ -36,6 +29,8 @@ public class GameMain : MonoBehaviour
     public static int currentPlayerMovementDice = 1;
     public static int currentHumanPlayer = 1;
     public static bool currentPlayerIsHuman = true;
+    public static bool setCurrentPlayer = false;
+    public static int playerMovementDice = 1;
     // Statuses //
     public static List<bool> playerHasBurn = new List<bool>();
     public static List<int> playerHasFrozen = new List<int>();
@@ -55,6 +50,9 @@ public class GameMain : MonoBehaviour
     [SerializeField] public TMP_Text currentTurnText;
     public GameObject GUI;
 
+    // On turn start, GameMain loads all information for the current player or monster
+    // currentPlayer values are set 
+
     private void Awake()
     {
         TurnManager.PopulateTurnOrder();
@@ -70,5 +68,18 @@ public class GameMain : MonoBehaviour
         TurnManager.StartPlayerTurn();
         Arrows.DisableArrowButtons();
         GUI.SetActive(true);
+    }
+
+    private void Update()
+    {
+        if (setCurrentPlayer)
+        {
+            UpdateCurrentPlayer();
+        }
+    }
+
+    public static void UpdateCurrentPlayer()
+    {
+
     }
 }

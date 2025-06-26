@@ -202,7 +202,7 @@ public class InfoGUI : MonoBehaviour
         if (type == "player")
         {
             avatar.sprite = Store.playerSprites[Player.avatar];
-            main.text = "the " + Player.playerClass;
+            main.text = "the " + Player.title;
             buttonText.text = "";
             buttonAvatar.sprite = Store.GUIElements[1];
         }

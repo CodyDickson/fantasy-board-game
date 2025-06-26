@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    // Stats //
+    public static string title;
     public static int health;
     public static int maxHealth;
     public static int lives;
@@ -19,24 +21,23 @@ public class Player : MonoBehaviour
     public static int maximumCombatStrength;
     public static int weaponRange;
     public static int actionsRemaining;
-    public static string playerClass;
     public static List<int> weaponsList = new List<int>();
     public static List<int> itemsList = new List<int>();
 
     private void Start()
     {
-        playerClass = "nomad";
+        title = "Nomad";
         PlayerSetup();
     }
 
     public static void PlayerSetup()
     {
-        int[] values = Classes.ClassStartingStats(playerClass);
+        int[] values = Classes.ClassStartingStats(title);
         avatar = values[0];
         health = values[1];
-        maxHealth = values[1];
+        maxHealth = health;
         lives = values[2];
-        Debug.Log(lives);
+        Debug.Log("Lives Remaining: " + lives);
         armor = values[3];
         movementDice = values[4];
         village = 1;
@@ -51,5 +52,11 @@ public class Player : MonoBehaviour
         ItemGUI.UpdateWeaponAvatar();
         ItemGUI.UpdateItemAvatar();
         ItemGUI.UpdatePotionAvatar();
+        AddPlayerToRoster();
+    }
+
+    public static void AddPlayerToRoster()
+    {
+        // 
     }
 }

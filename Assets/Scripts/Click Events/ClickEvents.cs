@@ -58,14 +58,14 @@ public class ClickEvents : MonoBehaviour
                 if (monster == position)
                 {
                     Debug.Log("Monster");
-                    /* if (CombatManager.combatEnabled)
+                    if (CombatManager.combatEnabled)
                     {
-                        CombatManager.PlayerAttackedMonster();
+                        Monsters.PlayerAttackedMonster(position);
                     }
                     else
                     {
-                        InfoGUI.EnableInfoGUI(monster, "monster");
-                    }*/
+                        InfoGUI.EnableInfoGUI(position, "monster", false);
+                    }
                     InfoGUI.EnableInfoGUI(position, "monster", withinInteractionRange);
                 }
             }
